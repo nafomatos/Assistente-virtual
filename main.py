@@ -1,9 +1,10 @@
-"""Phase 1 orchestrator — collects market data, runs analyzers,
-writes a single .txt report that can be pasted into Claude.ai.
+"""Main orchestrator — collects market data, runs analyzers,
+writes a single .txt report, and emails it.
 
 Usage:
     python main.py                   # default: NVDA TSLA GC=F
     python main.py NVDA TSLA AAPL    # custom tickers
+    python main.py --no-email        # skip the email step
 """
 
 from __future__ import annotations
@@ -17,6 +18,7 @@ from analyzers.price_velocity import analyze_price_velocity
 from analyzers.volume_analyzer import analyze_volume
 from collectors.market_data import fetch_market_data
 from config import LOOKBACK_DAYS, TICKER_NAMES
+from delivery.email_sender import EmailConfigError, send_report
 from output.document_builder import passes_prefilter, write_document
 
 load_dotenv()
@@ -68,7 +70,10 @@ def print_signal_summary(results: list[dict]) -> None:
 
 
 if __name__ == "__main__":
-    tickers = sys.argv[1:] or ["NVDA", "TSLA", "GC=F"]
+    argv = sys.argv[1:]
+    send_email = "--no-email" not in argv
+    tickers = [a for a in argv if not a.startswith("--")] or ["NVDA", "TSLA", "GC=F"]
+
     results = run_pipeline(tickers)
     print_signal_summary(results)
 
@@ -76,3 +81,15 @@ if __name__ == "__main__":
     print(f"\nReport written to: {path}")
     print(f"Included: {included or '(none)'}")
     print(f"Skipped : {skipped or '(none)'}")
+
+    if send_email:
+        try:
+            send_report(report_path=path)
+            print("Email sent.")
+        except EmailConfigError as e:
+            logger.warning(f"email skipped: {e}")
+            print(f"Email skipped: {e}")
+        except Exception as e:
+            logger.exception("email send failed")
+            # non-zero exit so the GitHub Action surfaces the failure
+            sys.exit(f"Email send failed: {e}")
