@@ -131,4 +131,5 @@ dmypy.json
 # Project-local
 .venv/
 output/daily_report_*.txt
-logs/
+# logs/ is intentionally tracked — the daily GitHub Action commits
+# new reports here so the repo doubles as an append-only archive.

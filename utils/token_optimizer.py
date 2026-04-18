@@ -42,6 +42,23 @@ def format_top_items(items: list, max_items: int = 3) -> str:
     return "\n".join(lines)
 
 
+def format_news(items: list, max_items: int = 3) -> str:
+    """Render the recent_news list as up to 3 dense one-liners.
+
+    Each item is expected to have {title, publisher, age_hours}.
+    """
+    if not items:
+        return "none"
+    lines = []
+    for i, it in enumerate(items[:max_items], start=1):
+        title = truncate_text(it.get("title", ""), 120)
+        publisher = it.get("publisher") or "unknown"
+        age = it.get("age_hours")
+        age_str = f"{age}h ago" if isinstance(age, (int, float)) else "age n/a"
+        lines.append(f"{i}. \"{title}\" — {publisher}, {age_str}")
+    return "\n".join(lines)
+
+
 def estimate_tokens(text: str) -> int:
     """Rough char/4 heuristic — good enough for local logging."""
     if not text:
@@ -57,11 +74,12 @@ def compress_signals(ticker: str, name: str, signals: dict) -> str:
     """Build the compact user-prompt body from analyzer outputs.
 
     `signals` is the merged dict produced by main.py — it must contain
-    `market`, `volume`, `velocity`, and optionally `sentiment`.
+    `market`, `volume`, `velocity`, and optionally `rsi` and `sentiment`.
     """
     m = signals["market"]
     v = signals["volume"]
     p = signals["velocity"]
+    r = signals.get("rsi") or {}
     s = signals.get("sentiment")
 
     if s is None:
@@ -76,14 +94,30 @@ def compress_signals(ticker: str, name: str, signals: dict) -> str:
         twitter_summary = breakdown.get("twitter", "n/a")
         youtube_summary = breakdown.get("youtube", "n/a")
 
+    rsi_value = r.get("rsi")
+    rsi_class = r.get("classification", "n/a")
+    rsi_str = (
+        f"RSI-14: {rsi_value} ({rsi_class})"
+        if rsi_value is not None
+        else f"RSI-14: n/a ({rsi_class})"
+    )
+
+    news_str = format_news(m.get("recent_news") or [])
+
+    macro_flag = " ⚠ macro_extreme" if p.get("macro_extreme") else ""
+
     return (
         f"Asset: {ticker} ({name})\n\n"
         f"Market signals:\n"
         f"- Volume: {v['classification']} ({v['ratio']}x 30d avg)\n"
         f"- Price velocity: {p['classification']} "
-        f"(z-score: {p['z_score']}, direction: {p['direction']})\n"
+        f"(z_30d: {p['z_score_30d']}, z_200d: {p['z_score_200d']}, "
+        f"direction: {p['direction']}, macro_extreme: {p.get('macro_extreme', False)})"
+        f"{macro_flag}\n"
+        f"- {rsi_str}\n"
         f"- Current price: ${_fmt_price(m['current_price'])} "
         f"({m['daily_return_pct']:+.2f}% today)\n\n"
+        f"Recent news (last 3):\n{news_str}\n\n"
         f"Social signals (social_heat: {heat}/100):\n"
         f"- Reddit: {reddit_summary}\n"
         f"- Twitter: {twitter_summary}\n"
