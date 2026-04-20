@@ -75,6 +75,9 @@ def compress_signals(ticker: str, name: str, signals: dict) -> str:
 
     `signals` is the merged dict produced by main.py — it must contain
     `market`, `volume`, `velocity`, and optionally `rsi` and `sentiment`.
+
+    Social signals are shown as `social_heat_z: +3.2` when a z-score is
+    available, or `n/a` when no collectors are wired yet.
     """
     m = signals["market"]
     v = signals["volume"]
@@ -82,14 +85,22 @@ def compress_signals(ticker: str, name: str, signals: dict) -> str:
     r = signals.get("rsi") or {}
     s = signals.get("sentiment")
 
+    # Social heat: z-score preferred over raw score
     if s is None:
-        heat = 0
-        reddit_summary = "n/a"
+        social_line = "social_heat_z: n/a"
+        reddit_summary  = "n/a"
         twitter_summary = "n/a"
         youtube_summary = "n/a"
     else:
-        heat = s.get("social_heat", 0)
-        breakdown = s.get("source_breakdown", {})
+        heat_z = s.get("social_heat_zscore")
+        if heat_z is not None:
+            social_line = f"social_heat_z: {heat_z:+.1f}"
+        else:
+            # Fall back to raw score if somehow present
+            raw = s.get("social_heat")
+            social_line = f"social_heat: {raw}/100" if raw is not None else "social_heat_z: n/a"
+
+        breakdown = s.get("source_breakdown") or {}
         reddit_summary  = breakdown.get("reddit",  "n/a")
         twitter_summary = breakdown.get("twitter", "n/a")
         youtube_summary = breakdown.get("youtube", "n/a")
@@ -118,7 +129,7 @@ def compress_signals(ticker: str, name: str, signals: dict) -> str:
         f"- Current price: ${_fmt_price(m['current_price'])} "
         f"({m['daily_return_pct']:+.2f}% today)\n\n"
         f"Recent news (last 3):\n{news_str}\n\n"
-        f"Social signals (social_heat: {heat}/100):\n"
+        f"Social signals ({social_line}):\n"
         f"- Reddit: {reddit_summary}\n"
         f"- Twitter: {twitter_summary}\n"
         f"- YouTube: {youtube_summary}\n\n"

@@ -3,9 +3,10 @@
 Steps:
   1. Check US market calendar — if today isn't a normal trading day,
      log and exit cleanly (no email, no log write).
-  2. Fetch Fear & Greed once (shared macro context).
-  3. For each ticker: market_data → volume / velocity / RSI analyzers.
-  4. Build the paste-ready .txt report.
+  2. Fetch shared macro context once: Fear & Greed, VIX term structure,
+     Buffett Indicator.
+  3. For each ticker: market_data → volume / velocity / RSI / sentiment analyzers.
+  4. Build the paste-ready .txt report (Red alerts first, then Amber).
   5. Copy to logs/YYYY-MM-DD.txt.
   6. Email it (unless --no-email).
 
@@ -31,12 +32,17 @@ from dotenv import load_dotenv
 
 from analyzers.price_velocity import analyze_price_velocity
 from analyzers.rsi import analyze_rsi
+from analyzers.sentiment_aggregator import aggregate_sentiment
 from analyzers.volume_analyzer import analyze_volume
+from collectors.buffett_indicator import fetch_buffett_indicator
+from collectors.buffett_indicator import format_summary as format_buffett
 from collectors.fear_greed import fetch_fear_greed, format_summary as format_fg
 from collectors.market_data import fetch_market_data
-from config import ALL_TICKERS, LOOKBACK_DAYS, SOCIAL_HEAT_THRESHOLD, TICKER_NAMES
+from collectors.vix_structure import fetch_vix_structure
+from collectors.vix_structure import format_summary as format_vix
+from config import ALL_TICKERS, LOOKBACK_DAYS, TICKER_NAMES
 from delivery.email_sender import EmailConfigError, send_report
-from output.document_builder import passes_prefilter, write_document
+from output.document_builder import get_alert_tier, get_tier_reason, write_document
 
 load_dotenv()
 
@@ -49,14 +55,12 @@ logger = logging.getLogger("radar")
 
 LOGS_DIR = "logs"
 # Normal NYSE session is 6h 30m; early closes shorten it to ~3h 30m.
-# Treating anything under 6h as "not a full session".
 FULL_SESSION_MIN_HOURS = 6.0
 
 
 def check_trading_day(date: dt.date) -> tuple[bool, str]:
     """Return (ok, reason). ok=False if today is a weekend, holiday, or
     early close on NYSE."""
-    # Import lazily so `--force` / tests don't require the dep to be present.
     import pandas_market_calendars as mcal
 
     nyse = mcal.get_calendar("NYSE")
@@ -84,31 +88,37 @@ def run_pipeline(tickers: list[str]) -> list[dict]:
             logger.error(f"{ticker}: market data failed: {e}")
             continue
 
-        volume   = analyze_volume(market)
-        velocity = analyze_price_velocity(market)
-        rsi      = analyze_rsi(market)
+        volume    = analyze_volume(market)
+        velocity  = analyze_price_velocity(market)
+        rsi       = analyze_rsi(market)
+        # aggregate_sentiment gracefully returns None fields when no collectors
+        # are wired; pass mention_count from real collectors when available.
+        sentiment = aggregate_sentiment(ticker)
+
         signals = {
-            "market":   market,
-            "volume":   volume,
-            "velocity": velocity,
-            "rsi":      rsi,
+            "market":    market,
+            "volume":    volume,
+            "velocity":  velocity,
+            "rsi":       rsi,
+            "sentiment": sentiment,
         }
         results.append({"ticker": ticker, "signals": signals})
     return results
 
 
 def print_signal_summary(results: list[dict]) -> None:
-    print("\n" + "=" * 84)
+    print("\n" + "=" * 88)
     print("SIGNAL SUMMARY (pre-filter)")
-    print("=" * 84)
+    print("=" * 88)
     for r in results:
         ticker = r["ticker"]
         name = TICKER_NAMES.get(ticker, ticker)
-        m = r["signals"]["market"]
-        v = r["signals"]["volume"]
-        p = r["signals"]["velocity"]
+        m  = r["signals"]["market"]
+        v  = r["signals"]["volume"]
+        p  = r["signals"]["velocity"]
         rs = r["signals"]["rsi"]
-        status = "INCLUDED" if passes_prefilter(r["signals"]) else "filtered-out"
+        tier = get_alert_tier(r["signals"])
+        status = f"[{tier.upper()}]" if tier else "filtered-out"
         macro = " [MACRO]" if p.get("macro_extreme") else ""
         print(
             f"[{ticker:>5}] {name:<18} "
@@ -121,56 +131,31 @@ def print_signal_summary(results: list[dict]) -> None:
         )
 
 
-def _prefilter_reason(signals: dict) -> str:
-    """Explain, per ticker, why the pre-filter passed or failed.
-
-    Uses the same 4 conditions as output.document_builder.passes_prefilter
-    so the debug table reflects exactly what the report will do.
-    """
-    v = signals["volume"]
-    p = signals["velocity"]
-    heat = (signals.get("sentiment") or {}).get("social_heat", 0)
-
-    hits: list[str] = []
-    if p.get("macro_extreme"):
-        hits.append(f"macro_extreme(z30={p['z_score_30d']:+.2f},z200={p['z_score_200d']:+.2f})")
-    if v["classification"] in ("anomalous", "extreme"):
-        hits.append(f"volume={v['classification']}({v['ratio']}x)")
-    if p["classification"] in ("extreme", "blowout"):
-        hits.append(f"velocity={p['classification']}(|z|>=2)")
-    if heat > SOCIAL_HEAT_THRESHOLD:
-        hits.append(f"social_heat={heat}>{SOCIAL_HEAT_THRESHOLD}")
-
-    if hits:
-        return "PASS: " + "; ".join(hits)
-    return (
-        f"SKIP: vol={v['classification']}({v['ratio']}x), "
-        f"vel={p['classification']}(z30={p['z_score_30d']:+.2f},z200={p['z_score_200d']:+.2f}), "
-        f"heat={heat}"
-    )
-
-
 def print_debug_table(results: list[dict]) -> None:
-    """Debug-mode per-ticker table: ticker | vol | z30 | z200 | RSI | reason."""
+    """Debug-mode per-ticker table: tier + trigger reason for every ticker."""
     print("\n" + "=" * 120)
-    print("DEBUG — raw signals for all tickers (pre-filter bypassed for display)")
+    print("DEBUG — raw signals + alert tiers for all tickers")
     print("=" * 120)
     header = (
         f"{'TICKER':<7} {'VOL_RATIO':>10} {'Z_30D':>8} {'Z_200D':>8} "
-        f"{'RSI':>6} {'RSI_CLASS':<18} REASON"
+        f"{'RSI':>6} {'RSI_CLASS':<18} TIER/REASON"
     )
     print(header)
     print("-" * 120)
 
-    n_pass = n_skip = 0
+    n_red = n_amber = n_skip = 0
     for r in results:
         ticker = r["ticker"]
-        v = r["signals"]["volume"]
-        p = r["signals"]["velocity"]
+        v  = r["signals"]["volume"]
+        p  = r["signals"]["velocity"]
         rs = r["signals"]["rsi"]
-        reason = _prefilter_reason(r["signals"])
-        if reason.startswith("PASS"):
-            n_pass += 1
+        tier   = get_alert_tier(r["signals"])
+        reason = get_tier_reason(r["signals"])
+
+        if tier == "red":
+            n_red += 1
+        elif tier == "amber":
+            n_amber += 1
         else:
             n_skip += 1
 
@@ -182,7 +167,10 @@ def print_debug_table(results: list[dict]) -> None:
         )
 
     print("-" * 120)
-    print(f"Totals: {n_pass} would pass, {n_skip} would be filtered out, {len(results)} fetched")
+    print(
+        f"Totals: {n_red} red, {n_amber} amber, {n_skip} filtered-out, "
+        f"{len(results)} fetched"
+    )
 
 
 def archive_log(report_path: str, date: dt.date, logs_dir: str = LOGS_DIR) -> str:
@@ -219,8 +207,6 @@ def _parse_args(argv: list[str]) -> tuple[list[str], bool, bool, bool, dt.date]:
             tickers.append(a)
         i += 1
 
-    # Debug mode: always run all 18 (unless user gave an explicit list),
-    # never send email, bypass the calendar guard so it works off-hours.
     if debug:
         send_email = False
         force = True
@@ -241,8 +227,15 @@ def main(argv: list[str]) -> int:
         print(f"Market closed on {date.isoformat()} ({reason}). Exiting cleanly.")
         return 0
 
+    # --- Shared macro context (one fetch per run) ---
     fear_greed = fetch_fear_greed()
     logger.info(format_fg(fear_greed))
+
+    vix_structure = fetch_vix_structure()
+    logger.info(format_vix(vix_structure))
+
+    buffett = fetch_buffett_indicator()
+    logger.info(format_buffett(buffett))
 
     results = run_pipeline(tickers)
     print_signal_summary(results)
@@ -252,7 +245,13 @@ def main(argv: list[str]) -> int:
         print("\n[debug mode] skipping report write, log archive, and email.")
         return 0
 
-    path, included, skipped = write_document(results, today=date, fear_greed=fear_greed)
+    path, included, skipped = write_document(
+        results,
+        today=date,
+        fear_greed=fear_greed,
+        vix_structure=vix_structure,
+        buffett=buffett,
+    )
     print(f"\nReport written to: {path}")
     print(f"Included: {included or '(none)'}")
     print(f"Skipped : {skipped or '(none)'}")
