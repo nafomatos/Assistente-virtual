@@ -2,8 +2,8 @@ name: Daily Radar
 
 on:
   schedule:
-    # 06:00 UTC daily — 08:00 Berlin (CEST) / 07:00 Berlin (CET)
-    - cron: "0 6 * * *"
+    # 20:00 UTC Mon-Fri — 22:00 Berlin (CEST) / 21:00 Berlin (CET), after US markets close at 16:00 ET
+    - cron: "0 20 * * 1-5"
   workflow_dispatch: {}
 
 # Needed for the "Archive log" step to push back to the repo.
