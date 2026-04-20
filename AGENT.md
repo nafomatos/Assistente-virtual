@@ -213,6 +213,11 @@ Flags:
 - `--no-email` — skip the SMTP step.
 - `--force`   — bypass the market-calendar check.
 - `--date YYYY-MM-DD` — run against an explicit date (useful for tests).
+- `--debug` — diagnostic mode: run all 18 tickers (or the explicit list
+  you pass), print a per-ticker table with `ticker / volume_ratio /
+  z_30d / z_200d / RSI / pre-filter reason`, then exit. Implies
+  `--force` and `--no-email`; skips report write and log archival so
+  debug runs have no side effects beyond stdout.
 
 Exit codes: `0` on success or clean market-closed exit; `1` only if
 email send itself fails after the report was written.

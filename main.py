@@ -15,6 +15,8 @@ Usage:
     python main.py --no-email
     python main.py --date 2026-04-18    # test with a specific date (weekend ok)
     python main.py --force              # bypass market calendar check
+    python main.py --debug              # run all 18, print per-ticker reasons,
+                                        # skip email + log archival
 """
 
 from __future__ import annotations
@@ -32,7 +34,7 @@ from analyzers.rsi import analyze_rsi
 from analyzers.volume_analyzer import analyze_volume
 from collectors.fear_greed import fetch_fear_greed, format_summary as format_fg
 from collectors.market_data import fetch_market_data
-from config import LOOKBACK_DAYS, TICKER_NAMES
+from config import ALL_TICKERS, LOOKBACK_DAYS, SOCIAL_HEAT_THRESHOLD, TICKER_NAMES
 from delivery.email_sender import EmailConfigError, send_report
 from output.document_builder import passes_prefilter, write_document
 
@@ -119,6 +121,70 @@ def print_signal_summary(results: list[dict]) -> None:
         )
 
 
+def _prefilter_reason(signals: dict) -> str:
+    """Explain, per ticker, why the pre-filter passed or failed.
+
+    Uses the same 4 conditions as output.document_builder.passes_prefilter
+    so the debug table reflects exactly what the report will do.
+    """
+    v = signals["volume"]
+    p = signals["velocity"]
+    heat = (signals.get("sentiment") or {}).get("social_heat", 0)
+
+    hits: list[str] = []
+    if p.get("macro_extreme"):
+        hits.append(f"macro_extreme(z30={p['z_score_30d']:+.2f},z200={p['z_score_200d']:+.2f})")
+    if v["classification"] in ("anomalous", "extreme"):
+        hits.append(f"volume={v['classification']}({v['ratio']}x)")
+    if p["classification"] in ("extreme", "blowout"):
+        hits.append(f"velocity={p['classification']}(|z|>=2)")
+    if heat > SOCIAL_HEAT_THRESHOLD:
+        hits.append(f"social_heat={heat}>{SOCIAL_HEAT_THRESHOLD}")
+
+    if hits:
+        return "PASS: " + "; ".join(hits)
+    return (
+        f"SKIP: vol={v['classification']}({v['ratio']}x), "
+        f"vel={p['classification']}(z30={p['z_score_30d']:+.2f},z200={p['z_score_200d']:+.2f}), "
+        f"heat={heat}"
+    )
+
+
+def print_debug_table(results: list[dict]) -> None:
+    """Debug-mode per-ticker table: ticker | vol | z30 | z200 | RSI | reason."""
+    print("\n" + "=" * 120)
+    print("DEBUG — raw signals for all tickers (pre-filter bypassed for display)")
+    print("=" * 120)
+    header = (
+        f"{'TICKER':<7} {'VOL_RATIO':>10} {'Z_30D':>8} {'Z_200D':>8} "
+        f"{'RSI':>6} {'RSI_CLASS':<18} REASON"
+    )
+    print(header)
+    print("-" * 120)
+
+    n_pass = n_skip = 0
+    for r in results:
+        ticker = r["ticker"]
+        v = r["signals"]["volume"]
+        p = r["signals"]["velocity"]
+        rs = r["signals"]["rsi"]
+        reason = _prefilter_reason(r["signals"])
+        if reason.startswith("PASS"):
+            n_pass += 1
+        else:
+            n_skip += 1
+
+        rsi_str = f"{rs['rsi']:.1f}" if rs.get("rsi") is not None else "n/a"
+        print(
+            f"{ticker:<7} {v['ratio']:>9.2f}x "
+            f"{p['z_score_30d']:>+8.2f} {p['z_score_200d']:>+8.2f} "
+            f"{rsi_str:>6} {rs['classification']:<18} {reason}"
+        )
+
+    print("-" * 120)
+    print(f"Totals: {n_pass} would pass, {n_skip} would be filtered out, {len(results)} fetched")
+
+
 def archive_log(report_path: str, date: dt.date, logs_dir: str = LOGS_DIR) -> str:
     """Copy the generated report into logs/ for the GitHub Action to commit back."""
     os.makedirs(logs_dir, exist_ok=True)
@@ -128,10 +194,11 @@ def archive_log(report_path: str, date: dt.date, logs_dir: str = LOGS_DIR) -> st
     return target
 
 
-def _parse_args(argv: list[str]) -> tuple[list[str], bool, bool, dt.date]:
+def _parse_args(argv: list[str]) -> tuple[list[str], bool, bool, bool, dt.date]:
     tickers: list[str] = []
     send_email = True
     force = False
+    debug = False
     date = dt.date.today()
 
     i = 0
@@ -141,6 +208,8 @@ def _parse_args(argv: list[str]) -> tuple[list[str], bool, bool, dt.date]:
             send_email = False
         elif a == "--force":
             force = True
+        elif a == "--debug":
+            debug = True
         elif a == "--date":
             i += 1
             date = dt.date.fromisoformat(argv[i])
@@ -150,13 +219,21 @@ def _parse_args(argv: list[str]) -> tuple[list[str], bool, bool, dt.date]:
             tickers.append(a)
         i += 1
 
+    # Debug mode: always run all 18 (unless user gave an explicit list),
+    # never send email, bypass the calendar guard so it works off-hours.
+    if debug:
+        send_email = False
+        force = True
+        if not tickers:
+            tickers = list(ALL_TICKERS)
+
     if not tickers:
         tickers = ["NVDA", "TSLA", "GC=F"]
-    return tickers, send_email, force, date
+    return tickers, send_email, force, debug, date
 
 
 def main(argv: list[str]) -> int:
-    tickers, send_email, force, date = _parse_args(argv)
+    tickers, send_email, force, debug, date = _parse_args(argv)
 
     ok, reason = (True, "forced") if force else check_trading_day(date)
     logger.info(f"market check for {date.isoformat()}: {reason}")
@@ -169,6 +246,11 @@ def main(argv: list[str]) -> int:
 
     results = run_pipeline(tickers)
     print_signal_summary(results)
+
+    if debug:
+        print_debug_table(results)
+        print("\n[debug mode] skipping report write, log archive, and email.")
+        return 0
 
     path, included, skipped = write_document(results, today=date, fear_greed=fear_greed)
     print(f"\nReport written to: {path}")
