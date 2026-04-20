@@ -42,12 +42,31 @@ def passes_prefilter(signals: dict) -> bool:
     )
 
 
-def _header(today: dt.date, fear_greed: dict | None) -> str:
+def _coverage_line(included: list[str], skipped: list[str]) -> str:
+    total = len(included) + len(skipped)
+    passed_str = ", ".join(included) if included else "none"
+    skipped_str = ", ".join(skipped) if skipped else "none"
+    return (
+        f"Coverage — {total} tickers processed · {len(included)} passed · "
+        f"{len(skipped)} filtered\n"
+        f"  passed:  {passed_str}\n"
+        f"  skipped: {skipped_str}"
+    )
+
+
+def _header(
+    today: dt.date,
+    fear_greed: dict | None,
+    included: list[str],
+    skipped: list[str],
+) -> str:
     fg_line = format_fear_greed(fear_greed)
+    coverage = _coverage_line(included, skipped)
     return (
         f"ARTIFICIAL PRICE RADAR — Daily Report {today.isoformat()}\n"
         f"{'=' * 72}\n"
         f"Macro context — {fg_line}\n"
+        f"{coverage}\n"
         f"{'=' * 72}\n\n"
         f"[SYSTEM PROMPT — paste everything below together into Claude.ai]\n\n"
         f"{SYSTEM_PROMPT.strip()}\n"
@@ -104,7 +123,7 @@ def build_document(
         else:
             skipped.append(r["ticker"])
 
-    parts = [_header(today, fear_greed)]
+    parts = [_header(today, fear_greed, included, skipped)]
     if sections:
         parts.append("\n[ASSETS WITH NON-TRIVIAL SIGNALS]\n\n")
         parts.extend(sections)
