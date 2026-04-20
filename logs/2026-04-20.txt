@@ -61,15 +61,15 @@ Constraints:
 Asset: GC=F (Gold)
 
 Market signals:
-- Volume: extreme (17.04x 30d avg)
-- Price velocity: normal (z_30d: -0.36, z_200d: -0.65, direction: down, macro_extreme: False)
+- Volume: extreme (17.11x 30d avg)
+- Price velocity: normal (z_30d: -0.37, z_200d: -0.67, direction: down, macro_extreme: False)
 - RSI-14: 51.6 (normal)
-- Current price: $4,810.30 (-0.97% today)
+- Current price: $4,808.70 (-1.01% today)
 
 Recent news (last 3):
-1. "Gold and silver prices today, Monday, April 20: Gold rebounds early, silver stays flat, as U.S.-Iranian tensions flare…" — Yahoo Personal Finance, 0.3h ago
-2. "Cora Gold secures $120m in funding for Mali project" — Mining Technology, 0.1h ago
-3. "Fortuna Mining Enters Into Earn-In Agreement for Quartzstone Project in Guyana" — MT Newswires, 0.5h ago
+1. "Gold and silver prices today, Monday, April 20: Gold rebounds early, silver stays flat, as U.S.-Iranian tensions flare…" — Yahoo Personal Finance, 0.5h ago
+2. "Cora Gold secures $120m in funding for Mali project" — Mining Technology, 0.2h ago
+3. "Fortuna Mining Enters Into Earn-In Agreement for Quartzstone Project in Guyana" — MT Newswires, 0.6h ago
 
 Social signals (social_heat: 0/100):
 - Reddit: n/a
