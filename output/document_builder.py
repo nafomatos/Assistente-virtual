@@ -27,16 +27,24 @@ OUTPUT_DIR = "output"
 def passes_prefilter(signals: dict) -> bool:
     """Cheap local filter: only include assets with a non-trivial signal.
 
-    macro_extreme=True is a guaranteed pass — that's a both-timeframe
-    z>2 move, rare enough to warrant Claude's attention on its own.
+    Extreme volume (>5x) is a guaranteed pass — leading capitulation signals
+    often show extreme volume before other confirmations.
+
+    Anomalous volume (2.5-5x) requires additional signal confirmation to filter
+    out false positives, but extreme volume passes regardless of velocity or heat.
     """
     vol_class = signals["volume"]["classification"]
     vel_class = signals["velocity"]["classification"]
     macro_extreme = signals["velocity"].get("macro_extreme", False)
     heat = (signals.get("sentiment") or {}).get("social_heat", 0)
+
+    # Extreme volume always passes — catch true capitulation early
+    if vol_class == "extreme":
+        return True
+
+    # Everything else (including anomalous) requires additional signals
     return (
         macro_extreme
-        or vol_class in ("anomalous", "extreme")
         or vel_class in ("extreme", "blowout")
         or heat > SOCIAL_HEAT_THRESHOLD
     )
