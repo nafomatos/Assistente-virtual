@@ -1,6 +1,9 @@
 ARTIFICIAL PRICE RADAR — Daily Report 2026-04-20
 ========================================================================
 Macro context — Fear & Greed: 29/100 — Fear (+2 vs yesterday, improving)
+Coverage — 3 tickers processed · 0 passed · 3 filtered
+  passed:  none
+  skipped: NVDA, TSLA, GC=F
 ========================================================================
 
 [SYSTEM PROMPT — paste everything below together into Claude.ai]
@@ -57,29 +60,12 @@ Constraints:
 
 [ASSETS WITH NON-TRIVIAL SIGNALS]
 
-------------------------------------------------------------------------
-Asset: GC=F (Gold)
-
-Market signals:
-- Volume: extreme (33.36x 30d avg)
-- Price velocity: normal (z_30d: -0.14, z_200d: -0.38, direction: down, macro_extreme: False)
-- RSI-14: 53.0 (normal)
-- Current price: $4,834.10 (-0.48% today)
-
-Recent news (last 3):
-1. "Will gold reach $6,000 this year? Experts weigh in on gold prices." — Yahoo Personal Finance, 581.7h ago
-2. "Gold and silver prices today, Monday, April 20: Gold rebounds early, silver stays flat, as U.S.-Iranian tensions flare…" — Yahoo Personal Finance, 9.6h ago
-3. "Hemlo Receives Conditional Approval to Graduate to the Toronto Stock Exchange" — MT Newswires, 0.2h ago
-
-Social signals (social_heat: 0/100):
-- Reddit: n/a
-- Twitter: n/a
-- YouTube: n/a
+(none — all tickers evaluated today fell within normal ranges)
 
 ========================================================================
 [INSTRUCTION]
 
-Analyze each of the 1 asset(s) above and respond with a single JSON array. Each element must follow this exact schema:
+Analyze each of the 0 asset(s) above and respond with a single JSON array. Each element must follow this exact schema:
 
 {
   "ticker": "...",
