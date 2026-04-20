@@ -50,6 +50,42 @@ def passes_prefilter(signals: dict) -> bool:
     )
 
 
+def _get_filter_reason(signals: dict) -> str:
+    """Explain why an asset failed the pre-filter."""
+    vol_class = signals["volume"]["classification"]
+    vol_ratio = signals["volume"]["ratio"]
+    z30 = signals["velocity"]["z_score_30d"]
+    z200 = signals["velocity"]["z_score_200d"]
+    vel_class = signals["velocity"]["classification"]
+    macro_extreme = signals["velocity"].get("macro_extreme", False)
+    heat = (signals.get("sentiment") or {}).get("social_heat", 0)
+
+    has_other_signal = (
+        macro_extreme
+        or vel_class in ("extreme", "blowout")
+        or heat > SOCIAL_HEAT_THRESHOLD
+    )
+
+    if vol_class == "extreme":
+        return "(pass: extreme vol)"
+
+    reasons = []
+    if vol_class == "anomalous":
+        reasons.append(f"anomalous {vol_ratio:.1f}x — need >5x or other signal")
+    else:
+        reasons.append(f"vol={vol_ratio:.1f}x (need >5x)")
+
+    if not has_other_signal:
+        if not macro_extreme:
+            reasons.append(f"z-scores not both >2 (z30={z30:+.1f}, z200={z200:+.1f})")
+        if vel_class not in ("extreme", "blowout"):
+            reasons.append(f"vel={vel_class}")
+        if heat <= SOCIAL_HEAT_THRESHOLD:
+            reasons.append(f"heat={heat} (need >{SOCIAL_HEAT_THRESHOLD})")
+
+    return " | ".join(reasons)
+
+
 def _coverage_line(included: list[str], skipped: list[str]) -> str:
     total = len(included) + len(skipped)
     passed_str = ", ".join(included) if included else "none"
@@ -62,11 +98,42 @@ def _coverage_line(included: list[str], skipped: list[str]) -> str:
     )
 
 
+def _debug_summary(results: list[dict], skipped: list[str]) -> str:
+    """Show why each filtered ticker was rejected."""
+    if not skipped:
+        return ""
+
+    skipped_set = set(skipped)
+    rows = []
+    for r in results:
+        ticker = r["ticker"]
+        if ticker not in skipped_set:
+            continue
+
+        signals = r["signals"]
+        vol_ratio = signals["volume"]["ratio"]
+        z30 = signals["velocity"]["z_score_30d"]
+        z200 = signals["velocity"]["z_score_200d"]
+        rsi_val = signals["rsi"].get("rsi")
+        reason = _get_filter_reason(signals)
+
+        rsi_str = f"{rsi_val:.0f}" if rsi_val is not None else "N/A"
+        rows.append(f"  {ticker} | {vol_ratio:.1f}x | {z30:+.1f} | {z200:+.1f} | {rsi_str} | {reason}")
+
+    if not rows:
+        return ""
+
+    header = "[FILTERED TICKERS — Debug Summary]\n"
+    header += "  TICKER | VOL | Z_30D | Z_200D | RSI | REASON\n"
+    return header + "\n".join(rows) + "\n"
+
+
 def _header(
     today: dt.date,
     fear_greed: dict | None,
     included: list[str],
     skipped: list[str],
+    debug_summary: str = "",
 ) -> str:
     fg_line = format_fear_greed(fear_greed)
     coverage = _coverage_line(included, skipped)
@@ -76,6 +143,7 @@ def _header(
         f"Macro context — {fg_line}\n"
         f"{coverage}\n"
         f"{'=' * 72}\n\n"
+        f"{debug_summary}"
         f"[SYSTEM PROMPT — paste everything below together into Claude.ai]\n\n"
         f"{SYSTEM_PROMPT.strip()}\n"
     )
@@ -131,7 +199,8 @@ def build_document(
         else:
             skipped.append(r["ticker"])
 
-    parts = [_header(today, fear_greed, included, skipped)]
+    debug_summary = _debug_summary(results, skipped)
+    parts = [_header(today, fear_greed, included, skipped, debug_summary)]
     if sections:
         parts.append("\n[ASSETS WITH NON-TRIVIAL SIGNALS]\n\n")
         parts.extend(sections)
