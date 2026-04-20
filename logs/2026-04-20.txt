@@ -61,15 +61,15 @@ Constraints:
 Asset: GC=F (Gold)
 
 Market signals:
-- Volume: extreme (22.96x 30d avg)
-- Price velocity: normal (z_30d: -0.08, z_200d: -0.31, direction: down, macro_extreme: False)
-- RSI-14: 53.3 (normal)
-- Current price: $4,840.30 (-0.36% today)
+- Volume: extreme (30.04x 30d avg)
+- Price velocity: normal (z_30d: -0.24, z_200d: -0.51, direction: down, macro_extreme: False)
+- RSI-14: 52.3 (normal)
+- Current price: $4,822.60 (-0.72% today)
 
 Recent news (last 3):
-1. "Gold and silver prices today, Monday, April 20: Gold rebounds early, silver stays flat, as U.S.-Iranian tensions flare…" — Yahoo Personal Finance, 2.8h ago
-2. "Arizona Eagle to acquire 62 acres of land with three silver mines" — Mining Technology, 0.2h ago
-3. "Here is why Agnico (AEM) is Among the 10 Best Debt Free Blue Chip Stocks to Invest In" — Insider Monkey, 0.8h ago
+1. "Will gold reach $6,000 this year? Experts weigh in on gold prices." — Yahoo Personal Finance, 577.9h ago
+2. "Gold and silver prices today, Monday, April 20: Gold rebounds early, silver stays flat, as U.S.-Iranian tensions flare…" — Yahoo Personal Finance, 5.8h ago
+3. "Assessing Collective Mining (TSX:CNL) Valuation After Strong Recent Share Price Momentum" — Simply Wall St., 0.8h ago
 
 Social signals (social_heat: 0/100):
 - Reddit: n/a
