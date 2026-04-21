@@ -214,7 +214,7 @@ def _parse_args(argv: list[str]) -> tuple[list[str], bool, bool, bool, dt.date]:
             tickers = list(ALL_TICKERS)
 
     if not tickers:
-        tickers = list[ALL_TICKERS]
+        tickers = list(ALL_TICKERS)
     return tickers, send_email, force, debug, date
 
 
