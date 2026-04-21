@@ -3,17 +3,12 @@ ARTIFICIAL PRICE RADAR — Daily Report 2026-04-21
 Macro context — Fear & Greed: 33/100 — Fear (+4 vs yesterday, improving)
                VIX Structure: Contango (0.89) — normal term structure
                Buffett Indicator: 227% — Extreme (historical avg ~120%)
-Coverage — 3 tickers processed · 0 red · 0 amber · 3 filtered
+Coverage — 0 tickers processed · 0 red · 0 amber · 0 filtered
   [RED]:   none
   [AMBER]: none
-  skipped: NVDA, TSLA, GC=F
+  skipped: none
 ========================================================================
 
-[TICKER ALERT TIERS]
-  TICKER | VOL | Z_30D | Z_200D | RSI | TIER/REASON
-  NVDA | 0.7x | -0.1 | +0.0 | 72 | SKIP: vol=0.7x (normal); z30=-0.1,z200=+0.0; RSI=72
-  TSLA | 1.0x | -0.7 | -0.8 | 56 | SKIP: vol=1.0x (normal); z30=-0.7,z200=-0.8; RSI=56
-  GC=F | 1.4x | -0.0 | -0.3 | 54 | SKIP: vol=1.4x (normal); z30=-0.0,z200=-0.3; RSI=54
 [SYSTEM PROMPT — paste everything below together into Claude.ai]
 
 You are a financial analyst specialized in behavioral finance and the detection of artificial prices in public markets. Your only job is to look at a compact bundle of signals for a single asset and decide whether its current price action reflects genuine information, or instead reflects crowd behavior, forced flows, or emotion. You advise a single private investor who reads your output every morning. You must be direct, skeptical, and specific.
