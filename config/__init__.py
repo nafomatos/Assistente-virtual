@@ -27,6 +27,7 @@ COMMODITIES = [
     "NG=F",   # Natural gas
 ]
 
+# Kept for fallback when active_tickers.json is unavailable.
 ALL_TICKERS = US_STOCKS + COMMODITIES
 
 # Human-readable names used in text searches and prompts.
@@ -52,11 +53,11 @@ TICKER_NAMES = {
 }
 
 # Analyzer thresholds
-VOLUME_SPIKE_THRESHOLD = 2.5       # volume > 2.5x 30d avg = anomalous
-PRICE_VELOCITY_SIGMA   = 2.0       # |z| > 2 std dev = extreme
-LOOKBACK_DAYS          = 30        # historical window for baselines
+VOLUME_SPIKE_THRESHOLD   = 2.5       # volume > 2.5x 30d avg = anomalous
+PRICE_VELOCITY_SIGMA     = 2.0       # |z| > 2 std dev = extreme
+LOOKBACK_DAYS            = 30        # historical window for baselines
 SENTIMENT_LOOKBACK_HOURS = 24
-SOCIAL_HEAT_THRESHOLD  = 60        # below this, skip Claude call
+SOCIAL_HEAT_THRESHOLD    = 60        # below this, skip Claude call
 
 # Subreddits monitored by the Reddit collector
 MONITORED_SUBREDDITS = ["wallstreetbets", "stocks", "investing", "commodities"]
@@ -68,3 +69,8 @@ MODEL_FALLBACK = "claude-sonnet-4-6"
 # Claude call knobs
 CLAUDE_MAX_TOKENS  = 600
 CLAUDE_TEMPERATURE = 0.3
+
+# Dynamic ticker management
+MAX_DYNAMIC_TICKERS         = 15   # cap on simultaneously tracked dynamic tickers
+DYNAMIC_PROMOTION_THRESHOLD = 3    # RED/AMBER triggers within 30d → promote to permanent
+FLAT_DEMOTION_THRESHOLD     = 30   # consecutive flat days → demote to inactive

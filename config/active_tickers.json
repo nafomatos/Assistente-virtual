@@ -1,0 +1,25 @@
+{
+  "permanent": [
+    "NVDA",
+    "TSLA",
+    "AAPL",
+    "AMZN",
+    "GOOGL",
+    "PLTR",
+    "RKLB",
+    "ASTS",
+    "MU",
+    "SOFI",
+    "MSTR",
+    "RDDT",
+    "GC=F",
+    "SI=F",
+    "CL=F",
+    "HG=F",
+    "ZS=F",
+    "NG=F"
+  ],
+  "dynamic": {},
+  "inactive": {},
+  "flat_streak": {}
+}
