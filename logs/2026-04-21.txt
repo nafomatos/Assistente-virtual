@@ -1,34 +1,44 @@
 ARTIFICIAL PRICE RADAR — Daily Report 2026-04-21
 ========================================================================
 Macro context — Fear & Greed: 33/100 — Fear (+4 vs yesterday, improving)
-               VIX Structure: Contango (0.89) — normal term structure
+               VIX Structure: Contango (0.91) — normal term structure
                Buffett Indicator: 227% — Extreme (historical avg ~120%)
-Coverage — 18 tickers processed · 3 red · 1 amber · 14 filtered
-  [RED]:   GC=F, SI=F, HG=F
-  [AMBER]: ASTS
-  skipped: NVDA, TSLA, AAPL, AMZN, GOOGL, PLTR, RKLB, MU, SOFI, MSTR, RDDT, CL=F, ZS=F, NG=F
+Coverage — 28 tickers processed · 4 red · 3 amber · 21 filtered
+  [RED]:   GC=F, SI=F, HG=F, UNH
+  [AMBER]: CAR, AMD, BULL
+  skipped: NVDA, TSLA, AAPL, AMZN, GOOGL, PLTR, RKLB, ASTS, MU, SOFI, MSTR, RDDT, CL=F, ZS=F, NG=F, SPY, MSFT, QQQ, JD, DTE, AM
 ========================================================================
 
 [TICKER ALERT TIERS]
   TICKER | VOL | Z_30D | Z_200D | RSI | TIER/REASON
-  NVDA | 0.7x | -0.1 | +0.0 | 72 | SKIP: vol=0.7x (normal); z30=-0.1,z200=+0.0; RSI=72
-  TSLA | 1.0x | -0.7 | -0.8 | 56 | SKIP: vol=1.0x (normal); z30=-0.7,z200=-0.8; RSI=56
-  AAPL | 0.9x | +0.6 | +0.6 | 67 | SKIP: vol=0.9x (normal); z30=+0.6,z200=+0.6; RSI=67
-  AMZN | 0.9x | -0.7 | -0.5 | 73 | SKIP: vol=0.9x (normal); z30=-0.7,z200=-0.5; RSI=73
-  GOOGL | 0.7x | -0.8 | -0.9 | 68 | SKIP: vol=0.7x (normal); z30=-0.8,z200=-0.9; RSI=68
-  PLTR | 0.7x | -0.0 | -0.1 | 51 | SKIP: vol=0.7x (normal); z30=-0.0,z200=-0.1; RSI=51
-  RKLB | 1.2x | +0.8 | +0.9 | 70 | SKIP: vol=1.2x (normal); z30=+0.8,z200=+0.9; RSI=70
-  ASTS | 2.9x | -0.9 | -0.9 | 43 | AMBER: vol=2.9x (anomalous)
-  MU | 0.7x | -0.5 | -0.6 | 60 | SKIP: vol=0.7x (normal); z30=-0.5,z200=-0.6; RSI=60
-  SOFI | 0.8x | +0.1 | +0.1 | 67 | SKIP: vol=0.8x (normal); z30=+0.1,z200=+0.1; RSI=67
-  MSTR | 1.1x | +0.4 | +0.6 | 73 | SKIP: vol=1.1x (normal); z30=+0.4,z200=+0.6; RSI=73
-  RDDT | 0.7x | +0.2 | +0.3 | 67 | SKIP: vol=0.7x (normal); z30=+0.2,z200=+0.3; RSI=67
-  GC=F | 14.7x | +0.1 | -0.0 | 52 | RED: vol=14.7x (extreme >5x)
-  SI=F | 45.2x | -0.2 | -0.3 | 52 | RED: vol=45.2x (extreme >5x)
-  CL=F | 0.2x | -0.3 | -0.8 | 46 | SKIP: vol=0.2x (normal); z30=-0.3,z200=-0.8; RSI=46
-  HG=F | 9.1x | +0.1 | +0.1 | 64 | RED: vol=9.1x (extreme >5x)
-  ZS=F | 0.1x | +1.5 | +1.7 | 61 | SKIP: vol=0.1x (normal); z30=+1.5,z200=+1.7; RSI=61
-  NG=F | 0.1x | +0.1 | -0.1 | 35 | SKIP: vol=0.1x (normal); z30=+0.1,z200=-0.1; RSI=35
+  NVDA | 0.7x | -0.7 | -0.6 | 68 | SKIP: vol=0.7x (normal); z30=-0.7,z200=-0.6; RSI=68
+  TSLA | 0.8x | -0.5 | -0.6 | 53 | SKIP: vol=0.8x (normal); z30=-0.5,z200=-0.6; RSI=53
+  AAPL | 1.2x | -1.8 | -1.8 | 57 | SKIP: vol=1.2x (normal); z30=-1.8,z200=-1.8; RSI=57
+  AMZN | 0.9x | +0.1 | +0.3 | 74 | SKIP: vol=0.9x (normal); z30=+0.1,z200=+0.3; RSI=74
+  GOOGL | 0.8x | -0.9 | -1.1 | 63 | SKIP: vol=0.8x (normal); z30=-0.9,z200=-1.1; RSI=63
+  PLTR | 0.9x | +0.1 | -0.0 | 51 | SKIP: vol=0.9x (normal); z30=+0.1,z200=-0.0; RSI=51
+  RKLB | 1.1x | -0.7 | -0.7 | 66 | SKIP: vol=1.1x (normal); z30=-0.7,z200=-0.7; RSI=66
+  ASTS | 1.3x | -0.2 | -0.3 | 42 | SKIP: vol=1.3x (normal); z30=-0.2,z200=-0.3; RSI=42
+  MU | 0.6x | -0.1 | -0.1 | 60 | SKIP: vol=0.6x (normal); z30=-0.1,z200=-0.1; RSI=60
+  SOFI | 1.0x | -1.3 | -1.0 | 59 | SKIP: vol=1.0x (normal); z30=-1.3,z200=-1.0; RSI=59
+  MSTR | 1.1x | -1.2 | -0.8 | 66 | SKIP: vol=1.1x (normal); z30=-1.2,z200=-0.8; RSI=66
+  RDDT | 1.1x | -1.6 | -1.4 | 57 | SKIP: vol=1.1x (normal); z30=-1.6,z200=-1.4; RSI=57
+  GC=F | 46.4x | -0.6 | -1.0 | 47 | RED: vol=46.4x (extreme >5x)
+  SI=F | 202.6x | -1.1 | -1.1 | 47 | RED: vol=202.6x (extreme >5x)
+  CL=F | 0.9x | +0.1 | +0.3 | 48 | SKIP: vol=0.9x (normal); z30=+0.1,z200=+0.3; RSI=48
+  HG=F | 33.1x | -0.3 | -0.2 | 61 | RED: vol=33.1x (extreme >5x)
+  ZS=F | 0.9x | +1.8 | +2.0 | 63 | SKIP: vol=0.9x (normal); z30=+1.8,z200=+2.0; RSI=63
+  NG=F | 0.7x | +0.4 | +0.1 | 37 | SKIP: vol=0.7x (normal); z30=+0.4,z200=+0.1; RSI=37
+  SPY | 0.6x | -0.7 | -0.9 | 67 | SKIP: vol=0.6x (normal); z30=-0.7,z200=-0.9; RSI=67
+  CAR | 4.4x | +1.2 | +3.3 | 96 | AMBER: vol=4.4x (anomalous); RSI=96
+  UNH | 2.7x | +2.4 | +2.6 | 78 | RED: macro_extreme(z30=+2.4,z200=+2.6)
+  MSFT | 1.0x | +0.8 | +1.0 | 69 | SKIP: vol=1.0x (normal); z30=+0.8,z200=+1.0; RSI=69
+  AMD | 1.1x | +0.7 | +0.8 | 79 | AMBER: RSI=79
+  QQQ | 0.6x | -0.4 | -0.5 | 70 | SKIP: vol=0.6x (normal); z30=-0.4,z200=-0.5; RSI=70
+  JD | 0.7x | -1.2 | -1.3 | 58 | SKIP: vol=0.7x (normal); z30=-1.2,z200=-1.3; RSI=58
+  DTE | 0.5x | -1.4 | -1.8 | 39 | SKIP: vol=0.5x (normal); z30=-1.4,z200=-1.8; RSI=39
+  AM | 0.8x | -0.8 | -1.0 | 28 | SKIP: vol=0.8x (normal); z30=-0.8,z200=-1.0; RSI=28
+  BULL | 3.3x | -0.2 | +0.1 | 76 | AMBER: vol=3.3x (anomalous); RSI=76
 [SYSTEM PROMPT — paste everything below together into Claude.ai]
 
 You are a Senior Quantitative Analyst specializing in market microstructure and behavioral finance. Your task is to analyze flagged assets to distinguish between institutional flows and retail irrationality.
@@ -121,15 +131,15 @@ Constraints:
 Asset: [RED] GC=F (Gold)
 
 Market signals:
-- Volume: extreme (14.66x 30d avg)
-- Price velocity: normal (z_30d: 0.14, z_200d: -0.03, direction: up, macro_extreme: False)
-- RSI-14: 51.6 (normal)
-- Current price: $4,813.70 (+0.15% today)
+- Volume: extreme (46.36x 30d avg)
+- Price velocity: normal (z_30d: -0.63, z_200d: -0.99, direction: down, macro_extreme: False)
+- RSI-14: 47.2 (normal)
+- Current price: $4,730.60 (-1.58% today)
 
 Recent news (last 3):
-1. "Gold and silver prices today, Tuesday, April 21: Gold and silver prices slip in early trading" — Yahoo Personal Finance, 1.1h ago
-2. "Will gold reach $6,000 this year? Experts weigh in on gold prices." — Yahoo Personal Finance, 597.1h ago
-3. "Equinox Gold (EQX) Projects Annual Production Growth Supported by Updated Technical Reports" — Insider Monkey, 0.2h ago
+1. "Gold and silver prices today: Prices drop Tuesday, April 21" — Yahoo Personal Finance, 9.8h ago
+2. "Stock Market Today: Dow Falls As Oil Prices Rise; Financial Player Pops While Gold Miners Slide (Live Coverage)" — Investor's Business Daily, 0.4h ago
+3. "TSX Closer: Index Slumps On Profit Taking and Nerves Around a Middle East Ceasefire" — MT Newswires, 0.6h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -140,15 +150,15 @@ Social signals (social_heat_z: n/a):
 Asset: [RED] SI=F (Silver)
 
 Market signals:
-- Volume: extreme (45.19x 30d avg)
-- Price velocity: normal (z_30d: -0.2, z_200d: -0.32, direction: down, macro_extreme: False)
-- RSI-14: 51.7 (normal)
-- Current price: $79.26 (-0.86% today)
+- Volume: extreme (202.55x 30d avg)
+- Price velocity: notable (z_30d: -1.1, z_200d: -1.1, direction: down, macro_extreme: False)
+- RSI-14: 47.2 (normal)
+- Current price: $76.57 (-4.23% today)
 
 Recent news (last 3):
-1. "Gold and silver prices today, Tuesday, April 21: Gold and silver prices slip in early trading" — Yahoo Personal Finance, 1.1h ago
-2. "Is Pan American Silver (PAAS) One of the Best Canadian Stocks to Buy for Long Term?" — Insider Monkey, 0.1h ago
-3. "Spanish Mountain Gold Sells 1.5% Royalty to Wheaton Precious Metals for US$55 Million" — MT Newswires, 1.3h ago
+1. "Gold and silver prices today: Prices drop Tuesday, April 21" — Yahoo Personal Finance, 9.8h ago
+2. "Excalibur Metals Starts Maiden Drilling Program at Spyglass Ridge" — MT Newswires, 2.1h ago
+3. "Is Vizsla Silver (VZLA) One of the Best Junior Silver Mining Stocks?" — Insider Monkey, 3.2h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -159,15 +169,15 @@ Social signals (social_heat_z: n/a):
 Asset: [RED] HG=F (Copper)
 
 Market signals:
-- Volume: extreme (9.07x 30d avg)
-- Price velocity: normal (z_30d: 0.1, z_200d: 0.07, direction: up, macro_extreme: False)
-- RSI-14: 63.6 (normal)
-- Current price: $6.05 (+0.31% today)
+- Volume: extreme (33.06x 30d avg)
+- Price velocity: normal (z_30d: -0.35, z_200d: -0.21, direction: down, macro_extreme: False)
+- RSI-14: 61.2 (normal)
+- Current price: $6.01 (-0.41% today)
 
 Recent news (last 3):
-1. "Trump tariffs live updates: US opens tariff refund portal, with checks expected this summer" — Yahoo Finance, 469.6h ago
-2. "Liberty Star acquires 13 new Arizona mining permits" — Mining Technology, 1.1h ago
-3. "ACG Metals says Gediktepe expansion project is on schedule and within budget" — Proactive, 5.3h ago
+1. "Goldman Sachs maintains 2026 copper price, surplus forecasts" — Reuters, 5.3h ago
+2. "2 Copper Stocks Likely to Pull Off Earnings Surprises in Q1" — Zacks, 5.9h ago
+3. "Altius Minerals Expects YoY Increase in Q1 Attributable Royalty Revenue" — MT Newswires, 7.6h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -175,18 +185,75 @@ Social signals (social_heat_z: n/a):
 - Twitter: n/a
 - YouTube: n/a
 ------------------------------------------------------------------------
-Asset: [AMBER] ASTS (AST SpaceMobile)
+Asset: [RED] UNH (UNH)
 
 Market signals:
-- Volume: anomalous (2.93x 30d avg)
-- Price velocity: normal (z_30d: -0.87, z_200d: -0.9, direction: down, macro_extreme: False)
-- RSI-14: 42.9 (normal)
-- Current price: $81.00 (-5.30% today)
+- Volume: anomalous (2.71x 30d avg)
+- Price velocity: extreme (z_30d: 2.41, z_200d: 2.56, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 78.0 (overbought)
+- Current price: $346.01 (+6.96% today)
 
 Recent news (last 3):
-1. "AST SpaceMobile stock tanks after flawed satellite launch by Blue Origin" — Yahoo Finance, 20.1h ago
-2. "AST SpaceMobile loses $2B in market cap on setback" — TheStreet, 8.8h ago
-3. "Stocks to Watch Recap: AST SpaceMobile, TopBuild, Marvell" — The Wall Street Journal, 13.9h ago
+1. "Earnings live updates: UnitedHealth stock jumps on upbeat guidance, Tesla and others report this week" — Yahoo Finance, 202.1h ago
+2. "UnitedHealth stock jumps 8% on earnings outlook beat" — Yahoo Finance, 8.0h ago
+3. "Stock Market Today: Dow Falls As Oil Prices Rise; Financial Player Pops While Gold Miners Slide (Live Coverage)" — Investor's Business Daily, 0.4h ago
+
+Social signals (social_heat_z: n/a):
+- Reddit: n/a
+- StockTwits: n/a
+- Twitter: n/a
+- YouTube: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] CAR (CAR)
+
+Market signals:
+- Volume: anomalous (4.42x 30d avg)
+- Price velocity: blowout (z_30d: 1.22, z_200d: 3.26, direction: up, macro_extreme: False)
+- RSI-14: 95.9 (extreme_overbought)
+- Current price: $713.97 (+17.27% today)
+
+Recent news (last 3):
+1. "Avis stock surges again, bringing monthly gains north of 600% as short squeeze risk remains high" — Yahoo Finance, 7.2h ago
+2. "Trucking stocks have been surging, signaling underlying economic strength" — Yahoo Finance, 7.5h ago
+3. "Why Navitas Semiconductor Rallied Today" — Motley Fool, 0.8h ago
+
+Social signals (social_heat_z: n/a):
+- Reddit: n/a
+- StockTwits: n/a
+- Twitter: n/a
+- YouTube: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] AMD (AMD)
+
+Market signals:
+- Volume: normal (1.12x 30d avg)
+- Price velocity: normal (z_30d: 0.74, z_200d: 0.78, direction: up, macro_extreme: False)
+- RSI-14: 78.7 (overbought)
+- Current price: $284.49 (+3.47% today)
+
+Recent news (last 3):
+1. "What to watch as Nvidia, AMD, and Broadcom report earnings" — Yahoo Finance, 7.6h ago
+2. "Wells Fargo Says Tech Still Looks Compelling – and Suggests 2 Stocks to Buy" — TipRanks, 2.9h ago
+3. "AMD Stock Hits Record Highs – Is It Too Late To Buy?" — Trefis, 4.2h ago
+
+Social signals (social_heat_z: n/a):
+- Reddit: n/a
+- StockTwits: n/a
+- Twitter: n/a
+- YouTube: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] BULL (BULL)
+
+Market signals:
+- Volume: anomalous (3.27x 30d avg)
+- Price velocity: normal (z_30d: -0.19, z_200d: 0.09, direction: up, macro_extreme: False)
+- RSI-14: 75.9 (overbought)
+- Current price: $7.02 (+0.14% today)
+
+Recent news (last 3):
+1. "Webull’s $100 Million Stock Buyback Plans Give Its Shares a Boost" — Barrons.com, 2.9h ago
+2. "The PDT Rule Is On Its Way Out: 5 Stocks That Stand to Benefit the Most" — MarketBeat, 29.5h ago
+3. "IBM’s stock split history: Why Big Blue stopped splitting shares" — TheStreet, 29.6h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -197,7 +264,7 @@ Social signals (social_heat_z: n/a):
 ========================================================================
 [INSTRUCTION]
 
-Analyze each of the 4 asset(s) above and respond with a single JSON array. Each element must follow this exact schema:
+Analyze each of the 7 asset(s) above and respond with a single JSON array. Each element must follow this exact schema:
 
 {
   "ticker": "...",
