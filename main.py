@@ -285,7 +285,14 @@ def main(argv: list[str]) -> int:
 
     if send_email:
         try:
-            send_report(report_path=path, date=date)
+            send_report(
+                report_path=path,
+                date=date,
+                results=results,
+                fear_greed=fear_greed,
+                vix_structure=vix_structure,
+                buffett=buffett,
+            )
             print("Email sent.")
         except EmailConfigError as e:
             logger.warning(f"email skipped: {e}")
