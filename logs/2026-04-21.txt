@@ -1,7 +1,7 @@
 ARTIFICIAL PRICE RADAR — Daily Report 2026-04-21
 ========================================================================
 Macro context — Fear & Greed: 33/100 — Fear (+4 vs yesterday, improving)
-               VIX Structure: Contango (0.88) — normal term structure
+               VIX Structure: Contango (0.89) — normal term structure
                Buffett Indicator: 227% — Extreme (historical avg ~120%)
 Coverage — 18 tickers processed · 3 red · 1 amber · 14 filtered
   [RED]:   GC=F, SI=F, HG=F
@@ -23,12 +23,12 @@ Coverage — 18 tickers processed · 3 red · 1 amber · 14 filtered
   SOFI | 0.8x | +0.1 | +0.1 | 67 | SKIP: vol=0.8x (normal); z30=+0.1,z200=+0.1; RSI=67
   MSTR | 1.1x | +0.4 | +0.6 | 73 | SKIP: vol=1.1x (normal); z30=+0.4,z200=+0.6; RSI=73
   RDDT | 0.7x | +0.2 | +0.3 | 67 | SKIP: vol=0.7x (normal); z30=+0.2,z200=+0.3; RSI=67
-  GC=F | 14.6x | +0.1 | -0.0 | 52 | RED: vol=14.6x (extreme >5x)
-  SI=F | 45.0x | -0.2 | -0.3 | 52 | RED: vol=45.0x (extreme >5x)
+  GC=F | 14.7x | +0.1 | -0.0 | 52 | RED: vol=14.7x (extreme >5x)
+  SI=F | 45.2x | -0.2 | -0.3 | 52 | RED: vol=45.2x (extreme >5x)
   CL=F | 0.2x | -0.3 | -0.8 | 46 | SKIP: vol=0.2x (normal); z30=-0.3,z200=-0.8; RSI=46
-  HG=F | 9.0x | +0.1 | +0.1 | 64 | RED: vol=9.0x (extreme >5x)
-  ZS=F | 0.1x | +1.6 | +1.7 | 61 | SKIP: vol=0.1x (normal); z30=+1.6,z200=+1.7; RSI=61
-  NG=F | 0.1x | +0.0 | -0.1 | 35 | SKIP: vol=0.1x (normal); z30=+0.0,z200=-0.1; RSI=35
+  HG=F | 9.1x | +0.1 | +0.1 | 64 | RED: vol=9.1x (extreme >5x)
+  ZS=F | 0.1x | +1.5 | +1.7 | 61 | SKIP: vol=0.1x (normal); z30=+1.5,z200=+1.7; RSI=61
+  NG=F | 0.1x | +0.1 | -0.1 | 35 | SKIP: vol=0.1x (normal); z30=+0.1,z200=-0.1; RSI=35
 [SYSTEM PROMPT — paste everything below together into Claude.ai]
 
 You are a Senior Quantitative Analyst specializing in market microstructure and behavioral finance. Your task is to analyze flagged assets to distinguish between institutional flows and retail irrationality.
@@ -121,15 +121,15 @@ Constraints:
 Asset: [RED] GC=F (Gold)
 
 Market signals:
-- Volume: extreme (14.63x 30d avg)
-- Price velocity: normal (z_30d: 0.15, z_200d: -0.02, direction: up, macro_extreme: False)
+- Volume: extreme (14.66x 30d avg)
+- Price velocity: normal (z_30d: 0.14, z_200d: -0.03, direction: up, macro_extreme: False)
 - RSI-14: 51.6 (normal)
-- Current price: $4,814.20 (+0.16% today)
+- Current price: $4,813.70 (+0.15% today)
 
 Recent news (last 3):
-1. "Gold and silver prices today, Tuesday, April 21: Gold and silver prices slip in early trading" — Yahoo Personal Finance, 1.0h ago
+1. "Gold and silver prices today, Tuesday, April 21: Gold and silver prices slip in early trading" — Yahoo Personal Finance, 1.1h ago
 2. "Will gold reach $6,000 this year? Experts weigh in on gold prices." — Yahoo Personal Finance, 597.1h ago
-3. "Equinox Gold (EQX) Projects Annual Production Growth Supported by Updated Technical Reports" — Insider Monkey, 0.1h ago
+3. "Equinox Gold (EQX) Projects Annual Production Growth Supported by Updated Technical Reports" — Insider Monkey, 0.2h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -140,13 +140,13 @@ Social signals (social_heat_z: n/a):
 Asset: [RED] SI=F (Silver)
 
 Market signals:
-- Volume: extreme (45.0x 30d avg)
-- Price velocity: normal (z_30d: -0.2, z_200d: -0.31, direction: down, macro_extreme: False)
+- Volume: extreme (45.19x 30d avg)
+- Price velocity: normal (z_30d: -0.2, z_200d: -0.32, direction: down, macro_extreme: False)
 - RSI-14: 51.7 (normal)
-- Current price: $79.27 (-0.85% today)
+- Current price: $79.26 (-0.86% today)
 
 Recent news (last 3):
-1. "Gold and silver prices today, Tuesday, April 21: Gold and silver prices slip in early trading" — Yahoo Personal Finance, 1.0h ago
+1. "Gold and silver prices today, Tuesday, April 21: Gold and silver prices slip in early trading" — Yahoo Personal Finance, 1.1h ago
 2. "Is Pan American Silver (PAAS) One of the Best Canadian Stocks to Buy for Long Term?" — Insider Monkey, 0.1h ago
 3. "Spanish Mountain Gold Sells 1.5% Royalty to Wheaton Precious Metals for US$55 Million" — MT Newswires, 1.3h ago
 
@@ -159,15 +159,15 @@ Social signals (social_heat_z: n/a):
 Asset: [RED] HG=F (Copper)
 
 Market signals:
-- Volume: extreme (9.0x 30d avg)
-- Price velocity: normal (z_30d: 0.09, z_200d: 0.06, direction: up, macro_extreme: False)
-- RSI-14: 63.5 (normal)
-- Current price: $6.05 (+0.29% today)
+- Volume: extreme (9.07x 30d avg)
+- Price velocity: normal (z_30d: 0.1, z_200d: 0.07, direction: up, macro_extreme: False)
+- RSI-14: 63.6 (normal)
+- Current price: $6.05 (+0.31% today)
 
 Recent news (last 3):
-1. "Trump tariffs live updates: US opens tariff refund portal, with checks expected this summer" — Yahoo Finance, 469.5h ago
-2. "Liberty Star acquires 13 new Arizona mining permits" — Mining Technology, 1.0h ago
-3. "ACG Metals says Gediktepe expansion project is on schedule and within budget" — Proactive, 5.2h ago
+1. "Trump tariffs live updates: US opens tariff refund portal, with checks expected this summer" — Yahoo Finance, 469.6h ago
+2. "Liberty Star acquires 13 new Arizona mining permits" — Mining Technology, 1.1h ago
+3. "ACG Metals says Gediktepe expansion project is on schedule and within budget" — Proactive, 5.3h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -186,7 +186,7 @@ Market signals:
 Recent news (last 3):
 1. "AST SpaceMobile stock tanks after flawed satellite launch by Blue Origin" — Yahoo Finance, 20.1h ago
 2. "AST SpaceMobile loses $2B in market cap on setback" — TheStreet, 8.8h ago
-3. "Stocks to Watch Recap: AST SpaceMobile, TopBuild, Marvell" — The Wall Street Journal, 13.8h ago
+3. "Stocks to Watch Recap: AST SpaceMobile, TopBuild, Marvell" — The Wall Street Journal, 13.9h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
