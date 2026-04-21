@@ -4,34 +4,38 @@ Combines signals from all available sentiment sources into a single
 `social_heat_zscore` and a formatted `source_breakdown` dict.
 
 Source weights (planned):
-    Reddit   — 40 %   (live)
-    X        — 30 %   (Phase 5)
-    YouTube  — 20 %   (Phase 5)
-    Fear & Greed — 10 %  (Phase 5)
+    Reddit      — 40 %   (live)
+    StockTwits  — 30 %   (live)
+    X           — 20 %   (Phase 5)
+    YouTube     — 10 %   (Phase 5)
 
-Currently only Reddit is wired.  The z-score is computed on Reddit mention
-counts against a 30-day rolling baseline stored in logs/sentiment_baseline.json.
-A 3-sigma spike is more actionable than an absolute headline count.
+The z-score is computed on Reddit mention counts against a 30-day rolling
+baseline stored in logs/sentiment_baseline.json.
+
+StockTwits heat is mapped to a numeric score (explosive=100, elevated=70,
+stable=30, low=10) and exposed as `stocktwits_heat` for the pre-filter in
+document_builder.py.
 
 Usage
 -----
-    from analyzers.sentiment_aggregator import aggregate_sentiment
-
-    reddit_data = fetch_reddit_signals(ticker, name)   # from collectors
-    sentiment   = aggregate_sentiment(ticker, reddit=reddit_data)
-
-    # Without any collectors wired:
-    sentiment = aggregate_sentiment(ticker)   # all fields → None
+    reddit_data     = fetch_reddit_signals(ticker, name)
+    stocktwits_data = fetch_stocktwits_sentiment(ticker)
+    sentiment       = aggregate_sentiment(ticker,
+                                          reddit=reddit_data,
+                                          stocktwits=stocktwits_data)
 
 Return shape
 ------------
     {
         "social_heat_zscore": float | None,
         "mention_count":      int   | None,
+        "stocktwits_heat":    str   | None,  # "explosive"|"elevated"|"stable"|"low"|None
+        "stocktwits_score":   int   | None,  # 100|70|30|10|None
         "source_breakdown": {
-            "reddit":   str,   # e.g. "Reddit (24h): 47 mentions, avg_score=89, ..."
-            "twitter":  str,   # "n/a" until Phase 5
-            "youtube":  str,   # "n/a" until Phase 5
+            "reddit":      str,   # "Reddit (24h): 47 mentions, …" or "n/a"
+            "stocktwits":  str,   # "heat=elevated, tone=bearish, bulls=3, bears=12" or "n/a"
+            "twitter":     str,   # "n/a" until Phase 5
+            "youtube":     str,   # "n/a" until Phase 5
         },
     }
 """
@@ -47,8 +51,15 @@ import statistics
 logger = logging.getLogger(__name__)
 
 BASELINE_FILE    = os.path.join("logs", "sentiment_baseline.json")
-MIN_HISTORY_DAYS = 7    # z-score only computed once we have ≥7 days
+MIN_HISTORY_DAYS = 7
 MAX_HISTORY_DAYS = 30
+
+_ST_HEAT_SCORE: dict[str, int] = {
+    "explosive": 100,
+    "elevated":   70,
+    "stable":     30,
+    "low":        10,
+}
 
 
 # ---------------------------------------------------------------------------
@@ -76,19 +87,16 @@ def _save_baseline(baseline: dict) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Formatting helpers
+# Per-source formatters
 # ---------------------------------------------------------------------------
 
 def _format_reddit(reddit: dict | None) -> str:
-    """One-line summary for the compressed prompt output."""
     if reddit is None or reddit.get("mention_count") is None:
         return "n/a"
-
-    count   = reddit["mention_count"]
-    avg     = reddit.get("avg_score")
-    trend   = reddit.get("trending")
-    tone    = reddit.get("sentiment_tone")
-
+    count = reddit["mention_count"]
+    avg   = reddit.get("avg_score")
+    trend = reddit.get("trending")
+    tone  = reddit.get("sentiment_tone")
     parts: list[str] = [f"{count} mentions"]
     if avg is not None:
         parts.append(f"avg_score={avg:.0f}")
@@ -96,31 +104,46 @@ def _format_reddit(reddit: dict | None) -> str:
         parts.append(f"trending={'YES' if trend else 'NO'}")
     if tone:
         parts.append(f"tone={tone}")
-
     return "Reddit (24h): " + ", ".join(parts)
+
+
+def _format_stocktwits(st: dict | None) -> str:
+    if st is None:
+        return "n/a"
+    heat = st.get("heat", "unknown")
+    if heat == "unknown":
+        return "n/a"
+    tone  = st.get("tone", "neutral")
+    bulls = st.get("bulls", 0)
+    bears = st.get("bears", 0)
+    return f"heat={heat}, tone={tone}, bulls={bulls}, bears={bears}"
 
 
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
-def aggregate_sentiment(ticker: str, reddit: dict | None = None) -> dict:
+def aggregate_sentiment(
+    ticker:     str,
+    reddit:     dict | None = None,
+    stocktwits: dict | None = None,
+) -> dict:
     """Compute social_heat_zscore and assemble source_breakdown.
 
-    Parameters
-    ----------
-    ticker  : asset symbol (used as the baseline key)
-    reddit  : return value of fetch_reddit_signals(), or None when the
-              collector is unavailable
-
-    The z-score baseline is updated only when `reddit` contains a live
-    mention_count.  When all sources are None the function returns quickly
-    with all-None fields so the pipeline never stalls.
+    The z-score baseline is updated only when reddit contains a live
+    mention_count.  StockTwits heat is exposed directly for the
+    document_builder pre-filter without being folded into the z-score.
     """
-    empty_breakdown = {
-        "reddit":  _format_reddit(reddit),
-        "twitter": "n/a",
-        "youtube": "n/a",
+    # --- StockTwits heat level and numeric score ---
+    raw_heat = (stocktwits or {}).get("heat")
+    st_heat  = raw_heat if raw_heat in _ST_HEAT_SCORE else None
+    st_score = _ST_HEAT_SCORE.get(raw_heat) if raw_heat else None
+
+    breakdown = {
+        "reddit":     _format_reddit(reddit),
+        "stocktwits": _format_stocktwits(stocktwits),
+        "twitter":    "n/a",
+        "youtube":    "n/a",
     }
 
     mention_count: int | None = (reddit or {}).get("mention_count")
@@ -129,10 +152,12 @@ def aggregate_sentiment(ticker: str, reddit: dict | None = None) -> dict:
         return {
             "social_heat_zscore": None,
             "mention_count":      None,
-            "source_breakdown":   empty_breakdown,
+            "stocktwits_heat":    st_heat,
+            "stocktwits_score":   st_score,
+            "source_breakdown":   breakdown,
         }
 
-    # --- Z-score against 30-day rolling baseline ---
+    # --- Z-score against 30-day rolling Reddit baseline ---
     baseline = _load_baseline()
     history: list[dict] = baseline.get(ticker, [])
 
@@ -144,10 +169,8 @@ def aggregate_sentiment(ticker: str, reddit: dict | None = None) -> dict:
         if std > 0:
             zscore = (mention_count - mean) / std
         else:
-            # Flat baseline — any non-zero difference is noteworthy
             zscore = 0.0 if mention_count == mean else float("inf")
 
-    # Persist today's count (replace if already written today)
     today_str = dt.date.today().isoformat()
     history   = [e for e in history if e.get("date") != today_str]
     history.append({"date": today_str, "count": mention_count})
@@ -158,5 +181,7 @@ def aggregate_sentiment(ticker: str, reddit: dict | None = None) -> dict:
     return {
         "social_heat_zscore": round(zscore, 2) if zscore is not None else None,
         "mention_count":      mention_count,
-        "source_breakdown":   empty_breakdown,
+        "stocktwits_heat":    st_heat,
+        "stocktwits_score":   st_score,
+        "source_breakdown":   breakdown,
     }

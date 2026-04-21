@@ -34,15 +34,18 @@ def get_alert_tier(signals: dict) -> str | None:
 
     Red  — extreme volume (>5x) OR macro_extreme (both |z_30d|>2 AND |z_200d|>2).
     Amber — |z_30d|>1.5 AND vol>1.5x; OR vol>2.5x alone; OR RSI>75/RSI<25;
-             OR social_heat_zscore>2.0 with any volume >1.0x.
+             OR social_heat_zscore>2.0 with vol>1.0x;
+             OR StockTwits heat "elevated"/"explosive" with vol>1.0x.
     Red takes priority; an asset cannot be both.
     """
-    vol_class = signals["volume"]["classification"]
-    vol_ratio = signals["volume"]["ratio"]
+    vol_class  = signals["volume"]["classification"]
+    vol_ratio  = signals["volume"]["ratio"]
     macro_extreme = signals["velocity"].get("macro_extreme", False)
-    z30 = abs(signals["velocity"]["z_score_30d"])
-    rsi_val = (signals.get("rsi") or {}).get("rsi")
-    heat_z = (signals.get("sentiment") or {}).get("social_heat_zscore")
+    z30        = abs(signals["velocity"]["z_score_30d"])
+    rsi_val    = (signals.get("rsi") or {}).get("rsi")
+    sentiment  = signals.get("sentiment") or {}
+    heat_z     = sentiment.get("social_heat_zscore")
+    st_heat    = sentiment.get("stocktwits_heat")
 
     # Red: extreme volume or both z-scores exceed 2
     if vol_class == "extreme" or macro_extreme:
@@ -56,6 +59,8 @@ def get_alert_tier(signals: dict) -> str | None:
     if rsi_val is not None and (rsi_val > 75 or rsi_val < 25):
         return "amber"
     if heat_z is not None and heat_z > AMBER_SOCIAL_ZSCORE_THRESHOLD and vol_ratio > 1.0:
+        return "amber"
+    if st_heat in ("elevated", "explosive") and vol_ratio > 1.0:
         return "amber"
 
     return None
@@ -73,8 +78,10 @@ def get_tier_reason(signals: dict) -> str:
     z30 = signals["velocity"]["z_score_30d"]
     z200 = signals["velocity"]["z_score_200d"]
     macro_extreme = signals["velocity"].get("macro_extreme", False)
-    rsi_val = (signals.get("rsi") or {}).get("rsi")
-    heat_z = (signals.get("sentiment") or {}).get("social_heat_zscore")
+    rsi_val  = (signals.get("rsi") or {}).get("rsi")
+    sentiment = signals.get("sentiment") or {}
+    heat_z   = sentiment.get("social_heat_zscore")
+    st_heat  = sentiment.get("stocktwits_heat")
 
     tier = get_alert_tier(signals)
 
@@ -96,6 +103,8 @@ def get_tier_reason(signals: dict) -> str:
             reasons.append(f"RSI={rsi_val:.0f}")
         if heat_z is not None and heat_z > AMBER_SOCIAL_ZSCORE_THRESHOLD and vol_ratio > 1.0:
             reasons.append(f"social_z={heat_z:+.1f}")
+        if st_heat in ("elevated", "explosive") and vol_ratio > 1.0:
+            reasons.append(f"st_heat={st_heat}")
         return "AMBER: " + "; ".join(reasons)
 
     # Skipped — explain what fell short
@@ -104,6 +113,8 @@ def get_tier_reason(signals: dict) -> str:
         parts.append(f"RSI={rsi_val:.0f}")
     if heat_z is not None:
         parts.append(f"social_z={heat_z:+.1f}")
+    if st_heat:
+        parts.append(f"st_heat={st_heat}")
     return "SKIP: " + "; ".join(parts)
 
 
@@ -201,7 +212,7 @@ def _closing_instruction(n_assets: int) -> str:
         f"JSON array. Each element must follow this exact schema:\n\n"
         f"{{\n"
         f'  "ticker": "...",\n'
-        f'  "classification": "bubble_forming|irrational_panic|silent_accumulation|ambiguous|no_signal",\n'
+        f'  "classification": "bubble_forming|irrational_panic|institutional_rebalancing|silent_accumulation|ambiguous|no_signal",\n'
         f'  "recommendation": "contrarian_buy|reduce_exposure|wait|no_action",\n'
         f'  "reasoning": "2-3 short sentences, under 400 characters total",\n'
         f'  "confidence": <integer 1-10>\n'
