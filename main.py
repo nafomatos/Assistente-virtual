@@ -38,6 +38,8 @@ from collectors.buffett_indicator import fetch_buffett_indicator
 from collectors.buffett_indicator import format_summary as format_buffett
 from collectors.fear_greed import fetch_fear_greed, format_summary as format_fg
 from collectors.market_data import fetch_market_data
+from collectors.reddit_sentiment import fetch_reddit_signals
+from collectors.stocktwits_sentiment import fetch_stocktwits_sentiment
 from collectors.vix_structure import fetch_vix_structure
 from collectors.vix_structure import format_summary as format_vix
 from config import ALL_TICKERS, LOOKBACK_DAYS, TICKER_NAMES
@@ -88,12 +90,24 @@ def run_pipeline(tickers: list[str]) -> list[dict]:
             logger.error(f"{ticker}: market data failed: {e}")
             continue
 
-        volume    = analyze_volume(market)
-        velocity  = analyze_price_velocity(market)
-        rsi       = analyze_rsi(market)
-        # aggregate_sentiment gracefully returns None fields when no collectors
-        # are wired; pass mention_count from real collectors when available.
-        sentiment = aggregate_sentiment(ticker)
+        volume   = analyze_volume(market)
+        velocity = analyze_price_velocity(market)
+        rsi      = analyze_rsi(market)
+
+        company_name = TICKER_NAMES.get(ticker, ticker)
+        try:
+            reddit = fetch_reddit_signals(ticker, company_name)
+        except Exception as e:
+            logger.error(f"{ticker}: Reddit fetch failed: {e}")
+            reddit = None
+
+        try:
+            stocktwits = fetch_stocktwits_sentiment(ticker)
+        except Exception as e:
+            logger.error(f"{ticker}: StockTwits fetch failed: {e}")
+            stocktwits = None
+
+        sentiment = aggregate_sentiment(ticker, reddit=reddit, stocktwits=stocktwits)
 
         signals = {
             "market":    market,
@@ -160,10 +174,21 @@ def print_debug_table(results: list[dict]) -> None:
             n_skip += 1
 
         rsi_str = f"{rs['rsi']:.1f}" if rs.get("rsi") is not None else "n/a"
+        sent = r["signals"].get("sentiment") or {}
+        st_heat = sent.get("stocktwits_heat") or "n/a"
+        st_tone = (r["signals"].get("sentiment") or {})
+        st_tone_str = (
+            (sent.get("source_breakdown") or {})
+            .get("stocktwits", "n/a")
+            .split("tone=")[-1].split(",")[0]
+            if "tone=" in (sent.get("source_breakdown") or {}).get("stocktwits", "")
+            else "n/a"
+        )
         print(
             f"{ticker:<7} {v['ratio']:>9.2f}x "
             f"{p['z_score_30d']:>+8.2f} {p['z_score_200d']:>+8.2f} "
-            f"{rsi_str:>6} {rs['classification']:<18} {reason}"
+            f"{rsi_str:>6} {rs['classification']:<18} "
+            f"st={st_heat}/{st_tone_str:<8} {reason}"
         )
 
     print("-" * 120)
