@@ -3,21 +3,23 @@
 Steps:
   1. Check US market calendar — if today isn't a normal trading day,
      log and exit cleanly (no email, no log write).
-  2. Fetch shared macro context once: Fear & Greed, VIX term structure,
+  2. Load active tickers from ticker_manager; discover and add trending tickers.
+  3. Fetch shared macro context once: Fear & Greed, VIX term structure,
      Buffett Indicator.
-  3. For each ticker: market_data → volume / velocity / RSI / sentiment analyzers.
-  4. Build the paste-ready .txt report (Red alerts first, then Amber).
-  5. Copy to logs/YYYY-MM-DD.txt.
-  6. Email it (unless --no-email).
+  4. For each active ticker: market_data → volume / velocity / RSI / sentiment.
+  5. Update ticker state (triggers, flat streaks, stale removals).
+  6. Build the paste-ready .txt report (Red alerts first, then Amber).
+  7. Copy to logs/YYYY-MM-DD.txt.
+  8. Email it (unless --no-email).
 
 Usage:
-    python main.py                      # default tickers
-    python main.py NVDA TSLA AAPL       # custom tickers
+    python main.py                      # default active tickers
+    python main.py NVDA TSLA AAPL       # explicit tickers (skips discovery)
     python main.py --no-email
     python main.py --date 2026-04-18    # test with a specific date (weekend ok)
     python main.py --force              # bypass market calendar check
-    python main.py --debug              # run all 18, print per-ticker reasons,
-                                        # skip email + log archival
+    python main.py --debug              # all active tickers, detailed output,
+                                        # no email, no log commit, no state writes
 """
 
 from __future__ import annotations
@@ -40,9 +42,19 @@ from collectors.fear_greed import fetch_fear_greed, format_summary as format_fg
 from collectors.market_data import fetch_market_data
 from collectors.reddit_sentiment import fetch_reddit_signals
 from collectors.stocktwits_sentiment import fetch_stocktwits_sentiment
+from collectors.trending_tickers import fetch_trending_tickers
 from collectors.vix_structure import fetch_vix_structure
 from collectors.vix_structure import format_summary as format_vix
-from config import ALL_TICKERS, LOOKBACK_DAYS, TICKER_NAMES
+from config import LOOKBACK_DAYS, TICKER_NAMES
+from config.ticker_manager import (
+    add_dynamic_ticker,
+    get_active_tickers,
+    get_state_summary,
+    record_flat,
+    record_signal,
+    record_trigger,
+    remove_stale_dynamic,
+)
 from delivery.email_sender import EmailConfigError, send_report
 from output.document_builder import get_alert_tier, get_tier_reason, write_document
 
@@ -56,13 +68,11 @@ logging.basicConfig(
 logger = logging.getLogger("radar")
 
 LOGS_DIR = "logs"
-# Normal NYSE session is 6h 30m; early closes shorten it to ~3h 30m.
 FULL_SESSION_MIN_HOURS = 6.0
 
 
 def check_trading_day(date: dt.date) -> tuple[bool, str]:
-    """Return (ok, reason). ok=False if today is a weekend, holiday, or
-    early close on NYSE."""
+    """Return (ok, reason). ok=False if today is a weekend, holiday, or early close."""
     import pandas_market_calendars as mcal
 
     nyse = mcal.get_calendar("NYSE")
@@ -176,7 +186,6 @@ def print_debug_table(results: list[dict]) -> None:
         rsi_str = f"{rs['rsi']:.1f}" if rs.get("rsi") is not None else "n/a"
         sent = r["signals"].get("sentiment") or {}
         st_heat = sent.get("stocktwits_heat") or "n/a"
-        st_tone = (r["signals"].get("sentiment") or {})
         st_tone_str = (
             (sent.get("source_breakdown") or {})
             .get("stocktwits", "n/a")
@@ -198,6 +207,57 @@ def print_debug_table(results: list[dict]) -> None:
     )
 
 
+def print_ticker_management_section(
+    new_dynamic: list[str],
+    promoted: list[str],
+    demoted: list[str],
+    stale_removed: list[str],
+    trending_stats: dict,
+    is_debug: bool = False,
+) -> None:
+    """Print the TICKER MANAGEMENT summary block."""
+    summary = get_state_summary()
+    note = " (read-only — no state written)" if is_debug else ""
+    print("\n" + "=" * 88)
+    print(f"TICKER MANAGEMENT{note}")
+    print("=" * 88)
+    print(
+        f"  Permanent: {summary['n_permanent']} | "
+        f"Dynamic: {summary['n_dynamic']} | "
+        f"Inactive: {summary['n_inactive']}"
+    )
+
+    def _fmt(lst: list[str], suffix: str = "") -> str:
+        if not lst:
+            return "none"
+        return ", ".join(f"{t}{suffix}" for t in lst)
+
+    new_str   = _fmt(new_dynamic, " (+1)")
+    prom_str  = _fmt(promoted)
+    dem_str   = _fmt(demoted)
+    stale_str = _fmt(stale_removed)
+
+    print(f"  New dynamic today:      {new_str}")
+    print(f"  Promoted to permanent:  {prom_str}")
+    print(f"  Demoted to inactive:    {dem_str}")
+    if stale_removed:
+        print(f"  Stale dynamic removed:  {stale_str}")
+    if trending_stats:
+        dup_filtered = trending_stats.get("filtered", 0)
+        already_tracked = (
+            trending_stats.get("added", 0)
+            - len(new_dynamic)
+        )
+        print(
+            f"  Trending sources: "
+            f"ApeWisdom={trending_stats.get('apewisdom', 0)}, "
+            f"Yahoo={trending_stats.get('yahoo', 0)}, "
+            f"merged={trending_stats.get('merged', 0)}, "
+            f"added={len(new_dynamic)} "
+            f"(duplicates/filtered: {dup_filtered + already_tracked})"
+        )
+
+
 def archive_log(report_path: str, date: dt.date, logs_dir: str = LOGS_DIR) -> str:
     """Copy the generated report into logs/ for the GitHub Action to commit back."""
     os.makedirs(logs_dir, exist_ok=True)
@@ -208,6 +268,8 @@ def archive_log(report_path: str, date: dt.date, logs_dir: str = LOGS_DIR) -> st
 
 
 def _parse_args(argv: list[str]) -> tuple[list[str], bool, bool, bool, dt.date]:
+    """Parse CLI arguments. Returns empty tickers list when none are specified
+    (main() fills in active tickers via ticker_manager in that case)."""
     tickers: list[str] = []
     send_email = True
     force = False
@@ -235,16 +297,12 @@ def _parse_args(argv: list[str]) -> tuple[list[str], bool, bool, bool, dt.date]:
     if debug:
         send_email = False
         force = True
-        if not tickers:
-            tickers = list(ALL_TICKERS)
 
-    if not tickers:
-        tickers = list(ALL_TICKERS)
     return tickers, send_email, force, debug, date
 
 
 def main(argv: list[str]) -> int:
-    tickers, send_email, force, debug, date = _parse_args(argv)
+    tickers_cli, send_email, force, debug, date = _parse_args(argv)
 
     ok, reason = (True, "forced") if force else check_trading_day(date)
     logger.info(f"market check for {date.isoformat()}: {reason}")
@@ -252,7 +310,36 @@ def main(argv: list[str]) -> int:
         print(f"Market closed on {date.isoformat()} ({reason}). Exiting cleanly.")
         return 0
 
-    # --- Shared macro context (one fetch per run) ---
+    # ── Ticker management — discovery ────────────────────────────────────────
+    # When explicit tickers are given on the CLI we skip discovery entirely
+    # so test/ad-hoc runs have no side effects on the managed list.
+    use_discovery = not tickers_cli
+    new_dynamic:    list[str] = []
+    trending_stats: dict      = {}
+
+    if use_discovery:
+        tickers = get_active_tickers()
+        trending, trending_stats = fetch_trending_tickers()
+        active_set = set(tickers)
+        for t in trending:
+            if not debug:
+                if add_dynamic_ticker(t, date.isoformat()):
+                    new_dynamic.append(t)
+            else:
+                # In debug mode, show what *would* be added without writing state.
+                if t not in active_set:
+                    new_dynamic.append(t)
+        if new_dynamic and not debug:
+            tickers = get_active_tickers()  # re-fetch after additions
+        logger.info(
+            f"Active tickers: {len(tickers)} total | "
+            f"Trending: {len(trending)} candidates | "
+            f"Newly added: {len(new_dynamic)}"
+        )
+    else:
+        tickers = tickers_cli
+
+    # ── Macro context ────────────────────────────────────────────────────────
     fear_greed = fetch_fear_greed()
     logger.info(format_fg(fear_greed))
 
@@ -262,14 +349,50 @@ def main(argv: list[str]) -> int:
     buffett = fetch_buffett_indicator()
     logger.info(format_buffett(buffett))
 
+    # ── Pipeline ─────────────────────────────────────────────────────────────
     results = run_pipeline(tickers)
     print_signal_summary(results)
 
+    # ── Post-pipeline ticker state updates ───────────────────────────────────
+    promoted:     list[str] = []
+    demoted:      list[str] = []
+    stale_removed: list[str] = []
+
+    if use_discovery and not debug:
+        for r in results:
+            t    = r["ticker"]
+            tier = get_alert_tier(r["signals"])
+            if tier:
+                if record_trigger(t, date.isoformat()):
+                    promoted.append(t)
+                record_signal(t, date.isoformat())
+            else:
+                if record_flat(t, date.isoformat()):
+                    demoted.append(t)
+        stale_removed = remove_stale_dynamic()
+        logger.info(
+            f"Active tickers: {get_state_summary()['n_permanent']} permanent + "
+            f"{get_state_summary()['n_dynamic']} dynamic | "
+            f"New today: {', '.join(new_dynamic) or 'none'} | "
+            f"Promoted: {', '.join(promoted) or 'none'} | "
+            f"Demoted: {', '.join(demoted) or 'none'}"
+        )
+
     if debug:
         print_debug_table(results)
+        print_ticker_management_section(
+            new_dynamic, promoted, demoted, stale_removed, trending_stats,
+            is_debug=True,
+        )
         print("\n[debug mode] skipping report write, log archive, and email.")
         return 0
 
+    if use_discovery and (new_dynamic or promoted or demoted or stale_removed):
+        print_ticker_management_section(
+            new_dynamic, promoted, demoted, stale_removed, trending_stats,
+        )
+
+    # ── Report ───────────────────────────────────────────────────────────────
     path, included, skipped = write_document(
         results,
         today=date,
