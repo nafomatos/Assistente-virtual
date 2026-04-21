@@ -4,7 +4,12 @@ on:
   schedule:
     # 20:00 UTC Mon-Fri — 22:00 Berlin (CEST) / 21:00 Berlin (CET), after US markets close at 16:00 ET
     - cron: "0 20 * * 1-5"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: "Run in debug mode (all 18 tickers, no email, no log commit)"
+        type: boolean
+        default: false
 
 # Needed for the "Archive log" step to push back to the repo.
 permissions:
@@ -35,10 +40,25 @@ jobs:
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
-        run: python main.py
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: |
+          if [ "${{ inputs.debug }}" = "true" ]; then
+            python main.py --debug 2>&1 | tee debug_output.txt
+          else
+            python main.py
+          fi
+
+      - name: Upload debug output artifact
+        if: ${{ inputs.debug == true }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-output
+          path: debug_output.txt
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Upload report artifact
-        if: always()
+        if: ${{ inputs.debug != true }}
         uses: actions/upload-artifact@v4
         with:
           name: daily-report
@@ -47,7 +67,7 @@ jobs:
           retention-days: 14
 
       - name: Archive log to repo
-        if: success()
+        if: ${{ inputs.debug != true && success() }}
         run: |
           if ls logs/*.txt >/dev/null 2>&1; then
             git config user.name  "github-actions[bot]"
