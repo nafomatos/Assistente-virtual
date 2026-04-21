@@ -169,7 +169,15 @@ Not allowed to embed model calls. Produces:
 ARTIFICIAL PRICE RADAR — Daily Report <date>
 ========================================================================
 Macro context — Fear & Greed: NN/100 — Label (+X vs yesterday, direction)
+Coverage — 18 tickers processed · N passed · M filtered
+  passed:  NVDA, AAPL, ...
+  skipped: TSLA, GOOGL, ...
 ========================================================================
+
+[FILTERED TICKERS — Debug Summary]
+  TICKER | VOL | Z_30D | Z_200D | RSI | REASON
+  TSLA | 3.2x | -1.1 | +0.2 | 45 | anomalous 3.2x — need >5x or other signal | heat=5 (need >60)
+  ...
 
 [SYSTEM PROMPT — ...]
 <SYSTEM_PROMPT>
@@ -193,12 +201,24 @@ Social signals (social_heat: N/100):
 ```
 
 **Pre-filter (include an asset in the report):**
-```
-macro_extreme
-  OR volume.classification in {"anomalous", "extreme"}
-  OR velocity.classification in {"extreme", "blowout"}
-  OR sentiment.social_heat > SOCIAL_HEAT_THRESHOLD
-```
+- **Extreme volume (>5x) always passes** — leading capitulation signals often
+  appear before other confirmations; extreme spikes are caught immediately.
+- **Anomalous volume (2.5-5x) requires additional signal confirmation** — must have
+  one of: `macro_extreme=True`, `velocity.classification in {"extreme", "blowout"}`,
+  or `sentiment.social_heat > SOCIAL_HEAT_THRESHOLD`.
+- **Other cases pass only if other signals present:**
+  ```
+  macro_extreme
+    OR velocity.classification in {"extreme", "blowout"}
+    OR sentiment.social_heat > SOCIAL_HEAT_THRESHOLD
+  ```
+
+**Debug summary:** Each filtered ticker shows:
+- Volume ratio and classification
+- 30-day and 200-day z-scores
+- RSI
+- Detailed reason explaining which conditions it failed
+  (e.g., "anomalous 3.2x — need >5x or other signal | heat=5 (need >60)")
 
 ### `delivery/email_sender.py`
 `send_report(report_path=None, date=None)`
@@ -247,6 +267,8 @@ these rules in mind. When `claude_advisor/advisor.py` is added:
    past the 1024-token Opus minimum for this to fire.
 2. **Pre-filter** — the exact `passes_prefilter` logic in
    `document_builder.py` will move into `advisor.needs_claude_analysis`.
+   Catches extreme volume (>5x) immediately as leading capitulation
+   signal; anomalous (2.5-5x) requires additional signal confirmation.
    Skips ~60-80% of calls on a typical day.
 3. **Data compression** — the `compress_signals()` output is the prompt
    body. No URLs, no IDs, no timestamps, no author names. Text truncated
@@ -260,7 +282,9 @@ these rules in mind. When `claude_advisor/advisor.py` is added:
 8. **Token logging** — `logger.info(f"{ticker}: input={...} output={...} cached={usage.cache_read_input_tokens}")` on every call.
 9. **Dedup macro context** — already done: Fear & Greed is fetched once
    and appears in the header, not per-asset.
-10. **Daily budget target** — <30k input tokens total across up to 18
+10. **Debug summary included** — filtered tickers are shown with their
+    metrics and failure reasons, enabling rapid iteration on filter tuning.
+11. **Daily budget target** — <30k input tokens total across up to 18
     assets, after pre-filter.
 
 ---
@@ -290,8 +314,13 @@ YOUTUBE_API_KEY                                                # Phase 4
   price_velocity + token_optimizer + document_builder. No Claude calls.
 - **Phase 2 (done)** — Gmail delivery + daily GitHub Action +
   log archive commit-back.
-- **Phase 2.5 (done, this commit)** — dual-window z-score, RSI-14,
-  market-calendar guard, news headlines, Fear & Greed macro context.
+- **Phase 2.5 (done)** — dual-window z-score, RSI-14, market-calendar guard,
+  news headlines, Fear & Greed macro context.
+- **Phase 2.6 (current)** — relaxed pre-filter (extreme volume >5x always passes,
+  anomalous requires confirmation), debug summary showing why filtered tickers
+  failed (volume ratio, z-scores, RSI, detailed reasons). Enables rapid iteration
+  on filter tuning and catches true panics early (e.g., 17x volume spikes before
+  velocity confirmation).
 - **Phase 3** — `claude_advisor/advisor.py` with prompt caching and
   token logging. Replaces the manual paste-into-Claude.ai step.
 - **Phase 4** — sentiment collectors (Reddit → YouTube → X) and
@@ -318,10 +347,14 @@ YOUTUBE_API_KEY                                                # Phase 4
 - `python main.py` runs cleanly on a trading day; skips cleanly on
   weekends/holidays/early-close days with no email sent.
 - The report written to `output/daily_report_<date>.txt` contains:
-  the Fear & Greed header line, the cached system prompt, one section
-  per asset that passes the pre-filter (with dual z-scores, RSI,
-  macro_extreme flag, and top-3 news one-liners), and the closing
-  JSON-array instruction.
+  the Fear & Greed header line, coverage summary with passed/skipped lists,
+  a debug summary section showing why each filtered ticker was rejected
+  (volume ratio, z-scores, RSI, and detailed reasoning), the cached system
+  prompt, one section per asset that passes the pre-filter (with dual
+  z-scores, RSI, macro_extreme flag, and top-3 news one-liners), and the
+  closing JSON-array instruction.
+- Pre-filter logic: extreme volume (>5x) always passes (leading capitulation
+  signal); anomalous (2.5-5x) requires additional signal confirmation.
 - `logs/<date>.txt` is created for every run and (under the Action)
   committed back to the repo.
 - Email arrives with Subject `[Radar] Artificial Price Signals — <date>`
