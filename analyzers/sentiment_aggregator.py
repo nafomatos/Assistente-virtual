@@ -1,27 +1,38 @@
-"""Social-heat z-score aggregator.
+"""Social-heat aggregator.
 
-Instead of a raw 0-100 score, this module computes a z-score of today's
-mention count against each ticker's 30-day rolling baseline.  A 3-sigma spike
-is a much stronger signal than an absolute headline number.
+Combines signals from all available sentiment sources into a single
+`social_heat_zscore` and a formatted `source_breakdown` dict.
 
-Baseline is persisted in logs/sentiment_baseline.json (last 30 entries per
-ticker, appended daily).
+Source weights (planned):
+    Reddit   — 40 %   (live)
+    X        — 30 %   (Phase 5)
+    YouTube  — 20 %   (Phase 5)
+    Fear & Greed — 10 %  (Phase 5)
+
+Currently only Reddit is wired.  The z-score is computed on Reddit mention
+counts against a 30-day rolling baseline stored in logs/sentiment_baseline.json.
+A 3-sigma spike is more actionable than an absolute headline count.
 
 Usage
 -----
     from analyzers.sentiment_aggregator import aggregate_sentiment
 
-    # In main.py, after social collectors provide a count (or None):
-    sentiment = aggregate_sentiment(ticker, mention_count=reddit_count)
+    reddit_data = fetch_reddit_signals(ticker, name)   # from collectors
+    sentiment   = aggregate_sentiment(ticker, reddit=reddit_data)
 
-    # If no collectors are wired yet, pass nothing — returns gracefully:
-    sentiment = aggregate_sentiment(ticker)   # mention_count defaults to None
+    # Without any collectors wired:
+    sentiment = aggregate_sentiment(ticker)   # all fields → None
 
 Return shape
 ------------
     {
-        "social_heat_zscore": float | None,  # None when < 7 days of history
-        "mention_count":      int   | None,  # raw count from collectors
+        "social_heat_zscore": float | None,
+        "mention_count":      int   | None,
+        "source_breakdown": {
+            "reddit":   str,   # e.g. "Reddit (24h): 47 mentions, avg_score=89, ..."
+            "twitter":  str,   # "n/a" until Phase 5
+            "youtube":  str,   # "n/a" until Phase 5
+        },
     }
 """
 
@@ -35,10 +46,14 @@ import statistics
 
 logger = logging.getLogger(__name__)
 
-BASELINE_FILE = os.path.join("logs", "sentiment_baseline.json")
-MIN_HISTORY_DAYS = 7   # need at least this many days before z-score is meaningful
-MAX_HISTORY_DAYS = 30  # keep at most this many entries per ticker
+BASELINE_FILE    = os.path.join("logs", "sentiment_baseline.json")
+MIN_HISTORY_DAYS = 7    # z-score only computed once we have ≥7 days
+MAX_HISTORY_DAYS = 30
 
+
+# ---------------------------------------------------------------------------
+# Baseline persistence
+# ---------------------------------------------------------------------------
 
 def _load_baseline() -> dict:
     if not os.path.exists(BASELINE_FILE):
@@ -60,43 +75,88 @@ def _save_baseline(baseline: dict) -> None:
         logger.warning(f"sentiment baseline save failed: {e}")
 
 
-def aggregate_sentiment(ticker: str, mention_count: int | None = None) -> dict:
-    """Compute social_heat_zscore from a raw mention count vs 30-day baseline.
+# ---------------------------------------------------------------------------
+# Formatting helpers
+# ---------------------------------------------------------------------------
 
-    If mention_count is None (no social collectors wired yet), the baseline is
-    not updated and both fields return None — the pipeline degrades gracefully.
+def _format_reddit(reddit: dict | None) -> str:
+    """One-line summary for the compressed prompt output."""
+    if reddit is None or reddit.get("mention_count") is None:
+        return "n/a"
 
-    When real collectors are added, pass the total daily mention count from
-    whatever sources are available (Reddit + Twitter + YouTube sum, or any
-    subset).
+    count   = reddit["mention_count"]
+    avg     = reddit.get("avg_score")
+    trend   = reddit.get("trending")
+    tone    = reddit.get("sentiment_tone")
+
+    parts: list[str] = [f"{count} mentions"]
+    if avg is not None:
+        parts.append(f"avg_score={avg:.0f}")
+    if trend is not None:
+        parts.append(f"trending={'YES' if trend else 'NO'}")
+    if tone:
+        parts.append(f"tone={tone}")
+
+    return "Reddit (24h): " + ", ".join(parts)
+
+
+# ---------------------------------------------------------------------------
+# Public API
+# ---------------------------------------------------------------------------
+
+def aggregate_sentiment(ticker: str, reddit: dict | None = None) -> dict:
+    """Compute social_heat_zscore and assemble source_breakdown.
+
+    Parameters
+    ----------
+    ticker  : asset symbol (used as the baseline key)
+    reddit  : return value of fetch_reddit_signals(), or None when the
+              collector is unavailable
+
+    The z-score baseline is updated only when `reddit` contains a live
+    mention_count.  When all sources are None the function returns quickly
+    with all-None fields so the pipeline never stalls.
     """
-    if mention_count is None:
-        return {"social_heat_zscore": None, "mention_count": None}
+    empty_breakdown = {
+        "reddit":  _format_reddit(reddit),
+        "twitter": "n/a",
+        "youtube": "n/a",
+    }
 
+    mention_count: int | None = (reddit or {}).get("mention_count")
+
+    if mention_count is None:
+        return {
+            "social_heat_zscore": None,
+            "mention_count":      None,
+            "source_breakdown":   empty_breakdown,
+        }
+
+    # --- Z-score against 30-day rolling baseline ---
     baseline = _load_baseline()
     history: list[dict] = baseline.get(ticker, [])
 
-    # Calculate z-score if we have enough history
     zscore: float | None = None
     if len(history) >= MIN_HISTORY_DAYS:
         counts = [e["count"] for e in history[-MAX_HISTORY_DAYS:]]
-        mean = statistics.mean(counts)
-        std = statistics.pstdev(counts)  # population stdev over the window
+        mean   = statistics.mean(counts)
+        std    = statistics.pstdev(counts)
         if std > 0:
             zscore = (mention_count - mean) / std
         else:
-            # All baseline values identical; treat any difference as extreme
+            # Flat baseline — any non-zero difference is noteworthy
             zscore = 0.0 if mention_count == mean else float("inf")
 
-    # Update baseline: replace today's entry if already present, then trim
+    # Persist today's count (replace if already written today)
     today_str = dt.date.today().isoformat()
-    history = [e for e in history if e.get("date") != today_str]
+    history   = [e for e in history if e.get("date") != today_str]
     history.append({"date": today_str, "count": mention_count})
-    history = history[-MAX_HISTORY_DAYS:]
+    history   = history[-MAX_HISTORY_DAYS:]
     baseline[ticker] = history
     _save_baseline(baseline)
 
     return {
         "social_heat_zscore": round(zscore, 2) if zscore is not None else None,
         "mention_count":      mention_count,
+        "source_breakdown":   empty_breakdown,
     }
