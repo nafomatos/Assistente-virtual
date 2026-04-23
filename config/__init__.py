@@ -59,9 +59,6 @@ LOOKBACK_DAYS            = 30        # historical window for baselines
 SENTIMENT_LOOKBACK_HOURS = 24
 SOCIAL_HEAT_THRESHOLD    = 60        # below this, skip Claude call
 
-# Subreddits monitored by the Reddit collector
-MONITORED_SUBREDDITS = ["wallstreetbets", "stocks", "investing", "commodities"]
-
 # Claude models
 MODEL_PRIMARY  = "claude-opus-4-7"
 MODEL_FALLBACK = "claude-sonnet-4-6"

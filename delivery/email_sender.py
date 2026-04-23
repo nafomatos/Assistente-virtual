@@ -188,16 +188,13 @@ def _sentiment_row(sentiment: dict | None) -> str:
         zc = "#ef4444" if heat_z > 2 else "#f97316" if heat_z > 1 else "#94a3b8"
         parts.append(f"Social-z: <span style='color:{zc};font-weight:700;'>{heat_z:+.1f}</span>")
 
-    reddit = bd.get("reddit")
-    if reddit and reddit != "n/a":
-        # Extract tone keyword from "Reddit (24h): N mentions, ... tone=X"
-        r_tone = None
-        if "tone=" in reddit:
-            r_tone = reddit.split("tone=")[-1].split(",")[0].strip()
-        if r_tone and r_tone != "n/a":
-            rc = {"positive": "#4ade80", "negative": "#ef4444",
-                  "neutral": "#94a3b8"}.get(r_tone, "#94a3b8")
-            parts.append(f"Reddit: <span style='color:{rc};font-weight:700;'>{r_tone.title()}</span>")
+    youtube = bd.get("youtube")
+    if youtube and youtube != "n/a" and "tone=" in youtube:
+        yt_tone = youtube.split("tone=")[-1].split(",")[0].strip()
+        if yt_tone and yt_tone not in ("n/a", "unknown"):
+            yc = {"bullish": "#4ade80", "bearish": "#ef4444",
+                  "neutral": "#94a3b8"}.get(yt_tone, "#94a3b8")
+            parts.append(f"YouTube: <span style='color:{yc};font-weight:700;'>{yt_tone.title()}</span>")
 
     if not parts:
         return "<span style='color:#64748b;font-style:italic;'>Sentiment: n/a</span>"
