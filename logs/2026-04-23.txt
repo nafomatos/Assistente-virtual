@@ -3,17 +3,17 @@ ARTIFICIAL PRICE RADAR — Daily Report 2026-04-23
 Macro context — Fear & Greed: 46/100 — Fear (+14 vs yesterday, improving)
                VIX Structure: Contango (0.90) — normal term structure
                Buffett Indicator: 227% — Extreme (historical avg ~120%)
-Coverage — 29 tickers processed · 8 red · 4 amber · 17 filtered
-  [RED]:   GC=F, SI=F, HG=F, CAR, MSFT, NOW, DTE, IBM
-  [AMBER]: AMZN, AMD, POET, SOXL
-  skipped: NVDA, TSLA, AAPL, GOOGL, PLTR, RKLB, ASTS, MU, SOFI, MSTR, RDDT, CL=F, ZS=F, NG=F, SPY, INTC, QQQ
+Coverage — 29 tickers processed · 5 red · 4 amber · 20 filtered
+  [RED]:   CAR, MSFT, NOW, DTE, IBM
+  [AMBER]: AMZN, AMD, SOXL, POET
+  skipped: NVDA, TSLA, AAPL, GOOGL, PLTR, RKLB, ASTS, MU, SOFI, MSTR, RDDT, GC=F, SI=F, CL=F, HG=F, ZS=F, NG=F, SPY, INTC, QQQ
 ========================================================================
 
 [TICKER ALERT TIERS]
   TICKER | VOL | Z_30D | Z_200D | RSI | TIER/REASON
   NVDA | 0.7x | -0.8 | -0.7 | 64 | SKIP: vol=0.7x (normal); z30=-0.8,z200=-0.7; RSI=64
   TSLA | 1.4x | -1.1 | -1.4 | 48 | SKIP: vol=1.4x (normal); z30=-1.1,z200=-1.4; RSI=48
-  AAPL | 0.6x | -0.1 | -0.0 | 63 | SKIP: vol=0.6x (normal); z30=-0.1,z200=-0.0; RSI=63
+  AAPL | 0.8x | -0.1 | -0.0 | 63 | SKIP: vol=0.8x (normal); z30=-0.1,z200=-0.0; RSI=63
   AMZN | 0.7x | -0.4 | -0.1 | 76 | AMBER: RSI=76
   GOOGL | 0.7x | -0.2 | -0.3 | 66 | SKIP: vol=0.7x (normal); z30=-0.2,z200=-0.3; RSI=66
   PLTR | 1.2x | -1.9 | -2.3 | 47 | SKIP: vol=1.2x (normal); z30=-1.9,z200=-2.3; RSI=47
@@ -23,23 +23,23 @@ Coverage — 29 tickers processed · 8 red · 4 amber · 17 filtered
   SOFI | 0.8x | -1.4 | -1.1 | 53 | SKIP: vol=0.8x (normal); z30=-1.4,z200=-1.1; RSI=53
   MSTR | 1.0x | -1.1 | -0.8 | 66 | SKIP: vol=1.0x (normal); z30=-1.1,z200=-0.8; RSI=66
   RDDT | 0.8x | -1.8 | -1.7 | 52 | SKIP: vol=0.8x (normal); z30=-1.8,z200=-1.7; RSI=52
-  GC=F | 41.7x | -0.1 | -0.4 | 46 | RED: vol=41.7x (extreme >5x)
-  SI=F | 262.1x | -0.8 | -0.8 | 45 | RED: vol=262.1x (extreme >5x)
-  CL=F | 1.0x | +0.6 | +1.3 | 53 | SKIP: vol=1.0x (normal); z30=+0.6,z200=+1.3; RSI=53
-  HG=F | 41.7x | -1.1 | -0.7 | 59 | RED: vol=41.7x (extreme >5x)
+  GC=F | 0.0x | -0.0 | -0.3 | 46 | SKIP: vol=0.0x (normal); z30=-0.0,z200=-0.3; RSI=46
+  SI=F | 0.0x | -0.8 | -0.8 | 46 | SKIP: vol=0.0x (normal); z30=-0.8,z200=-0.8; RSI=46
+  CL=F | 0.0x | +0.5 | +1.1 | 53 | SKIP: vol=0.0x (normal); z30=+0.5,z200=+1.1; RSI=53
+  HG=F | 0.0x | -1.1 | -0.7 | 59 | SKIP: vol=0.0x (normal); z30=-1.1,z200=-0.7; RSI=59
   ZS=F | 1.1x | +0.9 | +0.8 | 56 | SKIP: vol=1.1x (normal); z30=+0.9,z200=+0.8; RSI=56
-  NG=F | 1.3x | +0.4 | +0.1 | 37 | SKIP: vol=1.3x (normal); z30=+0.4,z200=+0.1; RSI=37
+  NG=F | 0.0x | +0.4 | +0.1 | 37 | SKIP: vol=0.0x (normal); z30=+0.4,z200=+0.1; RSI=37
   CAR | 4.8x | -3.4 | -7.3 | 45 | RED: macro_extreme(z30=-3.4,z200=-7.3)
   SPY | 0.6x | -0.5 | -0.6 | 68 | SKIP: vol=0.6x (normal); z30=-0.5,z200=-0.6; RSI=68
   INTC | 1.2x | +0.2 | +0.4 | 70 | SKIP: vol=1.2x (normal); z30=+0.2,z200=+0.4; RSI=70
-  MSFT | 1.0x | -2.1 | -2.5 | 59 | RED: macro_extreme(z30=-2.1,z200=-2.5)
-  NOW | 4.0x | -3.5 | -6.0 | 35 | RED: macro_extreme(z30=-3.5,z200=-6.0)
   AMD | 1.2x | -0.2 | +0.0 | 83 | AMBER: RSI=83
-  QQQ | 0.6x | -0.6 | -0.6 | 70 | SKIP: vol=0.6x (normal); z30=-0.6,z200=-0.6; RSI=70
+  MSFT | 1.2x | -2.1 | -2.5 | 59 | RED: macro_extreme(z30=-2.1,z200=-2.5)
+  NOW | 4.2x | -3.5 | -6.0 | 35 | RED: macro_extreme(z30=-3.5,z200=-6.0)
+  QQQ | 0.7x | -0.6 | -0.6 | 70 | SKIP: vol=0.7x (normal); z30=-0.6,z200=-0.6; RSI=70
   DTE | 1.0x | +2.3 | +2.7 | 54 | RED: macro_extreme(z30=+2.3,z200=+2.7)
+  SOXL | 1.1x | +0.6 | +0.9 | 84 | AMBER: RSI=84
   IBM | 4.1x | -3.4 | -3.7 | 38 | RED: macro_extreme(z30=-3.4,z200=-3.7)
   POET | 2.8x | -1.1 | -1.3 | 74 | AMBER: vol=2.8x (anomalous)
-  SOXL | 1.0x | +0.6 | +0.9 | 84 | AMBER: RSI=84
 [SYSTEM PROMPT — paste everything below together into Claude.ai]
 
 You are a Senior Quantitative Analyst specializing in market microstructure and behavioral finance. Your task is to analyze flagged assets to distinguish between institutional flows and retail irrationality.
@@ -129,63 +129,6 @@ Constraints:
 [ASSETS WITH NON-TRIVIAL SIGNALS]
 
 ------------------------------------------------------------------------
-Asset: [RED] GC=F (Gold)
-
-Market signals:
-- Volume: extreme (41.66x 30d avg)
-- Price velocity: normal (z_30d: -0.12, z_200d: -0.41, direction: down, macro_extreme: False)
-- RSI-14: 45.8 (normal)
-- Current price: $4,706.50 (-0.55% today)
-
-Recent news (last 3):
-1. "Newmont tops Q1 estimates as record cash flow drives buyback boost" — Investing.com, 0.2h ago
-2. "Freeport-McMoRan Shares Drop on Slower Ramp Up at Indonesian Mine" — The Wall Street Journal, 2.3h ago
-3. "Update: Gold Steadies Early Along With the Dollar and Yields" — MT Newswires, 2.9h ago
-
-Social signals (social_heat_z: n/a):
-- Reddit: n/a
-- StockTwits: n/a
-- Twitter: n/a
-- YouTube: n/a
-------------------------------------------------------------------------
-Asset: [RED] SI=F (Silver)
-
-Market signals:
-- Volume: extreme (262.1x 30d avg)
-- Price velocity: normal (z_30d: -0.83, z_200d: -0.85, direction: down, macro_extreme: False)
-- RSI-14: 45.3 (normal)
-- Current price: $75.43 (-3.16% today)
-
-Recent news (last 3):
-1. "Comex Gold Settles 0.58% Lower at $4705.10" — The Wall Street Journal, 3.2h ago
-2. "SLV Is Up 145% in One Year. Is the iShares Silver Trust Still Worth Buying?" — Motley Fool, 4.6h ago
-3. "Gold Caught Between Rock and Hard Place Despite Safe-Haven Status" — 24/7 Wall St., 6.8h ago
-
-Social signals (social_heat_z: n/a):
-- Reddit: n/a
-- StockTwits: n/a
-- Twitter: n/a
-- YouTube: n/a
-------------------------------------------------------------------------
-Asset: [RED] HG=F (Copper)
-
-Market signals:
-- Volume: extreme (41.67x 30d avg)
-- Price velocity: notable (z_30d: -1.05, z_200d: -0.68, direction: down, macro_extreme: False)
-- RSI-14: 59.2 (normal)
-- Current price: $6.03 (-1.54% today)
-
-Recent news (last 3):
-1. "Wells Fargo Raises Steel Dynamics (STLD) Price Target to $207, Stays Bullish on Steel" — Insider Monkey, 0.8h ago
-2. "Freeport-McMoRan Shares Drop on Slower Ramp Up at Indonesian Mine" — The Wall Street Journal, 2.3h ago
-3. "FCX's Q1 Earnings and Revenues Top Estimates on Higher Copper Prices" — Zacks, 3.7h ago
-
-Social signals (social_heat_z: n/a):
-- Reddit: n/a
-- StockTwits: n/a
-- Twitter: n/a
-- YouTube: n/a
-------------------------------------------------------------------------
 Asset: [RED] CAR (CAR)
 
 Market signals:
@@ -195,9 +138,9 @@ Market signals:
 - Current price: $229.14 (-48.38% today)
 
 Recent news (last 3):
-1. "Avis stock crash continues, Siemens Energy lifts outlook" — Yahoo Finance Video, 2.0h ago
-2. "Avis Stock Plunges 57% In Two Days After 600% Surge" — GuruFocus.com, 3.0h ago
-3. "Avis Budget stock plunges 62% as short squeeze reverses" — Quartz, 3.1h ago
+1. "Avis stock crash continues, Siemens Energy lifts outlook" — Yahoo Finance Video, 3.3h ago
+2. "Avis stock extends crash, falling 48% after epic short squeeze" — Yahoo Finance, 5.6h ago
+3. "Stock Market Today, April 23: Markets Dip As Strait of Hormuz Conflict Intensifies" — Motley Fool, 0.6h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -208,15 +151,15 @@ Social signals (social_heat_z: n/a):
 Asset: [RED] MSFT (MSFT)
 
 Market signals:
-- Volume: normal (1.0x 30d avg)
+- Volume: normal (1.16x 30d avg)
 - Price velocity: extreme (z_30d: -2.11, z_200d: -2.47, direction: down, macro_extreme: True) ⚠ macro_extreme
 - RSI-14: 58.7 (normal)
 - Current price: $415.75 (-3.97% today)
 
 Recent news (last 3):
-1. "Why Microsoft is offering its first voluntary employee buyout" — Yahoo Finance Video, 1.0h ago
-2. "Meta to cut 8,000 jobs, Microsoft offers buyouts to to staff as AI spending costs hit Big Tech workers" — Yahoo Finance, 2.4h ago
-3. "Microsoft offering buyouts to employees, ServiceNow stock sinks" — Yahoo Finance Video, 3.7h ago
+1. "Tech stocks today: Intel stock soars, Meta to cut 10% of workforce, Microsoft offerings buyouts" — Yahoo Finance, 991.5h ago
+2. "Tech job market woes deepen with Meta layoffs and Microsoft buyouts" — Yahoo Finance, 535.0h ago
+3. "Microsoft offering buyouts to employees, ServiceNow stock sinks" — Yahoo Finance Video, 5.0h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -227,15 +170,15 @@ Social signals (social_heat_z: n/a):
 Asset: [RED] NOW (NOW)
 
 Market signals:
-- Volume: anomalous (4.02x 30d avg)
+- Volume: anomalous (4.2x 30d avg)
 - Price velocity: blowout (z_30d: -3.51, z_200d: -5.99, direction: down, macro_extreme: True) ⚠ macro_extreme
 - RSI-14: 35.1 (normal)
 - Current price: $84.78 (-17.75% today)
 
 Recent news (last 3):
-1. "Software stocks plunge as ServiceNow, IBM results renew AI concerns" — Yahoo Finance Video, 0.7h ago
-2. "ServiceNow stock sinks on Q1 earnings. CFO discusses AI product growth." — Yahoo Finance Video, 5.6h ago
-3. "Dow Jones Futures: Stocks Fall On Iran, ServiceNow, Tesla; Intel Soars Late" — Investor's Business Daily, 0.2h ago
+1. "Software stocks plunge as ServiceNow, IBM results renew AI concerns" — Yahoo Finance Video, 2.0h ago
+2. "ServiceNow stock sinks on Q1 earnings. CFO discusses AI product growth." — Yahoo Finance Video, 6.9h ago
+3. "Dow Jones Futures: Stocks Fall On Iran, ServiceNow, Tesla; Intel Soars Late" — Investor's Business Daily, 0.6h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -252,9 +195,9 @@ Market signals:
 - Current price: $147.40 (+2.67% today)
 
 Recent news (last 3):
-1. "Will DTE Energy (DTE) Beat Estimates Again in Its Next Earnings Report?" — Zacks, 4.7h ago
-2. "DTE Energy (DTE) Expected to Beat Earnings Estimates: Can the Stock Move Higher?" — Zacks, 6.9h ago
-3. "Earnings Preview: What to Expect From DTE Energy's Report" — Barchart, 80.1h ago
+1. "Will DTE Energy (DTE) Beat Estimates Again in Its Next Earnings Report?" — Zacks, 6.0h ago
+2. "DTE Energy (DTE) Expected to Beat Earnings Estimates: Can the Stock Move Higher?" — Zacks, 8.2h ago
+3. "Earnings Preview: What to Expect From DTE Energy's Report" — Barchart, 81.4h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -271,9 +214,9 @@ Market signals:
 - Current price: $231.08 (-8.25% today)
 
 Recent news (last 3):
-1. "Software stocks plunge as ServiceNow, IBM results renew AI concerns" — Yahoo Finance Video, 0.7h ago
-2. "IBM stock tanks as quarterly results fail to quell AI concerns" — Yahoo Finance, 6.8h ago
-3. "These Software and Data Companies Have Been Overly Punished Due to AI Fears" — Barrons.com, 0.8h ago
+1. "Software stocks plunge as ServiceNow, IBM results renew AI concerns" — Yahoo Finance Video, 2.0h ago
+2. "IBM stock tanks as quarterly results fail to quell AI concerns" — Yahoo Finance, 8.1h ago
+3. "SAP Stock Rebounds From Software Slaughter. The Cloud Boosted Europe’s Tech Titan." — Barrons.com, 0.8h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -290,9 +233,9 @@ Market signals:
 - Current price: $255.08 (-0.11% today)
 
 Recent news (last 3):
-1. "Meta is slashing 8,000 jobs due to AI. Here are other tech giants who did the same." — Yahoo Finance, 193.9h ago
-2. "Meta to cut 8,000 jobs, Microsoft offers buyouts to to staff as AI spending costs hit Big Tech workers" — Yahoo Finance, 2.4h ago
-3. "Tesla investors really need to see progress on Robotaxi, robotics" — Yahoo Finance Video, 23.1h ago
+1. "Tech stocks today: Intel stock soars, Meta to cut 10% of workforce, Microsoft offerings buyouts" — Yahoo Finance, 991.5h ago
+2. "Why Microsoft is offering its first voluntary employee buyout" — Yahoo Finance Video, 2.3h ago
+3. "Bezos’ Physical AI Lab Has Closed Round at $38 Billion Value" — Bloomberg, 1.5h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -309,9 +252,28 @@ Market signals:
 - Current price: $305.33 (+0.62% today)
 
 Recent news (last 3):
-1. "Meta plans to cut about 8K jobs amid ramped-up AI spending" — Yahoo Finance Video, 1.1h ago
-2. "Dow Jones Futures: Stocks Fall On Iran, ServiceNow, Tesla; Intel Soars Late" — Investor's Business Daily, 0.2h ago
-3. "Micron Is Up 68% YTD as HBM Demand Explodes. Is the Memory Rally Sustainable?" — 24/7 Wall St., 2.0h ago
+1. "Tech stocks today: Intel stock soars, Meta to cut 10% of workforce, Microsoft offerings buyouts" — Yahoo Finance, 991.5h ago
+2. "Semiconductor stocks like Nvidia and Micron are on a remarkable streak" — Yahoo Finance, 7.0h ago
+3. "Dow Jones Futures: Stocks Fall On Iran, ServiceNow, Tesla; Intel Soars Late" — Investor's Business Daily, 0.6h ago
+
+Social signals (social_heat_z: n/a):
+- Reddit: n/a
+- StockTwits: n/a
+- Twitter: n/a
+- YouTube: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] SOXL (SOXL)
+
+Market signals:
+- Volume: normal (1.07x 30d avg)
+- Price velocity: normal (z_30d: 0.57, z_200d: 0.95, direction: up, macro_extreme: False)
+- RSI-14: 84.5 (extreme_overbought)
+- Current price: $112.77 (+6.75% today)
+
+Recent news (last 3):
+1. "ETF Inflows Hit $39.6B as US Stocks Roar to Record Highs" — etf.com, 73.2h ago
+2. "Top Performing Leveraged/Inverse ETFs: 04/12/2026" — ETF Trends, 194.7h ago
+3. "2026 ETF Inflows Cross $500B" — etf.com, 241.2h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -328,28 +290,9 @@ Market signals:
 - Current price: $11.72 (-8.22% today)
 
 Recent news (last 3):
-1. "Why Poet Technologies Stock Is Plummeting Today" — Motley Fool, 1.9h ago
-2. "POET Technologies (POET) Bags Orders From Marvell, Soars 24%" — Insider Monkey, 19.2h ago
-3. "Why Poet Technologies Stock Is Skyrocketing Today" — Motley Fool, 26.5h ago
-
-Social signals (social_heat_z: n/a):
-- Reddit: n/a
-- StockTwits: n/a
-- Twitter: n/a
-- YouTube: n/a
-------------------------------------------------------------------------
-Asset: [AMBER] SOXL (SOXL)
-
-Market signals:
-- Volume: normal (1.03x 30d avg)
-- Price velocity: normal (z_30d: 0.57, z_200d: 0.95, direction: up, macro_extreme: False)
-- RSI-14: 84.5 (extreme_overbought)
-- Current price: $112.77 (+6.75% today)
-
-Recent news (last 3):
-1. "ETF Inflows Hit $39.6B as US Stocks Roar to Record Highs" — etf.com, 71.9h ago
-2. "Top Performing Leveraged/Inverse ETFs: 04/12/2026" — ETF Trends, 193.4h ago
-3. "2026 ETF Inflows Cross $500B" — etf.com, 239.9h ago
+1. "Why Poet Technologies Stock Is Plummeting Today" — Motley Fool, 3.2h ago
+2. "POET Technologies (POET) Bags Orders From Marvell, Soars 24%" — Insider Monkey, 20.5h ago
+3. "Why Poet Technologies Stock Is Skyrocketing Today" — Motley Fool, 27.8h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -360,7 +303,7 @@ Social signals (social_heat_z: n/a):
 ========================================================================
 [INSTRUCTION]
 
-Analyze each of the 12 asset(s) above and respond with a single JSON array. Each element must follow this exact schema:
+Analyze each of the 9 asset(s) above and respond with a single JSON array. Each element must follow this exact schema:
 
 {
   "ticker": "...",
