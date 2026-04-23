@@ -1,0 +1,373 @@
+ARTIFICIAL PRICE RADAR — Daily Report 2026-04-23
+========================================================================
+Macro context — Fear & Greed: 46/100 — Fear (+14 vs yesterday, improving)
+               VIX Structure: Contango (0.90) — normal term structure
+               Buffett Indicator: 227% — Extreme (historical avg ~120%)
+Coverage — 29 tickers processed · 8 red · 4 amber · 17 filtered
+  [RED]:   GC=F, SI=F, HG=F, CAR, MSFT, NOW, DTE, IBM
+  [AMBER]: AMZN, AMD, POET, SOXL
+  skipped: NVDA, TSLA, AAPL, GOOGL, PLTR, RKLB, ASTS, MU, SOFI, MSTR, RDDT, CL=F, ZS=F, NG=F, SPY, INTC, QQQ
+========================================================================
+
+[TICKER ALERT TIERS]
+  TICKER | VOL | Z_30D | Z_200D | RSI | TIER/REASON
+  NVDA | 0.7x | -0.8 | -0.7 | 64 | SKIP: vol=0.7x (normal); z30=-0.8,z200=-0.7; RSI=64
+  TSLA | 1.4x | -1.1 | -1.4 | 48 | SKIP: vol=1.4x (normal); z30=-1.1,z200=-1.4; RSI=48
+  AAPL | 0.6x | -0.1 | -0.0 | 63 | SKIP: vol=0.6x (normal); z30=-0.1,z200=-0.0; RSI=63
+  AMZN | 0.7x | -0.4 | -0.1 | 76 | AMBER: RSI=76
+  GOOGL | 0.7x | -0.2 | -0.3 | 66 | SKIP: vol=0.7x (normal); z30=-0.2,z200=-0.3; RSI=66
+  PLTR | 1.2x | -1.9 | -2.3 | 47 | SKIP: vol=1.2x (normal); z30=-1.9,z200=-2.3; RSI=47
+  RKLB | 0.9x | -1.1 | -1.2 | 60 | SKIP: vol=0.9x (normal); z30=-1.1,z200=-1.2; RSI=60
+  ASTS | 1.0x | -1.1 | -1.1 | 42 | SKIP: vol=1.0x (normal); z30=-1.1,z200=-1.1; RSI=42
+  MU | 0.8x | -0.4 | -0.5 | 66 | SKIP: vol=0.8x (normal); z30=-0.4,z200=-0.5; RSI=66
+  SOFI | 0.8x | -1.4 | -1.1 | 53 | SKIP: vol=0.8x (normal); z30=-1.4,z200=-1.1; RSI=53
+  MSTR | 1.0x | -1.1 | -0.8 | 66 | SKIP: vol=1.0x (normal); z30=-1.1,z200=-0.8; RSI=66
+  RDDT | 0.8x | -1.8 | -1.7 | 52 | SKIP: vol=0.8x (normal); z30=-1.8,z200=-1.7; RSI=52
+  GC=F | 41.7x | -0.1 | -0.4 | 46 | RED: vol=41.7x (extreme >5x)
+  SI=F | 262.1x | -0.8 | -0.8 | 45 | RED: vol=262.1x (extreme >5x)
+  CL=F | 1.0x | +0.6 | +1.3 | 53 | SKIP: vol=1.0x (normal); z30=+0.6,z200=+1.3; RSI=53
+  HG=F | 41.7x | -1.1 | -0.7 | 59 | RED: vol=41.7x (extreme >5x)
+  ZS=F | 1.1x | +0.9 | +0.8 | 56 | SKIP: vol=1.1x (normal); z30=+0.9,z200=+0.8; RSI=56
+  NG=F | 1.3x | +0.4 | +0.1 | 37 | SKIP: vol=1.3x (normal); z30=+0.4,z200=+0.1; RSI=37
+  CAR | 4.8x | -3.4 | -7.3 | 45 | RED: macro_extreme(z30=-3.4,z200=-7.3)
+  SPY | 0.6x | -0.5 | -0.6 | 68 | SKIP: vol=0.6x (normal); z30=-0.5,z200=-0.6; RSI=68
+  INTC | 1.2x | +0.2 | +0.4 | 70 | SKIP: vol=1.2x (normal); z30=+0.2,z200=+0.4; RSI=70
+  MSFT | 1.0x | -2.1 | -2.5 | 59 | RED: macro_extreme(z30=-2.1,z200=-2.5)
+  NOW | 4.0x | -3.5 | -6.0 | 35 | RED: macro_extreme(z30=-3.5,z200=-6.0)
+  AMD | 1.2x | -0.2 | +0.0 | 83 | AMBER: RSI=83
+  QQQ | 0.6x | -0.6 | -0.6 | 70 | SKIP: vol=0.6x (normal); z30=-0.6,z200=-0.6; RSI=70
+  DTE | 1.0x | +2.3 | +2.7 | 54 | RED: macro_extreme(z30=+2.3,z200=+2.7)
+  IBM | 4.1x | -3.4 | -3.7 | 38 | RED: macro_extreme(z30=-3.4,z200=-3.7)
+  POET | 2.8x | -1.1 | -1.3 | 74 | AMBER: vol=2.8x (anomalous)
+  SOXL | 1.0x | +0.6 | +0.9 | 84 | AMBER: RSI=84
+[SYSTEM PROMPT — paste everything below together into Claude.ai]
+
+You are a Senior Quantitative Analyst specializing in market microstructure and behavioral finance. Your task is to analyze flagged assets to distinguish between institutional flows and retail irrationality.
+
+## Core Objective
+
+Classify each flagged asset into exactly one of five categories using the Divergence Principle — the relationship between Volume, Social Heat, and Price Velocity is the key signal:
+
+- **irrational_panic** → recommendation: contrarian_buy (only when confidence ≥ 7)
+  Logic: Volume >3x AND Social Heat "explosive" AND z-score <-1.5 AND tone "bearish"
+  Thesis: Retail is capitulating. Price is being pushed below fair value by emotion.
+
+- **bubble_forming** → recommendation: reduce_exposure
+  Logic: Price above 200d average AND Social Heat "explosive" AND tone "bullish"
+  Thesis: Retail euphoria has decoupled from fundamental value.
+
+- **institutional_rebalancing** → recommendation: wait
+  Logic: Volume >3x AND Social Heat "stable" or "low"
+  Thesis: High-volume movement without social noise = smart money repositioning or dark pool activity. Do NOT classify this as panic.
+
+- **silent_accumulation** → recommendation: wait
+  Logic: Price stable/sideways AND Volume rising >2x AND Social Heat "quiet"
+  Thesis: Institutions building a position quietly before a breakout.
+
+- **ambiguous** or **no_signal** → recommendation: wait or no_action
+  Logic: Signals conflict or fall below thresholds.
+
+## Divergence Rules (MANDATORY)
+
+Apply these rules before anything else. They override any pattern-matching instinct:
+
+- If Volume >3x AND Social Heat is "stable" or "low" → MUST classify as "institutional_rebalancing". Never "irrational_panic". The absence of retail noise during heavy volume is the defining signature of institutional activity.
+- If Volume >3x AND Social Heat is "explosive" AND tone is "bearish" → MUST classify as "irrational_panic".
+- If Volume >3x AND Social Heat is "explosive" AND tone is "bullish" → MUST classify as "bubble_forming".
+- Social Heat alone (without volume confirmation ≥ 2x) → always "ambiguous" or "no_signal". Do not manufacture a conviction call from social data alone.
+- z-scores between -1.5 and +1.5 are noise, not signal, even when volume is elevated.
+
+## How to Weigh the Signals
+
+1. **Volume is the primary ingredient.** "anomalous" (>2.5x) or "extreme" (>5x) 30d-average volume is a prerequisite for any high-confidence call. Without it, even large price moves are usually noise.
+2. **Price velocity (z-score)** tells you the direction and intensity of the move relative to recent history. Dual-window confirmation (both z_30d and z_200d elevated) is a stronger signal than a single window.
+3. **Social Heat** is a confirming indicator, not a leading one. Use it to distinguish institutional from retail-driven flows (the Divergence Principle above). If heat is the only elevated signal, default to "ambiguous".
+4. **Tone** (bullish/bearish from StockTwits/Reddit) refines the direction of retail sentiment, but only matters when heat is at least "elevated".
+5. **Absence of signal is a valid finding.** On most days, for most assets, nothing interesting is happening. Saying so clearly is more valuable than inventing patterns.
+6. **Do not apply asset reputation as a prior.** Analyze the signals as presented; do not assume TSLA is always a bubble or GC=F is always safe.
+
+## Macro Context
+
+Always factor in the macro header before scoring confidence:
+
+- **Buffett Indicator >200%**: macro environment is historically extreme — raise the bar for "bubble_forming" confidence (market-wide overvaluation is already priced in), lower it for "irrational_panic" (further compression is credible).
+- **Fear & Greed <30**: market-wide fear. "irrational_panic" signals are more credible; "bubble_forming" signals are less credible.
+- **VIX Backwardation** (short-term VIX > long-term VIX3M): real near-term stress. Increases confidence on panic signals by 1-2 points.
+- **Fear & Greed >70 with Buffett Indicator >180%**: compound overvaluation. Raise confidence on "bubble_forming" and "reduce_exposure" calls.
+
+## Special Notes
+
+- **Commodities (GC=F, SI=F, CL=F, HG=F, ZS=F, NG=F)**: naturally attract institutional volume with low retail chatter. Default toward "institutional_rebalancing" unless StockTwits heat is clearly "elevated" or "explosive". Gold and silver in particular have deep institutional markets; anomalous volume without social heat is almost always institutional.
+- **High-beta retail-driven names (PLTR, MSTR, RKLB, ASTS, RDDT)**: these assets are structurally prone to retail-driven moves. Social heat carries more weight here than it does for large-cap stocks. "explosive" heat for PLTR/MSTR is more meaningful than for AAPL.
+- **Large-cap bellwethers (AAPL, AMZN, GOOGL)**: institutional flows dominate. Require stronger social heat divergence before classifying as retail-driven panic or bubble.
+- **Bitcoin proxies (MSTR)**: treat as a high-beta retail name. Social heat and tone are highly predictive.
+
+## Confidence Calibration
+
+- **1-3**: signals conflict, data is thin, or multiple Divergence Rules produce ambiguous results.
+- **4-6**: a plausible pattern exists but at least one key ingredient (volume, heat, velocity) is below the ideal threshold.
+- **7-8**: two or more of the Divergence Rules fire cleanly and macro context is consistent.
+- **9-10**: all three signal families align, macro context reinforces the call, and the Divergence Rule fires unambiguously. Reserve for rare, high-conviction moments.
+
+## Output Contract
+
+Respond ONLY with pure JSON — no markdown, no code fences, no prose before or after:
+
+{
+  "classification": "irrational_panic|bubble_forming|institutional_rebalancing|silent_accumulation|ambiguous|no_signal",
+  "recommendation": "contrarian_buy|reduce_exposure|wait|no_action",
+  "reasoning": "2-3 short sentences under 400 characters. Cite specific signals: volume ratio, z-scores, social heat level, tone.",
+  "confidence": 1-10
+}
+
+Constraints:
+- reasoning MUST be under 400 characters. Count before returning. Cite the specific signals you relied on (e.g., "volume 3.1x, z30=+2.4, heat=explosive, tone=bearish"). No generic language like "monitor the situation".
+- contrarian_buy only when confidence ≥ 7.
+- no_signal must always pair with no_action.
+- Never add disclaimers about not being a financial advisor.
+
+[ASSETS WITH NON-TRIVIAL SIGNALS]
+
+------------------------------------------------------------------------
+Asset: [RED] GC=F (Gold)
+
+Market signals:
+- Volume: extreme (41.66x 30d avg)
+- Price velocity: normal (z_30d: -0.12, z_200d: -0.41, direction: down, macro_extreme: False)
+- RSI-14: 45.8 (normal)
+- Current price: $4,706.50 (-0.55% today)
+
+Recent news (last 3):
+1. "Newmont tops Q1 estimates as record cash flow drives buyback boost" — Investing.com, 0.2h ago
+2. "Freeport-McMoRan Shares Drop on Slower Ramp Up at Indonesian Mine" — The Wall Street Journal, 2.3h ago
+3. "Update: Gold Steadies Early Along With the Dollar and Yields" — MT Newswires, 2.9h ago
+
+Social signals (social_heat_z: n/a):
+- Reddit: n/a
+- StockTwits: n/a
+- Twitter: n/a
+- YouTube: n/a
+------------------------------------------------------------------------
+Asset: [RED] SI=F (Silver)
+
+Market signals:
+- Volume: extreme (262.1x 30d avg)
+- Price velocity: normal (z_30d: -0.83, z_200d: -0.85, direction: down, macro_extreme: False)
+- RSI-14: 45.3 (normal)
+- Current price: $75.43 (-3.16% today)
+
+Recent news (last 3):
+1. "Comex Gold Settles 0.58% Lower at $4705.10" — The Wall Street Journal, 3.2h ago
+2. "SLV Is Up 145% in One Year. Is the iShares Silver Trust Still Worth Buying?" — Motley Fool, 4.6h ago
+3. "Gold Caught Between Rock and Hard Place Despite Safe-Haven Status" — 24/7 Wall St., 6.8h ago
+
+Social signals (social_heat_z: n/a):
+- Reddit: n/a
+- StockTwits: n/a
+- Twitter: n/a
+- YouTube: n/a
+------------------------------------------------------------------------
+Asset: [RED] HG=F (Copper)
+
+Market signals:
+- Volume: extreme (41.67x 30d avg)
+- Price velocity: notable (z_30d: -1.05, z_200d: -0.68, direction: down, macro_extreme: False)
+- RSI-14: 59.2 (normal)
+- Current price: $6.03 (-1.54% today)
+
+Recent news (last 3):
+1. "Wells Fargo Raises Steel Dynamics (STLD) Price Target to $207, Stays Bullish on Steel" — Insider Monkey, 0.8h ago
+2. "Freeport-McMoRan Shares Drop on Slower Ramp Up at Indonesian Mine" — The Wall Street Journal, 2.3h ago
+3. "FCX's Q1 Earnings and Revenues Top Estimates on Higher Copper Prices" — Zacks, 3.7h ago
+
+Social signals (social_heat_z: n/a):
+- Reddit: n/a
+- StockTwits: n/a
+- Twitter: n/a
+- YouTube: n/a
+------------------------------------------------------------------------
+Asset: [RED] CAR (CAR)
+
+Market signals:
+- Volume: anomalous (4.82x 30d avg)
+- Price velocity: blowout (z_30d: -3.44, z_200d: -7.27, direction: down, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 45.1 (normal)
+- Current price: $229.14 (-48.38% today)
+
+Recent news (last 3):
+1. "Avis stock crash continues, Siemens Energy lifts outlook" — Yahoo Finance Video, 2.0h ago
+2. "Avis Stock Plunges 57% In Two Days After 600% Surge" — GuruFocus.com, 3.0h ago
+3. "Avis Budget stock plunges 62% as short squeeze reverses" — Quartz, 3.1h ago
+
+Social signals (social_heat_z: n/a):
+- Reddit: n/a
+- StockTwits: n/a
+- Twitter: n/a
+- YouTube: n/a
+------------------------------------------------------------------------
+Asset: [RED] MSFT (MSFT)
+
+Market signals:
+- Volume: normal (1.0x 30d avg)
+- Price velocity: extreme (z_30d: -2.11, z_200d: -2.47, direction: down, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 58.7 (normal)
+- Current price: $415.75 (-3.97% today)
+
+Recent news (last 3):
+1. "Why Microsoft is offering its first voluntary employee buyout" — Yahoo Finance Video, 1.0h ago
+2. "Meta to cut 8,000 jobs, Microsoft offers buyouts to to staff as AI spending costs hit Big Tech workers" — Yahoo Finance, 2.4h ago
+3. "Microsoft offering buyouts to employees, ServiceNow stock sinks" — Yahoo Finance Video, 3.7h ago
+
+Social signals (social_heat_z: n/a):
+- Reddit: n/a
+- StockTwits: n/a
+- Twitter: n/a
+- YouTube: n/a
+------------------------------------------------------------------------
+Asset: [RED] NOW (NOW)
+
+Market signals:
+- Volume: anomalous (4.02x 30d avg)
+- Price velocity: blowout (z_30d: -3.51, z_200d: -5.99, direction: down, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 35.1 (normal)
+- Current price: $84.78 (-17.75% today)
+
+Recent news (last 3):
+1. "Software stocks plunge as ServiceNow, IBM results renew AI concerns" — Yahoo Finance Video, 0.7h ago
+2. "ServiceNow stock sinks on Q1 earnings. CFO discusses AI product growth." — Yahoo Finance Video, 5.6h ago
+3. "Dow Jones Futures: Stocks Fall On Iran, ServiceNow, Tesla; Intel Soars Late" — Investor's Business Daily, 0.2h ago
+
+Social signals (social_heat_z: n/a):
+- Reddit: n/a
+- StockTwits: n/a
+- Twitter: n/a
+- YouTube: n/a
+------------------------------------------------------------------------
+Asset: [RED] DTE (DTE)
+
+Market signals:
+- Volume: normal (0.98x 30d avg)
+- Price velocity: extreme (z_30d: 2.29, z_200d: 2.67, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 53.5 (normal)
+- Current price: $147.40 (+2.67% today)
+
+Recent news (last 3):
+1. "Will DTE Energy (DTE) Beat Estimates Again in Its Next Earnings Report?" — Zacks, 4.7h ago
+2. "DTE Energy (DTE) Expected to Beat Earnings Estimates: Can the Stock Move Higher?" — Zacks, 6.9h ago
+3. "Earnings Preview: What to Expect From DTE Energy's Report" — Barchart, 80.1h ago
+
+Social signals (social_heat_z: n/a):
+- Reddit: n/a
+- StockTwits: n/a
+- Twitter: n/a
+- YouTube: n/a
+------------------------------------------------------------------------
+Asset: [RED] IBM (IBM)
+
+Market signals:
+- Volume: anomalous (4.14x 30d avg)
+- Price velocity: blowout (z_30d: -3.41, z_200d: -3.67, direction: down, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 38.1 (normal)
+- Current price: $231.08 (-8.25% today)
+
+Recent news (last 3):
+1. "Software stocks plunge as ServiceNow, IBM results renew AI concerns" — Yahoo Finance Video, 0.7h ago
+2. "IBM stock tanks as quarterly results fail to quell AI concerns" — Yahoo Finance, 6.8h ago
+3. "These Software and Data Companies Have Been Overly Punished Due to AI Fears" — Barrons.com, 0.8h ago
+
+Social signals (social_heat_z: n/a):
+- Reddit: n/a
+- StockTwits: n/a
+- Twitter: n/a
+- YouTube: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] AMZN (Amazon)
+
+Market signals:
+- Volume: normal (0.7x 30d avg)
+- Price velocity: normal (z_30d: -0.36, z_200d: -0.1, direction: down, macro_extreme: False)
+- RSI-14: 75.5 (overbought)
+- Current price: $255.08 (-0.11% today)
+
+Recent news (last 3):
+1. "Meta is slashing 8,000 jobs due to AI. Here are other tech giants who did the same." — Yahoo Finance, 193.9h ago
+2. "Meta to cut 8,000 jobs, Microsoft offers buyouts to to staff as AI spending costs hit Big Tech workers" — Yahoo Finance, 2.4h ago
+3. "Tesla investors really need to see progress on Robotaxi, robotics" — Yahoo Finance Video, 23.1h ago
+
+Social signals (social_heat_z: n/a):
+- Reddit: n/a
+- StockTwits: n/a
+- Twitter: n/a
+- YouTube: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] AMD (AMD)
+
+Market signals:
+- Volume: normal (1.21x 30d avg)
+- Price velocity: normal (z_30d: -0.24, z_200d: 0.04, direction: up, macro_extreme: False)
+- RSI-14: 82.7 (extreme_overbought)
+- Current price: $305.33 (+0.62% today)
+
+Recent news (last 3):
+1. "Meta plans to cut about 8K jobs amid ramped-up AI spending" — Yahoo Finance Video, 1.1h ago
+2. "Dow Jones Futures: Stocks Fall On Iran, ServiceNow, Tesla; Intel Soars Late" — Investor's Business Daily, 0.2h ago
+3. "Micron Is Up 68% YTD as HBM Demand Explodes. Is the Memory Rally Sustainable?" — 24/7 Wall St., 2.0h ago
+
+Social signals (social_heat_z: n/a):
+- Reddit: n/a
+- StockTwits: n/a
+- Twitter: n/a
+- YouTube: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] POET (POET)
+
+Market signals:
+- Volume: anomalous (2.78x 30d avg)
+- Price velocity: notable (z_30d: -1.11, z_200d: -1.26, direction: down, macro_extreme: False)
+- RSI-14: 73.8 (overbought)
+- Current price: $11.72 (-8.22% today)
+
+Recent news (last 3):
+1. "Why Poet Technologies Stock Is Plummeting Today" — Motley Fool, 1.9h ago
+2. "POET Technologies (POET) Bags Orders From Marvell, Soars 24%" — Insider Monkey, 19.2h ago
+3. "Why Poet Technologies Stock Is Skyrocketing Today" — Motley Fool, 26.5h ago
+
+Social signals (social_heat_z: n/a):
+- Reddit: n/a
+- StockTwits: n/a
+- Twitter: n/a
+- YouTube: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] SOXL (SOXL)
+
+Market signals:
+- Volume: normal (1.03x 30d avg)
+- Price velocity: normal (z_30d: 0.57, z_200d: 0.95, direction: up, macro_extreme: False)
+- RSI-14: 84.5 (extreme_overbought)
+- Current price: $112.77 (+6.75% today)
+
+Recent news (last 3):
+1. "ETF Inflows Hit $39.6B as US Stocks Roar to Record Highs" — etf.com, 71.9h ago
+2. "Top Performing Leveraged/Inverse ETFs: 04/12/2026" — ETF Trends, 193.4h ago
+3. "2026 ETF Inflows Cross $500B" — etf.com, 239.9h ago
+
+Social signals (social_heat_z: n/a):
+- Reddit: n/a
+- StockTwits: n/a
+- Twitter: n/a
+- YouTube: n/a
+
+========================================================================
+[INSTRUCTION]
+
+Analyze each of the 12 asset(s) above and respond with a single JSON array. Each element must follow this exact schema:
+
+{
+  "ticker": "...",
+  "classification": "bubble_forming|irrational_panic|institutional_rebalancing|silent_accumulation|ambiguous|no_signal",
+  "recommendation": "contrarian_buy|reduce_exposure|wait|no_action",
+  "reasoning": "2-3 short sentences, under 400 characters total",
+  "confidence": <integer 1-10>
+}
+
+Return ONLY the JSON array, no prose, no markdown fences.
