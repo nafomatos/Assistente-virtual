@@ -23,10 +23,10 @@ Coverage — 29 tickers processed · 5 red · 4 amber · 20 filtered
   SOFI | 0.8x | -1.4 | -1.1 | 53 | SKIP: vol=0.8x (normal); z30=-1.4,z200=-1.1; RSI=53
   MSTR | 1.0x | -1.1 | -0.8 | 66 | SKIP: vol=1.0x (normal); z30=-1.1,z200=-0.8; RSI=66
   RDDT | 0.8x | -1.8 | -1.7 | 52 | SKIP: vol=0.8x (normal); z30=-1.8,z200=-1.7; RSI=52
-  GC=F | 0.0x | -0.0 | -0.3 | 46 | SKIP: vol=0.0x (normal); z30=-0.0,z200=-0.3; RSI=46
-  SI=F | 0.0x | -0.8 | -0.8 | 46 | SKIP: vol=0.0x (normal); z30=-0.8,z200=-0.8; RSI=46
-  CL=F | 0.0x | +0.5 | +1.1 | 53 | SKIP: vol=0.0x (normal); z30=+0.5,z200=+1.1; RSI=53
-  HG=F | 0.0x | -1.1 | -0.7 | 59 | SKIP: vol=0.0x (normal); z30=-1.1,z200=-0.7; RSI=59
+  GC=F | 0.2x | -0.1 | -0.4 | 46 | SKIP: vol=0.2x (normal); z30=-0.1,z200=-0.4; RSI=46
+  SI=F | 1.2x | -0.8 | -0.9 | 45 | SKIP: vol=1.2x (normal); z30=-0.8,z200=-0.9; RSI=45
+  CL=F | 0.0x | +0.6 | +1.2 | 53 | SKIP: vol=0.0x (normal); z30=+0.6,z200=+1.2; RSI=53
+  HG=F | 0.1x | -1.0 | -0.6 | 60 | SKIP: vol=0.1x (normal); z30=-1.0,z200=-0.6; RSI=60
   ZS=F | 1.1x | +0.9 | +0.8 | 56 | SKIP: vol=1.1x (normal); z30=+0.9,z200=+0.8; RSI=56
   NG=F | 0.0x | +0.4 | +0.1 | 37 | SKIP: vol=0.0x (normal); z30=+0.4,z200=+0.1; RSI=37
   CAR | 4.8x | -3.4 | -7.3 | 45 | RED: macro_extreme(z30=-3.4,z200=-7.3)
@@ -138,9 +138,9 @@ Market signals:
 - Current price: $229.14 (-48.38% today)
 
 Recent news (last 3):
-1. "Avis stock crash continues, Siemens Energy lifts outlook" — Yahoo Finance Video, 3.3h ago
-2. "Avis stock extends crash, falling 48% after epic short squeeze" — Yahoo Finance, 5.6h ago
-3. "Stock Market Today, April 23: Markets Dip As Strait of Hormuz Conflict Intensifies" — Motley Fool, 0.6h ago
+1. "Avis stock crash continues, Siemens Energy lifts outlook" — Yahoo Finance Video, 3.7h ago
+2. "Avis stock extends crash, falling 48% after epic short squeeze" — Yahoo Finance, 5.9h ago
+3. "Stock Market Today, April 23: Markets Dip As Strait of Hormuz Conflict Intensifies" — Motley Fool, 1.0h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -157,9 +157,9 @@ Market signals:
 - Current price: $415.75 (-3.97% today)
 
 Recent news (last 3):
-1. "Tech stocks today: Intel stock soars, Meta to cut 10% of workforce, Microsoft offerings buyouts" — Yahoo Finance, 991.5h ago
-2. "Tech job market woes deepen with Meta layoffs and Microsoft buyouts" — Yahoo Finance, 535.0h ago
-3. "Microsoft offering buyouts to employees, ServiceNow stock sinks" — Yahoo Finance Video, 5.0h ago
+1. "Tech stocks today: Intel stock soars, Meta to cut 10% of workforce, Microsoft offerings buyouts" — Yahoo Finance, 991.8h ago
+2. "Tech job market woes deepen with Meta layoffs and Microsoft buyouts" — Yahoo Finance, 535.4h ago
+3. "Microsoft offering buyouts to employees, ServiceNow stock sinks" — Yahoo Finance Video, 5.4h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -176,9 +176,9 @@ Market signals:
 - Current price: $84.78 (-17.75% today)
 
 Recent news (last 3):
-1. "Software stocks plunge as ServiceNow, IBM results renew AI concerns" — Yahoo Finance Video, 2.0h ago
-2. "ServiceNow stock sinks on Q1 earnings. CFO discusses AI product growth." — Yahoo Finance Video, 6.9h ago
-3. "Dow Jones Futures: Stocks Fall On Iran, ServiceNow, Tesla; Intel Soars Late" — Investor's Business Daily, 0.6h ago
+1. "Software stocks plunge as ServiceNow, IBM results renew AI concerns" — Yahoo Finance Video, 2.4h ago
+2. "ServiceNow stock sinks on Q1 earnings. CFO discusses AI product growth." — Yahoo Finance Video, 7.2h ago
+3. "Dow Jones Futures: Stocks Fall On Iran, ServiceNow, Tesla; Intel Soars Late" — Investor's Business Daily, 0.3h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -195,9 +195,9 @@ Market signals:
 - Current price: $147.40 (+2.67% today)
 
 Recent news (last 3):
-1. "Will DTE Energy (DTE) Beat Estimates Again in Its Next Earnings Report?" — Zacks, 6.0h ago
-2. "DTE Energy (DTE) Expected to Beat Earnings Estimates: Can the Stock Move Higher?" — Zacks, 8.2h ago
-3. "Earnings Preview: What to Expect From DTE Energy's Report" — Barchart, 81.4h ago
+1. "Will DTE Energy (DTE) Beat Estimates Again in Its Next Earnings Report?" — Zacks, 6.4h ago
+2. "DTE Energy (DTE) Expected to Beat Earnings Estimates: Can the Stock Move Higher?" — Zacks, 8.5h ago
+3. "Earnings Preview: What to Expect From DTE Energy's Report" — Barchart, 81.8h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -214,9 +214,9 @@ Market signals:
 - Current price: $231.08 (-8.25% today)
 
 Recent news (last 3):
-1. "Software stocks plunge as ServiceNow, IBM results renew AI concerns" — Yahoo Finance Video, 2.0h ago
-2. "IBM stock tanks as quarterly results fail to quell AI concerns" — Yahoo Finance, 8.1h ago
-3. "SAP Stock Rebounds From Software Slaughter. The Cloud Boosted Europe’s Tech Titan." — Barrons.com, 0.8h ago
+1. "Software stocks plunge as ServiceNow, IBM results renew AI concerns" — Yahoo Finance Video, 2.4h ago
+2. "IBM stock tanks as quarterly results fail to quell AI concerns" — Yahoo Finance, 8.5h ago
+3. "SAP Stock Rebounds From Software Slaughter. The Cloud Boosted Europe’s Tech Titan." — Barrons.com, 1.1h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -233,9 +233,9 @@ Market signals:
 - Current price: $255.08 (-0.11% today)
 
 Recent news (last 3):
-1. "Tech stocks today: Intel stock soars, Meta to cut 10% of workforce, Microsoft offerings buyouts" — Yahoo Finance, 991.5h ago
-2. "Why Microsoft is offering its first voluntary employee buyout" — Yahoo Finance Video, 2.3h ago
-3. "Bezos’ Physical AI Lab Has Closed Round at $38 Billion Value" — Bloomberg, 1.5h ago
+1. "Tech stocks today: Intel stock soars, Meta to cut 10% of workforce, Microsoft offerings buyouts" — Yahoo Finance, 991.8h ago
+2. "Why Microsoft is offering its first voluntary employee buyout" — Yahoo Finance Video, 2.6h ago
+3. "Bezos’ Physical AI Lab Has Closed Round at $38 Billion Value" — Bloomberg, 1.9h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -252,9 +252,9 @@ Market signals:
 - Current price: $305.33 (+0.62% today)
 
 Recent news (last 3):
-1. "Tech stocks today: Intel stock soars, Meta to cut 10% of workforce, Microsoft offerings buyouts" — Yahoo Finance, 991.5h ago
-2. "Semiconductor stocks like Nvidia and Micron are on a remarkable streak" — Yahoo Finance, 7.0h ago
-3. "Dow Jones Futures: Stocks Fall On Iran, ServiceNow, Tesla; Intel Soars Late" — Investor's Business Daily, 0.6h ago
+1. "Tech stocks today: Intel stock soars, Meta to cut 10% of workforce, Microsoft offerings buyouts" — Yahoo Finance, 991.8h ago
+2. "Semiconductor stocks like Nvidia and Micron are on a remarkable streak" — Yahoo Finance, 7.4h ago
+3. "Dow Jones Futures: Stocks Fall On Iran, ServiceNow, Tesla; Intel Soars Late" — Investor's Business Daily, 0.3h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -271,9 +271,9 @@ Market signals:
 - Current price: $112.77 (+6.75% today)
 
 Recent news (last 3):
-1. "ETF Inflows Hit $39.6B as US Stocks Roar to Record Highs" — etf.com, 73.2h ago
-2. "Top Performing Leveraged/Inverse ETFs: 04/12/2026" — ETF Trends, 194.7h ago
-3. "2026 ETF Inflows Cross $500B" — etf.com, 241.2h ago
+1. "ETF Inflows Hit $39.6B as US Stocks Roar to Record Highs" — etf.com, 73.5h ago
+2. "Top Performing Leveraged/Inverse ETFs: 04/12/2026" — ETF Trends, 195.1h ago
+3. "2026 ETF Inflows Cross $500B" — etf.com, 241.5h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
@@ -290,9 +290,9 @@ Market signals:
 - Current price: $11.72 (-8.22% today)
 
 Recent news (last 3):
-1. "Why Poet Technologies Stock Is Plummeting Today" — Motley Fool, 3.2h ago
-2. "POET Technologies (POET) Bags Orders From Marvell, Soars 24%" — Insider Monkey, 20.5h ago
-3. "Why Poet Technologies Stock Is Skyrocketing Today" — Motley Fool, 27.8h ago
+1. "Why Poet Technologies Stock Is Plummeting Today" — Motley Fool, 3.6h ago
+2. "POET Technologies (POET) Bags Orders From Marvell, Soars 24%" — Insider Monkey, 20.9h ago
+3. "Why Poet Technologies Stock Is Skyrocketing Today" — Motley Fool, 28.2h ago
 
 Social signals (social_heat_z: n/a):
 - Reddit: n/a
