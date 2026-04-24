@@ -23,9 +23,9 @@ Coverage — 30 tickers processed · 7 red · 2 amber · 21 filtered
   SOFI | 0.6x | +0.2 | +0.2 | 54 | SKIP: vol=0.6x (normal); z30=+0.2,z200=+0.2; RSI=54
   MSTR | 0.7x | -0.4 | -0.1 | 66 | SKIP: vol=0.7x (normal); z30=-0.4,z200=-0.1; RSI=66
   RDDT | 0.7x | +0.2 | +0.3 | 54 | SKIP: vol=0.7x (normal); z30=+0.2,z200=+0.3; RSI=54
-  GC=F | 28.0x | +0.3 | +0.1 | 47 | RED: vol=28.0x (extreme >5x)
-  SI=F | 225.8x | +0.2 | +0.0 | 46 | RED: vol=225.8x (extreme >5x)
-  CL=F | 0.9x | -0.1 | -0.2 | 52 | SKIP: vol=0.9x (normal); z30=-0.1,z200=-0.2; RSI=52
+  GC=F | 28.1x | +0.3 | +0.1 | 47 | RED: vol=28.1x (extreme >5x)
+  SI=F | 225.9x | +0.2 | +0.0 | 46 | RED: vol=225.9x (extreme >5x)
+  CL=F | 0.9x | -0.2 | -0.3 | 52 | SKIP: vol=0.9x (normal); z30=-0.2,z200=-0.3; RSI=52
   HG=F | 31.7x | -0.6 | -0.4 | 59 | RED: vol=31.7x (extreme >5x)
   ZS=F | 0.8x | +1.4 | +1.4 | 57 | SKIP: vol=0.8x (normal); z30=+1.4,z200=+1.4; RSI=57
   NG=F | 1.1x | +1.2 | +0.4 | 42 | SKIP: vol=1.1x (normal); z30=+1.2,z200=+0.4; RSI=42
@@ -133,55 +133,55 @@ Constraints:
 Asset: [RED] GC=F (Gold)
 
 Market signals:
-- Volume: extreme (28.03x 30d avg)
+- Volume: extreme (28.1x 30d avg)
 - Price velocity: normal (z_30d: 0.3, z_200d: 0.11, direction: up, macro_extreme: False)
 - RSI-14: 46.8 (normal)
-- Current price: $4,723.50 (+0.39% today)
+- Current price: $4,723.60 (+0.39% today)
 
 Recent news (last 3):
-1. "Gold and silver prices today, Friday, April 24: Gold and silver slipping as oil prices and dollar gain strength" — Yahoo Personal Finance, 9.6h ago
-2. "Why Newmont Mining Rallied on Friday" — Motley Fool, 0.2h ago
-3. "SLV Delivers Stronger Long Term Gains Than SGDM" — Motley Fool, 1.7h ago
+1. "Gold and silver prices today, Friday, April 24: Gold and silver slipping as oil prices and dollar gain strength" — Yahoo Personal Finance, 9.8h ago
+2. "Why Newmont Mining Rallied on Friday" — Motley Fool, 0.4h ago
+3. "SLV Delivers Stronger Long Term Gains Than SGDM" — Motley Fool, 1.8h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
-- YouTube: heat=explosive, tone=bullish, top="Only 1 Gold Card Visa?" (297k views)
+- YouTube: heat=explosive, tone=bullish, top="Only 1 Gold Card Visa?" (299k views)
 - Twitter: n/a
 ------------------------------------------------------------------------
 Asset: [RED] SI=F (Silver)
 
 Market signals:
-- Volume: extreme (225.78x 30d avg)
-- Price velocity: normal (z_30d: 0.25, z_200d: 0.02, direction: up, macro_extreme: False)
-- RSI-14: 46.0 (normal)
-- Current price: $75.86 (+0.53% today)
+- Volume: extreme (225.89x 30d avg)
+- Price velocity: normal (z_30d: 0.23, z_200d: 0.0, direction: up, macro_extreme: False)
+- RSI-14: 45.9 (normal)
+- Current price: $75.83 (+0.48% today)
 
 Recent news (last 3):
-1. "Gold and silver prices today, Friday, April 24: Gold and silver slipping as oil prices and dollar gain strength" — Yahoo Personal Finance, 9.6h ago
-2. "SLV Delivers Stronger Long Term Gains Than SGDM" — Motley Fool, 1.7h ago
-3. "Precious Metals Rise, But Remain Negative for the Week" — The Wall Street Journal, 2.3h ago
+1. "Gold and silver prices today, Friday, April 24: Gold and silver slipping as oil prices and dollar gain strength" — Yahoo Personal Finance, 9.8h ago
+2. "SLV Delivers Stronger Long Term Gains Than SGDM" — Motley Fool, 1.8h ago
+3. "Precious Metals Rise, But Remain Negative for the Week" — The Wall Street Journal, 2.4h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
-- YouTube: heat=explosive, tone=neutral, top="Trump caught by surprise as his election scheme backfires an" (122k views)
+- YouTube: heat=explosive, tone=bearish, top="Trump caught by surprise as his election scheme backfires an" (122k views)
 - Twitter: n/a
 ------------------------------------------------------------------------
 Asset: [RED] HG=F (Copper)
 
 Market signals:
-- Volume: extreme (31.68x 30d avg)
+- Volume: extreme (31.7x 30d avg)
 - Price velocity: normal (z_30d: -0.57, z_200d: -0.36, direction: down, macro_extreme: False)
 - RSI-14: 58.7 (normal)
-- Current price: $6.03 (-0.77% today)
+- Current price: $6.03 (-0.76% today)
 
 Recent news (last 3):
-1. "Teck Resources, IBD Stock Of The Day, Flirts With Buy Point At Highs" — Investor's Business Daily, 0.5h ago
-2. "TECK's Q1 Earnings Top Estimates on Record Copper Sales & Strong Pricing" — Zacks, 1.3h ago
-3. "Is Freeport-McMoRan (FCX) Pricing Fully Reflects Recent Copper Optimism And Share Volatility" — Simply Wall St., 2.5h ago
+1. "Teck Resources, IBD Stock Of The Day, Flirts With Buy Point At Highs" — Investor's Business Daily, 0.7h ago
+2. "TECK's Q1 Earnings Top Estimates on Record Copper Sales & Strong Pricing" — Zacks, 1.5h ago
+3. "Is Freeport-McMoRan (FCX) Pricing Fully Reflects Recent Copper Optimism And Share Volatility" — Simply Wall St., 2.7h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
-- YouTube: heat=explosive, tone=bullish, top="Copper Heatsinks are INSANELY Effective" (1626k views)
+- YouTube: heat=explosive, tone=bullish, top="Copper Heatsinks are INSANELY Effective" (1647k views)
 - Twitter: n/a
 ------------------------------------------------------------------------
 Asset: [RED] AMD (AMD)
@@ -193,9 +193,9 @@ Market signals:
 - Current price: $347.81 (+13.91% today)
 
 Recent news (last 3):
-1. "Software, semis, & BofA's 'perfect portfolio': Charts of the Day" — Yahoo Finance Video, 0.9h ago
-2. "Are Intel's impressive earnings a precursor to AMD's?" — Yahoo Finance Video, 6.3h ago
-3. "AMD stock jumps to record high on upgrade, Intel results" — Yahoo Finance, 7.5h ago
+1. "Software, semis, & BofA's 'perfect portfolio': Charts of the Day" — Yahoo Finance Video, 1.0h ago
+2. "Are Intel's impressive earnings a precursor to AMD's?" — Yahoo Finance Video, 6.4h ago
+3. "AMD stock jumps to record high on upgrade, Intel results" — Yahoo Finance, 7.7h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
@@ -211,13 +211,13 @@ Market signals:
 - Current price: $82.54 (+23.60% today)
 
 Recent news (last 3):
-1. "Trump wants to save Spirit Airlines. Republicans don't." — Yahoo Finance Video, 0.1h ago
-2. "Nvidia market cap back above $5T, Alphabet to invest $40B in Anthropic" — Yahoo Finance Video, 2.5h ago
-3. "Intel stock surges to record highs. These 4 events have powered the company's turnaround." — Yahoo Finance, 5.2h ago
+1. "Intel stock soars on Q1 earnings beat, strong outlook" — Yahoo Finance, 49.5h ago
+2. "Software, semis, & BofA's 'perfect portfolio': Charts of the Day" — Yahoo Finance Video, 1.0h ago
+3. "Earnings live updates: Intel stock soars, Procter & Gamble stock rises" — Yahoo Finance, 274.1h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
-- YouTube: heat=explosive, tone=bullish, top="Intel&#39;s 30% Rip Shocks Wall Street as Hormuz Crisis Send" (30k views)
+- YouTube: heat=explosive, tone=bullish, top="WARNING: NASDAQ Nears Parallel Hit That Could Spell MAJOR To" (39k views)
 - Twitter: n/a
 ------------------------------------------------------------------------
 Asset: [RED] POET (POET)
@@ -229,9 +229,9 @@ Market signals:
 - Current price: $15.10 (+28.84% today)
 
 Recent news (last 3):
-1. "Jim Cramer on POET: “I’m Not Ready to Recommend Chasing Here”" — Insider Monkey, 4.7h ago
-2. "Why Poet Technologies Stock Is Plummeting Today" — Motley Fool, 25.7h ago
-3. "POET Technologies (POET) Bags Orders From Marvell, Soars 24%" — Insider Monkey, 43.0h ago
+1. "Jim Cramer on POET: “I’m Not Ready to Recommend Chasing Here”" — Insider Monkey, 4.8h ago
+2. "Why Poet Technologies Stock Is Plummeting Today" — Motley Fool, 25.9h ago
+3. "POET Technologies (POET) Bags Orders From Marvell, Soars 24%" — Insider Monkey, 43.1h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
@@ -247,13 +247,13 @@ Market signals:
 - Current price: $234.81 (+14.76% today)
 
 Recent news (last 3):
-1. "US Equity Indexes Mixed This Week as Surging Technology Fails to Outweigh Iran Geopolitics" — MT Newswires, 0.3h ago
-2. "Stock Market Today: Nasdaq Leads Charge Ahead Of U.S.-Iran Peace Talks; Telecom Stock Tumbles (Live Coverage)" — Investor's Business Daily, 0.7h ago
-3. "US Equity Indexes Mixed as Intel Boosts Technology, Trump's Peace Envoys Set to Travel to Pakistan" — MT Newswires, 0.8h ago
+1. "Stock Market Today: Nasdaq, S&P 500 Score Record Closes; Rally Faces Mag 7 Earnings Test (Live Coverage)" — Investor's Business Daily, 0.3h ago
+2. "US Equity Indexes Mixed This Week as Surging Technology Fails to Outweigh Iran Geopolitics" — MT Newswires, 0.5h ago
+3. "US Equity Indexes Mixed as Intel Boosts Technology, Trump's Peace Envoys Set to Travel to Pakistan" — MT Newswires, 0.9h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
-- YouTube: heat=explosive, tone=bearish, top="Why do so many elite pass rushers have short arms?" (50k views)
+- YouTube: heat=explosive, tone=bearish, top="Why do so many elite pass rushers have short arms?" (51k views)
 - Twitter: n/a
 ------------------------------------------------------------------------
 Asset: [AMBER] AMZN (Amazon)
@@ -265,13 +265,13 @@ Market signals:
 - Current price: $263.99 (+3.49% today)
 
 Recent news (last 3):
-1. "Stock buybacks stay hot, while Big Tech beasts like Meta lay off workers en masse" — Yahoo Finance, 7.5h ago
-2. "Meta to use Amazon Graviton chips to power AI services" — Yahoo Finance, 8.6h ago
-3. "Amazon loses $150M after drones hit its data centers — and insurance won’t cover their losses. What it means for you" — Moneywise, 0.6h ago
+1. "Intel stock soars on Q1 earnings beat, strong outlook" — Yahoo Finance, 49.5h ago
+2. "Amazon Stock Rallies To Record High On Meta AI Chip Deal" — Investor's Business Daily, 0.3h ago
+3. "Amazon-Backed X-Energy Climbs 27% After $1.02 Billion US IPO" — Bloomberg, 0.6h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
-- YouTube: heat=explosive, tone=bearish, top="The WEIRDEST Amazon Scam" (788k views)
+- YouTube: heat=explosive, tone=bearish, top="The WEIRDEST Amazon Scam" (792k views)
 - Twitter: n/a
 ------------------------------------------------------------------------
 Asset: [AMBER] SOXL (SOXL)
@@ -283,9 +283,9 @@ Market signals:
 - Current price: $128.32 (+13.79% today)
 
 Recent news (last 3):
-1. "ETF Inflows Hit $39.6B as US Stocks Roar to Record Highs" — etf.com, 95.6h ago
-2. "Top Performing Leveraged/Inverse ETFs: 04/12/2026" — ETF Trends, 217.2h ago
-3. "2026 ETF Inflows Cross $500B" — etf.com, 263.6h ago
+1. "ETF Inflows Hit $39.6B as US Stocks Roar to Record Highs" — etf.com, 95.8h ago
+2. "Top Performing Leveraged/Inverse ETFs: 04/12/2026" — ETF Trends, 217.3h ago
+3. "2026 ETF Inflows Cross $500B" — etf.com, 263.8h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
