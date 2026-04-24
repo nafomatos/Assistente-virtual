@@ -135,6 +135,15 @@ def enrich_with_youtube(results: list[dict]) -> None:
     Mutates results in-place. Removes the '_st_raw' side-channel from all
     entries regardless of tier.
     """
+    alert_tickers = [r["ticker"] for r in results if get_alert_tier(r["signals"])]
+    if not alert_tickers:
+        logger.info("YouTube: no RED/AMBER tickers — skipping all YouTube fetches")
+        for r in results:
+            r.pop("_st_raw", None)
+        return
+
+    logger.info(f"YouTube: fetching for {len(alert_tickers)} RED/AMBER ticker(s): {', '.join(alert_tickers)}")
+
     for r in results:
         st_raw = r.pop("_st_raw", None)
         tier   = get_alert_tier(r["signals"])
@@ -150,11 +159,12 @@ def enrich_with_youtube(results: list[dict]) -> None:
         r["signals"]["sentiment"] = aggregate_sentiment(
             ticker, stocktwits=st_raw, youtube=youtube
         )
-        if youtube:
-            logger.info(
-                f"{ticker}: YouTube — {youtube.get('video_count', 0)} videos, "
-                f"heat={youtube.get('heat')}, tone={youtube.get('tone')}"
-            )
+        vc = (youtube or {}).get("video_count", 0)
+        logger.info(
+            f"{ticker}: YouTube — {vc} videos, "
+            f"heat={( youtube or {}).get('heat', 'n/a')}, "
+            f"tone={(youtube or {}).get('tone', 'n/a')}"
+        )
 
 
 def print_signal_summary(results: list[dict]) -> None:
