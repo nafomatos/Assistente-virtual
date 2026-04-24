@@ -57,11 +57,19 @@ def fetch_apewisdom_trending(max_results: int = 10) -> list[str]:
 
 
 def fetch_yahoo_trending(max_results: int = 10) -> list[str]:
-    """Return up to `max_results` tickers from Yahoo Finance trending."""
+    """Return up to `max_results` tickers from Yahoo Finance trending.
+
+    Uses yfinance Screener (available in yfinance >= 0.2.40).
+    Falls back gracefully if the API shape changes.
+    """
     try:
         import yfinance as yf
-        trending = yf.get_trending_tickers(count=max_results)
-        tickers = [t for t in (trending or []) if t]
+        screener = yf.Screener()
+        screener.set_predefined_body("most_actives")
+        screener.set_count(max_results)
+        resp = screener.response
+        rows = (resp or {}).get("quotes", [])
+        tickers = [r["symbol"] for r in rows if r.get("symbol")]
         logger.info(f"Yahoo Finance trending returned {len(tickers)} tickers")
         return tickers[:max_results]
     except Exception as e:
