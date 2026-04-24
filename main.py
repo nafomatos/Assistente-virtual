@@ -40,9 +40,9 @@ from collectors.buffett_indicator import fetch_buffett_indicator
 from collectors.buffett_indicator import format_summary as format_buffett
 from collectors.fear_greed import fetch_fear_greed, format_summary as format_fg
 from collectors.market_data import fetch_market_data
-from collectors.reddit_sentiment import fetch_reddit_signals
 from collectors.stocktwits_sentiment import fetch_stocktwits_sentiment
 from collectors.trending_tickers import fetch_trending_tickers
+from collectors.youtube_sentiment import fetch_youtube_signals
 from collectors.vix_structure import fetch_vix_structure
 from collectors.vix_structure import format_summary as format_vix
 from config import LOOKBACK_DAYS, TICKER_NAMES
@@ -91,6 +91,12 @@ def check_trading_day(date: dt.date) -> tuple[bool, str]:
 
 
 def run_pipeline(tickers: list[str]) -> list[dict]:
+    """Run market + StockTwits for all tickers.
+
+    YouTube is fetched separately in main() for RED/AMBER tickers only
+    (saves daily API quota). Raw StockTwits result is stored under
+    '_st_raw' on each result dict for use during the enrichment step.
+    """
     results = []
     for ticker in tickers:
         logger.info(f"--- {ticker} ---")
@@ -104,20 +110,13 @@ def run_pipeline(tickers: list[str]) -> list[dict]:
         velocity = analyze_price_velocity(market)
         rsi      = analyze_rsi(market)
 
-        company_name = TICKER_NAMES.get(ticker, ticker)
-        try:
-            reddit = fetch_reddit_signals(ticker, company_name)
-        except Exception as e:
-            logger.error(f"{ticker}: Reddit fetch failed: {e}")
-            reddit = None
-
         try:
             stocktwits = fetch_stocktwits_sentiment(ticker)
         except Exception as e:
             logger.error(f"{ticker}: StockTwits fetch failed: {e}")
             stocktwits = None
 
-        sentiment = aggregate_sentiment(ticker, reddit=reddit, stocktwits=stocktwits)
+        sentiment = aggregate_sentiment(ticker, stocktwits=stocktwits)
 
         signals = {
             "market":    market,
@@ -126,8 +125,46 @@ def run_pipeline(tickers: list[str]) -> list[dict]:
             "rsi":       rsi,
             "sentiment": sentiment,
         }
-        results.append({"ticker": ticker, "signals": signals})
+        results.append({"ticker": ticker, "signals": signals, "_st_raw": stocktwits})
     return results
+
+
+def enrich_with_youtube(results: list[dict]) -> None:
+    """Fetch YouTube signals for RED/AMBER tickers and re-aggregate sentiment.
+
+    Mutates results in-place. Removes the '_st_raw' side-channel from all
+    entries regardless of tier.
+    """
+    alert_tickers = [r["ticker"] for r in results if get_alert_tier(r["signals"])]
+    if not alert_tickers:
+        logger.info("YouTube: no RED/AMBER tickers — skipping all YouTube fetches")
+        for r in results:
+            r.pop("_st_raw", None)
+        return
+
+    logger.info(f"YouTube: fetching for {len(alert_tickers)} RED/AMBER ticker(s): {', '.join(alert_tickers)}")
+
+    for r in results:
+        st_raw = r.pop("_st_raw", None)
+        tier   = get_alert_tier(r["signals"])
+        if not tier:
+            continue
+        ticker = r["ticker"]
+        name   = TICKER_NAMES.get(ticker, ticker)
+        youtube = None
+        try:
+            youtube = fetch_youtube_signals(ticker, name)
+        except Exception as e:
+            logger.error(f"{ticker}: YouTube fetch failed: {e}")
+        r["signals"]["sentiment"] = aggregate_sentiment(
+            ticker, stocktwits=st_raw, youtube=youtube
+        )
+        vc = (youtube or {}).get("video_count", 0)
+        logger.info(
+            f"{ticker}: YouTube — {vc} videos, "
+            f"heat={( youtube or {}).get('heat', 'n/a')}, "
+            f"tone={(youtube or {}).get('tone', 'n/a')}"
+        )
 
 
 def print_signal_summary(results: list[dict]) -> None:
@@ -185,19 +222,20 @@ def print_debug_table(results: list[dict]) -> None:
 
         rsi_str = f"{rs['rsi']:.1f}" if rs.get("rsi") is not None else "n/a"
         sent = r["signals"].get("sentiment") or {}
+        bd   = sent.get("source_breakdown") or {}
         st_heat = sent.get("stocktwits_heat") or "n/a"
         st_tone_str = (
-            (sent.get("source_breakdown") or {})
-            .get("stocktwits", "n/a")
-            .split("tone=")[-1].split(",")[0]
-            if "tone=" in (sent.get("source_breakdown") or {}).get("stocktwits", "")
+            bd.get("stocktwits", "n/a").split("tone=")[-1].split(",")[0]
+            if "tone=" in bd.get("stocktwits", "")
             else "n/a"
         )
+        yt_str = bd.get("youtube", "n/a")
+        yt_heat = yt_str.split("heat=")[-1].split(",")[0] if "heat=" in yt_str else "n/a"
         print(
             f"{ticker:<7} {v['ratio']:>9.2f}x "
             f"{p['z_score_30d']:>+8.2f} {p['z_score_200d']:>+8.2f} "
             f"{rsi_str:>6} {rs['classification']:<18} "
-            f"st={st_heat}/{st_tone_str:<8} {reason}"
+            f"st={st_heat}/{st_tone_str:<8} yt={yt_heat:<8} {reason}"
         )
 
     print("-" * 120)
@@ -351,6 +389,7 @@ def main(argv: list[str]) -> int:
 
     # ── Pipeline ─────────────────────────────────────────────────────────────
     results = run_pipeline(tickers)
+    enrich_with_youtube(results)   # YouTube fetched only for RED/AMBER tickers
     print_signal_summary(results)
 
     # ── Post-pipeline ticker state updates ───────────────────────────────────

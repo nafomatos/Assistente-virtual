@@ -51,7 +51,7 @@ Apply these rules before anything else. They override any pattern-matching insti
 1. **Volume is the primary ingredient.** "anomalous" (>2.5x) or "extreme" (>5x) 30d-average volume is a prerequisite for any high-confidence call. Without it, even large price moves are usually noise.
 2. **Price velocity (z-score)** tells you the direction and intensity of the move relative to recent history. Dual-window confirmation (both z_30d and z_200d elevated) is a stronger signal than a single window.
 3. **Social Heat** is a confirming indicator, not a leading one. Use it to distinguish institutional from retail-driven flows (the Divergence Principle above). If heat is the only elevated signal, default to "ambiguous".
-4. **Tone** (bullish/bearish from StockTwits/Reddit) refines the direction of retail sentiment, but only matters when heat is at least "elevated".
+4. **Tone** (bullish/bearish from StockTwits/YouTube) refines the direction of retail sentiment, but only matters when heat is at least "elevated".
 5. **Absence of signal is a valid finding.** On most days, for most assets, nothing interesting is happening. Saying so clearly is more valuable than inventing patterns.
 6. **Do not apply asset reputation as a prior.** Analyze the signals as presented; do not assume TSLA is always a bubble or GC=F is always safe.
 

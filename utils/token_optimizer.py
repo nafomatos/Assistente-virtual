@@ -88,24 +88,21 @@ def compress_signals(ticker: str, name: str, signals: dict) -> str:
     # Social heat: z-score preferred over raw score
     if s is None:
         social_line        = "social_heat_z: n/a"
-        reddit_summary     = "n/a"
         stocktwits_summary = "n/a"
-        twitter_summary    = "n/a"
         youtube_summary    = "n/a"
+        twitter_summary    = "n/a"
     else:
         heat_z = s.get("social_heat_zscore")
         if heat_z is not None:
             social_line = f"social_heat_z: {heat_z:+.1f}"
         else:
-            # Fall back to raw score if somehow present
             raw = s.get("social_heat")
             social_line = f"social_heat: {raw}/100" if raw is not None else "social_heat_z: n/a"
 
         breakdown = s.get("source_breakdown") or {}
-        reddit_summary      = breakdown.get("reddit",      "n/a")
-        stocktwits_summary  = breakdown.get("stocktwits",  "n/a")
-        twitter_summary     = breakdown.get("twitter",     "n/a")
-        youtube_summary     = breakdown.get("youtube",     "n/a")
+        stocktwits_summary = breakdown.get("stocktwits", "n/a")
+        youtube_summary    = breakdown.get("youtube",    "n/a")
+        twitter_summary    = breakdown.get("twitter",    "n/a")
 
     rsi_value = r.get("rsi")
     rsi_class = r.get("classification", "n/a")
@@ -132,9 +129,8 @@ def compress_signals(ticker: str, name: str, signals: dict) -> str:
         f"({m['daily_return_pct']:+.2f}% today)\n\n"
         f"Recent news (last 3):\n{news_str}\n\n"
         f"Social signals ({social_line}):\n"
-        f"- Reddit: {reddit_summary}\n"
         f"- StockTwits: {stocktwits_summary}\n"
-        f"- Twitter: {twitter_summary}\n"
-        f"- YouTube: {youtube_summary}\n\n"
+        f"- YouTube: {youtube_summary}\n"
+        f"- Twitter: {twitter_summary}\n\n"
         f"Analyze and respond in JSON."
     )

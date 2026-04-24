@@ -78,6 +78,6 @@ No code changes needed.
 
 ## Roadmap
 
-- **Phase 3**: social-sentiment collectors (Reddit → X → YouTube).
-- **Phase 4**: Claude API integration with prompt caching and token logging,
+- **Phase 3**: Claude API integration with prompt caching and token logging,
   replacing the manual paste-into-Claude.ai step.
+- **Phase 4**: Twitter/X sentiment collector.

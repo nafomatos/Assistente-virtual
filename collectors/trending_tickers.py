@@ -1,7 +1,7 @@
 """Discover trending US equity tickers from ApeWisdom and Yahoo Finance.
 
 Both sources are public and require no API key.
-ApeWisdom ranks tickers by social-media mention velocity on Reddit/StockTwits.
+ApeWisdom ranks tickers by social-media mention velocity across Reddit and StockTwits.
 Yahoo Finance returns its own trending list.
 """
 
