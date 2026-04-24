@@ -52,25 +52,23 @@ def _heat(video_count: int) -> str:
     return "low"
 
 
-def fetch_youtube_signals(ticker: str, company_name: str) -> dict:
+def fetch_youtube_signals(ticker: str, company_name: str) -> dict | None:
     """Search YouTube for recent videos about *ticker* / *company_name*.
 
     Returns
     -------
-    {
-        "video_count": int,    # videos found in last 48 h
-        "total_views": int,    # sum of viewCounts
-        "top_videos":  list,   # top 3 by views: {title, channel, views, hours_ago}
-        "heat":        str,    # "explosive"|"elevated"|"stable"|"low"
-        "tone":        str,    # "bullish"|"bearish"|"neutral"
-    }
+    dict with keys: video_count, total_views, top_videos, heat, tone
+        when the API key is configured (even if 0 videos found).
+    None
+        when YOUTUBE_API_KEY is not set or the API client cannot be built
+        (caller treats this as "not configured" and skips baseline update).
 
-    Returns the null dict on any failure — never raises.
+    Never raises.
     """
     api_key = os.getenv("YOUTUBE_API_KEY", "").strip()
     if not api_key:
         logger.info(f"YouTube {ticker}: YOUTUBE_API_KEY not set — skipping")
-        return dict(_NULL)
+        return None
 
     try:
         from googleapiclient.discovery import build
@@ -89,7 +87,7 @@ def fetch_youtube_signals(ticker: str, company_name: str) -> dict:
         yt = build("youtube", "v3", developerKey=api_key, cache_discovery=False)
     except Exception as e:
         logger.warning(f"YouTube {ticker}: client build failed — {e}")
-        return dict(_NULL)
+        return None
 
     video_ids: list[str] = []
     title_map: dict[str, str] = {}

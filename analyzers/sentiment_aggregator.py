@@ -134,9 +134,9 @@ def aggregate_sentiment(
         "twitter":    "n/a",
     }
 
-    video_count: int | None = (youtube or {}).get("video_count")
-
-    if video_count is None:
+    # None means "API not configured" — don't update baseline and return early.
+    # A dict with video_count=0 means "configured but no videos found" — valid data point.
+    if youtube is None:
         return {
             "social_heat_zscore": None,
             "video_count":        None,
@@ -144,6 +144,8 @@ def aggregate_sentiment(
             "stocktwits_score":   st_score,
             "source_breakdown":   breakdown,
         }
+
+    video_count: int = youtube.get("video_count", 0)
 
     # Z-score against 30-day rolling YouTube video_count baseline
     baseline = _load_baseline()
