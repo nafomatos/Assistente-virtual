@@ -13,8 +13,29 @@ from __future__ import annotations
 import datetime as dt
 import logging
 import os
+import re
 
 logger = logging.getLogger(__name__)
+
+_FINANCIAL_KEYWORDS: frozenset[str] = frozenset([
+    # General financial terms
+    "stock", "stocks", "market", "markets", "trading", "trader", "trade",
+    "invest", "investing", "investor", "price", "earnings", "bullish", "bearish",
+    "buy", "sell", "dump", "crash", "surge", "rally", "breakout", "dividend",
+    "options", "calls", "puts", "futures", "hedge", "portfolio", "ipo", "sec",
+    # Technical analysis
+    "chart", "analysis", "prediction", "forecast", "target", "support", "resistance",
+])
+
+# Extra domain words for each commodity ticker (in addition to _FINANCIAL_KEYWORDS)
+_COMMODITY_DOMAIN: dict[str, frozenset[str]] = {
+    "GC=F": frozenset(["mining", "ounce", "bullion"]),
+    "SI=F": frozenset(["mining", "ounce"]),
+    "HG=F": frozenset(["mining", "lb", "lme"]),
+    "CL=F": frozenset(["crude", "wti", "brent", "barrel", "opec"]),
+    "ZS=F": frozenset(["cbot", "bushel", "harvest"]),
+    "NG=F": frozenset(["henry hub", "lng"]),
+}
 
 _BEARISH: frozenset[str] = frozenset([
     "crash", "dump", "collapse", "tank", "sell", "selling",
@@ -32,6 +53,48 @@ _NULL: dict = {
     "heat":        "low",
     "tone":        "neutral",
 }
+
+
+def _is_financially_relevant(title: str, ticker: str, company_name: str) -> bool:
+    """Return True only if the video title is about the financial asset.
+
+    Two conditions must both be satisfied:
+    1. Title contains at least one financial keyword (or commodity-specific domain word).
+    2. Title mentions the ticker symbol (word boundary) or company name.
+    """
+    t = title.lower()
+
+    # Condition 1: financial or commodity-specific keyword present
+    keywords = _FINANCIAL_KEYWORDS | _COMMODITY_DOMAIN.get(ticker, frozenset())
+    if not any(kw in t for kw in keywords):
+        return False
+
+    # Condition 2: ticker or company name appears in the title
+    ticker_alpha = re.sub(r"[^a-zA-Z]", "", ticker)  # "GCFF" → "GCF"; "NVDA" → "NVDA"
+
+    # "$TICKER" pattern (e.g., "$NVDA")
+    if ticker_alpha and f"${ticker_alpha.lower()}" in t:
+        return True
+
+    # Ticker as a standalone word — only when alpha portion is ≥ 3 chars
+    # (2-char commodity root like "GC" is too noisy; rely on company name instead)
+    if len(ticker_alpha) >= 3 and re.search(
+        r"\b" + re.escape(ticker_alpha.lower()) + r"\b", t
+    ):
+        return True
+
+    # Full company name as a substring (e.g., "Crude Oil WTI")
+    name_lower = company_name.lower()
+    if name_lower in t:
+        return True
+
+    # Any significant word (≥ 4 chars) from the company name
+    # Covers "Rocket" from "Rocket Lab", "crude" from "Crude Oil WTI", etc.
+    for word in name_lower.split():
+        if len(word) >= 4 and word in t:
+            return True
+
+    return False
 
 
 def _classify_tone(titles: list[str]) -> str:
@@ -118,6 +181,19 @@ def fetch_youtube_signals(ticker: str, company_name: str) -> dict | None:
         logger.info(f"YouTube {ticker}: 0 videos in last 48h")
         return dict(_NULL)
 
+    # Financial relevance filter — drop noise (hardware reviews, sports, pop culture, etc.)
+    n_raw = len(video_ids)
+    video_ids = [
+        vid_id for vid_id in video_ids
+        if _is_financially_relevant(title_map[vid_id], ticker, company_name)
+    ]
+    logger.info(
+        f"YouTube {ticker}: {n_raw} videos found, "
+        f"{len(video_ids)} financially relevant after filter"
+    )
+    if not video_ids:
+        return dict(_NULL)
+
     # Batch-fetch statistics (max 50 IDs per request)
     view_map:      dict[str, int] = {}
     channel_map:   dict[str, str] = {}
@@ -136,8 +212,8 @@ def fetch_youtube_signals(ticker: str, company_name: str) -> dict | None:
             published_map[vid_id] = snippet.get("publishedAt", "")
     except Exception as e:
         logger.warning(f"YouTube {ticker}: stats fetch failed — {e}")
-        # Return heat/tone without view counts
-        titles = list(title_map.values())
+        # Return heat/tone without view counts (video_ids already filtered)
+        titles = [title_map[vid_id] for vid_id in video_ids]
         return {
             "video_count": len(video_ids),
             "total_views": 0,
