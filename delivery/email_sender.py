@@ -390,14 +390,28 @@ def _weekly_macro_card(macro_evolution: dict) -> str:
     buf_end_pct   = (macro_evolution.get("buffett_end")   or {}).get("pct")
     buf_end_cls   = (macro_evolution.get("buffett_end")   or {}).get("class", "")
 
-    if buf_start_pct is not None and buf_end_pct is not None:
+    if buf_end_pct is not None:
         bc = _buffett_color(buf_end_cls)
-        buf_diff = buf_end_pct - buf_start_pct
+        if buf_start_pct is not None:
+            buf_diff = buf_end_pct - buf_start_pct
+            diff_span = (
+                f"<span style='color:#64748b;font-size:11px;'>"
+                f" &nbsp;({'+' if buf_diff >= 0 else ''}{buf_diff:.0f}pp)</span>"
+            )
+            start_span = f"<span style='color:#94a3b8;'>{buf_start_pct:.0f}%</span> → "
+        else:
+            diff_span = ""
+            start_span = "<span style='color:#64748b;font-size:11px;'>N/A</span> → "
         buf_cell = (
-            f"<span style='color:#94a3b8;'>{buf_start_pct:.0f}%</span>"
-            f" → "
+            f"{start_span}"
             f"<span style='color:{bc};font-weight:700;'>{buf_end_pct:.0f}% — {html.escape(buf_end_cls)}</span>"
-            f"<span style='color:#64748b;font-size:11px;'> &nbsp;({'+' if buf_diff >= 0 else ''}{buf_diff:.0f}pp)</span>"
+            f"{diff_span}"
+        )
+    elif buf_start_pct is not None:
+        bc = _buffett_color((macro_evolution.get("buffett_start") or {}).get("class", ""))
+        buf_cell = (
+            f"<span style='color:{bc};font-weight:700;'>{buf_start_pct:.0f}%</span>"
+            f" → <span style='color:#64748b;font-size:11px;'>N/A</span>"
         )
     else:
         buf_cell = "<span style='color:#64748b;'>unavailable</span>"

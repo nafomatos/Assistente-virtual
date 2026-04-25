@@ -14,13 +14,13 @@ import os
 logger = logging.getLogger(__name__)
 
 _MODEL = "claude-haiku-4-5-20251001"
-_MAX_TOKENS = 400   # narrative capped at ~800 chars ≈ 200-250 tokens; headroom for safety
+_MAX_TOKENS = 600   # narrative capped at ~1200 chars ≈ 300-350 tokens; headroom for safety
 
 _SYSTEM = (
     "Você é um analista sênior de mercados financeiros. "
     "Escreva um resumo semanal conciso e perspicaz em português brasileiro. "
     "Tom conversacional, como um debrief de sexta à tarde entre colegas. "
-    "Máximo 800 caracteres totais. Sem markdown, sem bullet points — apenas parágrafos."
+    "Máximo 1200 caracteres totais. Sem markdown, sem bullet points — apenas parágrafos."
 )
 
 _INSTRUCTION_TEMPLATE = """\
