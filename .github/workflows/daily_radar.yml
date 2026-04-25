@@ -10,6 +10,10 @@ on:
         description: "Run in debug mode (all 18 tickers, no email, no log commit)"
         type: boolean
         default: false
+      force:
+        description: "Force run — bypasses market calendar. On weekends sends the weekly summary only."
+        type: boolean
+        default: false
 
 # Needed for the "Archive log" step to push back to the repo.
 permissions:
@@ -42,9 +46,12 @@ jobs:
           EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           if [ "${{ inputs.debug }}" = "true" ]; then
             python main.py --debug 2>&1 | tee debug_output.txt
+          elif [ "${{ inputs.force }}" = "true" ]; then
+            python main.py --force
           else
             python main.py
           fi
