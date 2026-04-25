@@ -362,7 +362,294 @@ def build_html_email(
 </html>"""
 
 
+# ── weekly helpers ─────────────────────────────────────────────────────────
+
+def _weekly_macro_card(macro_evolution: dict) -> str:
+    """Dark-theme card showing Fear & Greed and Buffett Indicator evolution."""
+    fg_start = (macro_evolution.get("fear_greed_start") or {}).get("score")
+    fg_end   = (macro_evolution.get("fear_greed_end")   or {}).get("score")
+    fg_start_date = (macro_evolution.get("fear_greed_start") or {}).get("date", "")
+    fg_end_date   = (macro_evolution.get("fear_greed_end")   or {}).get("date", "")
+
+    if fg_start is not None and fg_end is not None:
+        diff = fg_end - fg_start
+        arrow = "↑" if diff > 0 else "↓" if diff < 0 else "→"
+        diff_str = f"{'+' if diff > 0 else ''}{diff}"
+        fg_cell = (
+            f"<span style='color:{_fg_color(fg_start)};font-weight:700;'>{fg_start}/100</span>"
+            f"<span style='color:#64748b;'> ({fg_start_date})</span>"
+            f"<span style='color:#475569;'> {arrow} </span>"
+            f"<span style='color:{_fg_color(fg_end)};font-weight:700;'>{fg_end}/100</span>"
+            f"<span style='color:#64748b;'> ({fg_end_date})</span>"
+            f"<span style='color:#64748b;font-size:11px;'> &nbsp;{diff_str}</span>"
+        )
+    else:
+        fg_cell = "<span style='color:#64748b;'>unavailable</span>"
+
+    buf_start_pct = (macro_evolution.get("buffett_start") or {}).get("pct")
+    buf_end_pct   = (macro_evolution.get("buffett_end")   or {}).get("pct")
+    buf_end_cls   = (macro_evolution.get("buffett_end")   or {}).get("class", "")
+
+    if buf_start_pct is not None and buf_end_pct is not None:
+        bc = _buffett_color(buf_end_cls)
+        buf_diff = buf_end_pct - buf_start_pct
+        buf_cell = (
+            f"<span style='color:#94a3b8;'>{buf_start_pct:.0f}%</span>"
+            f" → "
+            f"<span style='color:{bc};font-weight:700;'>{buf_end_pct:.0f}% — {html.escape(buf_end_cls)}</span>"
+            f"<span style='color:#64748b;font-size:11px;'> &nbsp;({'+' if buf_diff >= 0 else ''}{buf_diff:.0f}pp)</span>"
+        )
+    else:
+        buf_cell = "<span style='color:#64748b;'>unavailable</span>"
+
+    rows = [("Fear &amp; Greed", fg_cell), ("Buffett Indicator", buf_cell)]
+    trs = "".join(
+        f"<tr>"
+        f"<td style='color:#94a3b8;padding:4px 14px 4px 0;font-size:12px;white-space:nowrap;vertical-align:middle;'>{label}</td>"
+        f"<td style='font-size:13px;padding:4px 0;vertical-align:middle;'>{value}</td>"
+        f"</tr>"
+        for label, value in rows
+    )
+    return (
+        f"<div style='background:#1e1e1e;border-radius:6px;padding:16px 20px;margin-bottom:14px;'>"
+        f"<div style='font-size:10px;font-weight:700;color:#64748b;letter-spacing:.08em;"
+        f"text-transform:uppercase;margin-bottom:10px;'>MACRO EVOLUTION</div>"
+        f"<table style='border-collapse:collapse;width:100%;'><tbody>{trs}</tbody></table>"
+        f"</div>"
+    )
+
+
+def _weekly_frequency_table(
+    asset_frequency: dict,
+    highest_volume: list[dict],
+    red_alerts: list[dict],
+    amber_alerts: list[dict],
+) -> str:
+    """Signal frequency table: ticker | days flagged | peak vol | tier."""
+    if not asset_frequency:
+        return (
+            "<div style='background:#1e1e1e;border-radius:6px;padding:14px 20px;"
+            "margin-bottom:14px;color:#64748b;font-style:italic;font-size:13px;'>"
+            "Nenhum alerta registrado esta semana.</div>"
+        )
+
+    red_set = {a["ticker"] for a in red_alerts}
+    amber_set = {a["ticker"] for a in amber_alerts}
+
+    vol_by_ticker: dict[str, float] = {}
+    for v in highest_volume:
+        t = v["ticker"]
+        if v["ratio"] > vol_by_ticker.get(t, 0.0):
+            vol_by_ticker[t] = v["ratio"]
+
+    header_style = (
+        "font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;"
+        "letter-spacing:.06em;padding:4px 10px 4px 0;"
+    )
+    rows_html = (
+        f"<tr>"
+        f"<th style='{header_style}'>Ativo</th>"
+        f"<th style='{header_style}text-align:right;'>Dias</th>"
+        f"<th style='{header_style}text-align:right;'>Vol pico</th>"
+        f"<th style='{header_style}text-align:right;'>Tier</th>"
+        f"</tr>"
+    )
+    for ticker, days in asset_frequency.items():
+        tier = "RED" if ticker in red_set else "AMBER"
+        tier_color = "#ef4444" if tier == "RED" else "#f97316"
+        peak_vol = vol_by_ticker.get(ticker)
+        vol_str = f"{peak_vol:.1f}x" if peak_vol else "—"
+        rows_html += (
+            f"<tr>"
+            f"<td style='font-size:13px;padding:4px 10px 4px 0;font-weight:600;'>{html.escape(ticker)}</td>"
+            f"<td style='font-size:13px;padding:4px 10px 4px 0;text-align:right;color:#94a3b8;'>{days}</td>"
+            f"<td style='font-size:13px;padding:4px 10px 4px 0;text-align:right;color:#94a3b8;'>{vol_str}</td>"
+            f"<td style='font-size:13px;padding:4px 0;text-align:right;'>"
+            f"<span style='color:{tier_color};font-weight:700;font-size:10px;'>{tier}</span>"
+            f"</td>"
+            f"</tr>"
+        )
+
+    return (
+        f"<div style='background:#1e1e1e;border-radius:6px;padding:16px 20px;margin-bottom:14px;'>"
+        f"<div style='font-size:10px;font-weight:700;color:#64748b;letter-spacing:.08em;"
+        f"text-transform:uppercase;margin-bottom:10px;'>FREQUÊNCIA DE SINAIS</div>"
+        f"<table style='border-collapse:collapse;width:100%;'><tbody>{rows_html}</tbody></table>"
+        f"</div>"
+    )
+
+
+def _weekly_volume_spikes(highest_volume: list[dict]) -> str:
+    """Top 3 volume spikes card."""
+    if not highest_volume:
+        return ""
+    items_html = ""
+    for i, v in enumerate(highest_volume[:3], 1):
+        items_html += (
+            f"<div style='display:flex;justify-content:space-between;align-items:center;"
+            f"padding:5px 0;border-bottom:1px solid #2d2d2d;'>"
+            f"<span style='font-size:13px;'>"
+            f"<span style='color:#94a3b8;margin-right:6px;'>#{i}</span>"
+            f"<span style='font-weight:700;'>{html.escape(v['ticker'])}</span>"
+            f"<span style='color:#64748b;font-size:11px;margin-left:8px;'>{v['date']}</span>"
+            f"</span>"
+            f"<span style='color:#ef4444;font-weight:700;font-size:14px;'>{v['ratio']:.1f}x</span>"
+            f"</div>"
+        )
+    return (
+        f"<div style='background:#1e1e1e;border-radius:6px;padding:16px 20px;margin-bottom:14px;'>"
+        f"<div style='font-size:10px;font-weight:700;color:#64748b;letter-spacing:.08em;"
+        f"text-transform:uppercase;margin-bottom:10px;'>TOP 3 PICOS DE VOLUME</div>"
+        f"{items_html}"
+        f"</div>"
+    )
+
+
+def _weekly_dynamic_changes(dynamic_changes: dict) -> str:
+    """Promoted/demoted tickers card. Omitted entirely if both lists are empty."""
+    promoted = dynamic_changes.get("promoted") or []
+    demoted  = dynamic_changes.get("demoted")  or []
+    if not promoted and not demoted:
+        return ""
+
+    def _badge_list(tickers: list[str], color: str, label: str) -> str:
+        if not tickers:
+            return ""
+        badges = "".join(
+            f"<span style='background:{color};color:#fff;font-size:11px;font-weight:700;"
+            f"padding:2px 8px;border-radius:3px;margin-right:4px;'>{html.escape(t)}</span>"
+            for t in tickers
+        )
+        return (
+            f"<div style='margin-bottom:8px;'>"
+            f"<span style='color:#64748b;font-size:11px;margin-right:8px;'>{label}</span>"
+            f"{badges}</div>"
+        )
+
+    content = _badge_list(promoted, "#22c55e", "Promovidos →") + _badge_list(demoted, "#ef4444", "Removidos →")
+    return (
+        f"<div style='background:#1e1e1e;border-radius:6px;padding:16px 20px;margin-bottom:14px;'>"
+        f"<div style='font-size:10px;font-weight:700;color:#64748b;letter-spacing:.08em;"
+        f"text-transform:uppercase;margin-bottom:10px;'>ALTERAÇÕES DE TICKERS</div>"
+        f"{content}"
+        f"</div>"
+    )
+
+
+def _weekly_narrative_card(narrative: str) -> str:
+    if not narrative:
+        return ""
+    return (
+        f"<div style='background:#1a2035;border-radius:6px;border-left:4px solid #3b82f6;"
+        f"padding:16px 20px;margin-bottom:14px;'>"
+        f"<div style='font-size:10px;font-weight:700;color:#64748b;letter-spacing:.08em;"
+        f"text-transform:uppercase;margin-bottom:10px;'>ANÁLISE SEMANAL</div>"
+        f"<div style='font-size:13px;line-height:1.65;color:#cbd5e1;white-space:pre-wrap;'>"
+        f"{html.escape(narrative)}"
+        f"</div>"
+        f"</div>"
+    )
+
+
+def build_weekly_html_email(
+    summary: dict,
+    narrative: str,
+    date: dt.date,
+) -> str:
+    week_start = summary.get("week_start", "")
+    week_end   = summary.get("week_end", date.isoformat())
+    days       = summary.get("days_analyzed", 0)
+    total      = summary.get("total_signals", 0)
+    me         = summary.get("macro_evolution", {})
+
+    macro_card     = _weekly_macro_card(me)
+    freq_table     = _weekly_frequency_table(
+        summary.get("asset_frequency", {}),
+        summary.get("highest_volume", []),
+        summary.get("red_alerts", []),
+        summary.get("amber_alerts", []),
+    )
+    vol_card       = _weekly_volume_spikes(summary.get("highest_volume", []))
+    dynamic_card   = _weekly_dynamic_changes(summary.get("dynamic_changes", {}))
+    narrative_card = _weekly_narrative_card(narrative)
+
+    days_note = f"{days} de 5 dias úteis analisados"
+
+    return f"""<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#0f0f0f;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#f1f5f9;">
+<div style="max-width:600px;margin:0 auto;padding:24px 16px;">
+
+  <div style="margin-bottom:20px;">
+    <div style="font-size:10px;font-weight:700;color:#475569;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;">Artificial Price Radar</div>
+    <div style="font-size:22px;font-weight:700;color:#f1f5f9;">Resumo Semanal &mdash; {week_start} a {week_end}</div>
+    <div style="font-size:12px;color:#64748b;margin-top:4px;">{days_note} &middot; {total} alertas totais (RED+AMBER)</div>
+  </div>
+
+  {macro_card}
+
+  {freq_table}
+
+  {vol_card}
+
+  {dynamic_card}
+
+  {narrative_card}
+
+  <div style="margin-top:20px;font-size:10px;color:#374151;text-align:center;">
+    Gerado em {date.isoformat()} &middot; Artificial Price Radar
+  </div>
+
+</div>
+</body>
+</html>"""
+
+
 # ── public entry point ─────────────────────────────────────────────────────
+
+def send_weekly_report(
+    summary: dict,
+    narrative: str,
+    date: dt.date,
+) -> None:
+    """Send the weekly summary as a standalone HTML email.
+
+    Subject: [Radar] Weekly Summary — Week of {monday_date}
+    Raises EmailConfigError if SMTP credentials are absent.
+    """
+    sender, password, recipient = _load_config()
+
+    week_start = summary.get("week_start", date.isoformat())
+    html_body = build_weekly_html_email(summary=summary, narrative=narrative, date=date)
+
+    plain = (
+        f"[Radar] Resumo Semanal — {week_start} a {summary.get('week_end', date.isoformat())}\n\n"
+        f"Dias analisados: {summary.get('days_analyzed', 0)}\n"
+        f"Total de alertas: {summary.get('total_signals', 0)}\n\n"
+        f"Ativos mais frequentes:\n"
+        + "\n".join(
+            f"  {t}: {d}d" for t, d in (summary.get("asset_frequency") or {}).items()
+        )
+        + ("\n\n" + narrative if narrative else "")
+    )
+
+    msg = EmailMessage()
+    msg["Subject"] = f"[Radar] Weekly Summary — Week of {week_start}"
+    msg["From"]    = sender
+    msg["To"]      = recipient
+    msg.set_content(plain)
+    msg.add_alternative(html_body, subtype="html")
+
+    logger.info(f"sending weekly report (week of {week_start}) to {recipient}")
+    with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as smtp:
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.ehlo()
+        smtp.login(sender, password)
+        smtp.send_message(msg)
+    logger.info("weekly report email sent")
+
 
 def send_report(
     report_path: str | None = None,

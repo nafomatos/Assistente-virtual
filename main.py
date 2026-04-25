@@ -55,8 +55,10 @@ from config.ticker_manager import (
     record_trigger,
     remove_stale_dynamic,
 )
-from delivery.email_sender import EmailConfigError, send_report
+from claude_advisor.weekly_advisor import generate_weekly_narrative
+from delivery.email_sender import EmailConfigError, send_report, send_weekly_report
 from output.document_builder import get_alert_tier, get_tier_reason, write_document
+from output.weekly_summary import generate_weekly_summary
 
 load_dotenv()
 
@@ -69,6 +71,21 @@ logger = logging.getLogger("radar")
 
 LOGS_DIR = "logs"
 FULL_SESSION_MIN_HOURS = 6.0
+
+
+def should_send_weekly(date: dt.date, force: bool) -> bool:
+    """Return True when the weekly summary email should be sent.
+
+    Rules:
+    - Always on Friday (weekday 4).
+    - On Saturday/Sunday only when force=True (manual workflow_dispatch).
+    - Never on Mon-Thu even with force (not meaningful mid-week).
+    """
+    if date.weekday() == 4:
+        return True
+    if force and date.weekday() in (5, 6):
+        return True
+    return False
 
 
 def check_trading_day(date: dt.date) -> tuple[bool, str]:
@@ -463,6 +480,41 @@ def main(argv: list[str]) -> int:
             logger.exception("email send failed")
             print(f"Email send failed: {e}", file=sys.stderr)
             return 1
+
+    # ── Weekly summary (Fridays, or forced on weekends) ───────────────────
+    if send_email and should_send_weekly(date, force):
+        weekly_summary = generate_weekly_summary(LOGS_DIR, date)
+        if not weekly_summary:
+            logger.warning("weekly summary: no log data found — skipping weekly email")
+        else:
+            days = weekly_summary.get("days_analyzed", 0)
+            if days < 3:
+                logger.info(
+                    f"weekly summary: only {days} of 5 trading days found — "
+                    "sending with available data"
+                )
+            macro_context = {
+                "fear_greed": fear_greed,
+                "buffett": buffett,
+            }
+            narrative = generate_weekly_narrative(weekly_summary, macro_context)
+            if not narrative:
+                logger.info("weekly summary: sending without narrative (generation failed or skipped)")
+            try:
+                send_weekly_report(
+                    summary=weekly_summary,
+                    narrative=narrative,
+                    date=date,
+                )
+                logger.info("weekly summary sent")
+                print("Weekly summary sent.")
+            except EmailConfigError as e:
+                logger.warning(f"weekly email skipped: {e}")
+                print(f"Weekly email skipped: {e}")
+            except Exception as e:
+                logger.exception("weekly email send failed")
+                print(f"Weekly email send failed: {e}", file=sys.stderr)
+
     return 0
 
 
