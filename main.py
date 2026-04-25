@@ -359,11 +359,49 @@ def _parse_args(argv: list[str]) -> tuple[list[str], bool, bool, bool, dt.date]:
 def main(argv: list[str]) -> int:
     tickers_cli, send_email, force, debug, date = _parse_args(argv)
 
-    ok, reason = (True, "forced") if force else check_trading_day(date)
+    ok, reason = check_trading_day(date)
     logger.info(f"market check for {date.isoformat()}: {reason}")
-    if not ok:
-        print(f"Market closed on {date.isoformat()} ({reason}). Exiting cleanly.")
+
+    is_weekend = date.weekday() in (5, 6)
+    # Force bypasses the market calendar only for non-weekend days (holidays,
+    # early closes, ad-hoc testing). On weekends --force triggers weekly-only mode.
+    run_full_pipeline = ok or (force and not is_weekend)
+
+    if not run_full_pipeline:
+        if force and is_weekend and should_send_weekly(date, force) and send_email and not debug:
+            # Weekend manual dispatch: send weekly summary without the daily pipeline.
+            logger.info("Weekend + --force: running weekly-only report (no daily pipeline)")
+            print("Market closed (weekend). Running weekly-only report.")
+            weekly_summary = generate_weekly_summary(LOGS_DIR, date)
+            if not weekly_summary:
+                logger.warning("weekly summary: no log data found — skipping")
+                print("Weekly summary: no log data found.")
+            else:
+                days = weekly_summary.get("days_analyzed", 0)
+                if days < 3:
+                    logger.info(
+                        f"weekly summary: only {days} of 5 trading days found — "
+                        "sending with available data"
+                    )
+                narrative = generate_weekly_narrative(weekly_summary, {})
+                if not narrative:
+                    logger.info("weekly summary: sending without narrative")
+                try:
+                    send_weekly_report(summary=weekly_summary, narrative=narrative, date=date)
+                    logger.info("weekly summary sent")
+                    print("Weekly summary sent.")
+                except EmailConfigError as e:
+                    logger.warning(f"weekly email skipped: {e}")
+                    print(f"Weekly email skipped: {e}")
+                except Exception as e:
+                    logger.exception("weekly email send failed")
+                    print(f"Weekly email send failed: {e}", file=sys.stderr)
+        else:
+            print(f"Market closed on {date.isoformat()} ({reason}). Exiting cleanly.")
         return 0
+
+    if force and not ok:
+        logger.info(f"Bypassing market calendar for {date.isoformat()}: {reason}")
 
     # ── Ticker management — discovery ────────────────────────────────────────
     # When explicit tickers are given on the CLI we skip discovery entirely
