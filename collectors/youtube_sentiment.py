@@ -11,6 +11,7 @@ Degrades gracefully when YOUTUBE_API_KEY is absent or quota is exceeded.
 from __future__ import annotations
 
 import datetime as dt
+import json
 import logging
 import os
 import re
@@ -115,6 +116,81 @@ def _heat(video_count: int) -> str:
     return "low"
 
 
+def classify_financial_relevance(
+    ticker: str,
+    company_name: str,
+    video_titles: list[str],
+) -> list[bool]:
+    """Classify video titles as financially relevant using Claude Haiku.
+
+    Sends all titles in a single batch call.  Falls back to the keyword
+    filter if the API key is absent or the call fails.
+    """
+    try:
+        import anthropic
+    except ImportError:
+        logger.warning("YouTube: anthropic package not installed — using keyword filter")
+        return [_is_financially_relevant(t, ticker, company_name) for t in video_titles]
+
+    api_key = os.getenv("ANTHROPIC_API_KEY", "").strip()
+    if not api_key:
+        logger.debug(f"YouTube {ticker}: ANTHROPIC_API_KEY not set — using keyword filter")
+        return [_is_financially_relevant(t, ticker, company_name) for t in video_titles]
+
+    system_prompt = (
+        "You are a financial relevance classifier. Given a stock ticker or commodity "
+        "and a list of YouTube video titles, determine which titles are genuinely about "
+        "that financial asset in a market/investment context.\n\n"
+        "Return ONLY a JSON array of booleans (true/false), one per title, in the same "
+        "order as input.\n"
+        "true = the video is about the financial asset (price, trading, market analysis, "
+        "earnings, investment)\n"
+        "false = the video uses the word incidentally or is about something unrelated "
+        "(technology, sports, food, entertainment, etc.)\n\n"
+        "Examples:\n"
+        '- Ticker: GC=F (Gold), Title: "Gold slips as dollar strengthens" → true\n'
+        '- Ticker: GC=F (Gold), Title: "Only 1 Gold Card Visa?" → false\n'
+        '- Ticker: HG=F (Copper), Title: "Copper Heatsinks are INSANELY Effective" → false\n'
+        '- Ticker: ARM (ARM Holdings), Title: "Why do elite pass rushers have short arms?" → false\n'
+        '- Ticker: ARM (ARM Holdings), Title: "ARM Holdings stock jumps after earnings" → true\n'
+        '- Ticker: POET (POET Technologies), Title: "We Defended Your Worst Tortured Poets Takes" → false\n'
+        '- Ticker: POET (POET Technologies), Title: "POET Technologies surges 28% on Marvell deal" → true'
+    )
+
+    numbered = "\n".join(f"{i + 1}. {t}" for i, t in enumerate(video_titles))
+    user_prompt = (
+        f"Ticker: {ticker} ({company_name})\n"
+        f"Titles:\n{numbered}\n\n"
+        "Return only a JSON array of booleans."
+    )
+
+    try:
+        client = anthropic.Anthropic(api_key=api_key)
+        message = client.messages.create(
+            model="claude-haiku-4-5",
+            max_tokens=256,
+            system=system_prompt,
+            messages=[{"role": "user", "content": user_prompt}],
+        )
+        raw = message.content[0].text.strip()
+        results = json.loads(raw)
+        if not isinstance(results, list) or len(results) != len(video_titles):
+            raise ValueError(f"unexpected response shape: {raw!r}")
+        results = [bool(r) for r in results]
+        relevant_count = sum(results)
+        logger.info(
+            f"Claude Haiku relevance filter: {ticker} — "
+            f"{len(video_titles)} titles → {relevant_count} relevant"
+        )
+        return results
+    except Exception as e:
+        logger.warning(
+            f"YouTube {ticker}: Claude relevance filter failed ({e}) — "
+            "falling back to keyword filter"
+        )
+        return [_is_financially_relevant(t, ticker, company_name) for t in video_titles]
+
+
 def fetch_youtube_signals(ticker: str, company_name: str) -> dict | None:
     """Search YouTube for recent videos about *ticker* / *company_name*.
 
@@ -181,15 +257,15 @@ def fetch_youtube_signals(ticker: str, company_name: str) -> dict | None:
         logger.info(f"YouTube {ticker}: 0 videos in last 48h")
         return dict(_NULL)
 
-    # Financial relevance filter — drop noise (hardware reviews, sports, pop culture, etc.)
+    # Financial relevance filter — Claude Haiku classifies all titles in one batch call;
+    # falls back to keyword filter if the API is unavailable.
     n_raw = len(video_ids)
-    video_ids = [
-        vid_id for vid_id in video_ids
-        if _is_financially_relevant(title_map[vid_id], ticker, company_name)
-    ]
+    titles_for_filter = [title_map[vid_id] for vid_id in video_ids]
+    relevance_flags = classify_financial_relevance(ticker, company_name, titles_for_filter)
+    video_ids = [vid_id for vid_id, keep in zip(video_ids, relevance_flags) if keep]
     logger.info(
-        f"YouTube {ticker}: {n_raw} videos found, "
-        f"{len(video_ids)} financially relevant after filter"
+        f"YouTube {ticker}: {n_raw} fetched, "
+        f"{len(video_ids)} financially relevant after Claude filter"
     )
     if not video_ids:
         return dict(_NULL)
