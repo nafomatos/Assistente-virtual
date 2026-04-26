@@ -31,6 +31,7 @@ import yfinance as yf
 from analyzers.price_velocity import analyze_price_velocity
 from analyzers.rsi import analyze_rsi
 from analyzers.volume_analyzer import analyze_volume
+from backtesting.historical.sentiment_proxy import get_synthetic_sentiment, vix_to_fear_greed
 from claude_advisor.prompts import SYSTEM_PROMPT
 from output.document_builder import get_alert_tier
 from utils.token_optimizer import compress_signals
@@ -44,12 +45,22 @@ BULLISH = {"contrarian_buy"}
 BEARISH = {"reduce_exposure"}
 MAX_CLAUDE_CALLS = 200
 
-# Appended to every historical prompt so Claude knows macro context is absent.
-_MACRO_UNAVAILABLE = (
-    "\n\nMacro context for this date: unavailable — historical backtest. "
-    "No live Fear & Greed, VIX structure, or Buffett Indicator data. "
-    "Apply base classification logic without macro adjustments."
-)
+# Appended to the system prompt on every historical backtest call.
+HISTORICAL_MODE_ADDENDUM = """
+## Historical Backtest Mode
+
+You are analyzing historical data. Real social sentiment (Reddit, StockTwits, YouTube) is not available.
+Instead, a VIX-based synthetic proxy has been provided:
+- VIX ≥ 50 → treat as "explosive" social heat (extreme panic period)
+- VIX ≥ 35 → treat as "elevated" social heat
+- VIX ≥ 25 → treat as "stable"
+- VIX < 25 → treat as "low"
+
+Apply the same Divergence Rules as normal but using this proxy.
+Apply the confidence_penalty indicated — reduce your raw confidence by that amount before outputting.
+Your classification and recommendation logic is unchanged."""
+
+_VIX_DEFAULT = 20.0
 
 # Extra calendar days fetched before start for 200d lookback warmup
 _LOOKBACK_BUFFER = 310
@@ -183,7 +194,11 @@ def _call_claude(
                     "type": "text",
                     "text": SYSTEM_PROMPT,
                     "cache_control": {"type": "ephemeral"},
-                }
+                },
+                {
+                    "type": "text",
+                    "text": HISTORICAL_MODE_ADDENDUM,
+                },
             ],
             messages=[{"role": "user", "content": prompt_text}],
         )
@@ -340,7 +355,25 @@ def run_historical_backtest(
     trading_days = _trading_days(start_date, end_date)
     logger.info("%d trading days in range", len(trading_days))
 
-    # --- 2. Fetch OHLCV for all tickers ----------------------------------------
+    # --- 2. Fetch VIX history for synthetic sentiment proxy --------------------
+    logger.info("Fetching VIX history for %s → %s ...", start_date, end_date)
+    vix_by_date: dict[dt.date, float] = {}
+    try:
+        vix_df = yf.download("^VIX", start=start_date, end=end_date, progress=False)
+        if not vix_df.empty:
+            if isinstance(vix_df.columns, pd.MultiIndex):
+                close_col = vix_df[("Close", "^VIX")]
+            else:
+                close_col = vix_df["Close"]
+            for ts, val in close_col.items():
+                d = ts.date() if hasattr(ts, "date") else ts.to_pydatetime().date()
+                if pd.notna(val):
+                    vix_by_date[d] = float(val)
+        logger.info("VIX history loaded: %d dates", len(vix_by_date))
+    except Exception as exc:
+        logger.warning("VIX fetch failed (%s) — using default VIX=%.1f for all dates", exc, _VIX_DEFAULT)
+
+    # --- 3. Fetch OHLCV for all tickers ----------------------------------------
     ticker_dfs: dict[str, pd.DataFrame] = {}
     for ticker in tickers:
         logger.info("Fetching %s ...", ticker)
@@ -365,7 +398,7 @@ def run_historical_backtest(
         rets[1:][mask] = (closes[1:][mask] - prev[mask]) / prev[mask]
         ticker_returns[ticker] = rets
 
-    # --- 3. Main loop: signals + Claude calls ----------------------------------
+    # --- 4. Main loop: signals + Claude calls ----------------------------------
     all_signals: list[dict] = []
     total_claude_calls = 0
     total_usage = {
@@ -428,10 +461,33 @@ def run_historical_backtest(
                 cap_reached = True
                 break
 
+            # --- Synthetic sentiment + macro proxy ----------------------------
+            vix_value = vix_by_date.get(day, _VIX_DEFAULT)
+            synth     = get_synthetic_sentiment(
+                ticker=ticker,
+                date=day,
+                vix_value=vix_value,
+                z_30d=velocity["z_score_30d"],
+                z_200d=velocity["z_score_200d"],
+                volume_ratio=volume["ratio"],
+                rsi=rsi.get("rsi"),
+            )
+            fg_proxy = vix_to_fear_greed(vix_value)
+
+            macro_section = (
+                f"\n\nMacro context (historical proxy):\n"
+                f"- Fear & Greed proxy (VIX-derived): {fg_proxy}/100\n"
+                f"- Synthetic Sentiment (VIX-proxy): heat={synth['heat']}, tone={synth['tone']}\n"
+                f"- VIX on this date: {vix_value:.1f}\n"
+                f"- Confidence penalty: {synth['confidence_penalty']} "
+                f"(reduce your output confidence by this amount)\n"
+                f"- Note: sentiment derived from VIX proxy, not real social data. "
+                f"Confidence should reflect this uncertainty."
+            )
+
             # --- Claude call ---------------------------------------------------
             name        = _ticker_name(ticker)
-            # Append macro-unavailable note so Claude skips macro adjustments.
-            prompt_text = compress_signals(ticker, name, signals) + _MACRO_UNAVAILABLE
+            prompt_text = compress_signals(ticker, name, signals) + macro_section
             logger.info("Calling Claude: %s %s (call %d/%d)", ticker, day,
                         total_claude_calls + 1, MAX_CLAUDE_CALLS)
             parsed, usage = _call_claude(client, prompt_text)
@@ -440,20 +496,30 @@ def run_historical_backtest(
             for k in total_usage:
                 total_usage[k] += usage.get(k, 0)
 
+            # Apply confidence penalty before storing (synthetic proxy is less reliable)
+            raw_confidence = parsed.get("confidence", 0) if parsed else 0
+            penalty        = synth["confidence_penalty"]
+            stored_confidence = max(1, raw_confidence - penalty) if raw_confidence > 0 else 0
+
             all_signals.append({
-                "ticker":          ticker,
-                "date":            day.isoformat(),
-                "tier":            tier,
-                "classification":  parsed.get("classification", "ambiguous") if parsed else "error",
-                "recommendation":  parsed.get("recommendation", "no_action")  if parsed else "error",
-                "confidence":      parsed.get("confidence", 0)                if parsed else 0,
-                "reasoning":       parsed.get("reasoning", "")                if parsed else "",
-                "price_at_signal": market_data["current_price"],
-                "volume_ratio":    volume["ratio"],
-                "z_score_30d":     velocity["z_score_30d"],
-                "z_score_200d":    velocity["z_score_200d"],
-                "rsi":             rsi.get("rsi"),
-                "macro_extreme":   velocity["macro_extreme"],
+                "ticker":            ticker,
+                "date":              day.isoformat(),
+                "tier":              tier,
+                "classification":    parsed.get("classification", "ambiguous") if parsed else "error",
+                "recommendation":    parsed.get("recommendation", "no_action")  if parsed else "error",
+                "confidence":        stored_confidence,
+                "confidence_raw":    raw_confidence,
+                "reasoning":         parsed.get("reasoning", "")                if parsed else "",
+                "price_at_signal":   market_data["current_price"],
+                "volume_ratio":      volume["ratio"],
+                "z_score_30d":       velocity["z_score_30d"],
+                "z_score_200d":      velocity["z_score_200d"],
+                "rsi":               rsi.get("rsi"),
+                "macro_extreme":     velocity["macro_extreme"],
+                "vix_at_signal":     vix_value,
+                "synth_heat":        synth["heat"],
+                "synth_tone":        synth["tone"],
+                "fear_greed_proxy":  fg_proxy,
             })
 
             day_signal_count += 1
@@ -470,14 +536,31 @@ def run_historical_backtest(
         )
     logger.info("Total signals: %d  Claude calls: %d", len(all_signals), total_claude_calls)
 
-    # --- 4. Outcomes -----------------------------------------------------------
+    # --- 5. Outcomes -----------------------------------------------------------
     logger.info("Fetching outcome prices ...")
     all_signals = _evaluate_outcomes(all_signals, ticker_arrays)
 
-    # --- 5. Hit rates ----------------------------------------------------------
+    # --- 6. Hit rates ----------------------------------------------------------
     hit_rates = _calculate_hit_rates(all_signals)
 
-    # --- 6. Save ---------------------------------------------------------------
+    # --- 7. VIX timeline summary -----------------------------------------------
+    trading_day_vix = [vix_by_date.get(d, _VIX_DEFAULT) for d in trading_days]
+    vix_timeline: dict = {}
+    if trading_day_vix:
+        vix_timeline = {
+            "min":           round(min(trading_day_vix), 2),
+            "max":           round(max(trading_day_vix), 2),
+            "avg":           round(sum(trading_day_vix) / len(trading_day_vix), 2),
+            "days_above_35": sum(1 for v in trading_day_vix if v >= 35),
+            "days_above_50": sum(1 for v in trading_day_vix if v >= 50),
+        }
+        logger.info(
+            "VIX timeline: min=%.1f max=%.1f avg=%.1f days≥35=%d days≥50=%d",
+            vix_timeline["min"], vix_timeline["max"], vix_timeline["avg"],
+            vix_timeline["days_above_35"], vix_timeline["days_above_50"],
+        )
+
+    # --- 8. Save ---------------------------------------------------------------
     results = {
         "period_name":             period_name,
         "start_date":              start_date,
@@ -489,6 +572,7 @@ def run_historical_backtest(
         "cap_reached":             cap_reached,
         "token_usage":             total_usage,
         "hit_rates":               hit_rates,
+        "vix_timeline":            vix_timeline,
         "signals":                 all_signals,
     }
 

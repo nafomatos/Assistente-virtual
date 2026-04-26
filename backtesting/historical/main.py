@@ -32,10 +32,11 @@ logger = logging.getLogger(__name__)
 
 PERIODS: dict[str, dict] = {
     "covid_2020": {
-        "start":   "2020-02-01",
-        "end":     "2020-06-01",
-        "tickers": ["NVDA", "TSLA", "AAPL", "AMZN", "GOOGL", "GC=F", "SI=F", "CL=F", "HG=F"],
-        "name":    "COVID Crash & Recovery",
+        "start":       "2020-02-01",
+        "end":         "2020-06-01",
+        "tickers":     ["NVDA", "TSLA", "AAPL", "AMZN", "GOOGL", "GC=F", "SI=F", "CL=F", "HG=F"],
+        "name":        "COVID Crash & Recovery",
+        "vix_context": "VIX peaked at 82.69 on March 16, 2020 — highest since 2008",
     },
     "gamestop_2021": {
         "start":   "2021-01-01",

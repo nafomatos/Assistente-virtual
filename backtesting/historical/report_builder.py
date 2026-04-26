@@ -96,23 +96,6 @@ def _hit_rate_table(hit_rates: dict) -> str:
         return "<p>No directional recommendations to evaluate.</p>"
 
     header = "<tr><th>Recommendation</th>" + "".join(
-        f"<th>d+{w} hit rate (n)</th>" for w in EVAL_WINDOWS
-    ) + "</tr>"
-
-    rows = []
-    for rec in recoms:
-        cells = f"<td><code>{rec}</code></td>"
-        for w in EVAL_WINDOWS:
-            entry = hit_rates.get(f"d{w}", {}).get(rec)
-            if entry and entry["total"] > 0:
-                cells += _pct_cell(entry["pct"]) + f"<td style='font-size:11px;color:#666'>{entry['hits']}/{entry['total']}</td>"
-            else:
-                cells += '<td class="na">—</td><td class="na">—</td>'
-        rows.append(f"<tr>{cells}</tr>")
-
-    # Merge the n columns into the pct column for cleaner layout
-    # Rebuild: one cell per window showing "60.0% (6/10)"
-    header = "<tr><th>Recommendation</th>" + "".join(
         f"<th>d+{w} hit rate</th>" for w in EVAL_WINDOWS
     ) + "</tr>"
     rows = []
@@ -130,7 +113,28 @@ def _hit_rate_table(hit_rates: dict) -> str:
                 cells += '<td class="na">—</td>'
         rows.append(f"<tr>{cells}</tr>")
 
-    return f'<table>{header}{"".join(rows)}</table>'
+    note = (
+        '<p style="font-size:12px;color:#666;margin-top:8px;">'
+        '* Confidence scores shown are post-penalty '
+        '(Claude raw confidence &minus; 2 applied by runner before saving).'
+        '</p>'
+    )
+    return f'<table>{header}{"".join(rows)}</table>{note}'
+
+
+def _vix_timeline(vix_timeline: dict | None) -> str:
+    if not vix_timeline:
+        return "<p>VIX data not available for this backtest period.</p>"
+    rows = [
+        f"<tr><td>Min VIX</td><td>{vix_timeline.get('min', '—')}</td></tr>",
+        f"<tr><td>Max VIX</td><td>{vix_timeline.get('max', '—')}</td></tr>",
+        f"<tr><td>Avg VIX</td><td>{vix_timeline.get('avg', '—')}</td></tr>",
+        f"<tr><td>Days VIX ≥ 35 (elevated heat)</td><td>{vix_timeline.get('days_above_35', 0)}</td></tr>",
+        f"<tr><td>Days VIX ≥ 50 (explosive heat)</td><td>{vix_timeline.get('days_above_50', 0)}</td></tr>",
+    ]
+    return (
+        f'<table><tr><th>Metric</th><th>Value</th></tr>{"".join(rows)}</table>'
+    )
 
 
 def _best_worst_table(signals: list[dict], best: bool, n: int = 5) -> str:
@@ -276,16 +280,23 @@ def generate_html_report(results: dict) -> str:
   <div class="sub">{start} → {end} &nbsp;|&nbsp; {len(results.get('tickers',[]))} tickers</div>
   {_stat_grid(results)}
   <div class="note">
-    ⚠ No sentiment data available for historical periods — technical signals only
-    (volume, price velocity, RSI). Social-heat-based Divergence Rules were not applied.
-    Macro context (Fear &amp; Greed, VIX, Buffett) was marked unavailable in each prompt.
+    ⚠ Sentiment derived from VIX proxy. Confidence scores reduced by 2 to account for proxy uncertainty.
+    Social-heat-based Divergence Rules applied using VIX as a substitute for real social data
+    (Reddit, StockTwits, YouTube). Fear &amp; Greed index derived from VIX (inverse relationship).
   </div>
   {cap_warning}
 </div>
 
 <div class="card">
   <h2>Hit Rate by Recommendation Type</h2>
+  <div class="sub">Confidence scores shown are post-penalty (raw Claude confidence &minus; 2)</div>
   {_hit_rate_table(hr)}
+</div>
+
+<div class="card">
+  <h2>VIX Timeline</h2>
+  <div class="sub">VIX used as proxy for social sentiment heat — high VIX = high synthetic heat</div>
+  {_vix_timeline(results.get("vix_timeline"))}
 </div>
 
 <div class="card">
