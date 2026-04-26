@@ -88,12 +88,13 @@ def _macro_card(
 
     # VIX row
     if vix_structure:
-        vc = "#ef4444" if vix_structure["vix_inverted"] else "#4ade80"
-        vix_label = "Backwardation" if vix_structure["vix_inverted"] else "Contango"
-        vix_note  = "stress elevated" if vix_structure["vix_inverted"] else "normal"
+        is_backwardation = vix_structure["structure"] == "backwardation"
+        vc = "#ef4444" if is_backwardation else "#4ade80"
+        vix_level = vix_structure["vix_level"]
+        vix_label = vix_structure["structure"].capitalize()
         vix_cell = (
-            f"<span style='color:{vc};font-weight:700;'>{vix_label} ({vix_structure['ratio']:.2f})</span>"
-            f" <span style='color:#64748b;font-size:11px;'>— {vix_note}</span>"
+            f"<span style='color:{vc};font-weight:700;'>{vix_level:.1f}</span>"
+            f" <span style='color:#64748b;font-size:12px;'>| {vix_label} ({vix_structure['ratio']:.2f}) — {vix_structure['label']}</span>"
         )
     else:
         vix_cell = "<span style='color:#64748b;'>unavailable</span>"

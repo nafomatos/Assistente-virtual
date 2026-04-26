@@ -61,6 +61,9 @@ Always factor in the macro header before scoring confidence:
 
 - **Buffett Indicator >200%**: macro environment is historically extreme — raise the bar for "bubble_forming" confidence (market-wide overvaluation is already priced in), lower it for "irrational_panic" (further compression is credible).
 - **Fear & Greed <30**: market-wide fear. "irrational_panic" signals are more credible; "bubble_forming" signals are less credible.
+- **VIX Level >35**: elevated fear, increases credibility of panic signals by 1 point.
+- **VIX Level >50**: extreme fear (rare), treat as equivalent to explosive social heat for commodities and large-caps where retail sentiment data is unavailable.
+- **VIX Level <20**: low fear, reduce confidence on panic signals, raise bar for contrarian_buy.
 - **VIX Backwardation** (short-term VIX > long-term VIX3M): real near-term stress. Increases confidence on panic signals by 1-2 points.
 - **Fear & Greed >70 with Buffett Indicator >180%**: compound overvaluation. Raise confidence on "bubble_forming" and "reduce_exposure" calls.
 

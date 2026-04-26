@@ -18,10 +18,10 @@ def fetch_vix_structure() -> dict | None:
 
     Returns:
         {
-            "vix":          float,   # 1-month implied vol
-            "vix3m":        float,   # 3-month implied vol
-            "ratio":        float,   # vix / vix3m
-            "vix_inverted": bool,    # True when ratio > 1.0 (backwardation)
+            "structure":  "contango" or "backwardation",
+            "ratio":      float,   # vix / vix3m
+            "vix_level":  float,   # raw ^VIX closing value
+            "label":      "normal term structure" or "short-term stress detected",
         }
     or None on any failure.
     """
@@ -48,22 +48,24 @@ def fetch_vix_structure() -> dict | None:
         return None
 
     ratio = vix / vix3m
+    is_backwardation = ratio > 1.0
     return {
-        "vix":          round(vix, 2),
-        "vix3m":        round(vix3m, 2),
-        "ratio":        round(ratio, 2),
-        "vix_inverted": ratio > 1.0,
+        "structure": "backwardation" if is_backwardation else "contango",
+        "ratio": round(ratio, 2),
+        "vix_level": round(vix, 1),
+        "label": "short-term stress detected" if is_backwardation else "normal term structure",
     }
 
 
 def format_summary(data: dict | None) -> str:
     """One-line summary for the macro context header."""
     if data is None:
-        return "VIX Structure: unavailable"
+        return "VIX: unavailable"
 
+    vix_level = data["vix_level"]
+    structure = data["structure"].capitalize()
     ratio = data["ratio"]
-    if data["vix_inverted"]:
-        return (
-            f"VIX Structure: Backwardation ({ratio:.2f}) — short-term stress elevated"
-        )
-    return f"VIX Structure: Contango ({ratio:.2f}) — normal term structure"
+    label = data["label"]
+    return (
+        f"VIX: {vix_level:.1f} | Structure: {structure} ({ratio:.2f}) — {label}"
+    )
