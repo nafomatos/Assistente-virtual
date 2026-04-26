@@ -3,7 +3,7 @@
 Usage
 -----
     python -m backtesting.historical.main --period covid_2020
-    python -m backtesting.historical.main --period gamestop_2021
+    python -m backtesting.historical.main --period gamestop_2021 --cap 600
     python -m backtesting.historical.main --period covid_2020 --no-report
     python -m backtesting.historical.main --list
 
@@ -120,6 +120,12 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Re-run even if a cached results file already exists.",
     )
+    parser.add_argument(
+        "--cap",
+        type=int,
+        default=400,
+        help="Max number of Claude API calls (default 400).",
+    )
 
     args = parser.parse_args(argv)
 
@@ -168,6 +174,7 @@ def main(argv: list[str] | None = None) -> int:
             end_date=cfg["end"],
             tickers=cfg["tickers"],
             period_name=period_key,
+            max_calls=args.cap,
         )
 
     # --- Print summary --------------------------------------------------------

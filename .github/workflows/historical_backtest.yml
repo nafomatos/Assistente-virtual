@@ -14,6 +14,10 @@ on:
           - gamestop_2021
           - tech_bear_2022
           - financial_crisis_2008
+      cap:
+        description: "Max Claude API calls (default 400)"
+        required: false
+        default: "400"
 
 jobs:
   backtest:
@@ -42,7 +46,7 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           EMAIL_RECIPIENT:    ${{ secrets.EMAIL_RECIPIENT }}
         run: |
-          python -m backtesting.historical.main --period ${{ inputs.period }}
+          python -m backtesting.historical.main --period ${{ inputs.period }} --cap ${{ inputs.cap }}
 
       - name: Upload results artifact
         if: always()

@@ -341,6 +341,7 @@ def run_historical_backtest(
     end_date: str,
     tickers: list[str],
     period_name: str,
+    max_calls: int = MAX_CLAUDE_CALLS,
 ) -> dict:
     """Run the full historical backtest and return the results dict.
 
@@ -452,11 +453,11 @@ def run_historical_backtest(
                 continue
 
             # Hard cap: stop before making the call that would exceed the limit
-            if total_claude_calls >= MAX_CLAUDE_CALLS:
+            if total_claude_calls >= max_calls:
                 logger.warning(
                     "Hard cap of %d Claude calls reached at %s/%s — "
                     "stopping early. Remaining days/tickers skipped.",
-                    MAX_CLAUDE_CALLS, day, ticker,
+                    max_calls, day, ticker,
                 )
                 cap_reached = True
                 break
@@ -489,7 +490,7 @@ def run_historical_backtest(
             name        = _ticker_name(ticker)
             prompt_text = compress_signals(ticker, name, signals) + macro_section
             logger.info("Calling Claude: %s %s (call %d/%d)", ticker, day,
-                        total_claude_calls + 1, MAX_CLAUDE_CALLS)
+                        total_claude_calls + 1, max_calls)
             parsed, usage = _call_claude(client, prompt_text)
 
             total_claude_calls += 1
@@ -532,7 +533,7 @@ def run_historical_backtest(
         logger.warning(
             "Backtest stopped early due to %d-call cap. "
             "%d signals collected before cutoff.",
-            MAX_CLAUDE_CALLS, len(all_signals),
+            max_calls, len(all_signals),
         )
     logger.info("Total signals: %d  Claude calls: %d", len(all_signals), total_claude_calls)
 
