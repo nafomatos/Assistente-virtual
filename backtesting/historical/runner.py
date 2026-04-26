@@ -42,6 +42,14 @@ MODEL = "claude-haiku-4-5-20251001"
 EVAL_WINDOWS = [5, 10, 30]
 BULLISH = {"contrarian_buy"}
 BEARISH = {"reduce_exposure"}
+MAX_CLAUDE_CALLS = 200
+
+# Appended to every historical prompt so Claude knows macro context is absent.
+_MACRO_UNAVAILABLE = (
+    "\n\nMacro context for this date: unavailable — historical backtest. "
+    "No live Fear & Greed, VIX structure, or Buffett Indicator data. "
+    "Apply base classification logic without macro adjustments."
+)
 
 # Extra calendar days fetched before start for 200d lookback warmup
 _LOOKBACK_BUFFER = 310
@@ -189,6 +197,14 @@ def _call_claude(
         "cache_read_input_tokens":     getattr(response.usage, "cache_read_input_tokens", 0),
         "cache_creation_input_tokens": getattr(response.usage, "cache_creation_input_tokens", 0),
     }
+
+    logger.info(
+        "token usage: input=%d output=%d cached=%d cache_write=%d",
+        usage["input_tokens"],
+        usage["output_tokens"],
+        usage["cache_read_input_tokens"],
+        usage["cache_creation_input_tokens"],
+    )
 
     text = response.content[0].text if response.content else ""
 
@@ -358,11 +374,18 @@ def run_historical_backtest(
         "cache_read_input_tokens":     0,
         "cache_creation_input_tokens": 0,
     }
+    cap_reached = False
 
     for day in trading_days:
+        if cap_reached:
+            break
+
         day_signal_count = 0
 
         for ticker in tickers:
+            if cap_reached:
+                break
+
             arr = ticker_arrays.get(ticker)
             if arr is None:
                 continue
@@ -395,9 +418,22 @@ def run_historical_backtest(
             if tier is None:
                 continue
 
+            # Hard cap: stop before making the call that would exceed the limit
+            if total_claude_calls >= MAX_CLAUDE_CALLS:
+                logger.warning(
+                    "Hard cap of %d Claude calls reached at %s/%s — "
+                    "stopping early. Remaining days/tickers skipped.",
+                    MAX_CLAUDE_CALLS, day, ticker,
+                )
+                cap_reached = True
+                break
+
             # --- Claude call ---------------------------------------------------
             name        = _ticker_name(ticker)
-            prompt_text = compress_signals(ticker, name, signals)
+            # Append macro-unavailable note so Claude skips macro adjustments.
+            prompt_text = compress_signals(ticker, name, signals) + _MACRO_UNAVAILABLE
+            logger.info("Calling Claude: %s %s (call %d/%d)", ticker, day,
+                        total_claude_calls + 1, MAX_CLAUDE_CALLS)
             parsed, usage = _call_claude(client, prompt_text)
 
             total_claude_calls += 1
@@ -426,6 +462,12 @@ def run_historical_backtest(
         if day_signal_count:
             logger.info("%s → %d signal(s) flagged", day, day_signal_count)
 
+    if cap_reached:
+        logger.warning(
+            "Backtest stopped early due to %d-call cap. "
+            "%d signals collected before cutoff.",
+            MAX_CLAUDE_CALLS, len(all_signals),
+        )
     logger.info("Total signals: %d  Claude calls: %d", len(all_signals), total_claude_calls)
 
     # --- 4. Outcomes -----------------------------------------------------------
@@ -444,6 +486,7 @@ def run_historical_backtest(
         "trading_days_processed":  len(trading_days),
         "total_signals_generated": len(all_signals),
         "total_claude_calls":      total_claude_calls,
+        "cap_reached":             cap_reached,
         "token_usage":             total_usage,
         "hit_rates":               hit_rates,
         "signals":                 all_signals,

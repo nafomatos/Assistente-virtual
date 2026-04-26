@@ -96,6 +96,11 @@ def main(argv: list[str] | None = None) -> int:
         help="Skip HTML report generation after the backtest.",
     )
     parser.add_argument(
+        "--no-email",
+        action="store_true",
+        help="Skip email delivery after the backtest (useful for local runs).",
+    )
+    parser.add_argument(
         "--force", "-f",
         action="store_true",
         help="Re-run even if a cached results file already exists.",
@@ -179,6 +184,7 @@ def main(argv: list[str] | None = None) -> int:
     print()
 
     # --- HTML report ----------------------------------------------------------
+    report_path: str | None = None
     if not args.no_report:
         from backtesting.historical.report_builder import save_report
 
@@ -188,6 +194,24 @@ def main(argv: list[str] | None = None) -> int:
         results_dir = os.path.join(os.path.dirname(__file__), "results")
         json_path   = os.path.join(results_dir, f"{period_key}.json")
         print(f"  JSON results : {json_path}")
+
+    # --- Email ----------------------------------------------------------------
+    if not args.no_email and report_path is not None:
+        try:
+            from delivery.email_sender import EmailConfigError, send_backtest_report
+
+            send_backtest_report(report_path, cfg["name"])
+            print(f"  Email sent   : [Radar] Historical Backtest — {cfg['name']}")
+        except EmailConfigError as exc:
+            logger.warning("Email skipped — %s", exc)
+            print(f"  Email skipped: {exc}")
+        except Exception as exc:
+            logger.error("Email failed — %s", exc)
+            print(f"  Email failed : {exc}")
+    elif args.no_email:
+        print("  Email skipped: --no-email flag set")
+    elif report_path is None:
+        print("  Email skipped: --no-report was set, no HTML file to send")
 
     print()
     return 0

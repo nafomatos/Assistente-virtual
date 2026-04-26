@@ -260,6 +260,16 @@ def generate_html_report(results: dict) -> str:
     hr      = results.get("hit_rates", {})
     tu      = results.get("token_usage", {})
 
+    cap_warning = ""
+    if results.get("cap_reached"):
+        cap_warning = (
+            "<div style='background:#ffeeba;border-left:4px solid #f0ad4e;"
+            "padding:8px 12px;font-size:13px;border-radius:0 4px 4px 0;margin-top:8px;'>"
+            "⚠ <strong>200-call cap reached</strong> — backtest stopped early. "
+            "Results cover only the signals collected before the cutoff."
+            "</div>"
+        )
+
     body = f"""
 <div class="card">
   <h1>Backtest Report — {period}</h1>
@@ -268,7 +278,9 @@ def generate_html_report(results: dict) -> str:
   <div class="note">
     ⚠ No sentiment data available for historical periods — technical signals only
     (volume, price velocity, RSI). Social-heat-based Divergence Rules were not applied.
+    Macro context (Fear &amp; Greed, VIX, Buffett) was marked unavailable in each prompt.
   </div>
+  {cap_warning}
 </div>
 
 <div class="card">
