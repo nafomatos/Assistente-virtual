@@ -12,6 +12,8 @@ on:
         options:
           - covid_2020
           - gamestop_2021
+          - tech_bear_2022
+          - financial_crisis_2008
 
 jobs:
   backtest:

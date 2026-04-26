@@ -44,6 +44,20 @@ PERIODS: dict[str, dict] = {
         "tickers": ["GME", "AMC", "BB", "PLTR", "GC=F", "SI=F", "TSLA", "NVDA"],
         "name":    "GameStop & Silver Squeeze",
     },
+    "tech_bear_2022": {
+        "start":       "2021-11-01",
+        "end":         "2022-12-31",
+        "tickers":     ["NVDA", "TSLA", "AAPL", "AMZN", "GOOGL", "MSTR", "PLTR", "GC=F", "SI=F"],
+        "name":        "2022 Tech Bear Market",
+        "vix_context": "VIX peaked at 38.94 on March 7, 2022. Extended bear market — S&P dropped 27%, NASDAQ dropped 35%, TSLA dropped 73%, NVDA dropped 66% from peak.",
+    },
+    "financial_crisis_2008": {
+        "start":       "2008-09-01",
+        "end":         "2009-04-01",
+        "tickers":     ["AAPL", "AMZN", "GOOGL", "GC=F", "SI=F", "CL=F", "HG=F"],
+        "name":        "2008 Global Financial Crisis",
+        "vix_context": "VIX peaked at 89.53 on October 24, 2008 — highest ever recorded. Lehman Brothers collapsed September 15, 2008. S&P dropped 57% peak to trough. Market bottomed March 6, 2009.",
+    },
 }
 
 
