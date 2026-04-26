@@ -703,3 +703,41 @@ def send_report(
         smtp.login(sender, password)
         smtp.send_message(msg)
     logger.info("email sent")
+
+
+def send_backtest_report(html_path: str, period_name: str) -> None:
+    """Send a historical backtest HTML report via email.
+
+    Subject: [Radar] Historical Backtest — {period_name}
+    Raises FileNotFoundError if the HTML file is missing,
+    EmailConfigError if SMTP credentials are absent.
+    """
+    if not os.path.isfile(html_path):
+        raise FileNotFoundError(f"backtest report not found: {html_path}")
+
+    with open(html_path, "r", encoding="utf-8") as fh:
+        html_body = fh.read()
+
+    sender, password, recipient = _load_config()
+
+    plain = (
+        f"[Radar] Historical Backtest — {period_name}\n\n"
+        f"Full HTML report attached. Open in a web browser for best results.\n"
+        f"Report path: {html_path}\n"
+    )
+
+    msg = EmailMessage()
+    msg["Subject"] = f"[Radar] Historical Backtest — {period_name}"
+    msg["From"]    = sender
+    msg["To"]      = recipient
+    msg.set_content(plain)
+    msg.add_alternative(html_body, subtype="html")
+
+    logger.info("sending backtest report '%s' to %s", period_name, recipient)
+    with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as smtp:
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.ehlo()
+        smtp.login(sender, password)
+        smtp.send_message(msg)
+    logger.info("backtest report email sent")
