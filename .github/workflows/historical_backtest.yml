@@ -1,6 +1,6 @@
 name: Historical Backtest
 
-# Manual trigger only — never scheduled.
+# Manual trigger only — never scheduled. Never runs automatically.
 # Does NOT modify or interact with daily_radar.yml.
 on:
   workflow_dispatch:
