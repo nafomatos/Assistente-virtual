@@ -1,0 +1,40 @@
+{
+  "date": "2026-05-05",
+  "signals": [
+    {
+      "ticker": "INTC",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "confidence": 6,
+      "reasoning": "RSI=84, z30=+1.6, z200=+2.6, volume 1.5x. Sector sympathy persists; elevated tone=bullish on YouTube."
+    },
+    {
+      "ticker": "MU",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "confidence": 7,
+      "reasoning": "RSI=82, z30=+1.9, z200=+2.5. Three-day consecutive extreme-overbought RSI. Memory chip narrative intact."
+    },
+    {
+      "ticker": "GC=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "confidence": 7,
+      "reasoning": "Volume 23.8x, social heat stable. Institutional flows dominate; no retail noise to suggest panic or euphoria."
+    },
+    {
+      "ticker": "SI=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "confidence": 6,
+      "reasoning": "Volume 16.3x, social heat low. Silver following gold institutional rebalancing. No retail signal."
+    },
+    {
+      "ticker": "HG=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "confidence": 6,
+      "reasoning": "Volume 15.3x, z30=+2.0, social heat stable. Copper institutional activity; macro trade not retail-driven."
+    }
+  ]
+}
