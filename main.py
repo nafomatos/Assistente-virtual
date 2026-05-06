@@ -59,6 +59,11 @@ from claude_advisor.weekly_advisor import generate_weekly_narrative
 from delivery.email_sender import EmailConfigError, send_report, send_weekly_report
 from output.document_builder import get_alert_tier, get_tier_reason, write_document
 from output.weekly_summary import generate_weekly_summary
+from tracker.position_tracker import (
+    close_expired_positions,
+    get_aggregate_stats,
+    update_open_positions,
+)
 
 load_dotenv()
 
@@ -486,6 +491,20 @@ def main(argv: list[str]) -> int:
             new_dynamic, promoted, demoted, stale_removed, trending_stats,
         )
 
+    # ── Position tracker ─────────────────────────────────────────────────────
+    try:
+        close_expired_positions(date)
+        open_positions = update_open_positions(date)
+        closed_stats   = get_aggregate_stats()
+        logger.info(
+            f"position tracker: {len(open_positions)} open, "
+            f"{closed_stats.get('total', 0)} closed total"
+        )
+    except Exception as e:
+        logger.warning(f"position tracker update failed (continuing): {e}")
+        open_positions = []
+        closed_stats   = {}
+
     # ── Report ───────────────────────────────────────────────────────────────
     path, included, skipped = write_document(
         results,
@@ -493,6 +512,8 @@ def main(argv: list[str]) -> int:
         fear_greed=fear_greed,
         vix_structure=vix_structure,
         buffett=buffett,
+        open_positions=open_positions,
+        closed_stats=closed_stats,
     )
     print(f"\nReport written to: {path}")
     print(f"Included: {included or '(none)'}")
@@ -509,6 +530,8 @@ def main(argv: list[str]) -> int:
                 fear_greed=fear_greed,
                 vix_structure=vix_structure,
                 buffett=buffett,
+                open_positions=open_positions,
+                closed_stats=closed_stats,
             )
             print("Email sent.")
         except EmailConfigError as e:

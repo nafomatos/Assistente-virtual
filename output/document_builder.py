@@ -122,6 +122,66 @@ def get_tier_reason(signals: dict) -> str:
 _get_filter_reason = get_tier_reason
 
 
+def _active_positions_section(
+    open_positions: list[dict],
+    closed_stats: dict | None,
+) -> str:
+    """Plain-text ACTIVE POSITIONS block for the .txt report."""
+    if not open_positions and not closed_stats:
+        return ""
+
+    lines = [
+        "=" * 72,
+        "ACTIVE POSITIONS",
+        "=" * 72,
+    ]
+
+    if open_positions:
+        for pos in open_positions:
+            ticker      = pos["ticker"]
+            direction   = pos.get("direction", "long").upper()
+            conf        = pos.get("confidence", "?")
+            entry_price = pos.get("entry_price", 0)
+            entry_date  = pos.get("entry_date", "")
+            current     = pos.get("current_price", entry_price)
+            pnl_pct     = pos.get("pnl_pct", 0.0)
+            days_held   = pos.get("days_held", 0)
+            status      = pos.get("status", "NEUTRAL")
+            pnl_sign    = "+" if pnl_pct >= 0 else ""
+
+            lines.append(
+                f"  {ticker:<6} | {direction:<5} | conf {conf}"
+            )
+            lines.append(
+                f"  Entry: ${entry_price:.2f} on {entry_date}"
+            )
+            lines.append(
+                f"  Current: ${current:.2f} ({pnl_sign}{pnl_pct:.1f}%)"
+            )
+            lines.append(
+                f"  Days held: {days_held} / 30  |  Status: {status}"
+            )
+            lines.append("")
+    else:
+        lines.append("  No open positions.")
+        lines.append("")
+
+    if closed_stats and closed_stats.get("total", 0) > 0:
+        total    = closed_stats["total"]
+        correct  = closed_stats["correct"]
+        win_rate = closed_stats["win_rate"]
+        avg_pnl  = closed_stats["avg_pnl"]
+        pnl_sign = "+" if avg_pnl >= 0 else ""
+        lines.append(
+            f"  Closed positions (last 30 days): {total} total "
+            f"| {correct} correct ({win_rate:.1f}%) "
+            f"| Avg P&L: {pnl_sign}{avg_pnl:.1f}%"
+        )
+        lines.append("")
+
+    return "\n".join(lines) + "\n"
+
+
 def _coverage_line(red: list[str], amber: list[str], skipped: list[str]) -> str:
     total = len(red) + len(amber) + len(skipped)
     return (
@@ -227,11 +287,15 @@ def build_document(
     fear_greed: dict | None = None,
     vix_structure: dict | None = None,
     buffett: dict | None = None,
+    open_positions: list[dict] | None = None,
+    closed_stats: dict | None = None,
 ) -> tuple[str, list[str], list[str], list[str]]:
     """Construct the report text.
 
     Returns (document_text, red_tickers, amber_tickers, skipped_tickers).
     Red alerts are written first, then Amber. Both are labelled in the report.
+    The ACTIVE POSITIONS section is prepended above the macro context when
+    open_positions is provided.
     """
     today = today or dt.date.today()
 
@@ -252,8 +316,11 @@ def build_document(
     amber_tickers = [t for t, _ in amber_items]
 
     debug_summary = _debug_summary(results)
-    parts = [_header(today, fear_greed, red_tickers, amber_tickers, skipped,
-                     debug_summary, vix_structure, buffett)]
+    positions_section = _active_positions_section(open_positions or [], closed_stats)
+    header = _header(today, fear_greed, red_tickers, amber_tickers, skipped,
+                     debug_summary, vix_structure, buffett)
+
+    parts = [positions_section, header] if positions_section else [header]
 
     if red_items or amber_items:
         parts.append("\n[ASSETS WITH NON-TRIVIAL SIGNALS]\n\n")
@@ -278,13 +345,19 @@ def write_document(
     vix_structure: dict | None = None,
     buffett: dict | None = None,
     output_dir: str = OUTPUT_DIR,
+    open_positions: list[dict] | None = None,
+    closed_stats: dict | None = None,
 ) -> tuple[str, list[str], list[str]]:
     """Build and persist the report. Returns (path, included, skipped).
 
     `included` combines red + amber tickers (Red first).
+    Pass `open_positions` and `closed_stats` to include the ACTIVE POSITIONS section.
     """
     today = today or dt.date.today()
-    text, red, amber, skipped = build_document(results, today, fear_greed, vix_structure, buffett)
+    text, red, amber, skipped = build_document(
+        results, today, fear_greed, vix_structure, buffett,
+        open_positions=open_positions, closed_stats=closed_stats,
+    )
     included = red + amber
 
     os.makedirs(output_dir, exist_ok=True)

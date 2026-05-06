@@ -64,6 +64,138 @@ def _truncate(text: str, n: int = 90) -> str:
     return text if len(text) <= n else text[:n - 1].rstrip() + "…"
 
 
+# ── position tracker cards ─────────────────────────────────────────────────
+
+def _position_border_color(pnl_pct: float) -> str:
+    if pnl_pct > 2.0:
+        return "#22c55e"   # green — on track
+    if pnl_pct < -2.0:
+        return "#ef4444"   # red — underwater
+    return "#475569"       # grey — neutral
+
+
+def _direction_badge(direction: str) -> str:
+    color = "#22c55e" if direction == "long" else "#f97316"
+    label = "LONG ↑" if direction == "long" else "SHORT ↓"
+    return (
+        f"<span style='background:{color};color:#fff;font-size:10px;font-weight:700;"
+        f"padding:2px 6px;border-radius:3px;'>{label}</span>"
+    )
+
+
+def _status_badge(status: str) -> str:
+    colors = {"ON TRACK": "#22c55e", "UNDERWATER": "#ef4444", "NEUTRAL": "#64748b"}
+    c = colors.get(status, "#64748b")
+    return f"<span style='color:{c};font-weight:700;font-size:11px;'>{status}</span>"
+
+
+def _position_card(pos: dict) -> str:
+    """Render one open position as a dark-theme card."""
+    ticker      = html.escape(pos["ticker"])
+    direction   = pos.get("direction", "long")
+    confidence  = pos.get("confidence", "?")
+    entry_price = pos.get("entry_price", 0)
+    entry_date  = pos.get("entry_date", "")
+    current     = pos.get("current_price", entry_price)
+    pnl_pct     = pos.get("pnl_pct", 0.0)
+    days_held   = pos.get("days_held", 0)
+    status      = pos.get("status", "NEUTRAL")
+
+    border  = _position_border_color(pnl_pct)
+    dir_badge = _direction_badge(direction)
+    st_badge  = _status_badge(status)
+
+    pnl_color = "#22c55e" if pnl_pct >= 0 else "#ef4444"
+    pnl_sign  = "+" if pnl_pct >= 0 else ""
+
+    # Progress bar — days_held / 30
+    pct_complete = min(100, int(days_held / 30 * 100))
+    bar_color = border
+
+    return (
+        f"<div style='background:#1a1a1a;border-radius:6px;border-left:4px solid {border};"
+        f"padding:12px 14px;margin-bottom:8px;'>"
+        # header row
+        f"<div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'>"
+        f"<div>"
+        f"<span style='font-weight:700;font-size:14px;'>{ticker}</span>"
+        f"&nbsp;&nbsp;{dir_badge}"
+        f"&nbsp;&nbsp;<span style='color:#64748b;font-size:11px;'>conf {confidence}</span>"
+        f"</div>"
+        f"<div style='text-align:right;font-size:12px;'>"
+        f"<span style='color:#94a3b8;'>Entry</span> <span style='font-weight:600;'>${entry_price:.2f}</span>"
+        f"&nbsp;&nbsp;<span style='color:#94a3b8;'>on</span> <span style='color:#cbd5e1;'>{entry_date}</span>"
+        f"</div>"
+        f"</div>"
+        # price + P&L row
+        f"<div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;'>"
+        f"<div style='font-size:13px;'>"
+        f"<span style='color:#94a3b8;'>Current</span> "
+        f"<span style='font-weight:700;font-size:14px;'>${current:.2f}</span>"
+        f"&nbsp;<span style='color:{pnl_color};font-weight:700;'>({pnl_sign}{pnl_pct:.1f}%)</span>"
+        f"</div>"
+        f"<div style='font-size:11px;color:#64748b;'>"
+        f"Days held: <span style='color:#94a3b8;font-weight:600;'>{days_held}</span> / 30"
+        f"&nbsp;&nbsp;{st_badge}"
+        f"</div>"
+        f"</div>"
+        # progress bar
+        f"<div style='background:#2d2d2d;border-radius:3px;height:3px;'>"
+        f"<div style='background:{bar_color};width:{pct_complete}%;height:3px;border-radius:3px;'></div>"
+        f"</div>"
+        f"</div>"
+    )
+
+
+def _active_positions_card(
+    open_positions: list[dict],
+    closed_stats: dict | None,
+) -> str:
+    """ACTIVE POSITIONS section inserted above macro context."""
+    if not open_positions and not closed_stats:
+        return ""
+
+    position_html = ""
+    if open_positions:
+        position_html = "".join(_position_card(p) for p in open_positions)
+    else:
+        position_html = (
+            "<div style='color:#64748b;font-style:italic;font-size:12px;"
+            "padding:8px 0;'>No open positions.</div>"
+        )
+
+    # Closed summary line
+    summary_html = ""
+    if closed_stats and closed_stats.get("total", 0) > 0:
+        total    = closed_stats["total"]
+        correct  = closed_stats["correct"]
+        win_rate = closed_stats["win_rate"]
+        avg_pnl  = closed_stats["avg_pnl"]
+        pnl_color = "#22c55e" if avg_pnl >= 0 else "#ef4444"
+        pnl_sign  = "+" if avg_pnl >= 0 else ""
+        summary_html = (
+            f"<div style='margin-top:10px;padding-top:10px;border-top:1px solid #2d2d2d;"
+            f"font-size:11px;color:#64748b;'>"
+            f"Closed positions: "
+            f"<span style='color:#94a3b8;'>{total} total</span>"
+            f" &middot; <span style='color:#22c55e;'>{correct} correct ({win_rate:.1f}%)</span>"
+            f" &middot; Avg P&amp;L: "
+            f"<span style='color:{pnl_color};font-weight:700;'>{pnl_sign}{avg_pnl:.1f}%</span>"
+            f"</div>"
+        )
+
+    n_open = len(open_positions)
+    return (
+        f"<div style='background:#1e1e1e;border-radius:6px;padding:16px 20px;margin-bottom:14px;'>"
+        f"<div style='font-size:10px;font-weight:700;color:#64748b;letter-spacing:.08em;"
+        f"text-transform:uppercase;margin-bottom:12px;'>ACTIVE POSITIONS "
+        f"<span style='color:#475569;font-weight:400;'>({n_open} open)</span></div>"
+        f"{position_html}"
+        f"{summary_html}"
+        f"</div>"
+    )
+
+
 # ── macro card ─────────────────────────────────────────────────────────────
 
 def _macro_card(
@@ -306,6 +438,8 @@ def build_html_email(
     vix_structure: dict | None,
     buffett: dict | None,
     report_text: str,
+    open_positions: list[dict] | None = None,
+    closed_stats: dict | None = None,
 ) -> str:
     red_items   = [(r["ticker"], r["signals"]) for r in results if get_alert_tier(r["signals"]) == "red"]
     amber_items = [(r["ticker"], r["signals"]) for r in results if get_alert_tier(r["signals"]) == "amber"]
@@ -334,6 +468,8 @@ def build_html_email(
         f"</div>"
     )
 
+    positions_section = _active_positions_card(open_positions or [], closed_stats)
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
@@ -344,6 +480,8 @@ def build_html_email(
     <div style="font-size:10px;font-weight:700;color:#475569;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;">Artificial Price Radar</div>
     <div style="font-size:22px;font-weight:700;color:#f1f5f9;">Daily Signals &mdash; {date.strftime('%d %b %Y')}</div>
   </div>
+
+  {positions_section}
 
   {_macro_card(fear_greed, vix_structure, buffett)}
 
@@ -673,11 +811,14 @@ def send_report(
     fear_greed: dict | None = None,
     vix_structure: dict | None = None,
     buffett: dict | None = None,
+    open_positions: list[dict] | None = None,
+    closed_stats: dict | None = None,
 ) -> None:
     """Send the daily report as a multipart email (HTML + plain-text fallback).
 
     Pass `results`, `fear_greed`, `vix_structure`, and `buffett` to enable
     the HTML briefing section. Without them the email is plain-text only.
+    Pass `open_positions` and `closed_stats` to include the ACTIVE POSITIONS section.
     Raises FileNotFoundError if the report file is missing, EmailConfigError
     if SMTP credentials are absent.
     """
@@ -706,6 +847,8 @@ def send_report(
             vix_structure=vix_structure,
             buffett=buffett,
             report_text=body,
+            open_positions=open_positions,
+            closed_stats=closed_stats,
         )
         msg.add_alternative(html_body, subtype="html")
 
