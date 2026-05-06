@@ -1,0 +1,33 @@
+{
+  "date": "2026-05-01",
+  "signals": [
+    {
+      "ticker": "SMCI",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "confidence": 8,
+      "reasoning": "Volume 2.8x, z30=+3.1, z200=+3.9, RSI=71, YouTube heat=explosive tone=bullish. Post-earnings momentum with clear retail pile-on."
+    },
+    {
+      "ticker": "ARM",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "confidence": 7,
+      "reasoning": "Volume 1.9x, z30=+1.9, z200=+3.2, RSI=74. Earnings beat driving sympathy with AMD/SMCI. Social heat elevated tone=bullish."
+    },
+    {
+      "ticker": "MU",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "confidence": 7,
+      "reasoning": "RSI=82, z200=+2.0, memory chip sector euphoria. YouTube heat=elevated tone=bullish on AI demand narrative."
+    },
+    {
+      "ticker": "HOOD",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "confidence": 4,
+      "reasoning": "Volume 1.6x, RSI=68. Some bullish momentum but signals below threshold for high-conviction call."
+    }
+  ]
+}

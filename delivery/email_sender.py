@@ -333,9 +333,75 @@ def _sentiment_row(sentiment: dict | None) -> str:
     return " &middot; ".join(parts)
 
 
+# ── cluster alerts card ────────────────────────────────────────────────────
+
+def _cluster_boost_badge(cluster_boost: dict) -> str:
+    """Inline badge shown on individual asset cards when a cluster boost was applied."""
+    sector    = cluster_boost.get("sector", "")
+    direction = cluster_boost.get("direction_group", "")
+    count     = cluster_boost.get("count", 0)
+    amount    = cluster_boost.get("boost_amount", 0)
+    return (
+        f"<span style='background:#1e3a5f;color:#93c5fd;font-size:10px;font-weight:700;"
+        f"padding:2px 7px;border-radius:3px;margin-left:6px;'>"
+        f"cluster boost: +{amount} ({sector} {direction}, {count} tickers)"
+        f"</span>"
+    )
+
+
+def _cluster_alerts_card(active_clusters: list[dict]) -> str:
+    """CLUSTER ALERTS section rendered before individual ticker cards."""
+    if not active_clusters:
+        return ""
+
+    rows_html = ""
+    for c in active_clusters:
+        sector    = html.escape(c["sector"])
+        direction = html.escape(c["direction_group"])
+        count     = c["count"]
+        boost     = c["boost"]
+        first     = html.escape(c.get("first_seen", ""))
+        last      = html.escape(c.get("last_seen", ""))
+        tickers   = html.escape(", ".join(c.get("tickers", [])))
+
+        try:
+            days_span = (
+                dt.date.fromisoformat(c["last_seen"]) - dt.date.fromisoformat(c["first_seen"])
+            ).days + 1
+        except (KeyError, ValueError):
+            days_span = 0
+
+        rows_html += (
+            f"<div style='border-top:1px solid #1e3a5f;padding:10px 0;'>"
+            f"<div style='font-size:13px;font-weight:600;color:#93c5fd;margin-bottom:4px;'>"
+            f"{sector} &middot; {direction} &middot; "
+            f"<span style='color:#f1f5f9;'>{count} tickers in {days_span} days</span>"
+            f"</div>"
+            f"<div style='font-size:11px;color:#64748b;margin-bottom:2px;'>"
+            f"&rarr; confidence +{boost} applied to all signals in the cluster"
+            f"</div>"
+            f"<div style='font-size:11px;color:#64748b;'>"
+            f"&rarr; tickers: <span style='color:#94a3b8;'>{tickers}</span>"
+            f"</div>"
+            f"</div>"
+        )
+
+    return (
+        f"<div style='background:#0f1f35;border:1px solid #1e3a5f;border-radius:6px;"
+        f"padding:16px 20px;margin-bottom:14px;'>"
+        f"<div style='font-size:10px;font-weight:700;color:#3b82f6;letter-spacing:.08em;"
+        f"text-transform:uppercase;margin-bottom:4px;'>CLUSTER ALERTS</div>"
+        f"<div style='font-size:10px;color:#475569;margin-bottom:8px;'>"
+        f"3+ tickers from the same sector signalling in the same direction within 5 days"
+        f"</div>"
+        f"{rows_html}"
+        f"</div>"
+    )
+
+
 # ── asset card ─────────────────────────────────────────────────────────────
 
-def _asset_card(ticker: str, signals: dict, tier: str) -> str:
+def _asset_card(ticker: str, signals: dict, tier: str, cluster_boost: dict | None = None) -> str:
     name = TICKER_NAMES.get(ticker, ticker)
     m = signals["market"]
     v = signals["volume"]
@@ -406,6 +472,8 @@ def _asset_card(ticker: str, signals: dict, tier: str) -> str:
         f"<div style='margin-top:8px;font-size:11px;'>{_sentiment_row(s)}</div>"
     )
 
+    boost_badge = _cluster_boost_badge(cluster_boost) if cluster_boost else ""
+
     return (
         f"<div style='background:#1a1a1a;border-radius:6px;border-left:4px solid {border};"
         f"padding:14px 16px;margin-bottom:12px;'>"
@@ -415,6 +483,7 @@ def _asset_card(ticker: str, signals: dict, tier: str) -> str:
         f"<span style='{label_style}'>{tier.upper()}</span>"
         f"&nbsp;<span style='font-weight:700;font-size:15px;'>{html.escape(ticker)}</span>"
         f"&nbsp;<span style='color:#94a3b8;font-size:12px;'>{html.escape(name)}</span>"
+        f"{boost_badge}"
         f"</td>"
         f"<td style='text-align:right;vertical-align:middle;font-size:14px;font-weight:600;white-space:nowrap;'>"
         f"${price:,.2f}&nbsp;<span style='color:{ret_color};'>{ret_sign}{ret:.2f}%</span>"
@@ -440,14 +509,21 @@ def build_html_email(
     report_text: str,
     open_positions: list[dict] | None = None,
     closed_stats: dict | None = None,
+    active_clusters: list[dict] | None = None,
 ) -> str:
-    red_items   = [(r["ticker"], r["signals"]) for r in results if get_alert_tier(r["signals"]) == "red"]
-    amber_items = [(r["ticker"], r["signals"]) for r in results if get_alert_tier(r["signals"]) == "amber"]
-    red_tickers   = [t for t, _ in red_items]
-    amber_tickers = [t for t, _ in amber_items]
+    red_items   = [
+        (r["ticker"], r["signals"], r.get("cluster_boost"))
+        for r in results if get_alert_tier(r["signals"]) == "red"
+    ]
+    amber_items = [
+        (r["ticker"], r["signals"], r.get("cluster_boost"))
+        for r in results if get_alert_tier(r["signals"]) == "amber"
+    ]
+    red_tickers   = [t for t, _, _ in red_items]
+    amber_tickers = [t for t, _, _ in amber_items]
 
-    cards = "".join(_asset_card(t, s, "red")   for t, s in red_items)
-    cards += "".join(_asset_card(t, s, "amber") for t, s in amber_items)
+    cards = "".join(_asset_card(t, s, "red",   cb) for t, s, cb in red_items)
+    cards += "".join(_asset_card(t, s, "amber", cb) for t, s, cb in amber_items)
     if not cards:
         cards = (
             "<div style='background:#1a1a1a;border-radius:6px;padding:16px;color:#64748b;"
@@ -468,7 +544,8 @@ def build_html_email(
         f"</div>"
     )
 
-    positions_section = _active_positions_card(open_positions or [], closed_stats)
+    positions_section  = _active_positions_card(open_positions or [], closed_stats)
+    cluster_section    = _cluster_alerts_card(active_clusters or [])
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -486,6 +563,8 @@ def build_html_email(
   {_macro_card(fear_greed, vix_structure, buffett)}
 
   {_coverage_card(red_tickers, amber_tickers, len(results))}
+
+  {cluster_section}
 
   {cards}
 
@@ -813,6 +892,7 @@ def send_report(
     buffett: dict | None = None,
     open_positions: list[dict] | None = None,
     closed_stats: dict | None = None,
+    active_clusters: list[dict] | None = None,
 ) -> None:
     """Send the daily report as a multipart email (HTML + plain-text fallback).
 
@@ -849,6 +929,7 @@ def send_report(
             report_text=body,
             open_positions=open_positions,
             closed_stats=closed_stats,
+            active_clusters=active_clusters,
         )
         msg.add_alternative(html_body, subtype="html")
 

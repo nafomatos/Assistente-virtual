@@ -1,0 +1,26 @@
+{
+  "date": "2026-05-04",
+  "signals": [
+    {
+      "ticker": "POET",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "confidence": 6,
+      "reasoning": "Volume 2.6x, z30=+1.8, z200=+3.5, anomalous volume without proportional fundamental catalyst. Sector halo from larger semis."
+    },
+    {
+      "ticker": "MU",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "confidence": 7,
+      "reasoning": "RSI=83, z200=+2.1, continued memory chip sector momentum. YouTube heat=elevated tone=bullish persists."
+    },
+    {
+      "ticker": "GC=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "confidence": 6,
+      "reasoning": "Volume extreme 23x, social heat stable, no retail noise. Classic institutional repositioning signature in gold."
+    }
+  ]
+}

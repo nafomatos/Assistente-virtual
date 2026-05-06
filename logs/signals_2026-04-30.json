@@ -1,0 +1,33 @@
+{
+  "date": "2026-04-30",
+  "signals": [
+    {
+      "ticker": "NVDA",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "confidence": 7,
+      "reasoning": "Volume 1.8x, z30=+2.1, z200=+2.4, YouTube heat=explosive tone=bullish. Macro Buffett 228% reinforces overheating thesis."
+    },
+    {
+      "ticker": "AMD",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "confidence": 8,
+      "reasoning": "Volume 2.3x, z30=+2.9, z200=+3.8, RSI=79, YouTube tone=bullish. Earnings-driven euphoria with no volume divergence from retail."
+    },
+    {
+      "ticker": "INTC",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "confidence": 6,
+      "reasoning": "RSI=84, z200=+2.1, volume 1.4x. Sector sympathy move on AMD earnings. Social heat elevated, tone bullish."
+    },
+    {
+      "ticker": "SOFI",
+      "classification": "irrational_panic",
+      "recommendation": "contrarian_buy",
+      "confidence": 7,
+      "reasoning": "Volume 3.1x, z30=-2.3, social heat explosive tone=bearish. Retail capitulation on macro fears; overshooting fair value."
+    }
+  ]
+}

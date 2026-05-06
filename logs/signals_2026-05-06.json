@@ -1,0 +1,61 @@
+{
+  "date": "2026-05-06",
+  "signals": [
+    {
+      "ticker": "NVDA",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "confidence": 7,
+      "reasoning": "Volume 1.2x, z30=+2.1, z200=+2.6, YouTube heat=explosive tone=bullish. Macro_extreme flag active; Buffett 228% elevates overheating call."
+    },
+    {
+      "ticker": "AMD",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "confidence": 9,
+      "reasoning": "Volume 2.1x, z30=+3.1, z200=+4.2, RSI=81, YouTube heat=explosive tone=bullish. All three signal families align; post-earnings euphoria clear."
+    },
+    {
+      "ticker": "SMCI",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "confidence": 9,
+      "reasoning": "Volume 3.6x, z30=+3.7, z200=+4.8, YouTube heat=explosive tone=bullish. Anomalous volume with retail euphoria; highest confidence call of the day."
+    },
+    {
+      "ticker": "ARM",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "confidence": 7,
+      "reasoning": "Volume 1.8x, z30=+1.8, z200=+3.5, RSI=72, YouTube heat=elevated tone=bullish. Earnings beat + sector momentum."
+    },
+    {
+      "ticker": "INTC",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "confidence": 6,
+      "reasoning": "RSI=86, z200=+0.8, volume 1.2x. Sector sympathy; social heat elevated tone=bullish but volume below ideal threshold."
+    },
+    {
+      "ticker": "MU",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "confidence": 7,
+      "reasoning": "RSI=84, z30=+0.5, z200=+0.8, YouTube heat=elevated tone=bullish. Memory chip exuberance fourth consecutive day."
+    },
+    {
+      "ticker": "AMZN",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "confidence": 4,
+      "reasoning": "RSI=82 is extreme-overbought but volume only 0.9x and z30 near zero. Social heat below threshold for conviction call."
+    },
+    {
+      "ticker": "GOOGL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "confidence": 3,
+      "reasoning": "RSI=83 extreme-overbought but volume 1.1x and z30=+0.6. Social heat stable. Volume does not confirm the RSI signal."
+    }
+  ]
+}
