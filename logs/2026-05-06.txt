@@ -1,0 +1,407 @@
+ARTIFICIAL PRICE RADAR — Daily Report 2026-05-06
+========================================================================
+Macro context — Fear & Greed: 46/100 — Fear (-4 vs yesterday, deteriorating)
+               VIX Structure: Contango (0.85) — normal term structure
+               Buffett Indicator: 228% — Extreme (historical avg ~120%)
+Coverage — 28 tickers processed · 6 red · 8 amber · 14 filtered
+  [RED]:   NVDA, GC=F, SI=F, HG=F, AMD, SMCI
+  [AMBER]: AMZN, GOOGL, MU, SPY, SNDK, ARM, QQQ, INTC
+  skipped: TSLA, AAPL, PLTR, RKLB, ASTS, SOFI, MSTR, RDDT, CL=F, ZS=F, NG=F, MSFT, META, DTE
+========================================================================
+
+[TICKER ALERT TIERS]
+  TICKER | VOL | Z_30D | Z_200D | RSI | TIER/REASON
+  NVDA | 1.2x | +2.1 | +2.6 | 61 | RED: macro_extreme(z30=+2.1,z200=+2.6)
+  TSLA | 0.8x | +0.8 | +0.8 | 59 | SKIP: vol=0.8x (normal); z30=+0.8,z200=+0.8; RSI=59
+  AAPL | 1.3x | +0.5 | +0.7 | 69 | SKIP: vol=1.3x (normal); z30=+0.5,z200=+0.7; RSI=69
+  AMZN | 0.9x | -0.2 | +0.2 | 82 | AMBER: RSI=82
+  GOOGL | 1.1x | +0.6 | +1.1 | 83 | AMBER: RSI=83
+  PLTR | 1.1x | -0.3 | -0.5 | 41 | SKIP: vol=1.1x (normal); z30=-0.3,z200=-0.5; RSI=41
+  RKLB | 0.8x | +1.1 | +1.3 | 58 | SKIP: vol=0.8x (normal); z30=+1.1,z200=+1.3; RSI=58
+  ASTS | 1.1x | +1.7 | +1.6 | 42 | SKIP: vol=1.1x (normal); z30=+1.7,z200=+1.6; RSI=42
+  MU | 1.1x | +0.5 | +0.8 | 84 | AMBER: RSI=84
+  SOFI | 0.9x | +0.4 | +0.5 | 42 | SKIP: vol=0.9x (normal); z30=+0.4,z200=+0.5; RSI=42
+  MSTR | 0.7x | -0.3 | +0.1 | 69 | SKIP: vol=0.7x (normal); z30=-0.3,z200=+0.1; RSI=69
+  RDDT | 1.5x | -0.8 | -0.7 | 59 | SKIP: vol=1.5x (elevated); z30=-0.8,z200=-0.7; RSI=59
+  GC=F | 43.9x | +1.6 | +1.7 | 51 | RED: vol=43.9x (extreme >5x)
+  SI=F | 35.9x | +1.8 | +1.4 | 54 | RED: vol=35.9x (extreme >5x)
+  CL=F | 1.2x | -1.1 | -1.9 | 49 | SKIP: vol=1.2x (normal); z30=-1.1,z200=-1.9; RSI=49
+  HG=F | 26.6x | +2.4 | +1.8 | 63 | RED: vol=26.6x (extreme >5x)
+  ZS=F | 1.5x | -0.3 | -0.2 | 60 | SKIP: vol=1.5x (elevated); z30=-0.3,z200=-0.2; RSI=60
+  NG=F | 0.9x | -0.8 | -0.4 | 48 | SKIP: vol=0.9x (normal); z30=-0.8,z200=-0.4; RSI=48
+  AMD | 2.1x | +3.1 | +4.2 | 81 | RED: macro_extreme(z30=+3.1,z200=+4.2)
+  SPY | 0.8x | +1.0 | +1.7 | 75 | AMBER: RSI=75
+  SNDK | 1.2x | -0.4 | -0.3 | 81 | AMBER: RSI=81
+  MSFT | 0.9x | +0.1 | +0.5 | 54 | SKIP: vol=0.9x (normal); z30=+0.1,z200=+0.5; RSI=54
+  ARM | 1.8x | +1.8 | +3.5 | 72 | AMBER: |z30|=1.8>1.5 + vol=1.8x
+  QQQ | 0.8x | +1.2 | +1.9 | 80 | AMBER: RSI=80
+  INTC | 1.2x | +0.2 | +0.8 | 86 | AMBER: RSI=86
+  SMCI | 3.6x | +3.7 | +4.8 | 70 | RED: macro_extreme(z30=+3.7,z200=+4.8)
+  META | 1.1x | +0.4 | +0.6 | 43 | SKIP: vol=1.1x (normal); z30=+0.4,z200=+0.6; RSI=43
+  DTE | 1.3x | -0.6 | -0.8 | 41 | SKIP: vol=1.3x (normal); z30=-0.6,z200=-0.8; RSI=41
+[SYSTEM PROMPT — paste everything below together into Claude.ai]
+
+You are a Senior Quantitative Analyst specializing in market microstructure and behavioral finance. Your task is to analyze flagged assets to distinguish between institutional flows and retail irrationality.
+
+## Core Objective
+
+Classify each flagged asset into exactly one of five categories using the Divergence Principle — the relationship between Volume, Social Heat, and Price Velocity is the key signal:
+
+- **irrational_panic** → recommendation: contrarian_buy (only when confidence ≥ 7)
+  Logic: Volume >3x AND Social Heat "explosive" AND z-score <-1.5 AND tone "bearish"
+  Thesis: Retail is capitulating. Price is being pushed below fair value by emotion.
+
+- **bubble_forming** → recommendation: reduce_exposure
+  Logic: Price above 200d average AND Social Heat "explosive" AND tone "bullish"
+  Thesis: Retail euphoria has decoupled from fundamental value.
+
+- **institutional_rebalancing** → recommendation: wait
+  Logic: Volume >3x AND Social Heat "stable" or "low"
+  Thesis: High-volume movement without social noise = smart money repositioning or dark pool activity. Do NOT classify this as panic.
+
+- **silent_accumulation** → recommendation: wait
+  Logic: Price stable/sideways AND Volume rising >2x AND Social Heat "quiet"
+  Thesis: Institutions building a position quietly before a breakout.
+
+- **ambiguous** or **no_signal** → recommendation: wait or no_action
+  Logic: Signals conflict or fall below thresholds.
+
+## Divergence Rules (MANDATORY)
+
+Apply these rules before anything else. They override any pattern-matching instinct:
+
+- If Volume >3x AND Social Heat is "stable" or "low" → MUST classify as "institutional_rebalancing". Never "irrational_panic". The absence of retail noise during heavy volume is the defining signature of institutional activity.
+- If Volume >3x AND Social Heat is "explosive" AND tone is "bearish" → MUST classify as "irrational_panic".
+- If Volume >3x AND Social Heat is "explosive" AND tone is "bullish" → MUST classify as "bubble_forming".
+- Social Heat alone (without volume confirmation ≥ 2x) → always "ambiguous" or "no_signal". Do not manufacture a conviction call from social data alone.
+- z-scores between -1.5 and +1.5 are noise, not signal, even when volume is elevated.
+
+## How to Weigh the Signals
+
+1. **Volume is the primary ingredient.** "anomalous" (>2.5x) or "extreme" (>5x) 30d-average volume is a prerequisite for any high-confidence call. Without it, even large price moves are usually noise.
+2. **Price velocity (z-score)** tells you the direction and intensity of the move relative to recent history. Dual-window confirmation (both z_30d and z_200d elevated) is a stronger signal than a single window.
+3. **Social Heat** is a confirming indicator, not a leading one. Use it to distinguish institutional from retail-driven flows (the Divergence Principle above). If heat is the only elevated signal, default to "ambiguous".
+4. **Tone** (bullish/bearish from StockTwits/YouTube) refines the direction of retail sentiment, but only matters when heat is at least "elevated".
+5. **Absence of signal is a valid finding.** On most days, for most assets, nothing interesting is happening. Saying so clearly is more valuable than inventing patterns.
+6. **Do not apply asset reputation as a prior.** Analyze the signals as presented; do not assume TSLA is always a bubble or GC=F is always safe.
+
+## Macro Context
+
+Always factor in the macro header before scoring confidence:
+
+- **Buffett Indicator >200%**: macro environment is historically extreme — raise the bar for "bubble_forming" confidence (market-wide overvaluation is already priced in), lower it for "irrational_panic" (further compression is credible).
+- **Fear & Greed <30**: market-wide fear. "irrational_panic" signals are more credible; "bubble_forming" signals are less credible.
+- **VIX Backwardation** (short-term VIX > long-term VIX3M): real near-term stress. Increases confidence on panic signals by 1-2 points.
+- **Fear & Greed >70 with Buffett Indicator >180%**: compound overvaluation. Raise confidence on "bubble_forming" and "reduce_exposure" calls.
+
+## Special Notes
+
+- **Commodities (GC=F, SI=F, CL=F, HG=F, ZS=F, NG=F)**: naturally attract institutional volume with low retail chatter. Default toward "institutional_rebalancing" unless StockTwits heat is clearly "elevated" or "explosive". Gold and silver in particular have deep institutional markets; anomalous volume without social heat is almost always institutional.
+- **High-beta retail-driven names (PLTR, MSTR, RKLB, ASTS, RDDT)**: these assets are structurally prone to retail-driven moves. Social heat carries more weight here than it does for large-cap stocks. "explosive" heat for PLTR/MSTR is more meaningful than for AAPL.
+- **Large-cap bellwethers (AAPL, AMZN, GOOGL)**: institutional flows dominate. Require stronger social heat divergence before classifying as retail-driven panic or bubble.
+- **Bitcoin proxies (MSTR)**: treat as a high-beta retail name. Social heat and tone are highly predictive.
+
+## Confidence Calibration
+
+- **1-3**: signals conflict, data is thin, or multiple Divergence Rules produce ambiguous results.
+- **4-6**: a plausible pattern exists but at least one key ingredient (volume, heat, velocity) is below the ideal threshold.
+- **7-8**: two or more of the Divergence Rules fire cleanly and macro context is consistent.
+- **9-10**: all three signal families align, macro context reinforces the call, and the Divergence Rule fires unambiguously. Reserve for rare, high-conviction moments.
+
+## Output Contract
+
+Respond using this exact two-section format. No markdown fences, no extra prose before or after.
+
+HUMAN_SUMMARY:
+[2-3 short paragraphs in plain Portuguese summarizing the day's signals. Group by theme — e.g., "Commodities: ...", "Semicondutores: ...", "Destaques: ...". Highlight the highest-confidence calls. Tone: direct and conversational, like a senior analyst briefing a colleague over coffee. Maximum 600 characters total.]
+
+JSON_OUTPUT:
+[Single JSON array — one object per asset analyzed, no markdown fences]
+
+Each object in the array:
+{
+  "ticker": "the ticker symbol analyzed",
+  "classification": "irrational_panic|bubble_forming|institutional_rebalancing|silent_accumulation|ambiguous|no_signal",
+  "recommendation": "contrarian_buy|reduce_exposure|wait|no_action",
+  "reasoning": "2-3 short sentences under 400 characters. Cite specific signals: volume ratio, z-scores, social heat level, tone.",
+  "confidence": 1-10
+}
+
+Constraints:
+- HUMAN_SUMMARY must be in Portuguese, conversational tone, under 600 characters total. Count before returning.
+- JSON_OUTPUT is the array described above; format is otherwise unchanged.
+- Both sections are required and must appear under the exact labels HUMAN_SUMMARY: and JSON_OUTPUT:.
+- reasoning MUST be under 400 characters. Cite the specific signals relied on (e.g., "volume 3.1x, z30=+2.4, heat=explosive, tone=bearish"). No generic language like "monitor the situation".
+- contrarian_buy only when confidence ≥ 7.
+- no_signal must always pair with no_action.
+- Never add disclaimers about not being a financial advisor.
+
+[ASSETS WITH NON-TRIVIAL SIGNALS]
+
+------------------------------------------------------------------------
+Asset: [RED] NVDA (Nvidia)
+
+Market signals:
+- Volume: normal (1.2x 30d avg)
+- Price velocity: extreme (z_30d: 2.06, z_200d: 2.58, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 60.8 (normal)
+- Current price: $207.83 (+5.77% today)
+
+Recent news (last 3):
+1. "'Uber won': Why Instacart might not stand a chance" — Yahoo Finance Video, 0.5h ago
+2. "Tech stocks today: AMD earnings buoy chip stocks, Musk-Altman court battle continues" — Yahoo Finance, 59.2h ago
+3. "The space ETFs prepping for liftoff ahead of SpaceX IPO" — Yahoo Finance Video, 4.9h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="This Stock will mint more Millionaires than Nvidia did‼️" (103k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [RED] GC=F (Gold)
+
+Market signals:
+- Volume: extreme (43.86x 30d avg)
+- Price velocity: notable (z_30d: 1.63, z_200d: 1.67, direction: up, macro_extreme: False)
+- RSI-14: 50.7 (normal)
+- Current price: $4,703.10 (+3.23% today)
+
+Recent news (last 3):
+1. "Gold, silver jump on report that the US and Iran are nearing a peace deal" — Yahoo Finance, 9.8h ago
+2. "TSX Closer: The Index Rises on Peace-Deal Hopes; Canada Seen As a "Relative Outperformer"" — MT Newswires, 0.9h ago
+3. "Iamgold (IAG) Q2 2025 Earnings Transcript" — Motley Fool, 1.3h ago
+
+Social signals (social_heat_z: -0.4):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="Crypto Gold Live Trading 5 MAY  - stock_learners" (105k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [RED] SI=F (Silver)
+
+Market signals:
+- Volume: extreme (35.88x 30d avg)
+- Price velocity: notable (z_30d: 1.81, z_200d: 1.4, direction: up, macro_extreme: False)
+- RSI-14: 54.0 (normal)
+- Current price: $77.82 (+6.45% today)
+
+Recent news (last 3):
+1. "Gold, silver jump on report that the US and Iran are nearing a peace deal" — Yahoo Finance, 9.8h ago
+2. "Gold and silver prices today, Wednesday, May 6: Gold and silver prices up significantly this morning" — Yahoo Personal Finance, 10.4h ago
+3. "Gold, Silver Surge as US-Iran Truce Hopes Ease Inflation Risks" — Bloomberg, 0.4h ago
+
+Social signals (social_heat_z: -0.4):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="Stocks To Crash By 50%+, Silver To Surge Above $300oz? | Mic" (52k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [RED] HG=F (Copper)
+
+Market signals:
+- Volume: extreme (26.62x 30d avg)
+- Price velocity: extreme (z_30d: 2.38, z_200d: 1.75, direction: up, macro_extreme: False)
+- RSI-14: 63.3 (normal)
+- Current price: $6.19 (+4.22% today)
+
+Recent news (last 3):
+1. "Assessing Boliden (OM:BOL) Valuation After Strong Q1 Results And New Dividend" — Simply Wall St., 1.7h ago
+2. "Rio Tinto Copper Output Rise Puts Valuation And Dividend In Spotlight" — Simply Wall St., 2.9h ago
+3. "This Tiny Country ETF Could Be One Of The Purest Ways To Bet On Copper And Chile" — 24/7 Wall St., 3.8h ago
+
+Social signals (social_heat_z: -0.3):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=neutral, top="Commodities Update: Technical Analysis: COPPER SURGING HIGHE" (2k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [RED] AMD (AMD)
+
+Market signals:
+- Volume: elevated (2.1x 30d avg)
+- Price velocity: blowout (z_30d: 3.08, z_200d: 4.25, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 81.3 (extreme_overbought)
+- Current price: $421.39 (+18.61% today)
+
+Recent news (last 3):
+1. "AMD stock soars on Q1 earnings beat, better-than-expected outlook amid strong AI chip demand" — Yahoo Finance, 49.3h ago
+2. "Micron tops $700 billion market cap, stock extends rally amid AI-driven memory demand" — Yahoo Finance, 30.5h ago
+3. "AMD and Intel are riding a surprising AI chip comeback" — Yahoo Finance, 7.0h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="AMD and Intel Just Teamed Up To DESTROY EVERYONE!" (82k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [RED] SMCI (SMCI)
+
+Market signals:
+- Volume: anomalous (3.59x 30d avg)
+- Price velocity: blowout (z_30d: 3.67, z_200d: 4.84, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 69.8 (normal)
+- Current price: $34.66 (+24.54% today)
+
+Recent news (last 3):
+1. "Earnings live updates: Whirlpool stock falls after 'perfect storm' of consumer headwinds, Supermicro soars" — Yahoo Finance, 59.2h ago
+2. "Oklo Milestone Lifts These Nuclear Stocks Ahead Of Earnings" — Investor's Business Daily, 2.2h ago
+3. "Super Micro Doubled Revenue Year Over Year, and the Stock Is Still Flat. That Math Doesn’t Add Up" — 24/7 Wall St., 2.7h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="Futures Jump on Iran Truce Hopes; AMD, SMCI Surge After Earn" (6k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] AMZN (Amazon)
+
+Market signals:
+- Volume: normal (0.92x 30d avg)
+- Price velocity: normal (z_30d: -0.23, z_200d: 0.21, direction: up, macro_extreme: False)
+- RSI-14: 81.6 (extreme_overbought)
+- Current price: $274.99 (+0.53% today)
+
+Recent news (last 3):
+1. "'Uber won': Why Instacart might not stand a chance" — Yahoo Finance Video, 0.5h ago
+2. "Josh D'Amaro's 'super app' could be Disney's next big catalyst" — Yahoo Finance Video, 5.2h ago
+3. "Here’s What to Know About Amazon.com (AMZN)’s Fastest Growing Segment" — Insider Monkey, 0.2h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bullish, top="Buy Amazon Stock at All Time Highs? - What You Need to Know" (12k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] GOOGL (Alphabet)
+
+Market signals:
+- Volume: normal (1.08x 30d avg)
+- Price velocity: notable (z_30d: 0.55, z_200d: 1.11, direction: up, macro_extreme: False)
+- RSI-14: 83.4 (extreme_overbought)
+- Current price: $398.04 (+2.47% today)
+
+Recent news (last 3):
+1. "AMD stock surges as the chipmaker forecasts continued AI growth" — Yahoo Finance Video, 1.1h ago
+2. "Anthropic to rent all AI capacity at SpaceX's Colossus data center" — Yahoo Finance, 3.1h ago
+3. "The Best AI Stocks for Growth Investors to Buy in 2026" — Motley Fool, 0.6h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=stable, tone=bullish, top="Why Is Alphabet Stock Soaring? | GOOG Stock Deep Dive Part 1" (1k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] MU (Micron)
+
+Market signals:
+- Volume: normal (1.15x 30d avg)
+- Price velocity: normal (z_30d: 0.47, z_200d: 0.77, direction: up, macro_extreme: False)
+- RSI-14: 83.7 (extreme_overbought)
+- Current price: $666.59 (+4.12% today)
+
+Recent news (last 3):
+1. "Samsung market cap crosses $1 trillion amid memory chip rally" — Yahoo Finance Video, 1.5h ago
+2. "What's driving the rally in memory chip stocks?" — Yahoo Finance Video, 6.5h ago
+3. "Samsung reaches $1 trillion valuation on strong AI demand" — Yahoo Finance, 8.1h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bullish, top="MICRON: The Next NVIDIA! – WHY I Bought OVER $22,000 Of MEMO" (40k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] SPY (SPY)
+
+Market signals:
+- Volume: normal (0.8x 30d avg)
+- Price velocity: notable (z_30d: 1.0, z_200d: 1.66, direction: up, macro_extreme: False)
+- RSI-14: 75.4 (overbought)
+- Current price: $733.83 (+1.39% today)
+
+Recent news (last 3):
+1. "71% of Stocks Fail to Beat the Market. Here’s How to Find the 4% That Create Real Wealth" — 24/7 Wall St., 1.7h ago
+2. "Portfolio Manager Reveals How Selling a 19-Bagger Too Early Changed His Investment Philosophy Forever" — 24/7 Wall St., 2.9h ago
+3. "CBOE VIX Slides Toward 17 as Oil Retreat and Tech Stock Surge Restore Risk Appetite" — 24/7 Wall St., 7.0h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bearish, top="THIS INSIDER HAS APPEARED AGAIN (5 MAY) - SPY QQQ Options ES" (4k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] SNDK (SNDK)
+
+Market signals:
+- Volume: normal (1.22x 30d avg)
+- Price velocity: normal (z_30d: -0.37, z_200d: -0.26, direction: up, macro_extreme: False)
+- RSI-14: 81.3 (extreme_overbought)
+- Current price: $1,409.98 (+0.26% today)
+
+Recent news (last 3):
+1. "Samsung market cap crosses $1 trillion amid memory chip rally" — Yahoo Finance Video, 1.5h ago
+2. "What Micron & Sandisk's stock moves say about the chip sector" — Yahoo Finance Video, 6.3h ago
+3. "Sandisk Is Mooning Like a Meme Coin. Here's Why" — decrypt, 2.2h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bullish, top="AI Memory Stocks (MU, SNDK) Just Had a Historic Day‼️🔥🚀" (19k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] ARM (ARM)
+
+Market signals:
+- Volume: elevated (1.78x 30d avg)
+- Price velocity: blowout (z_30d: 1.81, z_200d: 3.51, direction: up, macro_extreme: False)
+- RSI-14: 71.8 (overbought)
+- Current price: $237.30 (+13.63% today)
+
+Recent news (last 3):
+1. "Earnings live updates: Whirlpool stock falls after 'perfect storm' of consumer headwinds, Supermicro soars" — Yahoo Finance, 59.2h ago
+2. "Chip Designer Arm Tops Estimates With March-Quarter Results, Outlook" — Investor's Business Daily, 0.2h ago
+3. "Arm Stock Jumps on Earnings. It’s More Good News for Chips." — Barrons.com, 0.2h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=neutral, top="ELON TURNS XAI INTO A NEOCLOUD, SPY ALL TIME HIGHS, ARM, AXO" (7k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] QQQ (QQQ)
+
+Market signals:
+- Volume: normal (0.77x 30d avg)
+- Price velocity: notable (z_30d: 1.16, z_200d: 1.87, direction: up, macro_extreme: False)
+- RSI-14: 80.1 (extreme_overbought)
+- Current price: $695.77 (+2.08% today)
+
+Recent news (last 3):
+1. "The space ETFs prepping for liftoff ahead of SpaceX IPO" — Yahoo Finance Video, 4.9h ago
+2. "Exchange-Traded Funds Rise as US Equities Climb After Midday" — MT Newswires, 4.0h ago
+3. "CBOE VIX Slides Toward 17 as Oil Retreat and Tech Stock Surge Restore Risk Appetite" — 24/7 Wall St., 7.0h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bearish, top="🔴 LIVE :  DAY TRADING  6th MAY  STOCK MARKET #AMD #SPX #QQQ " (12k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] INTC (INTC)
+
+Market signals:
+- Volume: normal (1.2x 30d avg)
+- Price velocity: normal (z_30d: 0.18, z_200d: 0.77, direction: up, macro_extreme: False)
+- RSI-14: 86.0 (extreme_overbought)
+- Current price: $113.01 (+4.49% today)
+
+Recent news (last 3):
+1. "Elon Musk's SpaceX submits plans for $55B Terafab chip facility" — Yahoo Finance Video, 0.5h ago
+2. "What Micron & Sandisk's stock moves say about the chip sector" — Yahoo Finance Video, 6.3h ago
+3. "Arm Stock Jumps on Earnings. It’s More Good News for Chips." — Barrons.com, 0.2h ago
+
+Social signals (social_heat_z: -0.3):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bullish, top="Next Hot Stock Play 🚀 #pltr #nvda #intc Lightning Round" (20k views)
+- Twitter: n/a
+
+========================================================================
+[INSTRUCTION]
+
+Analyze each of the 14 asset(s) above and respond with a single JSON array. Each element must follow this exact schema:
+
+{
+  "ticker": "...",
+  "classification": "bubble_forming|irrational_panic|institutional_rebalancing|silent_accumulation|ambiguous|no_signal",
+  "recommendation": "contrarian_buy|reduce_exposure|wait|no_action",
+  "reasoning": "2-3 short sentences, under 400 characters total",
+  "confidence": <integer 1-10>
+}
+
+Return ONLY the JSON array, no prose, no markdown fences.
