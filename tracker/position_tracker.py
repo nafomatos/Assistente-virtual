@@ -61,7 +61,8 @@ def fetch_price(ticker: str, date: dt.date | None = None) -> float | None:
             end   = (date + dt.timedelta(days=1)).isoformat()
             hist  = t.history(start=start, end=end)
             if not hist.empty:
-                hist = hist[hist.index.normalize() <= dt.datetime.combine(date, dt.time())]
+                # Use .date to avoid tz-aware vs tz-naive comparison errors.
+                hist = hist[hist.index.date <= date]
         if hist.empty:
             logger.warning("%s: no price data for %s", ticker, date)
             return None

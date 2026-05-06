@@ -1,11 +1,39 @@
 """One-time script to seed the 14 positions from the live system's first 7 days.
 
-For positions where entry_price is None the script fetches the closing price
-for that entry_date from yfinance.
+Entry price convention
+----------------------
+entry_price = the closing price on the SIGNAL DATE (entry_date), taken directly
+from the "Current price" field in the daily report for that date (logs/<date>.txt).
+This is the price at which a trader would have acted on the recommendation at
+end-of-day; it is NOT the next day's open.
+
+For positions where entry_price is None the script fetches the closing price for
+entry_date via yfinance. When yfinance is unavailable (network blocked) it falls
+back to the hardcoded fallback_price, which must be sourced from the daily log
+("Current price: $X.XX" line for that ticker on that date).
+
+Fallback price lookup
+---------------------
+  - INTC  2026-05-05: logs/2026-05-05.txt → "Current price: $108.15 (+12.92% today)"
+  - MU    2026-05-05: logs/2026-05-05.txt → "Current price: $640.20 (+11.06% today)"
+  - POET  2026-05-05: logs/2026-05-05.txt → "Current price: $9.21 (+29.54% today)"
+  - SMCI  2026-05-06: logs/2026-05-06.txt → "Current price: $34.66 (+24.54% today)"
+  - AMD   2026-05-06: logs/2026-05-06.txt → "Current price: $421.39 (+18.61% today)"
+  - ARM   2026-05-06: logs/2026-05-06.txt → "Current price: $237.30 (+13.63% today)"
+
+Known bug (fixed in position_tracker.py)
+-----------------------------------------
+The original fetch_price() filtered history with:
+    hist[hist.index.normalize() <= dt.datetime.combine(date, dt.time())]
+This raises TypeError in pandas when the DatetimeIndex is tz-aware, causing the
+filter to fail silently (exception caught, returns None → falls back to wrong price).
+Fixed by using:
+    hist[hist.index.date <= date]
+which compares datetime.date objects directly, avoiding the tz mismatch entirely.
 
 Usage:
-    python tracker/seed_initial_positions.py
-    python tracker/seed_initial_positions.py --dry-run   # print without writing
+    python -m tracker.seed_initial_positions
+    python -m tracker.seed_initial_positions --dry-run   # print without writing
 """
 
 from __future__ import annotations
@@ -103,7 +131,8 @@ INITIAL_POSITIONS = [
         "confidence": 6,
         "entry_date": "2026-05-05",
         "entry_price": None,
-        "fallback_price": 27.40,   # approx close 2026-05-05
+        # "Current price" from logs/2026-05-05.txt: $108.15 (+12.92% today)
+        "fallback_price": 108.15,
         "reasoning": "RSI 84, z200=+2.57...",
     },
     {
@@ -113,7 +142,8 @@ INITIAL_POSITIONS = [
         "confidence": 6,
         "entry_date": "2026-05-05",
         "entry_price": None,
-        "fallback_price": 119.82,  # approx close 2026-05-05
+        # "Current price" from logs/2026-05-05.txt: $640.20 (+11.06% today)
+        "fallback_price": 640.20,
         "reasoning": "RSI 82, z200=+2.48...",
     },
     {
@@ -123,7 +153,8 @@ INITIAL_POSITIONS = [
         "confidence": 6,
         "entry_date": "2026-05-05",
         "entry_price": None,
-        "fallback_price": 11.35,   # approx close 2026-05-05 (+29.54%)
+        # "Current price" from logs/2026-05-05.txt: $9.21 (+29.54% today)
+        "fallback_price": 9.21,
         "reasoning": "+29.54%, z200=+3.52...",
     },
     {
@@ -133,7 +164,8 @@ INITIAL_POSITIONS = [
         "confidence": 9,
         "entry_date": "2026-05-06",
         "entry_price": None,
-        "fallback_price": 47.20,   # approx close 2026-05-06 (+24.5%)
+        # "Current price" from logs/2026-05-06.txt: $34.66 (+24.54% today)
+        "fallback_price": 34.66,
         "reasoning": "+24.5%, z200=+4.84, vol 3.6x...",
     },
     {
@@ -143,7 +175,8 @@ INITIAL_POSITIONS = [
         "confidence": 8,
         "entry_date": "2026-05-06",
         "entry_price": None,
-        "fallback_price": 138.50,  # approx close 2026-05-06 (+18.6%)
+        # "Current price" from logs/2026-05-06.txt: $421.39 (+18.61% today)
+        "fallback_price": 421.39,
         "reasoning": "+18.6%, z200=+4.25, RSI 81...",
     },
     {
@@ -153,7 +186,8 @@ INITIAL_POSITIONS = [
         "confidence": 6,
         "entry_date": "2026-05-06",
         "entry_price": None,
-        "fallback_price": 168.90,  # approx close 2026-05-06 (+13.6%)
+        # "Current price" from logs/2026-05-06.txt: $237.30 (+13.63% today)
+        "fallback_price": 237.30,
         "reasoning": "+13.6%, z200=+3.51...",
     },
 ]
