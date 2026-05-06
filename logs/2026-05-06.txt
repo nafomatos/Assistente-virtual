@@ -3,58 +3,58 @@ ACTIVE POSITIONS
 ========================================================================
   SOFI   | LONG  | conf 7
   Entry: $15.52 on 2026-04-29
-  Current: $15.52 (+0.0%)
-  Days held: 7 / 30  |  Status: NEUTRAL
+  Current: $16.30 (+5.0%)
+  Days held: 7 / 30  |  Status: ON TRACK
 
   HOOD   | LONG  | conf 7
   Entry: $71.20 on 2026-04-29
-  Current: $71.20 (+0.0%)
-  Days held: 7 / 30  |  Status: NEUTRAL
+  Current: $79.05 (+11.0%)
+  Days held: 7 / 30  |  Status: ON TRACK
 
   GOOGL  | SHORT | conf 8
   Entry: $384.80 on 2026-04-30
-  Current: $384.80 (+0.0%)
-  Days held: 6 / 30  |  Status: NEUTRAL
+  Current: $398.04 (-3.4%)
+  Days held: 6 / 30  |  Status: UNDERWATER
 
   RDDT   | SHORT | conf 8
   Entry: $166.48 on 2026-05-01
-  Current: $166.48 (+0.0%)
+  Current: $166.56 (-0.1%)
   Days held: 5 / 30  |  Status: NEUTRAL
 
   SOUN   | SHORT | conf 7
   Entry: $9.56 on 2026-05-01
-  Current: $9.56 (+0.0%)
+  Current: $9.37 (+2.0%)
   Days held: 5 / 30  |  Status: NEUTRAL
 
   XRX    | SHORT | conf 7
   Entry: $2.70 on 2026-05-01
-  Current: $2.70 (+0.0%)
-  Days held: 5 / 30  |  Status: NEUTRAL
+  Current: $2.62 (+3.0%)
+  Days held: 5 / 30  |  Status: ON TRACK
 
   GME    | LONG  | conf 7
   Entry: $23.84 on 2026-05-04
-  Current: $23.84 (+0.0%)
-  Days held: 2 / 30  |  Status: NEUTRAL
+  Current: $25.17 (+5.6%)
+  Days held: 2 / 30  |  Status: ON TRACK
 
   NBIS   | SHORT | conf 8
   Entry: $176.42 on 2026-05-04
-  Current: $176.42 (+0.0%)
-  Days held: 2 / 30  |  Status: NEUTRAL
+  Current: $195.09 (-10.6%)
+  Days held: 2 / 30  |  Status: UNDERWATER
 
   INTC   | SHORT | conf 6
   Entry: $108.15 on 2026-05-05
-  Current: $108.15 (+0.0%)
-  Days held: 1 / 30  |  Status: NEUTRAL
+  Current: $113.01 (-4.5%)
+  Days held: 1 / 30  |  Status: UNDERWATER
 
   MU     | SHORT | conf 6
   Entry: $640.20 on 2026-05-05
-  Current: $640.20 (+0.0%)
-  Days held: 1 / 30  |  Status: NEUTRAL
+  Current: $666.59 (-4.1%)
+  Days held: 1 / 30  |  Status: UNDERWATER
 
   POET   | SHORT | conf 6
   Entry: $9.21 on 2026-05-05
-  Current: $9.21 (+0.0%)
-  Days held: 1 / 30  |  Status: NEUTRAL
+  Current: $9.72 (-5.5%)
+  Days held: 1 / 30  |  Status: UNDERWATER
 
   SMCI   | SHORT | conf 9
   Entry: $34.66 on 2026-05-06
@@ -63,25 +63,56 @@ ACTIVE POSITIONS
 
   AMD    | SHORT | conf 8
   Entry: $421.39 on 2026-05-06
-  Current: $421.39 (+0.0%)
+  Current: $421.39 (+-0.0%)
   Days held: 0 / 30  |  Status: NEUTRAL
 
   ARM    | SHORT | conf 6
   Entry: $237.30 on 2026-05-06
-  Current: $237.30 (+0.0%)
+  Current: $237.30 (+-0.0%)
   Days held: 0 / 30  |  Status: NEUTRAL
 
 ARTIFICIAL PRICE RADAR — Daily Report 2026-05-06
 ========================================================================
-Macro context — Fear & Greed: unavailable
-               VIX Structure: unavailable
-               Buffett Indicator: unavailable
-Coverage — 0 tickers processed · 0 red · 0 amber · 0 filtered
-  [RED]:   none
-  [AMBER]: none
-  skipped: none
+Macro context — Fear & Greed: 46/100 — Fear (-4 vs yesterday, deteriorating)
+               VIX Structure: Contango (0.85) — normal term structure
+               Buffett Indicator: 228% — Extreme (historical avg ~120%)
+Coverage — 29 tickers processed · 3 red · 8 amber · 18 filtered
+  [RED]:   NVDA, AMD, SMCI
+  [AMBER]: AMZN, GOOGL, MU, SPY, SNDK, ARM, QQQ, INTC
+  skipped: TSLA, AAPL, PLTR, RKLB, ASTS, SOFI, MSTR, RDDT, GC=F, SI=F, CL=F, HG=F, ZS=F, NG=F, MSFT, META, DTE, NBIS
 ========================================================================
 
+[TICKER ALERT TIERS]
+  TICKER | VOL | Z_30D | Z_200D | RSI | TIER/REASON
+  NVDA | 1.2x | +2.1 | +2.6 | 61 | RED: macro_extreme(z30=+2.1,z200=+2.6)
+  TSLA | 0.8x | +0.8 | +0.8 | 59 | SKIP: vol=0.8x (normal); z30=+0.8,z200=+0.8; RSI=59
+  AAPL | 1.3x | +0.5 | +0.7 | 69 | SKIP: vol=1.3x (normal); z30=+0.5,z200=+0.7; RSI=69
+  AMZN | 0.9x | -0.2 | +0.2 | 82 | AMBER: RSI=82
+  GOOGL | 1.1x | +0.6 | +1.1 | 83 | AMBER: RSI=83
+  PLTR | 1.1x | -0.3 | -0.5 | 41 | SKIP: vol=1.1x (normal); z30=-0.3,z200=-0.5; RSI=41
+  RKLB | 0.8x | +1.1 | +1.3 | 58 | SKIP: vol=0.8x (normal); z30=+1.1,z200=+1.3; RSI=58
+  ASTS | 1.1x | +1.7 | +1.6 | 42 | SKIP: vol=1.1x (normal); z30=+1.7,z200=+1.6; RSI=42
+  MU | 1.1x | +0.5 | +0.8 | 84 | AMBER: RSI=84
+  SOFI | 0.9x | +0.4 | +0.5 | 42 | SKIP: vol=0.9x (normal); z30=+0.4,z200=+0.5; RSI=42
+  MSTR | 0.7x | -0.3 | +0.1 | 69 | SKIP: vol=0.7x (normal); z30=-0.3,z200=+0.1; RSI=69
+  RDDT | 1.5x | -0.8 | -0.7 | 59 | SKIP: vol=1.5x (elevated); z30=-0.8,z200=-0.7; RSI=59
+  GC=F | 0.1x | +1.7 | +1.7 | 51 | SKIP: vol=0.1x (normal); z30=+1.7,z200=+1.7; RSI=51
+  SI=F | 0.1x | +1.9 | +1.4 | 54 | SKIP: vol=0.1x (normal); z30=+1.9,z200=+1.4; RSI=54
+  CL=F | 0.0x | -1.2 | -2.0 | 49 | SKIP: vol=0.0x (normal); z30=-1.2,z200=-2.0; RSI=49
+  HG=F | 0.1x | +2.3 | +1.7 | 63 | SKIP: vol=0.1x (normal); z30=+2.3,z200=+1.7; RSI=63
+  ZS=F | 1.5x | -0.3 | -0.2 | 60 | SKIP: vol=1.5x (elevated); z30=-0.3,z200=-0.2; RSI=60
+  NG=F | 0.0x | -0.9 | -0.4 | 48 | SKIP: vol=0.0x (normal); z30=-0.9,z200=-0.4; RSI=48
+  AMD | 2.1x | +3.1 | +4.2 | 81 | RED: macro_extreme(z30=+3.1,z200=+4.2)
+  SPY | 0.8x | +1.0 | +1.7 | 75 | AMBER: RSI=75
+  SNDK | 1.2x | -0.4 | -0.3 | 81 | AMBER: RSI=81
+  MSFT | 0.9x | +0.1 | +0.5 | 54 | SKIP: vol=0.9x (normal); z30=+0.1,z200=+0.5; RSI=54
+  ARM | 1.8x | +1.8 | +3.5 | 72 | AMBER: |z30|=1.8>1.5 + vol=1.8x
+  QQQ | 0.8x | +1.2 | +1.9 | 80 | AMBER: RSI=80
+  INTC | 1.2x | +0.2 | +0.8 | 86 | AMBER: RSI=86
+  META | 1.1x | +0.4 | +0.6 | 43 | SKIP: vol=1.1x (normal); z30=+0.4,z200=+0.6; RSI=43
+  SMCI | 3.6x | +3.7 | +4.8 | 70 | RED: macro_extreme(z30=+3.7,z200=+4.8)
+  DTE | 1.3x | -0.6 | -0.8 | 41 | SKIP: vol=1.3x (normal); z30=-0.6,z200=-0.8; RSI=41
+  NBIS | 1.2x | +1.4 | +1.5 | 74 | SKIP: vol=1.2x (normal); z30=+1.4,z200=+1.5; RSI=74
 [SYSTEM PROMPT — paste everything below together into Claude.ai]
 
 You are a Senior Quantitative Analyst specializing in market microstructure and behavioral finance. Your task is to analyze flagged assets to distinguish between institutional flows and retail irrationality.
@@ -181,12 +212,209 @@ Constraints:
 
 [ASSETS WITH NON-TRIVIAL SIGNALS]
 
-(none — all tickers evaluated today fell within normal ranges)
+------------------------------------------------------------------------
+Asset: [RED] NVDA (Nvidia)
+
+Market signals:
+- Volume: normal (1.2x 30d avg)
+- Price velocity: extreme (z_30d: 2.06, z_200d: 2.58, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 60.8 (normal)
+- Current price: $207.83 (+5.77% today)
+
+Recent news (last 3):
+1. "'Uber won': Why Instacart might not stand a chance" — Yahoo Finance Video, 1.7h ago
+2. "Tech stocks today: AMD earnings buoy chip stocks, Musk-Altman court battle continues" — Yahoo Finance, 60.4h ago
+3. "The space ETFs prepping for liftoff ahead of SpaceX IPO" — Yahoo Finance Video, 6.1h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="This Stock will mint more Millionaires than Nvidia did‼️" (105k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [RED] AMD (AMD)
+
+Market signals:
+- Volume: elevated (2.1x 30d avg)
+- Price velocity: blowout (z_30d: 3.08, z_200d: 4.25, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 81.3 (extreme_overbought)
+- Current price: $421.39 (+18.61% today)
+
+Recent news (last 3):
+1. "AMD stock soars on Q1 earnings beat, better-than-expected outlook amid strong AI chip demand" — Yahoo Finance, 50.5h ago
+2. "Micron tops $700 billion market cap, stock extends rally amid AI-driven memory demand" — Yahoo Finance, 31.7h ago
+3. "AMD and Intel are riding a surprising AI chip comeback" — Yahoo Finance, 8.2h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="AMD and Intel Just Teamed Up To DESTROY EVERYONE!" (83k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [RED] SMCI (SMCI)
+
+Market signals:
+- Volume: anomalous (3.59x 30d avg)
+- Price velocity: blowout (z_30d: 3.67, z_200d: 4.84, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 69.8 (normal)
+- Current price: $34.66 (+24.54% today)
+
+Recent news (last 3):
+1. "Earnings live updates: Whirlpool stock falls after 'perfect storm' of consumer headwinds, Supermicro soars" — Yahoo Finance, 60.4h ago
+2. "Stock Market Today, May 6: Super Micro Computer Surges After Earnings Beat and Strong AI Data Center Demand" — Motley Fool, 0.7h ago
+3. "Oklo Milestone Lifts These Nuclear Stocks Ahead Of Earnings" — Investor's Business Daily, 3.4h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="AMD Stock (+ SMCI, UPST, etc) Earnings Call | Q1 2026 Breakd" (10k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] AMZN (Amazon)
+
+Market signals:
+- Volume: normal (0.92x 30d avg)
+- Price velocity: normal (z_30d: -0.23, z_200d: 0.21, direction: up, macro_extreme: False)
+- RSI-14: 81.6 (extreme_overbought)
+- Current price: $274.99 (+0.53% today)
+
+Recent news (last 3):
+1. "'Uber won': Why Instacart might not stand a chance" — Yahoo Finance Video, 1.7h ago
+2. "Josh D'Amaro's 'super app' could be Disney's next big catalyst" — Yahoo Finance Video, 6.4h ago
+3. "Here’s What to Know About Amazon.com (AMZN)’s Fastest Growing Segment" — Insider Monkey, 1.4h ago
+
+Social signals (social_heat_z: -0.6):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bullish, top="Yanis Varoufakis on how giants like Amazon have changed the " (13k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] GOOGL (Alphabet)
+
+Market signals:
+- Volume: normal (1.08x 30d avg)
+- Price velocity: notable (z_30d: 0.55, z_200d: 1.11, direction: up, macro_extreme: False)
+- RSI-14: 83.4 (extreme_overbought)
+- Current price: $398.04 (+2.47% today)
+
+Recent news (last 3):
+1. "AMD stock surges as the chipmaker forecasts continued AI growth" — Yahoo Finance Video, 2.3h ago
+2. "Anthropic to rent all AI capacity at SpaceX's Colossus data center" — Yahoo Finance, 4.3h ago
+3. "AppLovin shares surge after strong earnings fueled by high ad demand" — Investing.com, 0.4h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=stable, tone=neutral, top="Will Alphabet #stock Cloud Segment Outpace Google Search? #s" (2k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] MU (Micron)
+
+Market signals:
+- Volume: normal (1.15x 30d avg)
+- Price velocity: normal (z_30d: 0.47, z_200d: 0.77, direction: up, macro_extreme: False)
+- RSI-14: 83.7 (extreme_overbought)
+- Current price: $666.59 (+4.12% today)
+
+Recent news (last 3):
+1. "Samsung market cap crosses $1 trillion amid memory chip rally" — Yahoo Finance Video, 2.6h ago
+2. "What's driving the rally in memory chip stocks?" — Yahoo Finance Video, 7.7h ago
+3. "Samsung reaches $1 trillion valuation on strong AI demand" — Yahoo Finance, 9.2h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bullish, top="MICRON: The Next NVIDIA! – WHY I Bought OVER $22,000 Of MEMO" (41k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] SPY (SPY)
+
+Market signals:
+- Volume: normal (0.8x 30d avg)
+- Price velocity: notable (z_30d: 1.0, z_200d: 1.66, direction: up, macro_extreme: False)
+- RSI-14: 75.4 (overbought)
+- Current price: $733.83 (+1.39% today)
+
+Recent news (last 3):
+1. "71% of Stocks Fail to Beat the Market. Here’s How to Find the 4% That Create Real Wealth" — 24/7 Wall St., 2.9h ago
+2. "Portfolio Manager Reveals How Selling a 19-Bagger Too Early Changed His Investment Philosophy Forever" — 24/7 Wall St., 4.1h ago
+3. "CBOE VIX Slides Toward 17 as Oil Retreat and Tech Stock Surge Restore Risk Appetite" — 24/7 Wall St., 8.2h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=neutral, top="[LIVE] NASDAQ Futures Trading May 5 – OIL, GOLD, SPY, QQQ, E" (10k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] SNDK (SNDK)
+
+Market signals:
+- Volume: normal (1.22x 30d avg)
+- Price velocity: normal (z_30d: -0.37, z_200d: -0.26, direction: up, macro_extreme: False)
+- RSI-14: 81.3 (extreme_overbought)
+- Current price: $1,409.98 (+0.26% today)
+
+Recent news (last 3):
+1. "Samsung market cap crosses $1 trillion amid memory chip rally" — Yahoo Finance Video, 2.6h ago
+2. "What Micron & Sandisk's stock moves say about the chip sector" — Yahoo Finance Video, 7.5h ago
+3. "Sandisk Is Mooning Like a Meme Coin. Here's Why" — decrypt, 3.4h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="AI Memory Stocks (MU, SNDK) Just Had a Historic Day‼️🔥🚀" (19k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] ARM (ARM)
+
+Market signals:
+- Volume: elevated (1.78x 30d avg)
+- Price velocity: blowout (z_30d: 1.81, z_200d: 3.51, direction: up, macro_extreme: False)
+- RSI-14: 71.8 (overbought)
+- Current price: $237.30 (+13.63% today)
+
+Recent news (last 3):
+1. "Earnings live updates: Whirlpool stock falls after 'perfect storm' of consumer headwinds, Supermicro soars" — Yahoo Finance, 60.4h ago
+2. "Dow Jones Futures: Stock Market Hits Highs On Iran-Deal Hopes, Nvidia Leads New Buys; ARM Is Big Earnings Mover" — Investor's Business Daily, 0.3h ago
+3. "Chip Designer Arm Tops Estimates With March-Quarter Results, Outlook" — Investor's Business Daily, 0.7h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bullish, top="ELON TURNS XAI INTO A NEOCLOUD, SPY ALL TIME HIGHS, ARM, AXO" (11k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] QQQ (QQQ)
+
+Market signals:
+- Volume: normal (0.77x 30d avg)
+- Price velocity: notable (z_30d: 1.16, z_200d: 1.87, direction: up, macro_extreme: False)
+- RSI-14: 80.1 (extreme_overbought)
+- Current price: $695.77 (+2.08% today)
+
+Recent news (last 3):
+1. "The space ETFs prepping for liftoff ahead of SpaceX IPO" — Yahoo Finance Video, 6.1h ago
+2. "Exchange-Traded Funds Rise as US Equities Climb After Midday" — MT Newswires, 5.1h ago
+3. "CBOE VIX Slides Toward 17 as Oil Retreat and Tech Stock Surge Restore Risk Appetite" — 24/7 Wall St., 8.2h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bearish, top="나스닥100 ETF 판이 바뀐다! QQQ·QQQM 대신 IQQ를 사야하는 이유" (25k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] INTC (INTC)
+
+Market signals:
+- Volume: normal (1.2x 30d avg)
+- Price velocity: normal (z_30d: 0.18, z_200d: 0.77, direction: up, macro_extreme: False)
+- RSI-14: 86.0 (extreme_overbought)
+- Current price: $113.01 (+4.49% today)
+
+Recent news (last 3):
+1. "Elon Musk's SpaceX submits plans for $55B Terafab chip facility" — Yahoo Finance Video, 1.7h ago
+2. "What Micron & Sandisk's stock moves say about the chip sector" — Yahoo Finance Video, 7.5h ago
+3. "Is Tilray the Best Value Play in the $7.4 Billion Cannabis Beverage Market?" — Motley Fool, 0.5h ago
+
+Social signals (social_heat_z: -0.3):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bullish, top="$AMD HUGE Surge IRAN PEACE! Live Trading Semiconductor $MU $" (5k views)
+- Twitter: n/a
 
 ========================================================================
 [INSTRUCTION]
 
-Analyze each of the 0 asset(s) above and respond with a single JSON array. Each element must follow this exact schema:
+Analyze each of the 11 asset(s) above and respond with a single JSON array. Each element must follow this exact schema:
 
 {
   "ticker": "...",
