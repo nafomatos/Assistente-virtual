@@ -59,8 +59,9 @@ Instead, a VIX-based synthetic proxy has been provided:
 - VIX < 25 → treat as "low"
 
 Apply the same Divergence Rules as normal but using this proxy.
-Apply the confidence_penalty indicated — reduce your raw confidence by that amount before outputting.
-Your classification and recommendation logic is unchanged."""
+Your classification and recommendation logic is unchanged.
+Output your raw confidence score as normal; a post-processing adjustment will be applied in code
+to reflect the lower reliability of VIX-derived sentiment vs. real social data."""
 
 _VIX_DEFAULT = 20.0
 
@@ -580,8 +581,6 @@ def run_historical_backtest(
                 f"- Fear & Greed proxy (VIX-derived): {fg_proxy}/100\n"
                 f"- Synthetic Sentiment (VIX-proxy): heat={synth['heat']}, tone={synth['tone']}\n"
                 f"- VIX on this date: {vix_value:.1f}\n"
-                f"- Confidence penalty: {synth['confidence_penalty']} "
-                f"(reduce your output confidence by this amount)\n"
                 f"- Note: sentiment derived from VIX proxy, not real social data. "
                 f"Confidence should reflect this uncertainty."
             )
