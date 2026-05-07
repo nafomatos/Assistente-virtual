@@ -3,6 +3,13 @@ name: Cluster Boost Validation
 # Manual trigger only — never scheduled.
 # Runs 4 historical periods × boost on/off = 8 backtests,
 # commits a markdown verdict report, and opens a PR.
+#
+# Branch naming: validation/cluster-boost-YYYYMMDD-<run_id>
+# The run_id suffix guarantees uniqueness across multiple runs on the same day.
+# --force-with-lease is used as a safety net on push.
+#
+# Smoke-test mode: report is uploaded as an artifact only — never committed to
+# the repo.  This keeps validation history clean (only real backtest reports).
 on:
   workflow_dispatch:
     inputs:
@@ -22,7 +29,7 @@ on:
         type: boolean
         default: false
       smoke_test:
-        description: "Smoke test — synthetic data only, no API calls"
+        description: "Smoke test — synthetic data only, no API calls (report uploaded as artifact, NOT committed)"
         type: boolean
         default: false
 
@@ -66,24 +73,32 @@ jobs:
           fi
           python scripts/run_cluster_validation.py $ARGS
 
-      - name: Determine report file
+      - name: Determine report metadata
         id: report
         run: |
           TODAY=$(date +%Y%m%d)
-          echo "date=${TODAY}" >> "$GITHUB_OUTPUT"
+          # Include run_id so parallel or same-day runs never collide on the remote.
+          BRANCH="validation/cluster-boost-${TODAY}-${{ github.run_id }}"
+          echo "date=${TODAY}"                                       >> "$GITHUB_OUTPUT"
+          echo "run_id=${{ github.run_id }}"                        >> "$GITHUB_OUTPUT"
           echo "file=backtests/cluster_boost_validation_${TODAY}.md" >> "$GITHUB_OUTPUT"
-          echo "branch=validation/cluster-boost-${TODAY}" >> "$GITHUB_OUTPUT"
+          echo "branch=${BRANCH}"                                    >> "$GITHUB_OUTPUT"
 
+      # ── Real-run path: commit report and open PR ──────────────────────────────
       - name: Commit report to validation branch
+        if: inputs.smoke_test != 'true'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b "${{ steps.report.outputs.branch }}"
           git add backtests/
-          git diff --cached --quiet || git commit -m "validation: cluster boost report ${{ steps.report.outputs.date }}"
-          git push -u origin "${{ steps.report.outputs.branch }}"
+          git diff --cached --quiet || git commit -m "validation: cluster boost report ${{ steps.report.outputs.date }} (run #${{ steps.report.outputs.run_id }})"
+          # --force-with-lease guards against the remote branch already existing
+          # (e.g. a workflow that wrote the branch but died before opening the PR).
+          git push --force-with-lease -u origin "${{ steps.report.outputs.branch }}"
 
       - name: Extract verdict for PR body
+        if: inputs.smoke_test != 'true'
         id: verdict
         run: |
           REPORT="${{ steps.report.outputs.file }}"
@@ -98,15 +113,16 @@ jobs:
           echo "action=${ACTION}"   >> "$GITHUB_OUTPUT"
 
       - name: Open pull request
+        if: inputs.smoke_test != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh pr create \
             --base main \
             --head "${{ steps.report.outputs.branch }}" \
-            --title "validation: cluster boost — ${{ steps.report.outputs.date }}" \
+            --title "validation: cluster boost — ${{ steps.report.outputs.date }} (run #${{ steps.report.outputs.run_id }})" \
             --body "$(cat <<'EOF'
-          ## Cluster Boost Validation — ${{ steps.report.outputs.date }}
+          ## Cluster Boost Validation — ${{ steps.report.outputs.date }} · run #${{ steps.report.outputs.run_id }}
 
           **Verdict:** ${{ steps.verdict.outputs.verdict }}
 
@@ -125,11 +141,22 @@ jobs:
           EOF
           )"
 
+      # ── Smoke-test path: artifact only, no repo commit ────────────────────────
+      - name: Upload smoke-test report as artifact (not committed to repo)
+        if: inputs.smoke_test == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-test-report-${{ steps.report.outputs.date }}-${{ github.run_id }}
+          path: backtests/cluster_boost_validation_${{ steps.report.outputs.date }}.md
+          if-no-files-found: warn
+          retention-days: 7
+
+      # ── Always: upload full results for inspection ────────────────────────────
       - name: Upload results artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cluster-validation-${{ steps.report.outputs.date }}
+          name: cluster-validation-${{ steps.report.outputs.date }}-${{ github.run_id }}
           path: |
             backtests/cluster_boost_validation_${{ steps.report.outputs.date }}.md
             backtesting/historical/results/
