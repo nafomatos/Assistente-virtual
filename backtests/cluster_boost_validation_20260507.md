@@ -1,4 +1,4 @@
-# Cluster Boost Validation Report — 2026-05-07 _(smoke-test fixture — not real backtest data)_
+# Cluster Boost Validation Report — 2026-05-07
 
 **Verdict threshold:** ≥3 of 4 periods improved by ≥3pp at d+30 (combined contrarian_buy + reduce_exposure).
 
@@ -6,116 +6,102 @@
 
 | Period | Boost OFF | Boost ON | Delta | Pass? |
 |--------|-----------|----------|-------|-------|
-| COVID Crash & Recovery (Feb–Jun 2020) | 57.1% (28) | 60.7% (28) | +3.6pp ✓ | ✓ PASS |
-| GameStop & Silver Squeeze (Jan–Feb 2021) | 62.5% (16) | 62.5% (16) | +0.0pp | ✗ FAIL |
-| 2022 Tech Bear Market (Nov 2021–Dec 2022) | 55.6% (27) | 59.3% (27) | +3.7pp ✓ | ✓ PASS |
-| 2008 Global Financial Crisis (Sep 2008–Apr 2009) | 53.8% (26) | 57.7% (26) | +3.9pp ✓ | ✓ PASS |
+| COVID Crash & Recovery (Feb–Jun 2020) | 50.0% (6) | 75.0% (4) | +25.0pp ✓ | ✓ PASS |
+| GameStop & Silver Squeeze (Jan–Feb 2021) | 60.0% (10) | 75.0% (4) | +15.0pp ✓ | ✓ PASS |
+| 2022 Tech Bear Market (Nov 2021–Dec 2022) | — | — | — | ✗ FAIL |
+| 2008 Global Financial Crisis (Sep 2008–Apr 2009) | — | — | — | ✗ FAIL |
 
 ## 2. Per-Period Detail
 
 ### COVID Crash & Recovery (Feb–Jun 2020)
 
 **Boost OFF**
-- Total signals: 28
+- Total signals: 119
 - Boosted signals: 0
 - Cap reached: False
-- d+10 hit rate: 57.1% (28)
-- d+30 hit rate: 57.1% (28)
-- d+30 (conf ≥ 7): 57.1% (14)
+- d+10 hit rate: 16.7% (6)
+- d+30 hit rate: 50.0% (6)
+- d+30 (conf ≥ 7): —
 - d+30 (conf ≥ 8): —
 - d+30 by recommendation:
-  - `contrarian_buy`: 60.0% (10)
-  - `reduce_exposure`: 55.6% (18)
+  - `contrarian_buy`: 40.0% (5)
+  - `reduce_exposure`: 100.0% (1)
 
 **Boost ON**
-- Total signals: 28
-- Boosted signals: 6
+- Total signals: 119
+- Boosted signals: 31
 - Cap reached: False
-- d+10 hit rate: 60.7% (28)
-- d+30 hit rate: 60.7% (28)
-- d+30 (conf ≥ 7): 64.3% (14)
+- d+10 hit rate: 75.0% (4)
+- d+30 hit rate: 75.0% (4)
+- d+30 (conf ≥ 7): —
 - d+30 (conf ≥ 8): —
 - d+30 by recommendation:
-  - `contrarian_buy`: 60.0% (10)
-  - `reduce_exposure`: 61.1% (18)
+  - `contrarian_buy`: 50.0% (2)
+  - `reduce_exposure`: 100.0% (2)
 
 ### GameStop & Silver Squeeze (Jan–Feb 2021)
 
 **Boost OFF**
-- Total signals: 16
+- Total signals: 58
 - Boosted signals: 0
 - Cap reached: False
-- d+10 hit rate: 62.5% (16)
-- d+30 hit rate: 62.5% (16)
-- d+30 (conf ≥ 7): 62.5% (8)
+- d+10 hit rate: 50.0% (10)
+- d+30 hit rate: 60.0% (10)
+- d+30 (conf ≥ 7): —
 - d+30 (conf ≥ 8): —
 - d+30 by recommendation:
-  - `contrarian_buy`: 66.7% (6)
   - `reduce_exposure`: 60.0% (10)
 
 **Boost ON**
-- Total signals: 16
-- Boosted signals: 4
+- Total signals: 58
+- Boosted signals: 0
 - Cap reached: False
-- d+10 hit rate: 62.5% (16)
-- d+30 hit rate: 62.5% (16)
-- d+30 (conf ≥ 7): 62.5% (8)
+- d+10 hit rate: 75.0% (4)
+- d+30 hit rate: 75.0% (4)
+- d+30 (conf ≥ 7): —
 - d+30 (conf ≥ 8): —
 - d+30 by recommendation:
-  - `contrarian_buy`: 66.7% (6)
-  - `reduce_exposure`: 60.0% (10)
+  - `reduce_exposure`: 75.0% (4)
 
 ### 2022 Tech Bear Market (Nov 2021–Dec 2022)
 
 **Boost OFF**
-- Total signals: 27
+- Total signals: 200
 - Boosted signals: 0
-- Cap reached: False
-- d+10 hit rate: 55.6% (27)
-- d+30 hit rate: 55.6% (27)
-- d+30 (conf ≥ 7): 57.1% (14)
+- Cap reached: True
+- d+10 hit rate: —
+- d+30 hit rate: —
+- d+30 (conf ≥ 7): —
 - d+30 (conf ≥ 8): —
-- d+30 by recommendation:
-  - `contrarian_buy`: 55.6% (9)
-  - `reduce_exposure`: 55.6% (18)
 
 **Boost ON**
-- Total signals: 27
-- Boosted signals: 5
-- Cap reached: False
-- d+10 hit rate: 59.3% (27)
-- d+30 hit rate: 59.3% (27)
-- d+30 (conf ≥ 7): 57.1% (14)
+- Total signals: 200
+- Boosted signals: 0
+- Cap reached: True
+- d+10 hit rate: —
+- d+30 hit rate: —
+- d+30 (conf ≥ 7): —
 - d+30 (conf ≥ 8): —
-- d+30 by recommendation:
-  - `contrarian_buy`: 66.7% (9)
-  - `reduce_exposure`: 55.6% (18)
 
 ### 2008 Global Financial Crisis (Sep 2008–Apr 2009)
 
 **Boost OFF**
-- Total signals: 26
+- Total signals: 110
 - Boosted signals: 0
 - Cap reached: False
-- d+10 hit rate: 53.8% (26)
-- d+30 hit rate: 53.8% (26)
-- d+30 (conf ≥ 7): 53.8% (13)
+- d+10 hit rate: —
+- d+30 hit rate: —
+- d+30 (conf ≥ 7): —
 - d+30 (conf ≥ 8): —
-- d+30 by recommendation:
-  - `contrarian_buy`: 55.6% (9)
-  - `reduce_exposure`: 52.9% (17)
 
 **Boost ON**
-- Total signals: 26
-- Boosted signals: 5
+- Total signals: 110
+- Boosted signals: 0
 - Cap reached: False
-- d+10 hit rate: 57.7% (26)
-- d+30 hit rate: 57.7% (26)
-- d+30 (conf ≥ 7): 61.5% (13)
+- d+10 hit rate: —
+- d+30 hit rate: —
+- d+30 (conf ≥ 7): —
 - d+30 (conf ≥ 8): —
-- d+30 by recommendation:
-  - `contrarian_buy`: 55.6% (9)
-  - `reduce_exposure`: 58.8% (17)
 
 ## 3. Sector Attribution (Boost ON runs only)
 
@@ -124,25 +110,25 @@ and whether boosted signals in those sectors were directionally correct at d+30.
 
 | Period | Sector | Boosted signals | d+30 hit rate |
 |--------|--------|-----------------|---------------|
-| COVID Crash & Recovery (Feb–Jun 2020) | `semis` | 6 | 100.0% |
-| GameStop & Silver Squeeze (Jan–Feb 2021) | `semis` | 4 | 100.0% |
-| 2022 Tech Bear Market (Nov 2021–Dec 2022) | `semis` | 5 | 100.0% |
-| 2008 Global Financial Crisis (Sep 2008–Apr 2009) | `semis` | 5 | 100.0% |
+| COVID Crash & Recovery (Feb–Jun 2020) | — | — | — |
+| GameStop & Silver Squeeze (Jan–Feb 2021) | — | — | — |
+| 2022 Tech Bear Market (Nov 2021–Dec 2022) | — | — | — |
+| 2008 Global Financial Crisis (Sep 2008–Apr 2009) | — | — | — |
 
 ## 4. Verdict
 
-**PASS ✓** — 3/4 periods improved by ≥3pp at d+30.
+**FAIL ✗** — 2/4 periods improved by ≥3pp at d+30.
 
 | Period | Result |
 |--------|--------|
 | COVID Crash & Recovery (Feb–Jun 2020) | ✓ PASS |
-| GameStop & Silver Squeeze (Jan–Feb 2021) | ✗ FAIL |
-| 2022 Tech Bear Market (Nov 2021–Dec 2022) | ✓ PASS |
-| 2008 Global Financial Crisis (Sep 2008–Apr 2009) | ✓ PASS |
+| GameStop & Silver Squeeze (Jan–Feb 2021) | ✓ PASS |
+| 2022 Tech Bear Market (Nov 2021–Dec 2022) | ✗ FAIL |
+| 2008 Global Financial Crisis (Sep 2008–Apr 2009) | ✗ FAIL |
 
 ## 5. Recommended Action
 
-**FLIP FLAG** — set `CLUSTER_BOOST_ENABLED=true` in the GitHub Actions environment or `.env` to activate the cluster confidence boost in production.
+**DO NOT FLIP** — investigate hypothesis: _the boost may not generalise to periods dominated by macro-driven moves rather than sector-specific clustering_. Consider narrowing the cluster threshold, adjusting the window, or reviewing sector mapping before re-running validation.
 
 ---
 _Generated by `scripts/run_cluster_validation.py` on 2026-05-07_
