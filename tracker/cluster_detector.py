@@ -31,7 +31,6 @@ from tracker.sectors import get_direction_group, get_sector
 
 logger = logging.getLogger(__name__)
 
-_LOGS_DIR = "logs"
 _CLUSTER_THRESHOLD_SMALL = 3
 _CLUSTER_THRESHOLD_LARGE = 5
 
@@ -49,10 +48,15 @@ def _last_business_days(reference_date: dt.date, n: int) -> list[dt.date]:
 
 def detect_clusters(
     days_window: int = 5,
-    logs_dir: str = _LOGS_DIR,
+    logs_dir: str = "logs",
     reference_date: dt.date | None = None,
 ) -> list[dict]:
     """Scan the last *days_window* business days and return active clusters.
+
+    reference_date defaults to today; tests can inject a fixed date.
+    days_window counts BUSINESS DAYS, not calendar days.
+    Reads files matching pattern: {logs_dir}/signals_YYYYMMDD.json
+    Missing log files for a given date are silently skipped (not an error).
 
     Returns list of dicts:
       {
