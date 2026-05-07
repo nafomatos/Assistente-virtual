@@ -1,0 +1,137 @@
+name: Cluster Boost Validation
+
+# Manual trigger only — never scheduled.
+# Runs 4 historical periods × boost on/off = 8 backtests,
+# commits a markdown verdict report, and opens a PR.
+on:
+  workflow_dispatch:
+    inputs:
+      period:
+        description: "Single period to validate (leave blank for all 4)"
+        required: false
+        type: choice
+        options:
+          - ""
+          - covid_2020
+          - gamestop_2021
+          - tech_bear_2022
+          - financial_crisis_2008
+        default: ""
+      force:
+        description: "Force re-run (ignore cached results)"
+        type: boolean
+        default: false
+      smoke_test:
+        description: "Smoke test — synthetic data only, no API calls"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run cluster boost validation
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          ARGS=""
+          if [ -n "${{ inputs.period }}" ]; then
+            ARGS="$ARGS --period ${{ inputs.period }}"
+          fi
+          if [ "${{ inputs.force }}" = "true" ]; then
+            ARGS="$ARGS --force"
+          fi
+          if [ "${{ inputs.smoke_test }}" = "true" ]; then
+            ARGS="$ARGS --smoke-test"
+          fi
+          python scripts/run_cluster_validation.py $ARGS
+
+      - name: Determine report file
+        id: report
+        run: |
+          TODAY=$(date +%Y%m%d)
+          echo "date=${TODAY}" >> "$GITHUB_OUTPUT"
+          echo "file=backtests/cluster_boost_validation_${TODAY}.md" >> "$GITHUB_OUTPUT"
+          echo "branch=validation/cluster-boost-${TODAY}" >> "$GITHUB_OUTPUT"
+
+      - name: Commit report to validation branch
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "${{ steps.report.outputs.branch }}"
+          git add backtests/
+          git diff --cached --quiet || git commit -m "validation: cluster boost report ${{ steps.report.outputs.date }}"
+          git push -u origin "${{ steps.report.outputs.branch }}"
+
+      - name: Extract verdict for PR body
+        id: verdict
+        run: |
+          REPORT="${{ steps.report.outputs.file }}"
+          if [ -f "$REPORT" ]; then
+            VERDICT=$(grep -A1 "^## 4\. Verdict" "$REPORT" | tail -1 | sed 's/^\*\*//;s/\*\*//')
+            ACTION=$(grep -A2 "^## 5\. Recommended Action" "$REPORT" | tail -1 | sed 's/^\*\*//;s/\*\*//' | cut -c1-200)
+          else
+            VERDICT="Report not found"
+            ACTION=""
+          fi
+          echo "verdict=${VERDICT}" >> "$GITHUB_OUTPUT"
+          echo "action=${ACTION}"   >> "$GITHUB_OUTPUT"
+
+      - name: Open pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --base main \
+            --head "${{ steps.report.outputs.branch }}" \
+            --title "validation: cluster boost — ${{ steps.report.outputs.date }}" \
+            --body "$(cat <<'EOF'
+          ## Cluster Boost Validation — ${{ steps.report.outputs.date }}
+
+          **Verdict:** ${{ steps.verdict.outputs.verdict }}
+
+          **Recommended action:** ${{ steps.verdict.outputs.action }}
+
+          ### What this PR contains
+          - `${{ steps.report.outputs.file }}` — full 8-run backtest comparison (4 periods × boost on/off)
+          - Includes d+10 / d+30 hit rates, confidence-filtered rates, sector attribution, and a binary PASS/FAIL verdict
+
+          ### How to act on the result
+          - **PASS** → set `CLUSTER_BOOST_ENABLED=true` as a GitHub Actions secret / `.env` variable to activate in production
+          - **FAIL** → review the "Recommended Action" section in the report before re-running
+
+          ---
+          _Triggered manually via Actions tab → "Cluster Boost Validation" → Run workflow_
+          EOF
+          )"
+
+      - name: Upload results artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cluster-validation-${{ steps.report.outputs.date }}
+          path: |
+            backtests/cluster_boost_validation_${{ steps.report.outputs.date }}.md
+            backtesting/historical/results/
+          if-no-files-found: warn
+          retention-days: 90

@@ -75,10 +75,10 @@ def _list_periods() -> None:
         print()
 
 
-def _load_existing(period_key: str) -> dict | None:
+def _load_existing(result_key: str) -> dict | None:
     """Return cached results JSON if present, so re-running skips API calls."""
     results_dir = os.path.join(os.path.dirname(__file__), "results")
-    path = os.path.join(results_dir, f"{period_key}.json")
+    path = os.path.join(results_dir, f"{result_key}.json")
     if os.path.exists(path):
         with open(path, encoding="utf-8") as fh:
             return json.load(fh)
@@ -120,6 +120,17 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Re-run even if a cached results file already exists.",
     )
+    parser.add_argument(
+        "--cluster-boost",
+        dest="cluster_boost",
+        choices=["on", "off"],
+        default="off",
+        help=(
+            "Enable cluster confidence boost for this run (default: off). "
+            "Appends '_boost_on' or '_boost_off' to the results filename so "
+            "paired on/off runs coexist in backtesting/historical/results/."
+        ),
+    )
 
     args = parser.parse_args(argv)
 
@@ -142,10 +153,14 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     cfg = PERIODS[period_key]
+    cluster_boost = args.cluster_boost == "on"
+
+    # Results filename includes boost state so on/off runs don't overwrite each other
+    result_key = f"{period_key}_boost_{args.cluster_boost}"
 
     # --- Check cache ----------------------------------------------------------
     if not args.force:
-        cached = _load_existing(period_key)
+        cached = _load_existing(result_key)
         if cached is not None:
             logger.info(
                 "Found cached results for '%s' — skipping API calls. "
@@ -162,12 +177,17 @@ def main(argv: list[str] | None = None) -> int:
     if results is None:
         from backtesting.historical.runner import run_historical_backtest
 
-        logger.info("Starting backtest: %s (%s → %s)", cfg["name"], cfg["start"], cfg["end"])
+        logger.info(
+            "Starting backtest: %s (%s → %s)  cluster_boost=%s",
+            cfg["name"], cfg["start"], cfg["end"], args.cluster_boost,
+        )
         results = run_historical_backtest(
             start_date=cfg["start"],
             end_date=cfg["end"],
             tickers=cfg["tickers"],
             period_name=period_key,
+            result_key=result_key,
+            cluster_boost=cluster_boost,
         )
 
     # --- Print summary --------------------------------------------------------
@@ -207,7 +227,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"  HTML report  : {report_path}")
     else:
         results_dir = os.path.join(os.path.dirname(__file__), "results")
-        json_path   = os.path.join(results_dir, f"{period_key}.json")
+        json_path   = os.path.join(results_dir, f"{result_key}.json")
         print(f"  JSON results : {json_path}")
 
     # --- Email ----------------------------------------------------------------

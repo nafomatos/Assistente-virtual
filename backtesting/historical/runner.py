@@ -23,6 +23,8 @@ import os
 import re
 import time
 
+import shutil
+
 import anthropic
 import numpy as np
 import pandas as pd
@@ -336,24 +338,121 @@ def _calculate_hit_rates(signals: list[dict]) -> dict:
     return rates
 
 
+# ---------------------------------------------------------------------------
+# Cluster-boost helpers (only used when cluster_boost=True)
+# ---------------------------------------------------------------------------
+
+def _write_day_signal_log(signals_dir: str, day: dt.date, signals: list[dict]) -> None:
+    """Persist one day's classified signals for detect_clusters() look-back.
+
+    Uses the same JSON schema as the daily pipeline so cluster detection logic
+    is identical whether run in production or in a historical backtest.
+    """
+    os.makedirs(signals_dir, exist_ok=True)
+    path = os.path.join(signals_dir, f"signals_{day.isoformat()}.json")
+    payload = {
+        "date": day.isoformat(),
+        "signals": [
+            {
+                "ticker": s["ticker"],
+                "classification": s["classification"],
+                "recommendation": s["recommendation"],
+                "confidence": s["confidence"],
+                "reasoning": s.get("reasoning", ""),
+            }
+            for s in signals
+            if s.get("classification") not in ("error",)
+        ],
+    }
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump(payload, fh)
+
+
+def _apply_cluster_boost_inplace(signals: list[dict], active_clusters: list[dict]) -> None:
+    """Mutate *signals* in-place: raise confidence for any signal whose
+    (sector, direction_group) matches an active cluster.
+
+    Uses reference_date=simulated_date (already built into active_clusters by
+    the caller), so boost is anchored to the historical date, not datetime.now().
+    """
+    from tracker.sectors import get_direction_group, get_sector
+
+    for sig in signals:
+        sector    = get_sector(sig["ticker"])
+        direction = get_direction_group(
+            sig.get("classification", ""), sig.get("recommendation", "")
+        )
+        for cluster in active_clusters:
+            if cluster["sector"] == sector and cluster["direction_group"] == direction:
+                original = sig["confidence"]
+                boosted  = min(original + cluster["boost"], 10)
+                sig["cluster_boost_applied"] = True
+                sig["cluster_boost_info"] = {
+                    "sector":              sector,
+                    "direction_group":     direction,
+                    "count":               cluster["count"],
+                    "original_confidence": original,
+                    "boost_amount":        cluster["boost"],
+                }
+                sig["confidence"] = boosted
+                logger.info(
+                    "[CLUSTER BOOST] %s %s %s: %d -> %d (+%d, %d tickers)",
+                    sig["ticker"], sector, direction,
+                    original, boosted, cluster["boost"], cluster["count"],
+                )
+                break
+
+
+def _summarize_boost_by_sector(signals: list[dict]) -> dict[str, int]:
+    """Count boosted signals per sector for the results summary."""
+    counts: dict[str, int] = {}
+    for sig in signals:
+        info = sig.get("cluster_boost_info") or {}
+        sector = info.get("sector")
+        if sector:
+            counts[sector] = counts.get(sector, 0) + 1
+    return counts
+
+
 def run_historical_backtest(
     start_date: str,
     end_date: str,
     tickers: list[str],
     period_name: str,
+    result_key: str | None = None,
+    cluster_boost: bool = False,
 ) -> dict:
     """Run the full historical backtest and return the results dict.
 
-    Results are also persisted to backtesting/historical/results/{period_name}.json.
+    Parameters
+    ----------
+    period_name : Human-readable label (e.g. "covid_2020").
+    result_key  : Filename stem for the JSON output.  Defaults to period_name.
+                  The validation harness sets this to "{period}_boost_{on|off}"
+                  so paired runs coexist in results/.
+    cluster_boost : When True, writes per-day signal logs to a temp directory,
+                    calls detect_clusters(reference_date=simulated_date) after
+                    each trading day, and boosts matching signals' confidence.
+                    Never modifies the production logs/ directory.
     """
-    logger.info("Backtest '%s'  %s → %s  (%d tickers)",
-                period_name, start_date, end_date, len(tickers))
+    effective_key = result_key or period_name
+    logger.info(
+        "Backtest '%s'  %s → %s  (%d tickers)  cluster_boost=%s",
+        period_name, start_date, end_date, len(tickers), cluster_boost,
+    )
 
     client = anthropic.Anthropic()
 
     # --- 1. Trading days -------------------------------------------------------
     trading_days = _trading_days(start_date, end_date)
     logger.info("%d trading days in range", len(trading_days))
+
+    # Temp directory for per-day signal logs used by detect_clusters().
+    # Isolated per run so historical runs never pollute the production logs/ dir.
+    tmp_signals_dir = os.path.join(RESULTS_DIR, f"_tmp_{effective_key}")
+    if cluster_boost:
+        os.makedirs(tmp_signals_dir, exist_ok=True)
+        logger.info("cluster boost ON — signal log temp dir: %s", tmp_signals_dir)
 
     # --- 2. Fetch VIX history for synthetic sentiment proxy --------------------
     logger.info("Fetching VIX history for %s → %s ...", start_date, end_date)
@@ -413,7 +512,9 @@ def run_historical_backtest(
         if cap_reached:
             break
 
-        day_signal_count = 0
+        # Collect all signals for this day before applying cluster boost,
+        # so that today's full sector picture is visible to detect_clusters().
+        day_signals: list[dict] = []
 
         for ticker in tickers:
             if cap_reached:
@@ -501,7 +602,7 @@ def run_historical_backtest(
             penalty        = synth["confidence_penalty"]
             stored_confidence = max(1, raw_confidence - penalty) if raw_confidence > 0 else 0
 
-            all_signals.append({
+            day_signals.append({
                 "ticker":            ticker,
                 "date":              day.isoformat(),
                 "tier":              tier,
@@ -522,11 +623,26 @@ def run_historical_backtest(
                 "fear_greed_proxy":  fg_proxy,
             })
 
-            day_signal_count += 1
             time.sleep(0.3)  # stay within Claude rate limits
 
-        if day_signal_count:
-            logger.info("%s → %d signal(s) flagged", day, day_signal_count)
+        # --- Cluster boost (post-classification, pre-storage) -----------------
+        # reference_date=day ensures the look-back window is anchored to the
+        # simulated historical date, not datetime.now().
+        if cluster_boost and day_signals:
+            from tracker.cluster_detector import detect_clusters
+            _write_day_signal_log(tmp_signals_dir, day, day_signals)
+            active_clusters = detect_clusters(
+                days_window=5,
+                logs_dir=tmp_signals_dir,
+                reference_date=day,
+            )
+            if active_clusters:
+                _apply_cluster_boost_inplace(day_signals, active_clusters)
+
+        all_signals.extend(day_signals)
+
+        if day_signals:
+            logger.info("%s → %d signal(s) flagged", day, len(day_signals))
 
     if cap_reached:
         logger.warning(
@@ -561,8 +677,10 @@ def run_historical_backtest(
         )
 
     # --- 8. Save ---------------------------------------------------------------
+    boosted_signals = [s for s in all_signals if s.get("cluster_boost_applied")]
     results = {
         "period_name":             period_name,
+        "result_key":              effective_key,
         "start_date":              start_date,
         "end_date":                end_date,
         "tickers":                 tickers,
@@ -570,6 +688,11 @@ def run_historical_backtest(
         "total_signals_generated": len(all_signals),
         "total_claude_calls":      total_claude_calls,
         "cap_reached":             cap_reached,
+        "cluster_boost_enabled":   cluster_boost,
+        "cluster_boost_summary": {
+            "total_boosted": len(boosted_signals),
+            "by_sector":     _summarize_boost_by_sector(boosted_signals),
+        },
         "token_usage":             total_usage,
         "hit_rates":               hit_rates,
         "vix_timeline":            vix_timeline,
@@ -577,9 +700,15 @@ def run_historical_backtest(
     }
 
     os.makedirs(RESULTS_DIR, exist_ok=True)
-    out_path = os.path.join(RESULTS_DIR, f"{period_name}.json")
+    out_path = os.path.join(RESULTS_DIR, f"{effective_key}.json")
     with open(out_path, "w", encoding="utf-8") as fh:
         json.dump(results, fh, indent=2, default=str)
 
     logger.info("Results saved → %s", out_path)
+
+    # Clean up temp signal log directory (not needed after run completes)
+    if cluster_boost and os.path.exists(tmp_signals_dir):
+        shutil.rmtree(tmp_signals_dir)
+        logger.info("Cleaned up temp signal log dir: %s", tmp_signals_dir)
+
     return results
