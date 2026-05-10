@@ -47,6 +47,7 @@ jobs:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLUSTER_BOOST_ENABLED: ${{ vars.CLUSTER_BOOST_ENABLED }}
         run: |
           if [ "${{ inputs.debug }}" = "true" ]; then
             python main.py --debug 2>&1 | tee debug_output.txt
