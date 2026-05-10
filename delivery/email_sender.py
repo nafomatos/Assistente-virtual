@@ -333,9 +333,63 @@ def _sentiment_row(sentiment: dict | None) -> str:
     return " &middot; ".join(parts)
 
 
+# ── sizing panel ──────────────────────────────────────────────────────────
+
+def _sizing_panel(sizing_block: dict) -> str:
+    """Render the sizing + targets block as a muted monospace panel."""
+    size = sizing_block["position_size_pct"]
+    t    = sizing_block["targets"]
+    w    = sizing_block["windows"]
+    s    = sizing_block["strikes"]
+
+    is_bearish = t.get("is_bearish", False)
+    z_labels   = ("z=+1", "z=0", "z=−1") if is_bearish else ("z=−1", "z=0", "z=+1")
+
+    def _px(v: float) -> str:
+        return f"${v:,.2f}"
+
+    label_style = "color:#4b5563;"
+    value_style = "color:#9ca3af;"
+
+    def row(label: str, value: str) -> str:
+        pad = "&nbsp;" * max(0, 17 - len(label))
+        return (
+            f"<div style='margin:2px 0;font-size:11px;'>"
+            f"<span style='{label_style}'>{label}{pad}</span>"
+            f"<span style='{value_style}'>{value}</span>"
+            f"</div>"
+        )
+
+    targets_str = (
+        f"conservative {_px(t['conservative'])} ({z_labels[0]})"
+        f" &nbsp;|&nbsp; medium {_px(t['medium'])} ({z_labels[1]})"
+        f" &nbsp;|&nbsp; aggressive {_px(t['aggressive'])} ({z_labels[2]})"
+    )
+    window_str = (
+        f"checkpoint {w['d10']} (d+10) &middot; close {w['d30']} (d+30)"
+    )
+    strikes_str = (
+        f"ATM ${s['atm']:,} &nbsp;|&nbsp; OTM 5% ${s['otm_5pct']:,}"
+        f" &nbsp;|&nbsp; OTM 10% ${s['otm_10pct']:,}"
+    )
+
+    return (
+        f"<div style='background:#111827;border:1px solid #1f2937;border-radius:4px;"
+        f"padding:10px 12px;margin-top:10px;"
+        f"font-family:\"Menlo\",\"Monaco\",\"Courier New\",monospace;'>"
+        f"<div style='font-size:9px;font-weight:700;color:#374151;letter-spacing:.08em;"
+        f"text-transform:uppercase;margin-bottom:6px;'>&#127919; SIZING &amp; TARGETS</div>"
+        + row("Position size:", f"{size:.2f}% of capital")
+        + row("Targets:", targets_str)
+        + row("Window:", window_str)
+        + row("Option strikes:", strikes_str)
+        + "</div>"
+    )
+
+
 # ── asset card ─────────────────────────────────────────────────────────────
 
-def _asset_card(ticker: str, signals: dict, tier: str) -> str:
+def _asset_card(ticker: str, signals: dict, tier: str, sizing_block: dict | None = None) -> str:
     name = TICKER_NAMES.get(ticker, ticker)
     m = signals["market"]
     v = signals["volume"]
@@ -406,6 +460,8 @@ def _asset_card(ticker: str, signals: dict, tier: str) -> str:
         f"<div style='margin-top:8px;font-size:11px;'>{_sentiment_row(s)}</div>"
     )
 
+    sizing_html = _sizing_panel(sizing_block) if sizing_block else ""
+
     return (
         f"<div style='background:#1a1a1a;border-radius:6px;border-left:4px solid {border};"
         f"padding:14px 16px;margin-bottom:12px;'>"
@@ -425,6 +481,8 @@ def _asset_card(ticker: str, signals: dict, tier: str) -> str:
         # news + sentiment
         f"{news_html}"
         f"{sentiment_html}"
+        # sizing & targets (only when classified signal is actionable)
+        f"{sizing_html}"
         f"</div>"
     )
 
@@ -441,13 +499,19 @@ def build_html_email(
     open_positions: list[dict] | None = None,
     closed_stats: dict | None = None,
 ) -> str:
-    red_items   = [(r["ticker"], r["signals"]) for r in results if get_alert_tier(r["signals"]) == "red"]
-    amber_items = [(r["ticker"], r["signals"]) for r in results if get_alert_tier(r["signals"]) == "amber"]
-    red_tickers   = [t for t, _ in red_items]
-    amber_tickers = [t for t, _ in amber_items]
+    red_items   = [
+        (r["ticker"], r["signals"], r.get("sizing_block"))
+        for r in results if get_alert_tier(r["signals"]) == "red"
+    ]
+    amber_items = [
+        (r["ticker"], r["signals"], r.get("sizing_block"))
+        for r in results if get_alert_tier(r["signals"]) == "amber"
+    ]
+    red_tickers   = [t for t, _, _ in red_items]
+    amber_tickers = [t for t, _, _ in amber_items]
 
-    cards = "".join(_asset_card(t, s, "red")   for t, s in red_items)
-    cards += "".join(_asset_card(t, s, "amber") for t, s in amber_items)
+    cards = "".join(_asset_card(t, s, "red",   sb) for t, s, sb in red_items)
+    cards += "".join(_asset_card(t, s, "amber", sb) for t, s, sb in amber_items)
     if not cards:
         cards = (
             "<div style='background:#1a1a1a;border-radius:6px;padding:16px;color:#64748b;"
@@ -455,6 +519,19 @@ def build_html_email(
             "No alerts today — all tickers within normal ranges."
             "</div>"
         )
+
+    # Append plain-text sizing blocks for any actionable signals
+    from analyzers.position_sizing import format_sizing_text as _fmt_sizing
+
+    sizing_lines = []
+    for r in results:
+        sb = r.get("sizing_block")
+        if sb and get_alert_tier(r["signals"]):
+            sizing_lines.append(_fmt_sizing(r["ticker"], sb))
+    sizing_addendum = (
+        "\n\n" + "─" * 72 + "\nSIZING & TARGETS (post-classification)\n" + "─" * 72 + "\n"
+        + "\n\n".join(sizing_lines)
+    ) if sizing_lines else ""
 
     paste_block = (
         f"<div style='background:#18181b;border-radius:6px;padding:20px;"
@@ -464,7 +541,7 @@ def build_html_email(
         f"<pre style='margin:0;font-size:10px;line-height:1.55;color:#d1d5db;"
         f"font-family:\"Menlo\",\"Monaco\",\"Courier New\",monospace;"
         f"white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;'>"
-        f"{html.escape(report_text)}</pre>"
+        f"{html.escape(report_text + sizing_addendum)}</pre>"
         f"</div>"
     )
 
