@@ -327,6 +327,63 @@ def print_ticker_management_section(
         )
 
 
+def _attach_sizing_blocks(
+    results: list[dict],
+    date: dt.date,
+    buffett: dict | None,
+    fear_greed: dict | None,
+    logs_dir: str = LOGS_DIR,
+) -> None:
+    """Read classified signals for `date` and attach a sizing_block to each result.
+
+    Mutates results in-place.  Silently no-ops when the signals JSON is absent
+    (manual-paste workflow) or when any individual computation fails.
+    """
+    from analyzers.position_sizing import compute_sizing_block
+
+    signals_path = os.path.join(logs_dir, f"signals_{date.isoformat()}.json")
+    classified_signals: list[dict] = []
+    if os.path.exists(signals_path):
+        try:
+            with open(signals_path, encoding="utf-8") as fh:
+                classified_signals = json.load(fh).get("signals", [])
+        except (json.JSONDecodeError, OSError) as exc:
+            logger.warning("position sizing: could not load %s: %s", signals_path, exc)
+
+    if not classified_signals:
+        return
+
+    classified_by_ticker = {s["ticker"]: s for s in classified_signals}
+    macro_for_sizing = {
+        "buffett_indicator": (buffett or {}).get("ratio_pct", 0),
+        "fear_greed":        (fear_greed or {}).get("score", 100),
+    }
+
+    for r in results:
+        classified = classified_by_ticker.get(r["ticker"])
+        if not classified:
+            continue
+        if r.get("cluster_boost") and "cluster_boost" not in classified:
+            classified = dict(classified)
+            classified["cluster_boost"] = r["cluster_boost"]
+        try:
+            sizing = compute_sizing_block(
+                classified_signal=classified,
+                market_data=r["signals"]["market"],
+                velocity_data=r["signals"]["velocity"],
+                macro_context=macro_for_sizing,
+                today=date,
+            )
+            if sizing:
+                r["sizing_block"] = sizing
+                logger.info(
+                    "position sizing: %s → %.2f%% of capital",
+                    r["ticker"], sizing["position_size_pct"],
+                )
+        except Exception as exc:
+            logger.warning("position sizing: failed for %s: %s", r["ticker"], exc)
+
+
 def archive_log(report_path: str, date: dt.date, logs_dir: str = LOGS_DIR) -> str:
     """Copy the generated report into logs/ for the GitHub Action to commit back."""
     os.makedirs(logs_dir, exist_ok=True)
@@ -594,6 +651,13 @@ def main(argv: list[str]) -> int:
                 logger.info("clusters saved to %s", clusters_path)
             except OSError as exc:
                 logger.warning("cluster boost: could not save clusters (%s)", exc)
+
+    # ── Position Sizing ───────────────────────────────────────────────────────
+    # Reads classified signals (written by the Claude advisor / add_recommendations
+    # workflow) and attaches a sizing_block to each result for email rendering.
+    # Silently skipped when the signals file is absent (manual-paste workflow).
+    # _attach_sizing_blocks picks up in-memory cluster_boost already merged into results.
+    _attach_sizing_blocks(results, date, buffett, fear_greed)
 
     if send_email:
         try:
