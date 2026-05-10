@@ -53,8 +53,9 @@ _RESULTS_DIR  = os.path.join(os.path.dirname(__file__), "..", "backtesting", "hi
 _REPORTS_DIR  = os.path.join(os.path.dirname(__file__), "..", "backtests")
 
 # Verdict thresholds
-_PASS_MIN_PERIODS   = 3   # at least this many periods must improve
-_PASS_MIN_DELTA_PP  = 3.0  # by at least this many percentage points at d+30
+_PASS_MIN_PERIODS       = 3    # at least this many periods must pass
+_PASS_MIN_DELTA_PP      = 3.0  # by at least this many percentage points at d+30
+_MINIMUM_BOOSTED_SAMPLE = 10   # periods with fewer boosted signals → INCONCLUSIVE
 
 
 # ---------------------------------------------------------------------------
@@ -143,16 +144,23 @@ def _rec_hit_rates(hit_rates: dict, window: str = "d30") -> dict[str, tuple[floa
 
 
 def _sector_attribution(signals: list[dict], window: str = "d30") -> list[dict]:
-    """Per-sector hit rate for signals that received a cluster boost."""
+    """Per-sector breakdown for signals that received a cluster boost.
+
+    total_boosted — ALL boosted signals (any recommendation)
+    hits / total  — directional signals (contrarian_buy / reduce_exposure) with evaluated outcomes
+    pct           — hit rate for the directional subset; None if no evaluated directional signals
+    """
     by_sector: dict[str, dict] = {}
     for sig in signals:
         if not sig.get("cluster_boost_applied"):
             continue
-        if sig.get("recommendation") not in ("contrarian_buy", "reduce_exposure"):
-            continue
         sector = (sig.get("cluster_boost_info") or {}).get("sector", "unknown")
         if sector not in by_sector:
-            by_sector[sector] = {"hits": 0, "total": 0}
+            by_sector[sector] = {"total_boosted": 0, "hits": 0, "total": 0}
+        by_sector[sector]["total_boosted"] += 1
+
+        if sig.get("recommendation") not in ("contrarian_buy", "reduce_exposure"):
+            continue
         outcome = sig.get("outcomes", {}).get(window, {})
         if outcome.get("status") != "evaluated" or outcome.get("hit") is None:
             continue
@@ -165,7 +173,13 @@ def _sector_attribution(signals: list[dict], window: str = "d30") -> list[dict]:
         t = counts["total"]
         h = counts["hits"]
         pct = round(100 * h / t, 1) if t else None
-        rows.append({"sector": sector, "hits": h, "total": t, "pct": pct})
+        rows.append({
+            "sector":        sector,
+            "total_boosted": counts["total_boosted"],
+            "hits":          h,
+            "total":         t,
+            "pct":           pct,
+        })
     return rows
 
 
@@ -178,8 +192,8 @@ def _extract_metrics(results: dict) -> dict:
     d10_pct, d10_n = _combined_hit_rate(hit_rates.get("d10", {}))
     d30_pct, d30_n = _combined_hit_rate(hit_rates.get("d30", {}))
 
+    conf5_pct, conf5_n = _confidence_filtered_hit_rate(signals, min_conf=5)
     conf7_pct, conf7_n = _confidence_filtered_hit_rate(signals, min_conf=7)
-    conf8_pct, conf8_n = _confidence_filtered_hit_rate(signals, min_conf=8)
 
     return {
         "total_signals":        results.get("total_signals_generated", 0),
@@ -189,10 +203,10 @@ def _extract_metrics(results: dict) -> dict:
         "d10_n":                d10_n,
         "d30_pct":              d30_pct,
         "d30_n":                d30_n,
+        "d30_conf5_pct":        conf5_pct,
+        "d30_conf5_n":          conf5_n,
         "d30_conf7_pct":        conf7_pct,
         "d30_conf7_n":          conf7_n,
-        "d30_conf8_pct":        conf8_pct,
-        "d30_conf8_n":          conf8_n,
         "d30_by_rec":           _rec_hit_rates(hit_rates),
         "sector_attribution":   _sector_attribution(signals),
         "cap_reached":          results.get("cap_reached", False),
@@ -379,31 +393,37 @@ def generate_report(
     # ── Section 1: Summary table ──────────────────────────────────────────────
     lines.append("## 1. Summary Table — d+30 hit rate")
     lines.append("")
-    lines.append("| Period | Boost OFF | Boost ON | Delta | Pass? |")
-    lines.append("|--------|-----------|----------|-------|-------|")
+    lines.append("| Period | Boost OFF | Boost ON | Delta | Result |")
+    lines.append("|--------|-----------|----------|-------|--------|")
 
-    period_pass: dict[str, bool] = {}
+    _VERDICT_LABEL = {"PASS": "✓ PASS", "FAIL": "✗ FAIL", "INCONCLUSIVE": "⚠ INC"}
+    period_verdict: dict[str, str] = {}
 
     for period in _PERIODS:
-        pair    = all_metrics.get(period, {})
-        off_m   = pair.get(False, {})
-        on_m    = pair.get(True, {})
-        off_pct = off_m.get("d30_pct")
-        on_pct  = on_m.get("d30_pct")
+        pair      = all_metrics.get(period, {})
+        off_m     = pair.get(False, {})
+        on_m      = pair.get(True, {})
+        off_pct   = off_m.get("d30_pct")
+        on_pct    = on_m.get("d30_pct")
+        boosted_n = on_m.get("boosted_count", 0)
 
-        passed  = (
+        if boosted_n < _MINIMUM_BOOSTED_SAMPLE:
+            verdict = "INCONCLUSIVE"
+        elif (
             off_pct is not None
             and on_pct is not None
             and (on_pct - off_pct) >= _PASS_MIN_DELTA_PP
-        )
-        period_pass[period] = passed
+        ):
+            verdict = "PASS"
+        else:
+            verdict = "FAIL"
+        period_verdict[period] = verdict
 
         label   = _PERIOD_LABELS.get(period, period)
         off_str = _fmt_pct(off_pct, off_m.get("d30_n", 0))
         on_str  = _fmt_pct(on_pct,  on_m.get("d30_n",  0))
         delta   = _delta_str(off_pct, on_pct)
-        p_str   = "✓ PASS" if passed else "✗ FAIL"
-        lines.append(f"| {label} | {off_str} | {on_str} | {delta} | {p_str} |")
+        lines.append(f"| {label} | {off_str} | {on_str} | {delta} | {_VERDICT_LABEL[verdict]} |")
 
     lines.append("")
 
@@ -436,10 +456,15 @@ def generate_report(
                 f"- d+30 hit rate: {_fmt_pct(m.get('d30_pct'), m.get('d30_n', 0))}"
             )
             lines.append(
+                f"- d+30 (conf ≥ 5): {_fmt_pct(m.get('d30_conf5_pct'), m.get('d30_conf5_n', 0))}"
+            )
+            lines.append(
                 f"- d+30 (conf ≥ 7): {_fmt_pct(m.get('d30_conf7_pct'), m.get('d30_conf7_n', 0))}"
             )
             lines.append(
-                f"- d+30 (conf ≥ 8): {_fmt_pct(m.get('d30_conf8_pct'), m.get('d30_conf8_n', 0))}"
+                "> **Note:** historical-mode signals are subject to a −2 confidence penalty "
+                "(VIX-based sentiment proxy). Conf ≥ 5 in historical mode is roughly "
+                "equivalent to conf ≥ 7 in production."
             )
 
             by_rec = m.get("d30_by_rec", {})
@@ -456,8 +481,8 @@ def generate_report(
     lines.append("Sector attribution tracks which sectors triggered the most boosts")
     lines.append("and whether boosted signals in those sectors were directionally correct at d+30.")
     lines.append("")
-    lines.append("| Period | Sector | Boosted signals | d+30 hit rate |")
-    lines.append("|--------|--------|-----------------|---------------|")
+    lines.append("| Period | Sector | Boosted signals | d+30 hit rate (directional) |")
+    lines.append("|--------|--------|-----------------|------------------------------|")
 
     for period in _PERIODS:
         label = _PERIOD_LABELS.get(period, period)
@@ -467,9 +492,12 @@ def generate_report(
             lines.append(f"| {label} | — | — | — |")
             continue
         for row in rows:
-            pct_str = f"{row['pct']:.1f}%" if row["pct"] is not None else "—"
+            if row["pct"] is not None:
+                pct_str = f"{row['pct']:.1f}% ({row['total']})"
+            else:
+                pct_str = "— (no directional evaluated)"
             lines.append(
-                f"| {label} | `{row['sector']}` | {row['total']} | {pct_str} |"
+                f"| {label} | `{row['sector']}` | {row['total_boosted']} | {pct_str} |"
             )
 
     lines.append("")
@@ -477,17 +505,22 @@ def generate_report(
     # ── Section 4: Verdict ────────────────────────────────────────────────────
     lines.append("## 4. Verdict")
     lines.append("")
-    pass_count = sum(1 for v in period_pass.values() if v)
-    overall    = pass_count >= _PASS_MIN_PERIODS
+    pass_count = sum(1 for v in period_verdict.values() if v == "PASS")
+    fail_count = sum(1 for v in period_verdict.values() if v == "FAIL")
+    inc_count  = sum(1 for v in period_verdict.values() if v == "INCONCLUSIVE")
+    overall    = pass_count >= _PASS_MIN_PERIODS and fail_count == 0
 
     lines.append(f"**{'PASS ✓' if overall else 'FAIL ✗'}** — "
-                 f"{pass_count}/{len(_PERIODS)} periods improved by ≥{_PASS_MIN_DELTA_PP:.0f}pp at d+30.")
+                 f"{pass_count}/{len(_PERIODS)} periods passed, "
+                 f"{fail_count} failed, {inc_count} inconclusive "
+                 f"(< {_MINIMUM_BOOSTED_SAMPLE} boosted signals).")
     lines.append("")
     lines.append("| Period | Result |")
     lines.append("|--------|--------|")
+    _VERDICT_LONG = {"PASS": "✓ PASS", "FAIL": "✗ FAIL", "INCONCLUSIVE": "⚠ INCONCLUSIVE"}
     for period in _PERIODS:
         label  = _PERIOD_LABELS.get(period, period)
-        result = "✓ PASS" if period_pass.get(period) else "✗ FAIL"
+        result = _VERDICT_LONG[period_verdict.get(period, "FAIL")]
         lines.append(f"| {label} | {result} |")
 
     lines.append("")
@@ -495,25 +528,46 @@ def generate_report(
     # ── Section 5: Recommended action ────────────────────────────────────────
     lines.append("## 5. Recommended Action")
     lines.append("")
+    inc_periods = [_PERIOD_LABELS.get(p, p) for p, v in period_verdict.items() if v == "INCONCLUSIVE"]
+    failed      = [_PERIOD_LABELS.get(p, p) for p, v in period_verdict.items() if v == "FAIL"]
+
     if overall:
         lines.append(
             "**FLIP FLAG** — set `CLUSTER_BOOST_ENABLED=true` in the GitHub Actions "
             "environment or `.env` to activate the cluster confidence boost in production."
         )
+        if inc_periods:
+            lines.append("")
+            lines.append(
+                f"⚠ **Needs more data:** {'; '.join(inc_periods)} had fewer than "
+                f"{_MINIMUM_BOOSTED_SAMPLE} boosted signals and returned INCONCLUSIVE. "
+                "Re-run those periods after more production data has been collected."
+            )
     else:
-        # Build a hypothesis based on which periods failed
-        failed = [_PERIOD_LABELS.get(p, p) for p, v in period_pass.items() if not v]
-        hyp    = (
-            "the boost may not generalise to periods dominated by macro-driven moves "
-            "rather than sector-specific clustering"
-            if len(failed) >= 2
-            else f"the boost underperformed in: {'; '.join(failed)}"
-        )
+        if inc_periods and not failed:
+            hyp = (
+                f"all non-passing periods were INCONCLUSIVE (insufficient boosted-signal "
+                f"sample, < {_MINIMUM_BOOSTED_SAMPLE}): {'; '.join(inc_periods)}. "
+                "Accumulate more data before drawing conclusions."
+            )
+        elif len(failed) >= 2:
+            hyp = (
+                "the boost may not generalise to periods dominated by macro-driven moves "
+                "rather than sector-specific clustering"
+            )
+        else:
+            hyp = f"the boost underperformed in: {'; '.join(failed)}"
         lines.append(
             f"**DO NOT FLIP** — investigate hypothesis: _{hyp}_. "
             "Consider narrowing the cluster threshold, adjusting the window, "
             "or reviewing sector mapping before re-running validation."
         )
+        if inc_periods:
+            lines.append("")
+            lines.append(
+                f"⚠ **Needs more data:** {'; '.join(inc_periods)} — fewer than "
+                f"{_MINIMUM_BOOSTED_SAMPLE} boosted signals; verdict is INCONCLUSIVE."
+            )
 
     lines.append("")
     lines.append("---")
