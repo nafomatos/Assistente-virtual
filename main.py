@@ -132,6 +132,12 @@ def run_pipeline(tickers: list[str]) -> list[dict]:
             continue
 
         volume   = analyze_volume(market)
+        if volume.get("data_quality") == "suspicious_volume":
+            logger.warning(
+                "[DATA QUALITY] %s volume multiple %.1fx exceeds threshold"
+                " — consider review",
+                ticker, volume["ratio"],
+            )
         velocity = analyze_price_velocity(market)
         rsi      = analyze_rsi(market)
 

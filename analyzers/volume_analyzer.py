@@ -8,7 +8,7 @@ def analyze_volume(market_data: dict) -> dict:
     baseline = market_data["avg_volume_30d"]
 
     if baseline <= 0:
-        return {"classification": "normal", "ratio": 0.0}
+        return {"classification": "normal", "ratio": 0.0, "data_quality": "ok"}
 
     ratio = current / baseline
     if ratio < 1.5:
@@ -20,4 +20,5 @@ def analyze_volume(market_data: dict) -> dict:
     else:
         classification = "extreme"
 
-    return {"classification": classification, "ratio": round(ratio, 2)}
+    data_quality = "suspicious_volume" if ratio > 10.0 else "ok"
+    return {"classification": classification, "ratio": round(ratio, 2), "data_quality": data_quality}

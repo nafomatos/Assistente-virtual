@@ -110,8 +110,13 @@ def fetch_market_data(ticker: str, lookback_days: int = 30) -> dict:
     previous_close = float(closes.iloc[-2]) if len(closes) >= 2 else current_price
     current_volume = float(volumes.iloc[-1])
 
-    # Short-window volume average (exclude today)
-    avg_volume_30d = float(volumes.iloc[-(lookback_days + 1):-1].mean())
+    # Short-window volume average (exclude today). Zero-volume days are filtered
+    # out before averaging: futures contract rolls often produce a run of zero
+    # rows in yfinance data, which would collapse the denominator and produce
+    # impossibly large multiples (e.g. GC=F 46x) the next real trading day.
+    vol_slice    = volumes.iloc[-(lookback_days + 1):-1]
+    vol_nonzero  = vol_slice[vol_slice > 0]
+    avg_volume_30d = float(vol_nonzero.mean()) if len(vol_nonzero) > 0 else float(vol_slice.mean())
 
     returns = closes.pct_change().dropna()
     returns_mean_30d,  returns_std_30d  = _returns_stats(returns, lookback_days)
