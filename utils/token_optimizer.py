@@ -116,7 +116,15 @@ def compress_signals(ticker: str, name: str, signals: dict) -> str:
 
     macro_flag = " ⚠ macro_extreme" if p.get("macro_extreme") else ""
 
+    dq_flag = ""
+    if v.get("data_quality") == "suspicious_volume":
+        dq_flag = (
+            f"⚠ DATA QUALITY FLAG: This ticker's volume multiple ({v['ratio']}x) exceeds normal"
+            f" range and may be a data artifact. Weight volume evidence accordingly.\n\n"
+        )
+
     return (
+        f"{dq_flag}"
         f"Asset: {ticker} ({name})\n\n"
         f"Market signals:\n"
         f"- Volume: {v['classification']} ({v['ratio']}x 30d avg)\n"

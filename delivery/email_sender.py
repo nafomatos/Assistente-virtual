@@ -335,6 +335,18 @@ def _sentiment_row(sentiment: dict | None) -> str:
 
 # ── cluster alerts card ────────────────────────────────────────────────────
 
+def _data_quality_badge(data_quality: str, ratio: float) -> str:
+    """Warning banner shown when volume multiple exceeds the suspicious threshold."""
+    if data_quality != "suspicious_volume":
+        return ""
+    return (
+        f"<div style='background:#422006;border:1px solid #92400e;border-radius:4px;"
+        f"padding:6px 10px;margin-top:8px;font-size:11px;color:#fbbf24;font-weight:600;'>"
+        f"⚠ DATA QUALITY: extreme volume reading ({ratio:.1f}x) — verify before acting"
+        f"</div>"
+    )
+
+
 def _cluster_boost_badge(cluster_boost: dict) -> str:
     """Inline badge shown on individual asset cards when a cluster boost was applied."""
     sector    = cluster_boost.get("sector", "")
@@ -473,6 +485,7 @@ def _asset_card(ticker: str, signals: dict, tier: str, cluster_boost: dict | Non
     )
 
     boost_badge = _cluster_boost_badge(cluster_boost) if cluster_boost else ""
+    dq_badge    = _data_quality_badge(v.get("data_quality", "ok"), v["ratio"])
 
     return (
         f"<div style='background:#1a1a1a;border-radius:6px;border-left:4px solid {border};"
@@ -491,6 +504,8 @@ def _asset_card(ticker: str, signals: dict, tier: str, cluster_boost: dict | Non
         f"</tr></tbody></table>"
         # metrics
         f"<table style='border-collapse:collapse;'><tbody><tr>{metric_tds}</tr></tbody></table>"
+        # data quality warning (shown only when suspicious_volume)
+        f"{dq_badge}"
         # news + sentiment
         f"{news_html}"
         f"{sentiment_html}"

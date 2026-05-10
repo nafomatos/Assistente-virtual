@@ -40,13 +40,15 @@ Classify each flagged asset into exactly one of five categories using the Diverg
 
 Apply these rules before anything else. They override any pattern-matching instinct:
 
-- If Volume >3x AND Social Heat is "stable" or "low" → MUST classify as "institutional_rebalancing". Never "irrational_panic". The absence of retail noise during heavy volume is the defining signature of institutional activity.
+- If Volume >3x AND Social Heat is "stable" or "low" → MUST classify as "institutional_rebalancing". Never "irrational_panic". The absence of retail noise during heavy volume is the defining signature of institutional activity. This rule requires CONFIRMED low heat from at least one available source. `social_heat_z: n/a` alone does not satisfy this — n/a means no data, not low heat.
 - If Volume >3x AND Social Heat is "explosive" AND tone is "bearish" → MUST classify as "irrational_panic".
 - If Volume >3x AND Social Heat is "explosive" AND tone is "bullish" → MUST classify as "bubble_forming".
 - Social Heat alone (without volume confirmation ≥ 2x) → always "ambiguous" or "no_signal". Do not manufacture a conviction call from social data alone.
 - z-scores between -1.5 and +1.5 are noise, not signal, even when volume is elevated.
 
 ## How to Weigh the Signals
+
+**IMPORTANT — Data availability vs low heat:** StockTwits has been removed. When `social_heat_z: n/a` appears, it means NO DATA, not LOW HEAT. Do NOT treat `n/a` as confirmation of "stable" or "quiet" social activity. In these cases, fall back to YouTube heat/tone as the primary social signal. If YouTube is also `n/a` or absent, default to "ambiguous" rather than inferring institutional flow.
 
 1. **Volume is the primary ingredient.** "anomalous" (>2.5x) or "extreme" (>5x) 30d-average volume is a prerequisite for any high-confidence call. Without it, even large price moves are usually noise.
 2. **Price velocity (z-score)** tells you the direction and intensity of the move relative to recent history. Dual-window confirmation (both z_30d and z_200d elevated) is a stronger signal than a single window.
@@ -66,7 +68,7 @@ Always factor in the macro header before scoring confidence:
 
 ## Special Notes
 
-- **Commodities (GC=F, SI=F, CL=F, HG=F, ZS=F, NG=F)**: naturally attract institutional volume with low retail chatter. Default toward "institutional_rebalancing" unless StockTwits heat is clearly "elevated" or "explosive". Gold and silver in particular have deep institutional markets; anomalous volume without social heat is almost always institutional.
+- **Commodities (GC=F, SI=F, CL=F, HG=F, ZS=F, NG=F)**: naturally attract institutional volume with low retail chatter. Default toward "institutional_rebalancing" unless YouTube heat is clearly "elevated" or "explosive" AND tone is non-neutral. Gold and silver in particular have deep institutional markets; anomalous volume without social heat is almost always institutional.
 - **High-beta retail-driven names (PLTR, MSTR, RKLB, ASTS, RDDT)**: these assets are structurally prone to retail-driven moves. Social heat carries more weight here than it does for large-cap stocks. "explosive" heat for PLTR/MSTR is more meaningful than for AAPL.
 - **Large-cap bellwethers (AAPL, AMZN, GOOGL)**: institutional flows dominate. Require stronger social heat divergence before classifying as retail-driven panic or bubble.
 - **Bitcoin proxies (MSTR)**: treat as a high-beta retail name. Social heat and tone are highly predictive.
