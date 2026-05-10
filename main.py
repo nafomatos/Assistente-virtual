@@ -68,6 +68,8 @@ from tracker.position_tracker import (
 
 load_dotenv()
 
+CLUSTER_BOOST_ENABLED = os.getenv("CLUSTER_BOOST_ENABLED", "false").lower() == "true"
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(name)s: %(message)s",
@@ -130,6 +132,12 @@ def run_pipeline(tickers: list[str]) -> list[dict]:
             continue
 
         volume   = analyze_volume(market)
+        if volume.get("data_quality") == "suspicious_volume":
+            logger.warning(
+                "[DATA QUALITY] %s volume multiple %.1fx exceeds threshold"
+                " — consider review",
+                ticker, volume["ratio"],
+            )
         velocity = analyze_price_velocity(market)
         rsi      = analyze_rsi(market)
 
@@ -355,6 +363,9 @@ def _attach_sizing_blocks(
         classified = classified_by_ticker.get(r["ticker"])
         if not classified:
             continue
+        if r.get("cluster_boost") and "cluster_boost" not in classified:
+            classified = dict(classified)
+            classified["cluster_boost"] = r["cluster_boost"]
         try:
             sizing = compute_sizing_block(
                 classified_signal=classified,
@@ -576,10 +587,76 @@ def main(argv: list[str]) -> int:
 
     archive_log(path, date)
 
+    # ── Cluster Signal Booster ────────────────────────────────────────────────
+    # Reads historical logs/signals_YYYYMMDD.json files (written by this block
+    # on previous runs) and boosts confidence when 3+ tickers from the same
+    # sector are signalling in the same direction within the rolling window.
+    # Post-classification, pure Python — never touches the Claude prompt.
+    active_clusters: list[dict] = []
+    if CLUSTER_BOOST_ENABLED:
+        from tracker.cluster_detector import detect_clusters
+        from tracker.sectors import get_direction_group, get_sector
+
+        active_clusters = detect_clusters(days_window=5)
+
+        # Load today's classified signals (written by the Claude Haiku step)
+        signals_path = os.path.join(LOGS_DIR, f"signals_{date.isoformat()}.json")
+        classified_signals: list[dict] = []
+        if os.path.exists(signals_path):
+            try:
+                with open(signals_path, "r", encoding="utf-8") as fh:
+                    classified_signals = json.load(fh).get("signals", [])
+            except (json.JSONDecodeError, OSError) as exc:
+                logger.warning("cluster boost: could not load %s (%s)", signals_path, exc)
+
+        for signal in classified_signals:
+            sector = get_sector(signal["ticker"])
+            direction = get_direction_group(
+                signal.get("classification", ""),
+                signal.get("recommendation", ""),
+            )
+            for cluster in active_clusters:
+                if cluster["sector"] == sector and cluster["direction_group"] == direction:
+                    original = signal["confidence"]
+                    boosted  = min(original + cluster["boost"], 10)
+                    signal["cluster_boost"] = {
+                        "sector": sector,
+                        "direction_group": direction,
+                        "count": cluster["count"],
+                        "original_confidence": original,
+                        "boost_amount": cluster["boost"],
+                    }
+                    signal["confidence"] = boosted
+                    logger.info(
+                        "[CLUSTER BOOST] %s %s %s: %d -> %d (+%d, %d tickers)",
+                        signal["ticker"], sector, direction,
+                        original, boosted, cluster["boost"], cluster["count"],
+                    )
+                    break
+
+        # Merge cluster_boost info into results for the email template
+        classified_by_ticker = {s["ticker"]: s for s in classified_signals}
+        for r in results:
+            cb = classified_by_ticker.get(r["ticker"], {}).get("cluster_boost")
+            if cb:
+                r["cluster_boost"] = cb
+
+        # Persist detected clusters for historical analysis / backtesting
+        if active_clusters:
+            clusters_path = os.path.join(LOGS_DIR, f"clusters_{date.isoformat()}.json")
+            try:
+                os.makedirs(LOGS_DIR, exist_ok=True)
+                with open(clusters_path, "w", encoding="utf-8") as fh:
+                    json.dump({"date": date.isoformat(), "clusters": active_clusters}, fh, indent=2)
+                logger.info("clusters saved to %s", clusters_path)
+            except OSError as exc:
+                logger.warning("cluster boost: could not save clusters (%s)", exc)
+
     # ── Position Sizing ───────────────────────────────────────────────────────
     # Reads classified signals (written by the Claude advisor / add_recommendations
     # workflow) and attaches a sizing_block to each result for email rendering.
     # Silently skipped when the signals file is absent (manual-paste workflow).
+    # _attach_sizing_blocks picks up in-memory cluster_boost already merged into results.
     _attach_sizing_blocks(results, date, buffett, fear_greed)
 
     if send_email:
@@ -593,6 +670,7 @@ def main(argv: list[str]) -> int:
                 buffett=buffett,
                 open_positions=open_positions,
                 closed_stats=closed_stats,
+                active_clusters=active_clusters,
             )
             print("Email sent.")
         except EmailConfigError as e:
