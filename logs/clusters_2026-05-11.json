@@ -1,0 +1,34 @@
+{
+  "date": "2026-05-11",
+  "clusters": [
+    {
+      "sector": "semis",
+      "direction_group": "bearish_overheating",
+      "tickers": [
+        "AMD",
+        "ARM",
+        "INTC",
+        "MU",
+        "NVDA",
+        "SMCI"
+      ],
+      "count": 6,
+      "boost": 2,
+      "first_seen": "2026-05-05",
+      "last_seen": "2026-05-06"
+    },
+    {
+      "sector": "commodities_metals",
+      "direction_group": "institutional",
+      "tickers": [
+        "GC=F",
+        "HG=F",
+        "SI=F"
+      ],
+      "count": 3,
+      "boost": 1,
+      "first_seen": "2026-05-05",
+      "last_seen": "2026-05-05"
+    }
+  ]
+}
