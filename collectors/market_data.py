@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 HISTORY_PERIOD = "1y"
 LONG_LOOKBACK_DAYS = 200
 CLOSES_TAIL_FOR_RSI = 60  # >> 14 so Wilder's smoothing stabilizes
+VOLUME_SHORT_WINDOW = 10  # trailing days used as post-roll floor (Fix 2)
 
 
 def _returns_stats(returns, lookback: int) -> tuple[float, float]:
@@ -110,13 +111,21 @@ def fetch_market_data(ticker: str, lookback_days: int = 30) -> dict:
     previous_close = float(closes.iloc[-2]) if len(closes) >= 2 else current_price
     current_volume = float(volumes.iloc[-1])
 
-    # Short-window volume average (exclude today). Zero-volume days are filtered
-    # out before averaging: futures contract rolls often produce a run of zero
-    # rows in yfinance data, which would collapse the denominator and produce
-    # impossibly large multiples (e.g. GC=F 46x) the next real trading day.
+    # Short-window volume average (exclude today).
+    # Fix 1: filter exact-zero days — contract rolls in yfinance futures data
+    # produce zero-volume rows that collapse the denominator.
+    # Fix 2: use the 10-day trailing window as a floor. After a roll, the 30-day
+    # slice still contains deferred-contract rows with non-zero but tiny volumes
+    # (1–10,000 contracts vs 200,000+ on active days). The 10-day window is
+    # always post-roll and clean; max() is neutral for equities (avg_10d ≈ avg_30d).
     vol_slice    = volumes.iloc[-(lookback_days + 1):-1]
     vol_nonzero  = vol_slice[vol_slice > 0]
     avg_volume_30d = float(vol_nonzero.mean()) if len(vol_nonzero) > 0 else float(vol_slice.mean())
+
+    vol_short    = volumes.iloc[-(VOLUME_SHORT_WINDOW + 1):-1]
+    vol_short_nz = vol_short[vol_short > 0]
+    avg_volume_10d = float(vol_short_nz.mean()) if len(vol_short_nz) > 0 else 0.0
+    avg_volume_30d = max(avg_volume_30d, avg_volume_10d)
 
     returns = closes.pct_change().dropna()
     returns_mean_30d,  returns_std_30d  = _returns_stats(returns, lookback_days)
