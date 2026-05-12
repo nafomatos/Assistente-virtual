@@ -1,0 +1,21 @@
+{
+  "date": "2026-05-12",
+  "clusters": [
+    {
+      "sector": "semis",
+      "direction_group": "bearish_overheating",
+      "tickers": [
+        "AMD",
+        "ARM",
+        "INTC",
+        "MU",
+        "NVDA",
+        "SMCI"
+      ],
+      "count": 6,
+      "boost": 2,
+      "first_seen": "2026-05-06",
+      "last_seen": "2026-05-06"
+    }
+  ]
+}
