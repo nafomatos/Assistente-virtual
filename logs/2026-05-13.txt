@@ -226,13 +226,13 @@ Market signals:
 - Current price: $4,697.10 (+0.42% today)
 
 Recent news (last 3):
-1. "Semiconductor ETFs are booming, but they're not the only ones" — Yahoo Finance Video, 5.8h ago
-2. "Franco-Nevada Q1 Earnings Call Highlights" — MarketBeat, 0.2h ago
-3. "U.S. Global Investors assets under management climb during Q1 on gold strength" — Proactive, 0.9h ago
+1. "Semiconductor ETFs are booming, but they're not the only ones" — Yahoo Finance Video, 5.9h ago
+2. "Franco-Nevada Q1 Earnings Call Highlights" — MarketBeat, 0.3h ago
+3. "U.S. Global Investors assets under management climb during Q1 on gold strength" — Proactive, 1.0h ago
 
-Social signals (social_heat_z: +0.5):
+Social signals (social_heat_z: -0.1):
 - StockTwits: n/a
-- YouTube: heat=explosive, tone=bullish, top="Import Duty Hike Pushes Gold ETFs Up 6% — Finance Stocks Jum" (109k views)
+- YouTube: heat=explosive, tone=bullish, top="Import Duty Hike Pushes Gold ETFs Up 6% — Finance Stocks Jum" (110k views)
 - Twitter: n/a
 ------------------------------------------------------------------------
 ⚠ DATA QUALITY FLAG: This ticker's volume multiple (39.94x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
@@ -246,11 +246,11 @@ Market signals:
 - Current price: $88.15 (+3.55% today)
 
 Recent news (last 3):
-1. "Gold and silver prices today, Wednesday, May 13: Silver prices surge again, gold sits tight" — Yahoo Personal Finance, 10.6h ago
-2. "Silver is joining copper in the AI build-out trade: Chart of the Day" — Yahoo Finance, 11.4h ago
-3. "Silver Posts Strong Session on Industrial Demand Hopes" — The Wall Street Journal, 2.2h ago
+1. "Gold and silver prices today, Wednesday, May 13: Silver prices surge again, gold sits tight" — Yahoo Personal Finance, 10.7h ago
+2. "Silver is joining copper in the AI build-out trade: Chart of the Day" — Yahoo Finance, 11.5h ago
+3. "Silver Posts Strong Session on Industrial Demand Hopes" — The Wall Street Journal, 2.3h ago
 
-Social signals (social_heat_z: -0.3):
+Social signals (social_heat_z: -0.2):
 - StockTwits: n/a
 - YouTube: heat=explosive, tone=bullish, top="URGENT: Silver Price Forecast Just Changed – This Is Going T" (23k views)
 - Twitter: n/a
@@ -266,9 +266,9 @@ Market signals:
 - Current price: $6.62 (+2.07% today)
 
 Recent news (last 3):
-1. "Silver is joining copper in the AI build-out trade: Chart of the Day" — Yahoo Finance, 11.4h ago
-2. "If You Want To Know Where Bitcoin Is Headed Next, Watch The Price Of Copper" — Benzinga, 4.9h ago
-3. "Copper Nears Record High on Tight Global Supply; Aluminum Surges" — Bloomberg, 5.0h ago
+1. "Silver is joining copper in the AI build-out trade: Chart of the Day" — Yahoo Finance, 11.5h ago
+2. "If You Want To Know Where Bitcoin Is Headed Next, Watch The Price Of Copper" — Benzinga, 5.0h ago
+3. "Copper Nears Record High on Tight Global Supply; Aluminum Surges" — Bloomberg, 5.1h ago
 
 Social signals (social_heat_z: -0.1):
 - StockTwits: n/a
@@ -284,9 +284,9 @@ Market signals:
 - Current price: $207.27 (+15.72% today)
 
 Recent news (last 3):
-1. "Nebius stock soars as revenue jumps 684% on booming data center demand" — Yahoo Finance, 6.0h ago
-2. "Stock Market Today: Nasdaq Ends Strong As AI Leads; Cybersecurity Stock Attempts Breakout (Live Coverage)" — Investor's Business Daily, 0.9h ago
-3. "Nebius (NBIS) Q1 2026 Earnings Transcript" — Motley Fool, 2.5h ago
+1. "Nebius stock soars as revenue jumps 684% on booming data center demand" — Yahoo Finance, 6.1h ago
+2. "Stock Market Today: Nasdaq Ends Strong As AI Leads; Cybersecurity Stock Attempts Breakout (Live Coverage)" — Investor's Business Daily, 1.0h ago
+3. "Nebius (NBIS) Q1 2026 Earnings Transcript" — Motley Fool, 2.6h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
@@ -302,9 +302,9 @@ Market signals:
 - Current price: $298.87 (+1.38% today)
 
 Recent news (last 3):
-1. "Apple stock notches fresh record as tech rebounds" — Yahoo Finance, 3.6h ago
-2. "Dow Jones Futures Rise, Cisco Soars On Earnings; Google, Nvidia, Tesla Lead S&P 500, Nasdaq To Highs" — Investor's Business Daily, 0.5h ago
-3. "Wall Street’s Top Chartist Warns US Tech Stocks Now At Highest Concentration Since the 2000 Bubble" — 24/7 Wall St., 0.6h ago
+1. "Apple stock notches fresh record as tech rebounds" — Yahoo Finance, 3.7h ago
+2. "Dow Jones Futures Rise, Cisco Soars On Earnings; Google, Nvidia, Tesla Lead S&P 500, Nasdaq To Highs" — Investor's Business Daily, 0.6h ago
+3. "Wall Street’s Top Chartist Warns US Tech Stocks Now At Highest Concentration Since the 2000 Bubble" — 24/7 Wall St., 0.7h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
@@ -320,11 +320,11 @@ Market signals:
 - Current price: $402.62 (+3.94% today)
 
 Recent news (last 3):
-1. "Apple stock notches fresh record as tech rebounds" — Yahoo Finance, 3.6h ago
+1. "Apple stock notches fresh record as tech rebounds" — Yahoo Finance, 3.7h ago
 2. "Anthropic debuts Claude for Small Business as it continues its enterprise software push" — Yahoo Finance, 5.4h ago
-3. "Fervo Energy IPO: CEO outlines geothermal future of US grid" — Yahoo Finance Video, 6.5h ago
+3. "Fervo Energy IPO: CEO outlines geothermal future of US grid" — Yahoo Finance Video, 6.6h ago
 
-Social signals (social_heat_z: -0.7):
+Social signals (social_heat_z: -0.6):
 - StockTwits: n/a
 - YouTube: heat=stable, tone=bearish, top="Amazing Letters Tower Crash! #colorfulletters #alphabet #art" (22k views)
 - Twitter: n/a
@@ -338,8 +338,8 @@ Market signals:
 - Current price: $124.15 (+5.61% today)
 
 Recent news (last 3):
-1. "Space Stocks Jump As SpaceX, Google Explore Orbital Data Center Deal" — Investor's Business Daily, 1.2h ago
-2. "Anduril Hires Rocket Lab to Help It With Hypersonics" — Motley Fool, 10.0h ago
+1. "Space Stocks Jump As SpaceX, Google Explore Orbital Data Center Deal" — Investor's Business Daily, 1.3h ago
+2. "Anduril Hires Rocket Lab to Help It With Hypersonics" — Motley Fool, 10.1h ago
 3. "Rocket Lab (RKLB) Stock Trades Up, Here Is Why" — StockStory, 17.8h ago
 
 Social signals (social_heat_z: n/a):
@@ -356,11 +356,11 @@ Market signals:
 - Current price: $803.63 (+4.83% today)
 
 Recent news (last 3):
-1. "Micron just gave chip bulls a $100 billion stress test" — Yahoo Finance, 6.4h ago
-2. "Micron stock in focus as Wall Street weighs AI demand outlook" — Yahoo Finance Video, 7.1h ago
-3. "US Equity Indexes Mixed as Communication Services, Tech Help Outweigh Impact of Hot Producer Prices" — MT Newswires, 0.4h ago
+1. "Micron just gave chip bulls a $100 billion stress test" — Yahoo Finance, 6.5h ago
+2. "Micron stock in focus as Wall Street weighs AI demand outlook" — Yahoo Finance Video, 7.2h ago
+3. "US Equity Indexes Mixed as Communication Services, Tech Help Outweigh Impact of Hot Producer Prices" — MT Newswires, 0.5h ago
 
-Social signals (social_heat_z: +3.0):
+Social signals (social_heat_z: +0.5):
 - StockTwits: n/a
 - YouTube: heat=explosive, tone=bearish, top="This Stock is the Next AMD or Micron‼️" (174k views)
 - Twitter: n/a
@@ -374,9 +374,9 @@ Market signals:
 - Current price: $742.31 (+0.56% today)
 
 Recent news (last 3):
-1. "How Can Palantir Be Down 26% in 2026 When Stocks Are Near All-Time Highs?" — 24/7 Wall St., 3.7h ago
-2. "Housing Stocks Are in Depression Mode. Whirlpool Down 81%, Lennar Crashed 54% While the S&P 500 Soars." — 24/7 Wall St., 5.1h ago
-3. "Ben Carlson Explains Why Automatic 401(k) Contributions Keep Markets Rising Despite High Valuations" — 24/7 Wall St., 5.3h ago
+1. "How Can Palantir Be Down 26% in 2026 When Stocks Are Near All-Time Highs?" — 24/7 Wall St., 3.8h ago
+2. "Housing Stocks Are in Depression Mode. Whirlpool Down 81%, Lennar Crashed 54% While the S&P 500 Soars." — 24/7 Wall St., 5.2h ago
+3. "Ben Carlson Explains Why Automatic 401(k) Contributions Keep Markets Rising Despite High Valuations" — 24/7 Wall St., 5.4h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
@@ -392,11 +392,11 @@ Market signals:
 - Current price: $714.71 (+1.06% today)
 
 Recent news (last 3):
-1. "ETF League Tables: Invesco Pulls In $4.9B" — etf.com, 0.4h ago
-2. "Stock Market Today: Nasdaq 100 Rises Despite Hot PPI, Nvidia Hits Record High" — Benzinga, 3.8h ago
-3. "Exchange-Traded Funds, US Equities Mixed After Midday" — MT Newswires, 4.3h ago
+1. "ETF League Tables: Invesco Pulls In $4.9B" — etf.com, 0.5h ago
+2. "Stock Market Today: Nasdaq 100 Rises Despite Hot PPI, Nvidia Hits Record High" — Benzinga, 3.9h ago
+3. "Exchange-Traded Funds, US Equities Mixed After Midday" — MT Newswires, 4.4h ago
 
-Social signals (social_heat_z: +2.4):
+Social signals (social_heat_z: -0.5):
 - StockTwits: n/a
 - YouTube: heat=explosive, tone=bearish, top="Stocks &amp; Options TRADING #STREAM  12th MAY  STOCK MARKET" (7k views)
 - Twitter: n/a
@@ -410,9 +410,9 @@ Market signals:
 - Current price: $445.50 (-0.62% today)
 
 Recent news (last 3):
-1. "Advanced Micro Devices Shareholders Back Board as Lisa Su Touts AI Growth" — MarketBeat, 0.2h ago
-2. "Nvidia Rallies As CEO Jensen Huang Joins Trump's China Trip" — Investor's Business Daily, 0.7h ago
-3. "Cerebras IPO Is Expected to Price Tonight in Major Test for Chip Rally" — Barrons.com, 1.4h ago
+1. "Advanced Micro Devices Shareholders Back Board as Lisa Su Touts AI Growth" — MarketBeat, 0.3h ago
+2. "Nvidia Rallies As CEO Jensen Huang Joins Trump's China Trip" — Investor's Business Daily, 0.8h ago
+3. "Cerebras IPO Is Expected to Price Tonight in Major Test for Chip Rally" — Barrons.com, 1.5h ago
 
 Social signals (social_heat_z: -0.4):
 - StockTwits: n/a
@@ -428,13 +428,13 @@ Market signals:
 - Current price: $101.87 (+2.60% today)
 
 Recent news (last 3):
-1. "Earnings live updates: Cisco announces 4,000 layoffs as Q3 earnings beat amid 'broad-based demand'" — Yahoo Finance, 58.9h ago
-2. "12 Information Technology Stocks Moving In Wednesday's After-Market Session" — Benzinga, 0.3h ago
-3. "US Equity Indexes Mixed as Communication Services, Tech Help Outweigh Impact of Hot Producer Prices" — MT Newswires, 0.4h ago
+1. "Earnings live updates: Cisco announces 4,000 layoffs as Q3 earnings beat amid 'broad-based demand'" — Yahoo Finance, 59.0h ago
+2. "12 Information Technology Stocks Moving In Wednesday's After-Market Session" — Benzinga, 0.4h ago
+3. "US Equity Indexes Mixed as Communication Services, Tech Help Outweigh Impact of Hot Producer Prices" — MT Newswires, 0.5h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
-- YouTube: heat=elevated, tone=neutral, top="Cisco Reports Tomorrow — Buy or Sell? $CSCO #cisco #csco" (723 views)
+- YouTube: heat=elevated, tone=neutral, top="Cisco Reports Tomorrow — Buy or Sell? $CSCO #cisco #csco" (724 views)
 - Twitter: n/a
 
 ========================================================================
