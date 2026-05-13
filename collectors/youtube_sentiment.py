@@ -167,12 +167,27 @@ def classify_financial_relevance(
     try:
         client = anthropic.Anthropic(api_key=api_key)
         message = client.messages.create(
-            model="claude-haiku-4-5",
-            max_tokens=256,
+            model="claude-haiku-4-5-20251001",
+            max_tokens=512,
             system=system_prompt,
             messages=[{"role": "user", "content": user_prompt}],
         )
         raw = message.content[0].text.strip()
+
+        # Log first 200 chars so we can diagnose response-format drift without noise.
+        logger.debug("YouTube %s: Haiku raw response: %r", ticker, raw[:200])
+
+        # Strip markdown fences — Haiku sometimes wraps JSON in ```json ... ```
+        # even when the prompt says "Return only a JSON array".
+        # json.loads("```json\n[...]```") fails at char 0 (backtick is not valid JSON).
+        if raw.startswith("```"):
+            raw = re.sub(r"^```(?:json)?\s*\n?", "", raw)
+            raw = re.sub(r"\n?```\s*$", "", raw)
+            raw = raw.strip()
+
+        if not raw:
+            raise ValueError("empty response body after stripping fences")
+
         results = json.loads(raw)
         if not isinstance(results, list) or len(results) != len(video_titles):
             raise ValueError(f"unexpected response shape: {raw!r}")

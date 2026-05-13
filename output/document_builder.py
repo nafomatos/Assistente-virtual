@@ -47,8 +47,13 @@ def get_alert_tier(signals: dict) -> str | None:
     heat_z     = sentiment.get("social_heat_zscore")
     st_heat    = sentiment.get("stocktwits_heat")
 
-    # Red: extreme volume or both z-scores exceed 2
-    if vol_class == "extreme" or macro_extreme:
+    # Red: extreme volume (unless data quality is suspicious) or both z-scores exceed 2.
+    # When data_quality == "suspicious_volume" the 10x+ reading is almost certainly a
+    # data artifact (contract roll, bad tick); volume alone must not solo-trigger RED.
+    # macro_extreme (|z30|>2 AND |z200|>2) is independent of volume and still fires.
+    data_quality = signals["volume"].get("data_quality", "ok")
+    vol_suspicious = data_quality == "suspicious_volume"
+    if (vol_class == "extreme" and not vol_suspicious) or macro_extreme:
         return "red"
 
     # Amber conditions (any one is sufficient)
@@ -87,7 +92,8 @@ def get_tier_reason(signals: dict) -> str:
 
     if tier == "red":
         reasons = []
-        if vol_class == "extreme":
+        data_quality = signals["volume"].get("data_quality", "ok")
+        if vol_class == "extreme" and data_quality != "suspicious_volume":
             reasons.append(f"vol={vol_ratio:.1f}x (extreme >5x)")
         if macro_extreme:
             reasons.append(f"macro_extreme(z30={z30:+.1f},z200={z200:+.1f})")

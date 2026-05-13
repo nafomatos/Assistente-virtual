@@ -41,7 +41,6 @@ from collectors.buffett_indicator import fetch_buffett_indicator
 from collectors.buffett_indicator import format_summary as format_buffett
 from collectors.fear_greed import fetch_fear_greed, format_summary as format_fg
 from collectors.market_data import fetch_market_data
-from collectors.stocktwits_sentiment import fetch_stocktwits_sentiment
 from collectors.trending_tickers import fetch_trending_tickers
 from collectors.youtube_sentiment import fetch_youtube_signals
 from collectors.vix_structure import fetch_vix_structure
@@ -141,13 +140,9 @@ def run_pipeline(tickers: list[str]) -> list[dict]:
         velocity = analyze_price_velocity(market)
         rsi      = analyze_rsi(market)
 
-        try:
-            stocktwits = fetch_stocktwits_sentiment(ticker)
-        except Exception as e:
-            logger.error(f"{ticker}: StockTwits fetch failed: {e}")
-            stocktwits = None
-
-        sentiment = aggregate_sentiment(ticker, stocktwits=stocktwits)
+        # StockTwits disabled: HTTP 403 on all CI runner IPs (29 errors/run as of 2026-05-13).
+        # Sentiment aggregation runs with stocktwits=None; social_heat_z comes from YouTube only.
+        sentiment = aggregate_sentiment(ticker, stocktwits=None)
 
         signals = {
             "market":    market,
@@ -156,7 +151,7 @@ def run_pipeline(tickers: list[str]) -> list[dict]:
             "rsi":       rsi,
             "sentiment": sentiment,
         }
-        results.append({"ticker": ticker, "signals": signals, "_st_raw": stocktwits})
+        results.append({"ticker": ticker, "signals": signals, "_st_raw": None})
     return results
 
 
@@ -586,6 +581,18 @@ def main(argv: list[str]) -> int:
     print(f"Skipped : {skipped or '(none)'}")
 
     archive_log(path, date)
+
+    # ── Automated Claude classification ───────────────────────────────────────
+    # Classifies the RED/AMBER signals immediately after the report is written
+    # so that _attach_sizing_blocks() (below) can compute the SIZING & TARGETS
+    # block before the email is sent.  Previously this file was only created by
+    # the manual paste workflow (user → Claude.ai → add_recommendations), which
+    # runs AFTER the email and so the sizing block was always absent.
+    # classify_signals() is a no-op when ANTHROPIC_API_KEY is unset.
+    from claude_advisor.classifier import classify_signals as _classify_signals
+    with open(path, "r", encoding="utf-8") as _rf:
+        _report_text = _rf.read()
+    _classify_signals(_report_text, date=date)
 
     # ── Cluster Signal Booster ────────────────────────────────────────────────
     # Reads historical logs/signals_YYYYMMDD.json files (written by this block
