@@ -1,0 +1,89 @@
+{
+  "date": "2026-05-13",
+  "signals": [
+    {
+      "ticker": "NBIS",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Vol 2.4x, z30=+2.2, z200=+2.2, +15.7% no dia p\u00f3s-earnings 684% revenue. YouTube explosivo bullish. Macro Buffett 232% refor\u00e7a sobrevaloriza\u00e7\u00e3o, mas momentum pode squeezar shorts no curto prazo.",
+      "confidence": 7
+    },
+    {
+      "ticker": "AAPL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Vol 0.84x normal, z30=+0.55 modesto, RSI 76 overbought mas YouTube stable/neutral. Sem volume ou heat confirmando bolha. Apenas extens\u00e3o t\u00e9cnica em mega-cap.",
+      "confidence": 4
+    },
+    {
+      "ticker": "GOOGL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Vol 0.85x normal, z200=+1.86 not\u00e1vel, RSI 76, mas heat=stable/neutral e social_z=-0.9. Movimento institucional ordenado sem euforia retail. N\u00e3o fecha tese de bolha.",
+      "confidence": 5
+    },
+    {
+      "ticker": "RKLB",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Vol 0.89x normal limita, mas RSI 76, +5.6% no dia e YouTube explosivo bullish (139k views) em nome retail-driven. Heat carrega mais peso aqui. Falta confirma\u00e7\u00e3o de volume.",
+      "confidence": 5
+    },
+    {
+      "ticker": "MU",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "RSI 81 extreme_overbought, z200=+0.88, social_z=+2.9 explosivo mas tone YouTube bearish \u2014 diverg\u00eancia. Vol 1.0x normal n\u00e3o confirma. Tone bearish em meio \u00e0 alta sugere topo, mas sem volume \u00e9 amb\u00edguo.",
+      "confidence": 5
+    },
+    {
+      "ticker": "GC=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Vol 161x flagado como artefato; z-scores neutros (+0.27/+0.12), RSI 50. YouTube explosivo bullish mas commodity com fluxo institucional dominante. Sem sinal de pre\u00e7o relevante.",
+      "confidence": 5
+    },
+    {
+      "ticker": "SI=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Vol 39.9x flagado como artefato, z30=+0.99 abaixo do threshold, RSI 68. Narrativa AI-buildout via cobre/prata atrai retail mas commodity \u00e9 institucional por natureza.",
+      "confidence": 5
+    },
+    {
+      "ticker": "HG=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Vol 31.4x flagado como artefato, z-scores ~+0.9 sub-threshold, RSI 75. Heat elevated bullish ligado ao trade AI. Sem volume confi\u00e1vel, fluxo institucional \u00e9 default.",
+      "confidence": 5
+    },
+    {
+      "ticker": "SPY",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Vol 0.65x normal, z200=+0.61 modesto, RSI 76 overbought, heat stable/neutral. Buffett 232% + F&G 42 sugerem cautela mas sem gatilho de diverg\u00eancia claro no \u00edndice.",
+      "confidence": 4
+    },
+    {
+      "ticker": "QQQ",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Vol 0.84x normal, z200=+0.88 sub-threshold, RSI 79.5. social_z=+4.2 com YouTube explosivo bearish \u2014 heat sem volume = amb\u00edguo por regra. Poss\u00edvel topo mas n\u00e3o confirma.",
+      "confidence": 5
+    },
+    {
+      "ticker": "CSCO",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Vol 1.93x elevado, z200=+1.36, RSI 79, +2.6% em ATH p\u00f3s-earnings AI. YouTube explosivo (tone neutral). Pr\u00f3ximo de bolha mas vol abaixo de 3x e tone n\u00e3o bullish puro limitam confian\u00e7a.",
+      "confidence": 6
+    },
+    {
+      "ticker": "AMD",
+      "classification": "no_signal",
+      "recommendation": "no_action",
+      "reasoning": "Vol 0.58x baixo, z30=-0.66/z200=-0.28 dentro do ru\u00eddo, pre\u00e7o -0.62%. RSI 76 \u00e9 \u00fanico sinal mas isolado. Heat elevated neutral sem dire\u00e7\u00e3o. Nada acion\u00e1vel hoje.",
+      "confidence": 3
+    }
+  ]
+}

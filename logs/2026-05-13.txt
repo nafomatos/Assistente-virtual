@@ -76,9 +76,9 @@ ARTIFICIAL PRICE RADAR — Daily Report 2026-05-13
 Macro context — Fear & Greed: 42/100 — Fear (-7 vs yesterday, deteriorating)
                VIX Structure: Contango (0.84) — normal term structure
                Buffett Indicator: 232% — Extreme (historical avg ~120%)
-Coverage — 29 tickers processed · 4 red · 8 amber · 17 filtered
-  [RED]:   GC=F, SI=F, HG=F, NBIS
-  [AMBER]: AAPL, GOOGL, RKLB, MU, SPY, QQQ, AMD, CSCO
+Coverage — 29 tickers processed · 1 red · 11 amber · 17 filtered
+  [RED]:   NBIS
+  [AMBER]: AAPL, GOOGL, RKLB, MU, GC=F, SI=F, HG=F, SPY, QQQ, CSCO, AMD
   skipped: NVDA, TSLA, AMZN, PLTR, ASTS, SOFI, MSTR, RDDT, CL=F, ZS=F, NG=F, MSFT, SNDK, DTE, LUNR, META, INTC
 ========================================================================
 
@@ -96,10 +96,10 @@ Coverage — 29 tickers processed · 4 red · 8 amber · 17 filtered
   SOFI | 0.7x | -0.9 | -1.0 | 37 | SKIP: vol=0.7x (normal); z30=-0.9,z200=-1.0; RSI=37
   MSTR | 0.7x | -1.1 | -0.7 | 56 | SKIP: vol=0.7x (normal); z30=-1.1,z200=-0.7; RSI=56
   RDDT | 0.6x | +0.1 | +0.2 | 49 | SKIP: vol=0.6x (normal); z30=+0.1,z200=+0.2; RSI=49
-  GC=F | 161.2x | +0.3 | +0.1 | 50 | RED: vol=161.2x (extreme >5x)
-  SI=F | 39.9x | +1.0 | +0.7 | 68 | RED: vol=39.9x (extreme >5x)
+  GC=F | 161.2x | +0.3 | +0.1 | 50 | AMBER: vol=161.2x (extreme)
+  SI=F | 39.9x | +1.0 | +0.7 | 68 | AMBER: vol=39.9x (extreme)
   CL=F | 0.6x | -0.2 | -0.4 | 54 | SKIP: vol=0.6x (normal); z30=-0.2,z200=-0.4; RSI=54
-  HG=F | 31.4x | +1.0 | +0.8 | 75 | RED: vol=31.4x (extreme >5x)
+  HG=F | 31.4x | +1.0 | +0.8 | 75 | AMBER: vol=31.4x (extreme); RSI=75
   ZS=F | 1.2x | +1.2 | +1.0 | 68 | SKIP: vol=1.2x (normal); z30=+1.2,z200=+1.0; RSI=68
   NG=F | 0.9x | +0.4 | +0.1 | 56 | SKIP: vol=0.9x (normal); z30=+0.4,z200=+0.1; RSI=56
   SPY | 0.7x | +0.2 | +0.6 | 76 | AMBER: RSI=76
@@ -107,8 +107,8 @@ Coverage — 29 tickers processed · 4 red · 8 amber · 17 filtered
   NBIS | 2.4x | +2.2 | +2.2 | 70 | RED: macro_extreme(z30=+2.2,z200=+2.2)
   SNDK | 0.6x | -0.5 | -0.3 | 70 | SKIP: vol=0.6x (normal); z30=-0.5,z200=-0.3; RSI=70
   QQQ | 0.8x | +0.3 | +0.9 | 80 | AMBER: RSI=80
-  AMD | 0.6x | -0.7 | -0.3 | 76 | AMBER: RSI=76
   CSCO | 1.9x | +1.0 | +1.4 | 79 | AMBER: RSI=79
+  AMD | 0.6x | -0.7 | -0.3 | 76 | AMBER: RSI=76
   DTE | 0.6x | -0.3 | -0.4 | 42 | SKIP: vol=0.6x (normal); z30=-0.3,z200=-0.4; RSI=42
   LUNR | 1.1x | +1.2 | +1.5 | 72 | SKIP: vol=1.1x (normal); z30=+1.2,z200=+1.5; RSI=72
   META | 0.7x | +0.8 | +1.0 | 46 | SKIP: vol=0.7x (normal); z30=+0.8,z200=+1.0; RSI=46
@@ -215,66 +215,6 @@ Constraints:
 [ASSETS WITH NON-TRIVIAL SIGNALS]
 
 ------------------------------------------------------------------------
-⚠ DATA QUALITY FLAG: This ticker's volume multiple (161.25x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
-
-Asset: [RED] GC=F (Gold)
-
-Market signals:
-- Volume: extreme (161.25x 30d avg)
-- Price velocity: normal (z_30d: 0.27, z_200d: 0.12, direction: up, macro_extreme: False)
-- RSI-14: 50.4 (normal)
-- Current price: $4,697.10 (+0.42% today)
-
-Recent news (last 3):
-1. "Semiconductor ETFs are booming, but they're not the only ones" — Yahoo Finance Video, 5.9h ago
-2. "Franco-Nevada Q1 Earnings Call Highlights" — MarketBeat, 0.3h ago
-3. "U.S. Global Investors assets under management climb during Q1 on gold strength" — Proactive, 1.0h ago
-
-Social signals (social_heat_z: -0.1):
-- StockTwits: n/a
-- YouTube: heat=explosive, tone=bullish, top="Import Duty Hike Pushes Gold ETFs Up 6% — Finance Stocks Jum" (110k views)
-- Twitter: n/a
-------------------------------------------------------------------------
-⚠ DATA QUALITY FLAG: This ticker's volume multiple (39.94x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
-
-Asset: [RED] SI=F (Silver)
-
-Market signals:
-- Volume: extreme (39.94x 30d avg)
-- Price velocity: normal (z_30d: 0.99, z_200d: 0.7, direction: up, macro_extreme: False)
-- RSI-14: 68.1 (normal)
-- Current price: $88.15 (+3.55% today)
-
-Recent news (last 3):
-1. "Gold and silver prices today, Wednesday, May 13: Silver prices surge again, gold sits tight" — Yahoo Personal Finance, 10.7h ago
-2. "Silver is joining copper in the AI build-out trade: Chart of the Day" — Yahoo Finance, 11.5h ago
-3. "Silver Posts Strong Session on Industrial Demand Hopes" — The Wall Street Journal, 2.3h ago
-
-Social signals (social_heat_z: -0.2):
-- StockTwits: n/a
-- YouTube: heat=explosive, tone=bullish, top="URGENT: Silver Price Forecast Just Changed – This Is Going T" (23k views)
-- Twitter: n/a
-------------------------------------------------------------------------
-⚠ DATA QUALITY FLAG: This ticker's volume multiple (31.36x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
-
-Asset: [RED] HG=F (Copper)
-
-Market signals:
-- Volume: extreme (31.36x 30d avg)
-- Price velocity: normal (z_30d: 0.98, z_200d: 0.83, direction: up, macro_extreme: False)
-- RSI-14: 75.4 (overbought)
-- Current price: $6.62 (+2.07% today)
-
-Recent news (last 3):
-1. "Silver is joining copper in the AI build-out trade: Chart of the Day" — Yahoo Finance, 11.5h ago
-2. "If You Want To Know Where Bitcoin Is Headed Next, Watch The Price Of Copper" — Benzinga, 5.0h ago
-3. "Copper Nears Record High on Tight Global Supply; Aluminum Surges" — Bloomberg, 5.1h ago
-
-Social signals (social_heat_z: -0.1):
-- StockTwits: n/a
-- YouTube: heat=elevated, tone=bullish, top="Copper thieves target Japan&#39;s temples and shrinesーNHK WO" (21k views)
-- Twitter: n/a
-------------------------------------------------------------------------
 Asset: [RED] NBIS (NBIS)
 
 Market signals:
@@ -284,9 +224,9 @@ Market signals:
 - Current price: $207.27 (+15.72% today)
 
 Recent news (last 3):
-1. "Nebius stock soars as revenue jumps 684% on booming data center demand" — Yahoo Finance, 6.1h ago
-2. "Stock Market Today: Nasdaq Ends Strong As AI Leads; Cybersecurity Stock Attempts Breakout (Live Coverage)" — Investor's Business Daily, 1.0h ago
-3. "Nebius (NBIS) Q1 2026 Earnings Transcript" — Motley Fool, 2.6h ago
+1. "Nebius stock soars as revenue jumps 684% on booming data center demand" — Yahoo Finance, 6.5h ago
+2. "Dow Jones Futures Rise, Cisco Soars On AI Orders, Cerebras IPO Prices High; Google, Nvidia, Tesla Lead S&P 500, Nasdaq…" — Investor's Business Daily, 0.4h ago
+3. "Stock Market Today: Nasdaq Ends Strong As AI Leads; Cybersecurity Stock Attempts Breakout (Live Coverage)" — Investor's Business Daily, 1.3h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
@@ -302,13 +242,13 @@ Market signals:
 - Current price: $298.87 (+1.38% today)
 
 Recent news (last 3):
-1. "Apple stock notches fresh record as tech rebounds" — Yahoo Finance, 3.7h ago
-2. "Dow Jones Futures Rise, Cisco Soars On Earnings; Google, Nvidia, Tesla Lead S&P 500, Nasdaq To Highs" — Investor's Business Daily, 0.6h ago
-3. "Wall Street’s Top Chartist Warns US Tech Stocks Now At Highest Concentration Since the 2000 Bubble" — 24/7 Wall St., 0.7h ago
+1. "Tech stocks today: Cerebras to stage blockbuster IPO, tech stocks climb as Cook, Musk, and Huang join Trump for China t…" — Yahoo Finance, 59.9h ago
+2. "Dow Jones Futures Rise, Cisco Soars On AI Orders, Cerebras IPO Prices High; Google, Nvidia, Tesla Lead S&P 500, Nasdaq…" — Investor's Business Daily, 0.4h ago
+3. "Wall Street’s Top Chartist Warns US Tech Stocks Now At Highest Concentration Since the 2000 Bubble" — 24/7 Wall St., 1.1h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
-- YouTube: heat=stable, tone=neutral, top="is Apple releasing a new iPod??" (2k views)
+- YouTube: heat=stable, tone=neutral, top="Apple Is Going a Different Direction on AI, and It&#39;s Hid" (839 views)
 - Twitter: n/a
 ------------------------------------------------------------------------
 Asset: [AMBER] GOOGL (Alphabet)
@@ -320,13 +260,13 @@ Market signals:
 - Current price: $402.62 (+3.94% today)
 
 Recent news (last 3):
-1. "Apple stock notches fresh record as tech rebounds" — Yahoo Finance, 3.7h ago
-2. "Anthropic debuts Claude for Small Business as it continues its enterprise software push" — Yahoo Finance, 5.4h ago
-3. "Fervo Energy IPO: CEO outlines geothermal future of US grid" — Yahoo Finance Video, 6.6h ago
+1. "Apple stock notches fresh record as tech rebounds" — Yahoo Finance, 4.1h ago
+2. "Anthropic debuts Claude for Small Business as it continues its enterprise software push" — Yahoo Finance, 5.8h ago
+3. "Fervo Energy IPO: CEO outlines geothermal future of US grid" — Yahoo Finance Video, 7.0h ago
 
-Social signals (social_heat_z: -0.6):
+Social signals (social_heat_z: -0.9):
 - StockTwits: n/a
-- YouTube: heat=stable, tone=bearish, top="Amazing Letters Tower Crash! #colorfulletters #alphabet #art" (22k views)
+- YouTube: heat=stable, tone=neutral, top="Alphabet Stock Analysis: My Final Verdict | GOOG Stock Deep " (5k views)
 - Twitter: n/a
 ------------------------------------------------------------------------
 Asset: [AMBER] RKLB (Rocket Lab)
@@ -338,13 +278,13 @@ Market signals:
 - Current price: $124.15 (+5.61% today)
 
 Recent news (last 3):
-1. "Space Stocks Jump As SpaceX, Google Explore Orbital Data Center Deal" — Investor's Business Daily, 1.3h ago
-2. "Anduril Hires Rocket Lab to Help It With Hypersonics" — Motley Fool, 10.1h ago
-3. "Rocket Lab (RKLB) Stock Trades Up, Here Is Why" — StockStory, 17.8h ago
+1. "Space Stocks Jump As SpaceX, Google Explore Orbital Data Center Deal" — Investor's Business Daily, 1.7h ago
+2. "Anduril Hires Rocket Lab to Help It With Hypersonics" — Motley Fool, 10.5h ago
+3. "Rocket Lab (RKLB) Stock Trades Up, Here Is Why" — StockStory, 18.2h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
-- YouTube: heat=explosive, tone=bullish, top="美股1166|美股三连雷引爆危险了?MU美光该恐惧了?英伟达被抛为何却涨?RKLB接替SpaceX? #MU #NVDA" (4k views)
+- YouTube: heat=explosive, tone=bullish, top="我对当前美股行情的一些思考！答疑：MU, INTC, SNDK, RKLB还能追吗" (139k views)
 - Twitter: n/a
 ------------------------------------------------------------------------
 Asset: [AMBER] MU (Micron)
@@ -356,13 +296,73 @@ Market signals:
 - Current price: $803.63 (+4.83% today)
 
 Recent news (last 3):
-1. "Micron just gave chip bulls a $100 billion stress test" — Yahoo Finance, 6.5h ago
-2. "Micron stock in focus as Wall Street weighs AI demand outlook" — Yahoo Finance Video, 7.2h ago
-3. "US Equity Indexes Mixed as Communication Services, Tech Help Outweigh Impact of Hot Producer Prices" — MT Newswires, 0.5h ago
+1. "Micron just gave chip bulls a $100 billion stress test" — Yahoo Finance, 6.9h ago
+2. "Micron stock in focus as Wall Street weighs AI demand outlook" — Yahoo Finance Video, 7.5h ago
+3. "Stock Market Today, May 13: Tech Optimism Overshadows Inflation Fears" — Motley Fool, 0.3h ago
 
-Social signals (social_heat_z: +0.5):
+Social signals (social_heat_z: +2.9):
 - StockTwits: n/a
-- YouTube: heat=explosive, tone=bearish, top="This Stock is the Next AMD or Micron‼️" (174k views)
+- YouTube: heat=explosive, tone=bearish, top="This Stock is the Next AMD or Micron‼️" (175k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+⚠ DATA QUALITY FLAG: This ticker's volume multiple (161.25x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
+
+Asset: [AMBER] GC=F (Gold)
+
+Market signals:
+- Volume: extreme (161.25x 30d avg)
+- Price velocity: normal (z_30d: 0.27, z_200d: 0.12, direction: up, macro_extreme: False)
+- RSI-14: 50.4 (normal)
+- Current price: $4,697.10 (+0.42% today)
+
+Recent news (last 3):
+1. "Semiconductor ETFs are booming, but they're not the only ones" — Yahoo Finance Video, 6.3h ago
+2. "Orezone Gold Reports Q1 2026 Results: Full Earnings Call Transcript" — Benzinga, 0.2h ago
+3. "News of the day: Bank of Canada's worries, Agnico Eagle's mining investment, falling rents, Goeasy results, workplace h…" — Financial Post, 0.3h ago
+
+Social signals (social_heat_z: +0.6):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="Import Duty Hike Pushes Gold ETFs Up 6% — Finance Stocks Jum" (115k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+⚠ DATA QUALITY FLAG: This ticker's volume multiple (39.94x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
+
+Asset: [AMBER] SI=F (Silver)
+
+Market signals:
+- Volume: extreme (39.94x 30d avg)
+- Price velocity: normal (z_30d: 0.99, z_200d: 0.7, direction: up, macro_extreme: False)
+- RSI-14: 68.1 (normal)
+- Current price: $88.15 (+3.55% today)
+
+Recent news (last 3):
+1. "Gold and silver prices today, Wednesday, May 13: Silver prices surge again, gold sits tight" — Yahoo Personal Finance, 11.1h ago
+2. "Silver is joining copper in the AI build-out trade: Chart of the Day" — Yahoo Finance, 11.9h ago
+3. "Why NGEx Minerals (TSX:NGEX) Is Up 12.7% After Lunahuasi Phase 4 Drilling And Adit Approval" — Simply Wall St., 0.5h ago
+
+Social signals (social_heat_z: +0.9):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="Inflation Warning: Gold &amp; Silver Are About To Find Out" (40k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+⚠ DATA QUALITY FLAG: This ticker's volume multiple (31.36x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
+
+Asset: [AMBER] HG=F (Copper)
+
+Market signals:
+- Volume: extreme (31.36x 30d avg)
+- Price velocity: normal (z_30d: 0.98, z_200d: 0.83, direction: up, macro_extreme: False)
+- RSI-14: 75.4 (overbought)
+- Current price: $6.62 (+2.07% today)
+
+Recent news (last 3):
+1. "Silver is joining copper in the AI build-out trade: Chart of the Day" — Yahoo Finance, 11.9h ago
+2. "Why NGEx Minerals (TSX:NGEX) Is Up 12.7% After Lunahuasi Phase 4 Drilling And Adit Approval" — Simply Wall St., 0.5h ago
+3. "If You Want To Know Where Bitcoin Is Headed Next, Watch The Price Of Copper" — Benzinga, 5.4h ago
+
+Social signals (social_heat_z: -0.1):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bullish, top="Copper thieves target Japan&#39;s temples and shrinesーNHK WO" (21k views)
 - Twitter: n/a
 ------------------------------------------------------------------------
 Asset: [AMBER] SPY (SPY)
@@ -374,13 +374,13 @@ Market signals:
 - Current price: $742.31 (+0.56% today)
 
 Recent news (last 3):
-1. "How Can Palantir Be Down 26% in 2026 When Stocks Are Near All-Time Highs?" — 24/7 Wall St., 3.8h ago
-2. "Housing Stocks Are in Depression Mode. Whirlpool Down 81%, Lennar Crashed 54% While the S&P 500 Soars." — 24/7 Wall St., 5.2h ago
-3. "Ben Carlson Explains Why Automatic 401(k) Contributions Keep Markets Rising Despite High Valuations" — 24/7 Wall St., 5.4h ago
+1. "How Can Palantir Be Down 26% in 2026 When Stocks Are Near All-Time Highs?" — 24/7 Wall St., 4.2h ago
+2. "Housing Stocks Are in Depression Mode. Whirlpool Down 81%, Lennar Crashed 54% While the S&P 500 Soars." — 24/7 Wall St., 5.6h ago
+3. "Ben Carlson Explains Why Automatic 401(k) Contributions Keep Markets Rising Despite High Valuations" — 24/7 Wall St., 5.8h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
-- YouTube: heat=stable, tone=neutral, top="China’s Nationwide Spy Hunt! Everyone’s on Edge, Overseas Be" (33k views)
+- YouTube: heat=stable, tone=neutral, top="HOT PPI, THE MARKET DOESN&#39;T CARE , SPY ALL TIME HIGHS, K" (9k views)
 - Twitter: n/a
 ------------------------------------------------------------------------
 Asset: [AMBER] QQQ (QQQ)
@@ -392,31 +392,13 @@ Market signals:
 - Current price: $714.71 (+1.06% today)
 
 Recent news (last 3):
-1. "ETF League Tables: Invesco Pulls In $4.9B" — etf.com, 0.5h ago
-2. "Stock Market Today: Nasdaq 100 Rises Despite Hot PPI, Nvidia Hits Record High" — Benzinga, 3.9h ago
-3. "Exchange-Traded Funds, US Equities Mixed After Midday" — MT Newswires, 4.4h ago
+1. "ETF League Tables: Invesco Pulls In $4.9B" — etf.com, 0.9h ago
+2. "Stock Market Today: Nasdaq 100 Rises Despite Hot PPI, Nvidia Hits Record High" — Benzinga, 4.3h ago
+3. "Exchange-Traded Funds, US Equities Mixed After Midday" — MT Newswires, 4.8h ago
 
-Social signals (social_heat_z: -0.5):
+Social signals (social_heat_z: +4.2):
 - StockTwits: n/a
 - YouTube: heat=explosive, tone=bearish, top="Stocks &amp; Options TRADING #STREAM  12th MAY  STOCK MARKET" (7k views)
-- Twitter: n/a
-------------------------------------------------------------------------
-Asset: [AMBER] AMD (AMD)
-
-Market signals:
-- Volume: normal (0.58x 30d avg)
-- Price velocity: normal (z_30d: -0.66, z_200d: -0.28, direction: down, macro_extreme: False)
-- RSI-14: 76.3 (overbought)
-- Current price: $445.50 (-0.62% today)
-
-Recent news (last 3):
-1. "Advanced Micro Devices Shareholders Back Board as Lisa Su Touts AI Growth" — MarketBeat, 0.3h ago
-2. "Nvidia Rallies As CEO Jensen Huang Joins Trump's China Trip" — Investor's Business Daily, 0.8h ago
-3. "Cerebras IPO Is Expected to Price Tonight in Major Test for Chip Rally" — Barrons.com, 1.5h ago
-
-Social signals (social_heat_z: -0.4):
-- StockTwits: n/a
-- YouTube: heat=elevated, tone=neutral, top="This Stock is the Next AMD or Micron‼️" (174k views)
 - Twitter: n/a
 ------------------------------------------------------------------------
 Asset: [AMBER] CSCO (CSCO)
@@ -428,13 +410,31 @@ Market signals:
 - Current price: $101.87 (+2.60% today)
 
 Recent news (last 3):
-1. "Earnings live updates: Cisco announces 4,000 layoffs as Q3 earnings beat amid 'broad-based demand'" — Yahoo Finance, 59.0h ago
-2. "12 Information Technology Stocks Moving In Wednesday's After-Market Session" — Benzinga, 0.4h ago
-3. "US Equity Indexes Mixed as Communication Services, Tech Help Outweigh Impact of Hot Producer Prices" — MT Newswires, 0.5h ago
+1. "Earnings live updates: Cisco announces 4,000 layoffs as Q3 earnings beat amid 'broad-based demand'" — Yahoo Finance, 59.4h ago
+2. "Cisco Earnings, Revenue Beat As Stock Hits Record High Amid Strong AI Orders" — Investor's Business Daily, 0.3h ago
+3. "Cisco Systems Reports Q3 2026 Results: Full Earnings Call Transcript" — Benzinga, 0.4h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
-- YouTube: heat=elevated, tone=neutral, top="Cisco Reports Tomorrow — Buy or Sell? $CSCO #cisco #csco" (724 views)
+- YouTube: heat=explosive, tone=neutral, top="Cisco Reports Tomorrow — Buy or Sell? $CSCO #cisco #csco" (755 views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] AMD (AMD)
+
+Market signals:
+- Volume: normal (0.58x 30d avg)
+- Price velocity: normal (z_30d: -0.66, z_200d: -0.28, direction: down, macro_extreme: False)
+- RSI-14: 76.3 (overbought)
+- Current price: $445.50 (-0.62% today)
+
+Recent news (last 3):
+1. "Advanced Micro Devices Shareholders Back Board as Lisa Su Touts AI Growth" — MarketBeat, 0.7h ago
+2. "Nvidia Rallies As CEO Jensen Huang Joins Trump's China Trip" — Investor's Business Daily, 1.2h ago
+3. "Cerebras IPO Is Expected to Price Tonight in Major Test for Chip Rally" — Barrons.com, 1.9h ago
+
+Social signals (social_heat_z: -0.2):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=neutral, top="Massive News for AMD Stock Investors | AMD Stock Deep Dive P" (3k views)
 - Twitter: n/a
 
 ========================================================================
