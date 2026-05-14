@@ -592,7 +592,7 @@ def main(argv: list[str]) -> int:
     from claude_advisor.classifier import classify_signals as _classify_signals
     with open(path, "r", encoding="utf-8") as _rf:
         _report_text = _rf.read()
-    _classify_signals(_report_text, date=date)
+    _classified_signals = _classify_signals(_report_text, date=date)
 
     # ── Cluster Signal Booster ────────────────────────────────────────────────
     # Reads historical logs/signals_YYYYMMDD.json files (written by this block
@@ -666,6 +666,24 @@ def main(argv: list[str]) -> int:
     # _attach_sizing_blocks picks up in-memory cluster_boost already merged into results.
     _attach_sizing_blocks(results, date, buffett, fear_greed)
 
+    # ── GitHub Pages — full report ────────────────────────────────────────────
+    # Publish the complete HTML email to docs/reports/YYYY-MM-DD.html so the
+    # digest email can link to it.  Runs after sizing is attached so the full
+    # report includes SIZING & TARGETS panels.  Never raises.
+    from delivery.pages_publisher import publish_report as _publish_report
+    _pages_url = _publish_report(
+        date=date,
+        results=results,
+        fear_greed=fear_greed,
+        vix_structure=vix_structure,
+        buffett=buffett,
+        report_text=_report_text,
+        open_positions=open_positions,
+        closed_stats=closed_stats,
+        active_clusters=active_clusters,
+    )
+    logger.info("pages_publisher: full report at %s", _pages_url)
+
     if send_email:
         try:
             send_report(
@@ -678,6 +696,7 @@ def main(argv: list[str]) -> int:
                 open_positions=open_positions,
                 closed_stats=closed_stats,
                 active_clusters=active_clusters,
+                classified_signals=_classified_signals,
             )
             print("Email sent.")
         except EmailConfigError as e:
