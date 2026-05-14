@@ -1,0 +1,89 @@
+{
+  "date": "2026-05-14",
+  "signals": [
+    {
+      "ticker": "POET",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Vol 2.0x, z30=+2.24, z200=+4.69 macro_extreme, RSI 77, +43% no dia, YouTube heat elevated/bullish ('Building Something BIG'). Euforia retail cl\u00e1ssica num penny AI play. Short atual est\u00e1 mal posicionado contra momentum vertical.",
+      "confidence": 8
+    },
+    {
+      "ticker": "CSCO",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Vol 2.94x, z30=+4.26, z200=+6.6, RSI 88 extreme_overbought, +13% no dia, YouTube heat=explosive/bullish ('networking supercycle'). Buffett 233% refor\u00e7a topo. Sinal alto convic\u00e7\u00e3o de exaust\u00e3o.",
+      "confidence": 8
+    },
+    {
+      "ticker": "NVDA",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Vol normal 1.13x mas z30=+1.55, z200=+1.91, RSI 77, $5.5T valuation, YouTube heat=explosive. Volume n\u00e3o confirma plenamente, mas combina\u00e7\u00e3o macro+euforia justifica redu\u00e7\u00e3o. Tom neutro limita convic\u00e7\u00e3o.",
+      "confidence": 6
+    },
+    {
+      "ticker": "RKLB",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Vol 0.81x (fraco), z200=+1.03, RSI 78, +6.8% dia, YouTube heat=explosive/bullish. Retail-driven name onde social pesa mais. Sem confirma\u00e7\u00e3o de volume, sinal moderado.",
+      "confidence": 5
+    },
+    {
+      "ticker": "MU",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Vol 0.76x baixo, z30=-1.28 (caiu hoje), mas RSI 75, social_heat_z=+2.9, YouTube explosive/bullish ('selloff was a trap', 45k views). Heat retail extremo sem volume = sinal de topo emocional, n\u00e3o panic.",
+      "confidence": 6
+    },
+    {
+      "ticker": "GC=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Vol 181x flagged como artefato, z-scores normais (-0.6), RSI 48 neutro. Commodity com volume an\u00f4malo e sem heat retail relevante = default institucional. Sem trade.",
+      "confidence": 5
+    },
+    {
+      "ticker": "SI=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Vol 39.9x (artefato flag), z30=-1.83 abaixo do threshold de p\u00e2nico, RSI 59. Commodity, sem heat retail confirmado. Repositioning institucional, n\u00e3o p\u00e2nico.",
+      "confidence": 5
+    },
+    {
+      "ticker": "HG=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Vol 23.9x flagged artefato, z-scores fracos (-0.88/-0.40), RSI 72. YouTube heat sem rela\u00e7\u00e3o direta (v\u00eddeo industrial). Commodity default institucional.",
+      "confidence": 4
+    },
+    {
+      "ticker": "ZS=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Vol 3.49x an\u00f4malo + z30=-2.22 sugere movimento real, mas sem heat retail confirmado e not\u00edcias velhas (>190h). Poss\u00edvel institucional, mas dire\u00e7\u00e3o da press\u00e3o pouco clara.",
+      "confidence": 4
+    },
+    {
+      "ticker": "SPY",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Vol normal 0.83x, z-scores modestos, mas RSI 78 + Buffett 233% + Fear&Greed 34 (diverg\u00eancia preocupante). Index sobrecomprado em macro extremo. Sinal de cautela.",
+      "confidence": 5
+    },
+    {
+      "ticker": "QQQ",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Vol 0.74x baixo, z200=+0.55 modesto, RSI 80.7 extreme_overbought, social_heat_z=+1.7, YouTube explosive. Macro Buffett 233% + RSI extremo justifica redu\u00e7\u00e3o, mas volume n\u00e3o confirma.",
+      "confidence": 5
+    },
+    {
+      "ticker": "AMD",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Vol 0.53x baixo, z-scores neutros (-0.34/+0.09), RSI 77, social_heat_z=-0.7 (quieto), YouTube heat=elevated/bullish. Sinais conflitantes \u2014 RSI alto mas sem volume nem heat retail. Aguardar.",
+      "confidence": 4
+    }
+  ]
+}

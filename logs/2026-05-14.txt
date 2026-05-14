@@ -1,0 +1,452 @@
+========================================================================
+ACTIVE POSITIONS
+========================================================================
+  SOFI   | LONG  | conf 7
+  Entry: $15.52 on 2026-04-29
+  Current: $16.02 (+3.2%)
+  Days held: 15 / 30  |  Status: ON TRACK
+
+  HOOD   | LONG  | conf 7
+  Entry: $71.20 on 2026-04-29
+  Current: $80.70 (+13.3%)
+  Days held: 15 / 30  |  Status: ON TRACK
+
+  GOOGL  | SHORT | conf 8
+  Entry: $384.80 on 2026-04-30
+  Current: $401.07 (-4.2%)
+  Days held: 14 / 30  |  Status: UNDERWATER
+
+  RDDT   | SHORT | conf 8
+  Entry: $166.48 on 2026-05-01
+  Current: $156.31 (+6.1%)
+  Days held: 13 / 30  |  Status: ON TRACK
+
+  SOUN   | SHORT | conf 7
+  Entry: $9.56 on 2026-05-01
+  Current: $8.52 (+10.9%)
+  Days held: 13 / 30  |  Status: ON TRACK
+
+  XRX    | SHORT | conf 7
+  Entry: $2.70 on 2026-05-01
+  Current: $2.43 (+10.0%)
+  Days held: 13 / 30  |  Status: ON TRACK
+
+  GME    | LONG  | conf 7
+  Entry: $23.84 on 2026-05-04
+  Current: $21.61 (-9.3%)
+  Days held: 10 / 30  |  Status: UNDERWATER
+
+  NBIS   | SHORT | conf 8
+  Entry: $176.42 on 2026-05-04
+  Current: $221.15 (-25.4%)
+  Days held: 10 / 30  |  Status: UNDERWATER
+
+  INTC   | SHORT | conf 6
+  Entry: $108.15 on 2026-05-05
+  Current: $115.93 (-7.2%)
+  Days held: 9 / 30  |  Status: UNDERWATER
+
+  MU     | SHORT | conf 6
+  Entry: $640.20 on 2026-05-05
+  Current: $776.01 (-21.2%)
+  Days held: 9 / 30  |  Status: UNDERWATER
+
+  POET   | SHORT | conf 6
+  Entry: $9.21 on 2026-05-05
+  Current: $20.57 (-123.3%)
+  Days held: 9 / 30  |  Status: UNDERWATER
+
+  SMCI   | SHORT | conf 9
+  Entry: $34.66 on 2026-05-06
+  Current: $33.03 (+4.7%)
+  Days held: 8 / 30  |  Status: ON TRACK
+
+  AMD    | SHORT | conf 8
+  Entry: $421.39 on 2026-05-06
+  Current: $449.70 (-6.7%)
+  Days held: 8 / 30  |  Status: UNDERWATER
+
+  ARM    | SHORT | conf 6
+  Entry: $237.30 on 2026-05-06
+  Current: $228.50 (+3.7%)
+  Days held: 8 / 30  |  Status: ON TRACK
+
+ARTIFICIAL PRICE RADAR — Daily Report 2026-05-14
+========================================================================
+Macro context — Fear & Greed: 34/100 — Fear (-8 vs yesterday, deteriorating)
+               VIX Structure: Contango (0.83) — normal term structure
+               Buffett Indicator: 233% — Extreme (historical avg ~120%)
+Coverage — 28 tickers processed · 2 red · 10 amber · 16 filtered
+  [RED]:   POET, CSCO
+  [AMBER]: NVDA, RKLB, MU, GC=F, SI=F, HG=F, ZS=F, SPY, QQQ, AMD
+  skipped: TSLA, AAPL, AMZN, GOOGL, PLTR, ASTS, SOFI, MSTR, RDDT, CL=F, NG=F, MSFT, SNDK, NBIS, DTE, AMAT
+========================================================================
+
+[TICKER ALERT TIERS]
+  TICKER | VOL | Z_30D | Z_200D | RSI | TIER/REASON
+  NVDA | 1.1x | +1.6 | +1.9 | 77 | AMBER: RSI=77
+  TSLA | 0.7x | -0.4 | -0.2 | 69 | SKIP: vol=0.7x (normal); z30=-0.4,z200=-0.2; RSI=69
+  AAPL | 0.6x | -0.5 | -0.3 | 75 | SKIP: vol=0.6x (normal); z30=-0.5,z200=-0.3; RSI=75
+  AMZN | 0.7x | -1.1 | -0.6 | 63 | SKIP: vol=0.7x (normal); z30=-1.1,z200=-0.6; RSI=63
+  GOOGL | 0.7x | -0.6 | -0.4 | 74 | SKIP: vol=0.7x (normal); z30=-0.6,z200=-0.4; RSI=74
+  PLTR | 0.7x | +0.9 | +0.9 | 44 | SKIP: vol=0.7x (normal); z30=+0.9,z200=+0.9; RSI=44
+  RKLB | 0.8x | +0.5 | +1.0 | 78 | AMBER: RSI=78
+  ASTS | 1.3x | +1.6 | +1.6 | 54 | SKIP: vol=1.3x (normal); z30=+1.6,z200=+1.6; RSI=54
+  MU | 0.8x | -1.3 | -1.1 | 76 | AMBER: RSI=76
+  SOFI | 1.0x | +1.1 | +1.3 | 44 | SKIP: vol=1.0x (normal); z30=+1.1,z200=+1.3; RSI=44
+  MSTR | 0.9x | +0.8 | +1.1 | 61 | SKIP: vol=0.9x (normal); z30=+0.8,z200=+1.1; RSI=61
+  RDDT | 0.5x | +0.2 | +0.3 | 51 | SKIP: vol=0.5x (normal); z30=+0.2,z200=+0.3; RSI=51
+  GC=F | 181.0x | -0.6 | -0.6 | 48 | AMBER: vol=181.0x (extreme)
+  SI=F | 39.9x | -1.8 | -1.4 | 59 | AMBER: |z30|=1.8>1.5 + vol=39.9x; vol=39.9x (extreme)
+  CL=F | 0.5x | +0.1 | +0.2 | 55 | SKIP: vol=0.5x (normal); z30=+0.1,z200=+0.2; RSI=55
+  HG=F | 23.9x | -0.9 | -0.4 | 72 | AMBER: vol=23.9x (extreme)
+  ZS=F | 3.5x | -2.2 | -1.9 | 54 | AMBER: |z30|=2.2>1.5 + vol=3.5x; vol=3.5x (anomalous)
+  NG=F | 0.9x | +0.8 | +0.3 | 59 | SKIP: vol=0.9x (normal); z30=+0.8,z200=+0.3; RSI=59
+  SPY | 0.8x | +0.5 | +0.9 | 78 | AMBER: RSI=78
+  MSFT | 0.7x | +0.4 | +0.7 | 51 | SKIP: vol=0.7x (normal); z30=+0.4,z200=+0.7; RSI=51
+  POET | 2.0x | +2.2 | +4.7 | 78 | RED: macro_extreme(z30=+2.2,z200=+4.7)
+  SNDK | 0.6x | -1.1 | -1.0 | 64 | SKIP: vol=0.6x (normal); z30=-1.1,z200=-1.0; RSI=64
+  QQQ | 0.7x | +0.0 | +0.6 | 81 | AMBER: RSI=81
+  NBIS | 1.6x | +0.7 | +0.8 | 73 | SKIP: vol=1.6x (elevated); z30=+0.7,z200=+0.8; RSI=73
+  DTE | 0.4x | +1.1 | +1.2 | 47 | SKIP: vol=0.4x (normal); z30=+1.1,z200=+1.2; RSI=47
+  AMAT | 2.0x | +0.0 | +0.1 | 63 | SKIP: vol=2.0x (elevated); z30=+0.0,z200=+0.1; RSI=63
+  CSCO | 2.9x | +4.3 | +6.6 | 88 | RED: macro_extreme(z30=+4.3,z200=+6.6)
+  AMD | 0.5x | -0.3 | +0.1 | 77 | AMBER: RSI=77
+[SYSTEM PROMPT — paste everything below together into Claude.ai]
+
+You are a Senior Quantitative Analyst specializing in market microstructure and behavioral finance. Your task is to analyze flagged assets to distinguish between institutional flows and retail irrationality.
+
+## Core Objective
+
+Classify each flagged asset into exactly one of five categories using the Divergence Principle — the relationship between Volume, Social Heat, and Price Velocity is the key signal:
+
+- **irrational_panic** → recommendation: contrarian_buy (only when confidence ≥ 7)
+  Logic: Volume >3x AND Social Heat "explosive" AND z-score <-1.5 AND tone "bearish"
+  Thesis: Retail is capitulating. Price is being pushed below fair value by emotion.
+
+- **bubble_forming** → recommendation: reduce_exposure
+  Logic: Price above 200d average AND Social Heat "explosive" AND tone "bullish"
+  Thesis: Retail euphoria has decoupled from fundamental value.
+
+- **institutional_rebalancing** → recommendation: wait
+  Logic: Volume >3x AND Social Heat "stable" or "low"
+  Thesis: High-volume movement without social noise = smart money repositioning or dark pool activity. Do NOT classify this as panic.
+
+- **silent_accumulation** → recommendation: wait
+  Logic: Price stable/sideways AND Volume rising >2x AND Social Heat "quiet"
+  Thesis: Institutions building a position quietly before a breakout.
+
+- **ambiguous** or **no_signal** → recommendation: wait or no_action
+  Logic: Signals conflict or fall below thresholds.
+
+## Divergence Rules (MANDATORY)
+
+Apply these rules before anything else. They override any pattern-matching instinct:
+
+- If Volume >3x AND Social Heat is "stable" or "low" → MUST classify as "institutional_rebalancing". Never "irrational_panic". The absence of retail noise during heavy volume is the defining signature of institutional activity. This rule requires CONFIRMED low heat from at least one available source. `social_heat_z: n/a` alone does not satisfy this — n/a means no data, not low heat.
+- If Volume >3x AND Social Heat is "explosive" AND tone is "bearish" → MUST classify as "irrational_panic".
+- If Volume >3x AND Social Heat is "explosive" AND tone is "bullish" → MUST classify as "bubble_forming".
+- Social Heat alone (without volume confirmation ≥ 2x) → always "ambiguous" or "no_signal". Do not manufacture a conviction call from social data alone.
+- z-scores between -1.5 and +1.5 are noise, not signal, even when volume is elevated.
+
+## How to Weigh the Signals
+
+**IMPORTANT — Data availability vs low heat:** StockTwits has been removed. When `social_heat_z: n/a` appears, it means NO DATA, not LOW HEAT. Do NOT treat `n/a` as confirmation of "stable" or "quiet" social activity. In these cases, fall back to YouTube heat/tone as the primary social signal. If YouTube is also `n/a` or absent, default to "ambiguous" rather than inferring institutional flow.
+
+1. **Volume is the primary ingredient.** "anomalous" (>2.5x) or "extreme" (>5x) 30d-average volume is a prerequisite for any high-confidence call. Without it, even large price moves are usually noise.
+2. **Price velocity (z-score)** tells you the direction and intensity of the move relative to recent history. Dual-window confirmation (both z_30d and z_200d elevated) is a stronger signal than a single window.
+3. **Social Heat** is a confirming indicator, not a leading one. Use it to distinguish institutional from retail-driven flows (the Divergence Principle above). If heat is the only elevated signal, default to "ambiguous".
+4. **Tone** (bullish/bearish from StockTwits/YouTube) refines the direction of retail sentiment, but only matters when heat is at least "elevated".
+5. **Absence of signal is a valid finding.** On most days, for most assets, nothing interesting is happening. Saying so clearly is more valuable than inventing patterns.
+6. **Do not apply asset reputation as a prior.** Analyze the signals as presented; do not assume TSLA is always a bubble or GC=F is always safe.
+
+## Macro Context
+
+Always factor in the macro header before scoring confidence:
+
+- **Buffett Indicator >200%**: macro environment is historically extreme — raise the bar for "bubble_forming" confidence (market-wide overvaluation is already priced in), lower it for "irrational_panic" (further compression is credible).
+- **Fear & Greed <30**: market-wide fear. "irrational_panic" signals are more credible; "bubble_forming" signals are less credible.
+- **VIX Backwardation** (short-term VIX > long-term VIX3M): real near-term stress. Increases confidence on panic signals by 1-2 points.
+- **Fear & Greed >70 with Buffett Indicator >180%**: compound overvaluation. Raise confidence on "bubble_forming" and "reduce_exposure" calls.
+
+## Special Notes
+
+- **Commodities (GC=F, SI=F, CL=F, HG=F, ZS=F, NG=F)**: naturally attract institutional volume with low retail chatter. Default toward "institutional_rebalancing" unless YouTube heat is clearly "elevated" or "explosive" AND tone is non-neutral. Gold and silver in particular have deep institutional markets; anomalous volume without social heat is almost always institutional.
+- **High-beta retail-driven names (PLTR, MSTR, RKLB, ASTS, RDDT)**: these assets are structurally prone to retail-driven moves. Social heat carries more weight here than it does for large-cap stocks. "explosive" heat for PLTR/MSTR is more meaningful than for AAPL.
+- **Large-cap bellwethers (AAPL, AMZN, GOOGL)**: institutional flows dominate. Require stronger social heat divergence before classifying as retail-driven panic or bubble.
+- **Bitcoin proxies (MSTR)**: treat as a high-beta retail name. Social heat and tone are highly predictive.
+
+## Confidence Calibration
+
+- **1-3**: signals conflict, data is thin, or multiple Divergence Rules produce ambiguous results.
+- **4-6**: a plausible pattern exists but at least one key ingredient (volume, heat, velocity) is below the ideal threshold.
+- **7-8**: two or more of the Divergence Rules fire cleanly and macro context is consistent.
+- **9-10**: all three signal families align, macro context reinforces the call, and the Divergence Rule fires unambiguously. Reserve for rare, high-conviction moments.
+
+## Output Contract
+
+Respond using this exact two-section format. No markdown fences, no extra prose before or after.
+
+HUMAN_SUMMARY:
+[2-3 short paragraphs in plain Portuguese summarizing the day's signals. Group by theme — e.g., "Commodities: ...", "Semicondutores: ...", "Destaques: ...". Highlight the highest-confidence calls. Tone: direct and conversational, like a senior analyst briefing a colleague over coffee. Maximum 600 characters total.]
+
+JSON_OUTPUT:
+[Single JSON array — one object per asset analyzed, no markdown fences]
+
+Each object in the array:
+{
+  "ticker": "the ticker symbol analyzed",
+  "classification": "irrational_panic|bubble_forming|institutional_rebalancing|silent_accumulation|ambiguous|no_signal",
+  "recommendation": "contrarian_buy|reduce_exposure|wait|no_action",
+  "reasoning": "2-3 short sentences under 400 characters. Cite specific signals: volume ratio, z-scores, social heat level, tone.",
+  "confidence": 1-10
+}
+
+Constraints:
+- HUMAN_SUMMARY must be in Portuguese, conversational tone, under 600 characters total. Count before returning.
+- JSON_OUTPUT is the array described above; format is otherwise unchanged.
+- Both sections are required and must appear under the exact labels HUMAN_SUMMARY: and JSON_OUTPUT:.
+- reasoning MUST be under 400 characters. Cite the specific signals relied on (e.g., "volume 3.1x, z30=+2.4, heat=explosive, tone=bearish"). No generic language like "monitor the situation".
+- contrarian_buy only when confidence ≥ 7.
+- no_signal must always pair with no_action.
+- Never add disclaimers about not being a financial advisor.
+
+[ASSETS WITH NON-TRIVIAL SIGNALS]
+
+------------------------------------------------------------------------
+Asset: [RED] POET (POET)
+
+Market signals:
+- Volume: elevated (2.04x 30d avg)
+- Price velocity: blowout (z_30d: 2.24, z_200d: 4.69, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 77.6 (overbought)
+- Current price: $20.57 (+43.15% today)
+
+Recent news (last 3):
+1. "Top Midday Gainers" — MT Newswires, 2.6h ago
+2. "Why Poet Technologies Stock Is Skyrocketing Today" — Motley Fool, 4.6h ago
+3. "Micron Is Up 698% in a Year. These 3 Stocks Under $15 Ride the Same AI Memory Wave Before Wall Street Notices" — 24/7 Wall St., 4.8h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bullish, top="POET Building Something BIG 😱🚀" (6k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [RED] CSCO (CSCO)
+
+Market signals:
+- Volume: anomalous (2.94x 30d avg)
+- Price velocity: blowout (z_30d: 4.26, z_200d: 6.6, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 87.6 (extreme_overbought)
+- Current price: $115.53 (+13.41% today)
+
+Recent news (last 3):
+1. "Earnings live updates: Applied Materials stock rises on strong AI de, Figma stock surges" — Yahoo Finance, 82.7h ago
+2. "Cisco surges on Q3 AI demand, while cutting 4,000 jobs in AI overhaul" — Yahoo Finance Video, 7.3h ago
+3. "Dow Jones Futures: Stocks Power Up As Nvidia Runs, Cerebras IPO Soars; Trump-Xi Summit Continues" — Investor's Business Daily, 0.3h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="Cisco CEO Chuck Robbins: There&#39;s a networking supercycle" (8k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] NVDA (Nvidia)
+
+Market signals:
+- Volume: normal (1.13x 30d avg)
+- Price velocity: notable (z_30d: 1.55, z_200d: 1.91, direction: up, macro_extreme: False)
+- RSI-14: 76.6 (overbought)
+- Current price: $235.74 (+4.39% today)
+
+Recent news (last 3):
+1. "Cerebras stock surges nearly 70% in biggest IPO of 2026" — Yahoo Finance, 8.0h ago
+2. "Nvidia tops $5.5 trillion valuation as stock surges" — Yahoo Finance, 5.5h ago
+3. "Trump, Elon Musk are trying to open up China for business" — Yahoo Finance Video, 6.0h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=neutral, top="AI BOOM check: NVIDIA earnings could move markets" (25k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] RKLB (Rocket Lab)
+
+Market signals:
+- Volume: normal (0.81x 30d avg)
+- Price velocity: notable (z_30d: 0.53, z_200d: 1.03, direction: up, macro_extreme: False)
+- RSI-14: 78.4 (overbought)
+- Current price: $132.55 (+6.77% today)
+
+Recent news (last 3):
+1. "Are retail investors leaning away from software amid tech rally?" — Yahoo Finance Video, 6.9h ago
+2. "Why Redwire Corporation Stock Soared Today" — Motley Fool, 3.5h ago
+3. "Starbucks upgraded, Doximity downgraded: Wall Street's top analyst calls" — The Fly, 7.4h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="These Are the Stocks I&#39;d Buy If They Drop Further" (31k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] MU (Micron)
+
+Market signals:
+- Volume: normal (0.76x 30d avg)
+- Price velocity: notable (z_30d: -1.28, z_200d: -1.06, direction: down, macro_extreme: False)
+- RSI-14: 75.5 (overbought)
+- Current price: $776.01 (-3.44% today)
+
+Recent news (last 3):
+1. "Dow back above 50,000, US stocks hit new records on AI rally" — Yahoo Finance Video, 1.0h ago
+2. "Applied Materials delivers record quarter and stronger-than-expected outlook" — Proactive, 0.5h ago
+3. "Prediction: Micron Will Trade at This Price At The End of The Year" — 24/7 Wall St., 1.3h ago
+
+Social signals (social_heat_z: +2.9):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="MICRON’s Selloff Was a Trap" (45k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+⚠ DATA QUALITY FLAG: This ticker's volume multiple (181.02x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
+
+Asset: [AMBER] GC=F (Gold)
+
+Market signals:
+- Volume: extreme (181.02x 30d avg)
+- Price velocity: normal (z_30d: -0.61, z_200d: -0.58, direction: down, macro_extreme: False)
+- RSI-14: 47.6 (normal)
+- Current price: $4,656.60 (-0.87% today)
+
+Recent news (last 3):
+1. "Gold and silver prices today, Thursday, May 14: Gold holds, silver stays strong" — Yahoo Personal Finance, 10.4h ago
+2. "Gold Declines as Market Weighs Federal Reserve Rate Path" — Bloomberg, 0.3h ago
+3. "TSX Closer: The Index Closes Higher As Canada's Federal Govt Makes Moves To Stimulate Across the Economy" — MT Newswires, 0.9h ago
+
+Social signals (social_heat_z: +0.0):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=neutral, top="बाप रे बाप! आधी रात PM Modi ने Tax बढ़ा Gold कितना महंगा कर " (124k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+⚠ DATA QUALITY FLAG: This ticker's volume multiple (39.86x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
+
+Asset: [AMBER] SI=F (Silver)
+
+Market signals:
+- Volume: extreme (39.86x 30d avg)
+- Price velocity: notable (z_30d: -1.83, z_200d: -1.37, direction: down, macro_extreme: False)
+- RSI-14: 58.8 (normal)
+- Current price: $84.02 (-5.48% today)
+
+Recent news (last 3):
+1. "Gold and silver prices today, Thursday, May 14: Gold holds, silver stays strong" — Yahoo Personal Finance, 10.4h ago
+2. "Comex Gold Settles 0.42% Lower at $4678.10" — The Wall Street Journal, 3.4h ago
+3. "Mercado Minerals reports strong initial drill results at Copalito Silver project in Mexico" — Proactive, 3.6h ago
+
+Social signals (social_heat_z: +0.9):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=neutral, top="Thousands of Ounces of Silver, &amp; I’m Selling It All!" (66k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+⚠ DATA QUALITY FLAG: This ticker's volume multiple (23.91x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
+
+Asset: [AMBER] HG=F (Copper)
+
+Market signals:
+- Volume: extreme (23.91x 30d avg)
+- Price velocity: normal (z_30d: -0.88, z_200d: -0.4, direction: down, macro_extreme: False)
+- RSI-14: 72.3 (overbought)
+- Current price: $6.58 (-0.84% today)
+
+Recent news (last 3):
+1. "Solaris Resources (TSX:SLS) Valuation After EIA Approval And New Royal Gold Funding For Warintza" — Simply Wall St., 2.8h ago
+2. "3 Non-Ferrous Metal Mining Stocks to Watch in a Challenging Industry" — Zacks, 5.1h ago
+3. "This Copper ETF Returned 156% in a Year and Pays 9.7% While You Wait for the 4x Case to Play Out." — 24/7 Wall St., 5.3h ago
+
+Social signals (social_heat_z: +0.0):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bullish, top="Copper Foil Soft Connection Welding Process ⚡" (916k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] ZS=F (Soybeans)
+
+Market signals:
+- Volume: anomalous (3.49x 30d avg)
+- Price velocity: extreme (z_30d: -2.22, z_200d: -1.9, direction: down, macro_extreme: False)
+- RSI-14: 54.3 (normal)
+- Current price: $1,193.50 (-1.79% today)
+
+Recent news (last 3):
+1. "Soybeans Fall from Outside Pressure on Wednesday" — Barchart, 191.0h ago
+2. "Soybeans Falling on Crude Oil Pressure on Wednesday" — Barchart, 195.8h ago
+3. "Soybeans Facing Oil Pressure Issues on Wednesday Morning" — Barchart, 200.7h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bullish, top="Soybean Export from MP — High Demand Global Business! 🌱🚢" (13k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] SPY (SPY)
+
+Market signals:
+- Volume: normal (0.83x 30d avg)
+- Price velocity: normal (z_30d: 0.5, z_200d: 0.89, direction: up, macro_extreme: False)
+- RSI-14: 78.4 (overbought)
+- Current price: $748.17 (+0.79% today)
+
+Recent news (last 3):
+1. "International Stocks Keep Crushing the S&P. This Cheap ETF Is How You Get In" — 24/7 Wall St., 4.0h ago
+2. "DRAM ETF’s 85% Surge Masks a Dangerous Bet: Why This Memory Play Doesn’t Belong in Retirement Portfolios" — 24/7 Wall St., 6.1h ago
+3. "Constellation Energy’s $13 Billion Cash Flow Outlook Shows AI’s Power Trade Is Just Beginning" — Barchart, 6.9h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=neutral, top="Technical Analysis of Stocks: SPY / QQQ / NVDA / TSLA / AMD " (3k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] QQQ (QQQ)
+
+Market signals:
+- Volume: normal (0.74x 30d avg)
+- Price velocity: normal (z_30d: 0.01, z_200d: 0.55, direction: up, macro_extreme: False)
+- RSI-14: 80.7 (extreme_overbought)
+- Current price: $719.79 (+0.71% today)
+
+Recent news (last 3):
+1. "Why This Hedge Fund Made a $3 Million Bet on Carter’s Despite Retail Headwinds" — Motley Fool, 1.9h ago
+2. "Exchange-Traded Funds Move Higher as US Equities Advance After Midday" — MT Newswires, 4.0h ago
+3. "Exchange-Traded Funds, Equity Futures Advance Pre-Bell Thursday Amid US-China Meeting" — MT Newswires, 7.9h ago
+
+Social signals (social_heat_z: +1.7):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=neutral, top="🚀 NQ Futures Heatmap Live Stream US100 Flow Map • Nasdaq Mom" (7k views)
+- Twitter: n/a
+------------------------------------------------------------------------
+Asset: [AMBER] AMD (AMD)
+
+Market signals:
+- Volume: normal (0.53x 30d avg)
+- Price velocity: normal (z_30d: -0.34, z_200d: 0.09, direction: up, macro_extreme: False)
+- RSI-14: 76.7 (overbought)
+- Current price: $449.70 (+0.94% today)
+
+Recent news (last 3):
+1. "Why Cerebras AI chips stand out in the Nvidia-dominated market" — Yahoo Finance, 5.2h ago
+2. "What's driving the meteoric rise of the DRAM ETF" — Yahoo Finance Video, 6.5h ago
+3. "Cerebras Stock Jumps 68% After Blockbuster IPO. CEO Sees Bigger Things Ahead." — Barrons.com, 0.8h ago
+
+Social signals (social_heat_z: -0.7):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bullish, top="Smarter in 2026? The AMD and Nvidia war. It depends on your " (5k views)
+- Twitter: n/a
+
+========================================================================
+[INSTRUCTION]
+
+Analyze each of the 12 asset(s) above and respond with a single JSON array. Each element must follow this exact schema:
+
+{
+  "ticker": "...",
+  "classification": "bubble_forming|irrational_panic|institutional_rebalancing|silent_accumulation|ambiguous|no_signal",
+  "recommendation": "contrarian_buy|reduce_exposure|wait|no_action",
+  "reasoning": "2-3 short sentences, under 400 characters total",
+  "confidence": <integer 1-10>
+}
+
+Return ONLY the JSON array, no prose, no markdown fences.

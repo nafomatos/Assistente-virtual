@@ -1,0 +1,32 @@
+{
+  "date": "2026-05-14",
+  "clusters": [
+    {
+      "sector": "semis",
+      "direction_group": "bearish_overheating",
+      "tickers": [
+        "MU",
+        "NBIS",
+        "NVDA",
+        "POET"
+      ],
+      "count": 4,
+      "boost": 1,
+      "first_seen": "2026-05-13",
+      "last_seen": "2026-05-14"
+    },
+    {
+      "sector": "commodities_metals",
+      "direction_group": "institutional",
+      "tickers": [
+        "GC=F",
+        "HG=F",
+        "SI=F"
+      ],
+      "count": 3,
+      "boost": 1,
+      "first_seen": "2026-05-13",
+      "last_seen": "2026-05-14"
+    }
+  ]
+}
