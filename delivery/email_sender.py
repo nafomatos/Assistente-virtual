@@ -978,15 +978,18 @@ def send_report(
     open_positions: list[dict] | None = None,
     closed_stats: dict | None = None,
     active_clusters: list[dict] | None = None,
+    classified_signals: list[dict] | None = None,
 ) -> None:
-    """Send the daily report as a multipart email (HTML + plain-text fallback).
+    """Send the Tier-1 digest email (mobile-first, one-screen summary).
 
-    Pass `results`, `fear_greed`, `vix_structure`, and `buffett` to enable
-    the HTML briefing section. Without them the email is plain-text only.
-    Pass `open_positions` and `closed_stats` to include the ACTIVE POSITIONS section.
-    Raises FileNotFoundError if the report file is missing, EmailConfigError
-    if SMTP credentials are absent.
+    The full HTML report is published separately to GitHub Pages by
+    pages_publisher.publish_report() before this function is called.
+
+    Raises FileNotFoundError if the .txt report file is missing,
+    EmailConfigError if SMTP credentials are absent.
     """
+    from delivery.digest_builder import build_digest_html, build_digest_subject
+
     date = date or dt.date.today()
     path = report_path or os.path.join(output_dir, f"daily_report_{date.isoformat()}.txt")
 
@@ -998,27 +1001,32 @@ def send_report(
 
     sender, password, recipient = _load_config()
 
+    n_actionable = sum(
+        1 for s in (classified_signals or [])
+        if s.get("recommendation") in ("contrarian_buy", "reduce_exposure")
+    )
+    subject = build_digest_subject(n_actionable, date)
+
     msg = EmailMessage()
-    msg["Subject"] = f"[Radar] Price Signals — {date.strftime('%d %b %Y')}"
+    msg["Subject"] = subject
     msg["From"]    = sender
     msg["To"]      = recipient
     msg.set_content(body)
 
     if results is not None:
-        html_body = build_html_email(
+        digest_html = build_digest_html(
             results=results,
             date=date,
             fear_greed=fear_greed,
             vix_structure=vix_structure,
             buffett=buffett,
-            report_text=body,
             open_positions=open_positions,
-            closed_stats=closed_stats,
+            classified_signals=classified_signals,
             active_clusters=active_clusters,
         )
-        msg.add_alternative(html_body, subtype="html")
+        msg.add_alternative(digest_html, subtype="html")
 
-    logger.info(f"sending {path} to {recipient} via {SMTP_HOST}:{SMTP_PORT}")
+    logger.info("sending digest to %s via %s:%d", recipient, SMTP_HOST, SMTP_PORT)
     with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as smtp:
         smtp.ehlo()
         smtp.starttls()
