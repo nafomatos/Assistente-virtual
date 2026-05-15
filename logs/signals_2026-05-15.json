@@ -1,0 +1,47 @@
+{
+  "date": "2026-05-15",
+  "signals": [
+    {
+      "ticker": "NVDA",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume apenas 1.1x n\u00e3o confirma o z30=-2.19/z200=-2.05. YouTube heat explosive mas tone bullish contradiz a queda de -4.4%. Sem volume institucional ou p\u00e2nico retail confirmado, sinal n\u00e3o qualifica para alta convic\u00e7\u00e3o pr\u00e9-earnings.",
+      "confidence": 4
+    },
+    {
+      "ticker": "SI=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 56.6x (prov\u00e1vel artefato) com z30=-2.88, mas social_heat_z=+0.8 modesto e StockTwits/Twitter n/a. Commodity com fluxo institucional dominante; YouTube bearish isolado n\u00e3o basta para chamar p\u00e2nico irracional. Regra de commodities aplica.",
+      "confidence": 6
+    },
+    {
+      "ticker": "FIG",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Volume 4.08x anomalous + z30=+2.47/z200=+2.54 ambos extremos, pre\u00e7o +13.24% p\u00f3s-earnings com tone bullish. Buffett 234% refor\u00e7a sobrevaloriza\u00e7\u00e3o macro. Euforia de earnings descolando do valor.",
+      "confidence": 7
+    },
+    {
+      "ticker": "AAPL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "RSI 75.7 overbought \u00e9 \u00fanico sinal real; volume 1.07x normal e z-scores ~0 n\u00e3o confirmam. YouTube heat elevated bearish diverge do pre\u00e7o subindo. Sem volume, n\u00e3o qualifica para bubble nem panic.",
+      "confidence": 3
+    },
+    {
+      "ticker": "GC=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 317x \u00e9 claramente artefato de dados; z30=-2.17 real mas social_heat_z=-0.9 confirma heat baixo. Ouro com fluxo institucional dominante e aus\u00eancia de noise retail = rebalanceamento, n\u00e3o p\u00e2nico.",
+      "confidence": 6
+    },
+    {
+      "ticker": "HG=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 37.8x suspeito + z30=-2.69 com social_heat_z=-0.1 e YouTube tone neutral. Cobre \u00e9 commodity industrial dominada por institucionais; aus\u00eancia de heat retail confirma rebalanceamento ligado a temores de infla\u00e7\u00e3o.",
+      "confidence": 6
+    }
+  ]
+}
