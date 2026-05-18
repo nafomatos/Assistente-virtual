@@ -1,0 +1,40 @@
+{
+  "date": "2026-05-18",
+  "signals": [
+    {
+      "ticker": "ZS=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Z-scores extremos (z30=+2.53, z200=+2.78) mas volume s\u00f3 1.98x (abaixo do limiar 3x). YouTube heat elevada/bullish sem confirma\u00e7\u00e3o StockTwits/Twitter. Move real mas falta confirma\u00e7\u00e3o de volume institucional.",
+      "confidence": 5
+    },
+    {
+      "ticker": "GC=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 310x flagged como artefato de dados. Z-scores normais (z30=+0.3, z200=+0.08), RSI 41.8. Commodity com fluxo institucional t\u00edpico; YouTube em tamil n\u00e3o \u00e9 sinal acion\u00e1vel. Sem diverg\u00eancia clara.",
+      "confidence": 4
+    },
+    {
+      "ticker": "SI=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 41x \u00e9 artefato de dados. Z-scores neutros (+0.27/+0.17), RSI 49. Commodity sem velocidade real de pre\u00e7o; heat YouTube neutra. Padr\u00e3o t\u00edpico de prata sem catalisador.",
+      "confidence": 4
+    },
+    {
+      "ticker": "HG=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 28x \u00e9 artefato de dados. Z-scores em ru\u00eddo (+0.5/+0.64), not\u00edcias mistas (China fraca vs nova mina). Sem heat retail relevante; default commodity institucional.",
+      "confidence": 4
+    },
+    {
+      "ticker": "NOW",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Z200=+2.98 e +8.8% hoje ap\u00f3s upgrade BofA sugerem momentum forte, mas volume s\u00f3 1.82x (abaixo 3x) e heat social n/a em todas as fontes. Sem confirma\u00e7\u00e3o de euforia retail, n\u00e3o h\u00e1 base para chamada de bolha.",
+      "confidence": 4
+    }
+  ]
+}
