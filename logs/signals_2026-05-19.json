@@ -1,0 +1,26 @@
+{
+  "date": "2026-05-19",
+  "signals": [
+    {
+      "ticker": "GC=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 261x flagged as data artifact, unreliable. z30=-1.03, z200=-0.89 abaixo do limiar de -1.5. YouTube heat=explosive bearish mas sem confirma\u00e7\u00e3o de volume cr\u00edvel. Macro (F&G 25, Buffett 231%) favorece p\u00e2nico mas sinais n\u00e3o cruzam o threshold.",
+      "confidence": 3
+    },
+    {
+      "ticker": "SI=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 34.5x marcado como artefato. z30=-1.17, z200=-1.02 n\u00e3o atingem -1.5. YouTube top \u00e9 drama indiano n\u00e3o-financeiro (heat explosive \u00e9 ru\u00eddo). Sem sinal social financeiro confi\u00e1vel e com volume suspeito, n\u00e3o h\u00e1 base para conviction.",
+      "confidence": 3
+    },
+    {
+      "ticker": "HG=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 23.8x flagged como artefato. z-scores fracos (z30=-0.89, z200=-0.80) dentro da faixa de ru\u00eddo. YouTube apenas elevated com tom neutro. Sem diverg\u00eancia clara nem confirma\u00e7\u00e3o de velocidade, default para amb\u00edguo.",
+      "confidence": 2
+    }
+  ]
+}
