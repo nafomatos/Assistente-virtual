@@ -618,14 +618,24 @@ def build_html_email(
     ) if sizing_lines else ""
 
     paste_block = (
-        f"<div style='background:#18181b;border-radius:6px;padding:20px;"
-        f"margin-top:28px;border:1px solid #27272a;'>"
+        f"<div style='margin-top:28px;'>"
+        f"<div style='display:flex;align-items:center;justify-content:space-between;"
+        f"margin-bottom:10px;'>"
         f"<div style='font-size:10px;font-weight:700;color:#64748b;letter-spacing:.08em;"
-        f"text-transform:uppercase;margin-bottom:12px;'>CLAUDE.AI PASTE BLOCK</div>"
-        f"<pre style='margin:0;font-size:10px;line-height:1.55;color:#d1d5db;"
+        f"text-transform:uppercase;'>CLAUDE.AI PASTE BLOCK</div>"
+        f"<button id='copy-claude-btn' onclick='copyClaudeContent()'"
+        f" style='background:#4f46e5;color:#fff;border:none;border-radius:5px;"
+        f"padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;"
+        f"letter-spacing:.01em;'>&#128203; Copy for Claude.ai</button>"
+        f"</div>"
+        f"<div style='background:#18181b;border-radius:6px;padding:20px;"
+        f"border:1px solid #27272a;'>"
+        f"<pre id='claude-paste-content'"
+        f" style='margin:0;font-size:10px;line-height:1.55;color:#d1d5db;"
         f"font-family:\"Menlo\",\"Monaco\",\"Courier New\",monospace;"
         f"white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;'>"
         f"{html.escape(report_text + sizing_addendum)}</pre>"
+        f"</div>"
         f"</div>"
     )
 
@@ -634,7 +644,24 @@ def build_html_email(
 
     return f"""<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script>
+function copyClaudeContent() {{
+  var content = document.getElementById('claude-paste-content').innerText;
+  navigator.clipboard.writeText(content).then(function() {{
+    var btn = document.getElementById('copy-claude-btn');
+    var original = btn.innerHTML;
+    btn.innerHTML = '&#10003; Copied';
+    setTimeout(function() {{ btn.innerHTML = original; }}, 2000);
+  }}).catch(function(err) {{
+    console.error('Copy failed:', err);
+    alert('Copy failed — please select manually');
+  }});
+}}
+</script>
+</head>
 <body style="margin:0;padding:0;background:#0f0f0f;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#f1f5f9;">
 <div style="max-width:600px;margin:0 auto;padding:24px 16px;">
 
