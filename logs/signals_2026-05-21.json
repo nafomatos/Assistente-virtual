@@ -1,0 +1,40 @@
+{
+  "date": "2026-05-21",
+  "signals": [
+    {
+      "ticker": "IBM",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Volume 3.88x, z30=+3.77, z200=+5.24, +12.4% no dia, YouTube explosive/bullish ap\u00f3s not\u00edcia de US$2B em quantum. Buffett 232% refor\u00e7a sobrevaloriza\u00e7\u00e3o sist\u00eamica. Euforia retail confirmada por volume institucional.",
+      "confidence": 8
+    },
+    {
+      "ticker": "AAPL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "RSI 75.7 overbought mas volume normal (0.93x) e z-scores em zona de ru\u00eddo (+0.26/+0.47). YouTube explosive/bearish isolado, sem confirma\u00e7\u00e3o de volume. Sinal social sozinho n\u00e3o basta.",
+      "confidence": 4
+    },
+    {
+      "ticker": "GC=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 276x sinalizado como artefato de dados; z-scores normais (+0.37/+0.07), RSI 41, pre\u00e7o +0.28%. YouTube neutro. Commodity com fluxo institucional t\u00edpico, sem evid\u00eancia de p\u00e2nico ou euforia.",
+      "confidence": 5
+    },
+    {
+      "ticker": "SI=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 25.9x flagueado como poss\u00edvel artefato; z-scores em ru\u00eddo (+0.42/+0.24), RSI 48. YouTube explosive/bullish isolado mas sem confirma\u00e7\u00e3o de pre\u00e7o. Default commodity = institucional.",
+      "confidence": 4
+    },
+    {
+      "ticker": "HG=F",
+      "classification": "no_signal",
+      "recommendation": "no_action",
+      "reasoning": "Volume 18.9x marcado como artefato; z-scores normais (+0.30/+0.37), RSI 58, social heat z=0. YouTube apenas elevated/bearish. Nada de acion\u00e1vel no pre\u00e7o.",
+      "confidence": 3
+    }
+  ]
+}
