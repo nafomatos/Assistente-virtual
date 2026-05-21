@@ -84,7 +84,12 @@ def _direction_badge(direction: str) -> str:
 
 
 def _status_badge(status: str) -> str:
-    colors = {"ON TRACK": "#22c55e", "UNDERWATER": "#ef4444", "NEUTRAL": "#64748b"}
+    colors = {
+        "ON TRACK":    "#22c55e",
+        "UNDERWATER":  "#ef4444",
+        "NEUTRAL":     "#64748b",
+        "STOPPED_OUT": "#f97316",  # orange — distinct from UNDERWATER red
+    }
     c = colors.get(status, "#64748b")
     return f"<span style='color:{c};font-weight:700;font-size:11px;'>{status}</span>"
 
@@ -150,15 +155,28 @@ def _position_card(pos: dict) -> str:
 def _active_positions_card(
     open_positions: list[dict],
     closed_stats: dict | None,
+    stopped_out_today: list[dict] | None = None,
 ) -> str:
     """ACTIVE POSITIONS section inserted above macro context."""
-    if not open_positions and not closed_stats:
+    stopped_out_today = stopped_out_today or []
+    if not open_positions and not closed_stats and not stopped_out_today:
         return ""
 
-    position_html = ""
+    # Stopped-out positions appear first with STOPPED_OUT status badge
+    stopped_cards = ""
+    for pos in stopped_out_today:
+        enriched = {
+            **pos,
+            "current_price": pos.get("exit_price", pos["entry_price"]),
+            "days_held":     pos.get("days_held", 0),
+            "status":        "STOPPED_OUT",
+        }
+        stopped_cards += _position_card(enriched)
+
+    position_html = stopped_cards
     if open_positions:
-        position_html = "".join(_position_card(p) for p in open_positions)
-    else:
+        position_html += "".join(_position_card(p) for p in open_positions)
+    if not position_html:
         position_html = (
             "<div style='color:#64748b;font-style:italic;font-size:12px;"
             "padding:8px 0;'>No open positions.</div>"
@@ -582,6 +600,7 @@ def build_html_email(
     open_positions: list[dict] | None = None,
     closed_stats: dict | None = None,
     active_clusters: list[dict] | None = None,
+    stopped_out_today: list[dict] | None = None,
 ) -> str:
     red_items   = [
         (r["ticker"], r["signals"], r.get("cluster_boost"), r.get("sizing_block"))
@@ -639,7 +658,7 @@ def build_html_email(
         f"</div>"
     )
 
-    positions_section  = _active_positions_card(open_positions or [], closed_stats)
+    positions_section  = _active_positions_card(open_positions or [], closed_stats, stopped_out_today)
     cluster_section    = _cluster_alerts_card(active_clusters or [])
 
     return f"""<!DOCTYPE html>
@@ -1006,6 +1025,7 @@ def send_report(
     closed_stats: dict | None = None,
     active_clusters: list[dict] | None = None,
     classified_signals: list[dict] | None = None,
+    stopped_out_today: list[dict] | None = None,
 ) -> None:
     """Send the Tier-1 digest email (mobile-first, one-screen summary).
 
@@ -1050,6 +1070,7 @@ def send_report(
             open_positions=open_positions,
             classified_signals=classified_signals,
             active_clusters=active_clusters,
+            stopped_out_today=stopped_out_today,
         )
         msg.add_alternative(digest_html, subtype="html")
 

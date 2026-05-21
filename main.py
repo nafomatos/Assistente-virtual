@@ -553,8 +553,15 @@ def main(argv: list[str]) -> int:
         )
 
     # ── Position tracker ─────────────────────────────────────────────────────
+    stopped_out_today: list[dict] = []
     try:
-        close_expired_positions(date)
+        close_result    = close_expired_positions(date)
+        stopped_out_today = close_result.get("stop_outs", [])
+        if stopped_out_today:
+            logger.info(
+                "stop-loss fired today: %s",
+                ", ".join(p["ticker"] for p in stopped_out_today),
+            )
         open_positions = update_open_positions(date)
         closed_stats   = get_aggregate_stats()
         logger.info(
@@ -681,6 +688,7 @@ def main(argv: list[str]) -> int:
         open_positions=open_positions,
         closed_stats=closed_stats,
         active_clusters=active_clusters,
+        stopped_out_today=stopped_out_today,
     )
     logger.info("pages_publisher: full report at %s", _pages_url)
 
@@ -697,6 +705,7 @@ def main(argv: list[str]) -> int:
                 closed_stats=closed_stats,
                 active_clusters=active_clusters,
                 classified_signals=_classified_signals,
+                stopped_out_today=stopped_out_today,
             )
             print("Email sent.")
         except EmailConfigError as e:

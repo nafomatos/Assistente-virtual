@@ -33,6 +33,7 @@ def publish_report(
     open_positions: list[dict] | None = None,
     closed_stats: dict | None = None,
     active_clusters: list[dict] | None = None,
+    stopped_out_today: list[dict] | None = None,
     docs_dir: str = "docs",
 ) -> str:
     """Write the full-report HTML to docs/reports/ and refresh docs/index.html.
@@ -59,6 +60,7 @@ def publish_report(
             open_positions=open_positions,
             closed_stats=closed_stats,
             active_clusters=active_clusters,
+            stopped_out_today=stopped_out_today,
         )
         with open(report_path, "w", encoding="utf-8") as fh:
             fh.write(full_html)
