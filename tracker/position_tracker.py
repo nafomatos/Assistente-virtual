@@ -19,13 +19,12 @@ import logging
 import uuid
 from pathlib import Path
 
-import yfinance as yf
-
 logger = logging.getLogger(__name__)
 
 TRACKER_DIR = Path(__file__).parent
 POSITIONS_FILE = TRACKER_DIR / "positions.json"
-NEUTRAL_THRESHOLD = 2.0  # % — within this band = neutral outcome
+NEUTRAL_THRESHOLD  = 2.0   # % — within this band = neutral outcome
+STOP_LOSS_THRESHOLD = 0.25  # 25% adverse move triggers early close
 
 
 # ── persistence ────────────────────────────────────────────────────────────
@@ -53,6 +52,7 @@ def fetch_price(ticker: str, date: dt.date | None = None) -> float | None:
     (handles weekends / holidays by looking back up to 5 calendar days).
     """
     try:
+        import yfinance as yf
         t = yf.Ticker(ticker)
         if date is None:
             hist = t.history(period="5d")
@@ -78,6 +78,21 @@ def _pnl(direction: str, entry: float, current: float) -> float:
     if direction == "long":
         return (current - entry) / entry * 100
     return (entry - current) / entry * 100  # short: profit when price falls
+
+
+def _adverse_move(direction: str, entry: float, current: float) -> float:
+    """Fraction of adverse (loss-direction) move from entry. Always >= 0."""
+    if direction == "long":
+        return (entry - current) / entry   # down is adverse for longs
+    return (current - entry) / entry       # up is adverse for shorts
+
+
+def check_stop_loss(position: dict, current_price: float) -> bool:
+    """Return True if position has hit the −25% adverse-move stop loss."""
+    return (
+        _adverse_move(position["direction"], position["entry_price"], current_price)
+        >= STOP_LOSS_THRESHOLD
+    )
 
 
 def _outcome(pnl_pct: float) -> str:
@@ -163,63 +178,114 @@ def update_open_positions(date: dt.date) -> list[dict]:
     return enriched
 
 
-def close_expired_positions(date: dt.date) -> list[dict]:
-    """Move positions whose d30_target <= date from open to closed.
+def close_expired_positions(date: dt.date) -> dict:
+    """Close positions that hit their stop loss or have reached d+30.
 
-    Fetches prices at d+5, d+10, and d+30 checkpoints.
-    Returns list of newly closed position dicts.
+    Stop loss is checked FIRST for every open position.  A position that
+    is both past d+30 AND past the stop closes as STOPPED_OUT (stop takes
+    precedence in labeling).
+
+    Returns {"d30_closes": list[dict], "stop_outs": list[dict]}.
     """
     state      = _load()
-    still_open = []
-    newly_closed: list[dict] = []
+    still_open: list[dict] = []
+    stop_outs:  list[dict] = []
+    d30_closes: list[dict] = []
 
     for pos in state["open"]:
+        entry      = pos["entry_price"]
+        entry_date = dt.date.fromisoformat(pos["entry_date"])
+        d5  = dt.date.fromisoformat(pos["d5_target"])
+        d10 = dt.date.fromisoformat(pos["d10_target"])
         d30 = dt.date.fromisoformat(pos["d30_target"])
+
+        # Fetch today's price for stop-loss check (needed regardless of d30 status)
+        current_price = fetch_price(pos["ticker"])
+        if current_price is None:
+            current_price = entry
+
+        # ── Stop loss (highest precedence) ────────────────────────────────
+        if check_stop_loss(pos, current_price):
+            p5  = fetch_price(pos["ticker"], d5)  if date >= d5  else None
+            p10 = fetch_price(pos["ticker"], d10) if date >= d10 else None
+
+            pnl     = round(_pnl(pos["direction"], entry, current_price), 2)
+            pnl_d5  = round(_pnl(pos["direction"], entry, p5),  2) if p5  else None
+            pnl_d10 = round(_pnl(pos["direction"], entry, p10), 2) if p10 else None
+
+            closed: dict = {
+                "id":             pos["id"],
+                "ticker":         pos["ticker"],
+                "direction":      pos["direction"],
+                "recommendation": pos["recommendation"],
+                "confidence":     pos["confidence"],
+                "reasoning":      pos["reasoning"],
+                "entry_date":     pos["entry_date"],
+                "entry_price":    entry,
+                "exit_date":      date.isoformat(),
+                "exit_price":     round(current_price, 2),
+                "days_held":      (date - entry_date).days,
+                "pnl_pct":        pnl,
+                "pnl_d5":         pnl_d5,
+                "pnl_d10":        pnl_d10,
+                "pnl_d30":        None,
+                "outcome":        _outcome(pnl),
+                "close_reason":   "STOPPED_OUT",
+                "macro_context":  pos.get("macro_context", {}),
+            }
+            state["closed"].append(closed)
+            stop_outs.append(closed)
+            adverse = _adverse_move(pos["direction"], entry, current_price) * 100
+            logger.info(
+                "stop-loss: %s %s pnl=%.1f%% adverse=%.1f%%",
+                pos["ticker"], pos["direction"], pnl, adverse,
+            )
+            continue
+
+        # ── d+30 expiry (existing logic) ──────────────────────────────────
         if date < d30:
             still_open.append(pos)
             continue
-
-        d5  = dt.date.fromisoformat(pos["d5_target"])
-        d10 = dt.date.fromisoformat(pos["d10_target"])
 
         p5  = fetch_price(pos["ticker"], d5)
         p10 = fetch_price(pos["ticker"], d10)
         p30 = fetch_price(pos["ticker"], d30)
 
-        entry = pos["entry_price"]
         pnl_d5  = round(_pnl(pos["direction"], entry, p5),  2) if p5  else None
         pnl_d10 = round(_pnl(pos["direction"], entry, p10), 2) if p10 else None
         pnl_d30 = round(_pnl(pos["direction"], entry, p30), 2) if p30 else None
 
-        closed: dict = {
-            "id":           pos["id"],
-            "ticker":       pos["ticker"],
-            "direction":    pos["direction"],
+        closed = {
+            "id":             pos["id"],
+            "ticker":         pos["ticker"],
+            "direction":      pos["direction"],
             "recommendation": pos["recommendation"],
-            "confidence":   pos["confidence"],
-            "reasoning":    pos["reasoning"],
-            "entry_date":   pos["entry_date"],
-            "entry_price":  entry,
-            "exit_date":    d30.isoformat(),
-            "exit_price":   round(p30, 2) if p30 else None,
-            "pnl_pct":      pnl_d30,
-            "pnl_d5":       pnl_d5,
-            "pnl_d10":      pnl_d10,
-            "pnl_d30":      pnl_d30,
-            "outcome":      _outcome(pnl_d30) if pnl_d30 is not None else "unknown",
-            "macro_context": pos.get("macro_context", {}),
+            "confidence":     pos["confidence"],
+            "reasoning":      pos["reasoning"],
+            "entry_date":     pos["entry_date"],
+            "entry_price":    entry,
+            "exit_date":      d30.isoformat(),
+            "exit_price":     round(p30, 2) if p30 else None,
+            "days_held":      (d30 - entry_date).days,
+            "pnl_pct":        pnl_d30,
+            "pnl_d5":         pnl_d5,
+            "pnl_d10":        pnl_d10,
+            "pnl_d30":        pnl_d30,
+            "outcome":        _outcome(pnl_d30) if pnl_d30 is not None else "unknown",
+            "close_reason":   "CLOSED_D30",
+            "macro_context":  pos.get("macro_context", {}),
         }
         state["closed"].append(closed)
-        newly_closed.append(closed)
+        d30_closes.append(closed)
         logger.info(
-            "closed position: %s outcome=%s pnl=%.1f%%",
+            "d30-close: %s outcome=%s pnl=%.1f%%",
             pos["ticker"], closed["outcome"], pnl_d30 or 0,
         )
 
     state["open"] = still_open
-    if newly_closed:
+    if stop_outs or d30_closes:
         _save(state)
-    return newly_closed
+    return {"stop_outs": stop_outs, "d30_closes": d30_closes}
 
 
 def get_open_positions() -> list[dict]:

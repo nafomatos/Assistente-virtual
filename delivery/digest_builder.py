@@ -54,11 +54,13 @@ def build_digest_html(
     open_positions: list[dict] | None = None,
     classified_signals: list[dict] | None = None,
     active_clusters: list[dict] | None = None,
+    stopped_out_today: list[dict] | None = None,
 ) -> str:
     """Build mobile-first digest HTML (~1 phone screen, <500 words)."""
     classified_signals = classified_signals or []
     active_clusters    = active_clusters or []
     open_positions     = open_positions or []
+    stopped_out_today  = stopped_out_today or []
 
     sizing_by_ticker = {
         r["ticker"]: r["sizing_block"]
@@ -126,22 +128,42 @@ def build_digest_html(
 
     # ── Portfolio ──────────────────────────────────────────────────────────
     positions_html = ""
-    if open_positions:
-        sorted_pos = sorted(open_positions, key=lambda p: p.get("pnl_pct", 0))
-        worst = sorted_pos[0]
-        best  = sorted_pos[-1]
+    if open_positions or stopped_out_today:
+        stopped_line = ""
+        if stopped_out_today:
+            tickers_str = "&nbsp;&middot;&nbsp;".join(
+                f"<span style='font-weight:600;'>{html_lib.escape(p['ticker'])}</span>"
+                f"&nbsp;<span style='color:#f97316;'>{p.get('pnl_pct', 0):+.1f}%</span>"
+                for p in stopped_out_today
+            )
+            stopped_line = (
+                f"<div style='margin-top:6px;font-size:11px;color:#f97316;'>"
+                f"&#9888; Stopped out today:&nbsp;{tickers_str}"
+                f"</div>"
+            )
+
+        summary_line = ""
+        if open_positions:
+            sorted_pos = sorted(open_positions, key=lambda p: p.get("pnl_pct", 0))
+            worst = sorted_pos[0]
+            best  = sorted_pos[-1]
+            summary_line = (
+                f"<span style='color:#64748b;'>{len(open_positions)} open</span>"
+                f"&nbsp;&nbsp;·&nbsp;&nbsp;"
+                f"Best&nbsp;<span style='font-weight:600;'>{html_lib.escape(best['ticker'])}</span>"
+                f"&nbsp;<span style='color:#4ade80;'>{best.get('pnl_pct', 0):+.1f}%</span>"
+                f"&nbsp;&nbsp;·&nbsp;&nbsp;"
+                f"Worst&nbsp;<span style='font-weight:600;'>{html_lib.escape(worst['ticker'])}</span>"
+                f"&nbsp;<span style='color:#ef4444;'>{worst.get('pnl_pct', 0):+.1f}%</span>"
+            )
+
         positions_html = (
             f"<div style='background:#1e1e1e;border-radius:6px;padding:12px 16px;"
             f"margin-bottom:14px;font-size:12px;'>"
             f"<div style='font-size:9px;font-weight:700;color:#475569;letter-spacing:.08em;"
             f"text-transform:uppercase;margin-bottom:6px;'>PORTFOLIO</div>"
-            f"<span style='color:#64748b;'>{len(open_positions)} open</span>"
-            f"&nbsp;&nbsp;·&nbsp;&nbsp;"
-            f"Best&nbsp;<span style='font-weight:600;'>{html_lib.escape(best['ticker'])}</span>"
-            f"&nbsp;<span style='color:#4ade80;'>{best.get('pnl_pct', 0):+.1f}%</span>"
-            f"&nbsp;&nbsp;·&nbsp;&nbsp;"
-            f"Worst&nbsp;<span style='font-weight:600;'>{html_lib.escape(worst['ticker'])}</span>"
-            f"&nbsp;<span style='color:#ef4444;'>{worst.get('pnl_pct', 0):+.1f}%</span>"
+            f"{summary_line}"
+            f"{stopped_line}"
             f"</div>"
         )
 
