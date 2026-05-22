@@ -1,0 +1,40 @@
+{
+  "date": "2026-05-22",
+  "signals": [
+    {
+      "ticker": "BB",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Price blowout z200=+5.71, z30=+3.09, RSI 85, +18.95% today on AI/QNX narrative and CIBC target raise. Volume 2.08x confirms participation. Social data n/a but news tone clearly bullish-euphoric. Buffett 233% raises bar but signal is unambiguous.",
+      "confidence": 7
+    },
+    {
+      "ticker": "AAPL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "RSI 78 overbought but volume normal (0.94x) and z-scores within noise band (+0.48/+0.74). YouTube heat stable/bullish, no explosive retail signature. No divergence rule fires cleanly.",
+      "confidence": 4
+    },
+    {
+      "ticker": "GC=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 201x flagged as data artifact; price drift -0.63% with z-scores in noise (-0.37/-0.43). Commodity default favors institutional flow; YouTube explosive-bearish but heat-only signal insufficient without clean volume confirmation.",
+      "confidence": 5
+    },
+    {
+      "ticker": "SI=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 19.7x flagged as artifact; price essentially flat, z-scores in noise (-0.21/-0.26), RSI 46. YouTube explosive but neutral tone. No actionable divergence.",
+      "confidence": 3
+    },
+    {
+      "ticker": "HG=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 23x flagged as artifact; z200=+1.0 borderline, RSI 59, social heat stable/neutral. Commodity default would lean institutional but volume reliability is questionable and price action modest.",
+      "confidence": 3
+    }
+  ]
+}
