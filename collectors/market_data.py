@@ -2,6 +2,13 @@
 
 Returns a compact dict of scalars plus a small closes tail (for RSI)
 and the 3 most recent news headlines. Never the full OHLC series.
+
+v2 addition: a ``long_horizon`` sub-dict is included in the returned
+market dict. It contains observation-mode metrics for the bubble-detection
+strategy redesign (price_extension_200d, sustained_days_60, return_6m,
+acceleration_ratio, volume_dist_ratio, drawdown_from_peak_2y,
+days_since_peak_2y). These are display-only in v1 of this change; they
+do not affect the alert-tier gates.
 """
 
 from __future__ import annotations
@@ -14,12 +21,19 @@ import yfinance as yf
 
 logger = logging.getLogger(__name__)
 
-# We need at least 200 trading days for the long-window z-score and
-# enough headroom for RSI smoothing. "1y" is comfortably more than 200d.
-HISTORY_PERIOD = "1y"
+# "2y" gives ~504 trading days — enough for the 200d rolling SMA plus the
+# 60-day sustained-extension window (260d needed) and the 2-year peak
+# drawdown calculation. Existing calcs use .tail() / .iloc[-N:] so they
+# are unaffected by the extra rows.
+HISTORY_PERIOD = "2y"
 LONG_LOOKBACK_DAYS = 200
 CLOSES_TAIL_FOR_RSI = 60  # >> 14 so Wilder's smoothing stabilizes
 VOLUME_SHORT_WINDOW = 10  # trailing days used as post-roll floor (Fix 2)
+
+# Long-horizon extension threshold used for sustained_days_60.
+# A price >40 % above its 200d SMA for 30+ of the last 60 trading days
+# is a candidate for bubble-watch in v2 gate logic (not yet active).
+_EXTENSION_THRESHOLD_40PCT = 0.40
 
 
 def _returns_stats(returns, lookback: int) -> tuple[float, float]:
@@ -90,6 +104,113 @@ def _fetch_news(tk: yf.Ticker, max_items: int = 3) -> list[dict]:
     return items
 
 
+def _compute_long_horizon(closes, returns, volumes, current_price: float) -> dict:
+    """Compute long-horizon momentum and bubble-watch metrics.
+
+    All values are rounded scalars or None when insufficient data is available.
+    Errors are caught and logged so they never break the main pipeline.
+
+    Returned keys
+    -------------
+    price_extension_200d  : float | None
+        (current_price / 200d_SMA) - 1.  E.g. 0.82 → price is 82 % above 200d MA.
+    sustained_days_60     : int | None
+        Number of trading days in the last 60 where daily close was >40 %
+        above the rolling 200d SMA.  Requires ≥ 260 rows of history.
+    return_6m             : float | None
+        Return over the last ~126 trading days (≈ 6 calendar months).
+    acceleration_ratio    : float | None
+        Fraction of the 6m gain captured in the last 30 trading days.
+        0.5 → the last 30d accounted for 50 % of the 6-month gain.
+        Only computed when return_6m > 0.
+    volume_dist_ratio     : float | None
+        (total volume on down-days) / (total volume on up-days) over the
+        last 20 trading days.  > 1.0 signals distribution (more selling
+        pressure than buying pressure).
+    drawdown_from_peak_2y : float | None
+        (current_price / 2y_rolling_peak) - 1.  Always ≤ 0.
+        E.g. -0.65 → price is 65 % below its 2-year high.
+    days_since_peak_2y    : int | None
+        Number of trading days between the 2-year rolling high and today.
+    """
+    out: dict = {
+        "price_extension_200d":   None,
+        "sustained_days_60":      None,
+        "return_6m":              None,
+        "acceleration_ratio":     None,
+        "volume_dist_ratio":      None,
+        "drawdown_from_peak_2y":  None,
+        "days_since_peak_2y":     None,
+    }
+
+    try:
+        n = len(closes)
+
+        # ── 200d SMA and price extension ──────────────────────────────────────
+        if n >= 200:
+            sma_200 = float(closes.iloc[-200:].mean())
+            if sma_200 > 0:
+                out["price_extension_200d"] = round(
+                    (current_price / sma_200) - 1.0, 4
+                )
+
+        # ── Sustained extension: days in last 60 where close > 40 % above SMA ─
+        if n >= 260:
+            rolling_sma = closes.rolling(window=200, min_periods=200).mean()
+            ext_series = (closes / rolling_sma) - 1.0
+            ext_tail = ext_series.tail(60).dropna()
+            out["sustained_days_60"] = int((ext_tail > _EXTENSION_THRESHOLD_40PCT).sum())
+        elif n >= 200:
+            # Enough for a single SMA reading but not a rolling window of 60.
+            # Report 0; the field is valid but the sustained window is incomplete.
+            out["sustained_days_60"] = 0
+
+        # ── 6-month return (~126 trading days) ────────────────────────────────
+        if n >= 127:
+            price_6m_ago = float(closes.iloc[-127])
+            if price_6m_ago > 0:
+                out["return_6m"] = round(
+                    (current_price / price_6m_ago) - 1.0, 4
+                )
+
+        # ── Acceleration ratio ────────────────────────────────────────────────
+        ret_6m = out["return_6m"]
+        if ret_6m is not None and n >= 31:
+            price_30d_ago = float(closes.iloc[-31])
+            if price_30d_ago > 0:
+                gain_30d = (current_price / price_30d_ago) - 1.0
+                if ret_6m > 0:
+                    out["acceleration_ratio"] = round(gain_30d / ret_6m, 3)
+                else:
+                    # 6m return is zero or negative — no positive gains to accelerate
+                    out["acceleration_ratio"] = 0.0
+
+        # ── Volume distribution (last 20 trading days) ────────────────────────
+        if len(returns) >= 20:
+            rets_20 = returns.tail(20)
+            vols_20 = volumes.loc[rets_20.index]
+            up_mask = rets_20.values > 0
+            up_vol  = float(vols_20.values[up_mask].sum())
+            down_vol = float(vols_20.values[~up_mask].sum())
+            if up_vol > 0:
+                out["volume_dist_ratio"] = round(down_vol / up_vol, 3)
+
+        # ── 2-year peak drawdown ──────────────────────────────────────────────
+        if n >= 1:
+            peak_price = float(closes.max())
+            if peak_price > 0:
+                out["drawdown_from_peak_2y"] = round(
+                    (current_price / peak_price) - 1.0, 4
+                )
+                peak_pos = int(closes.values.argmax())
+                out["days_since_peak_2y"] = n - 1 - peak_pos
+
+    except Exception as exc:  # pragma: no cover
+        logger.warning(f"long_horizon computation error: {exc}")
+
+    return out
+
+
 def fetch_market_data(ticker: str, lookback_days: int = 30) -> dict:
     """Fetch a compact snapshot of recent price/volume behavior plus news.
 
@@ -146,6 +267,8 @@ def fetch_market_data(ticker: str, lookback_days: int = 30) -> dict:
     closes_recent = [float(x) for x in closes.tail(CLOSES_TAIL_FOR_RSI).tolist()]
     recent_news = _fetch_news(tk, max_items=3)
 
+    long_horizon = _compute_long_horizon(closes, returns, volumes, current_price)
+
     return {
         "ticker":               ticker,
         "current_price":        current_price,
@@ -160,4 +283,5 @@ def fetch_market_data(ticker: str, lookback_days: int = 30) -> dict:
         "price_series_summary": price_series_summary,
         "closes_recent":        closes_recent,
         "recent_news":          recent_news,
+        "long_horizon":         long_horizon,
     }

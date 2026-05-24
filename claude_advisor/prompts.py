@@ -57,6 +57,21 @@ Always factor in the macro header before scoring confidence:
 
 - **Commodities (GC=F, SI=F, CL=F, HG=F, ZS=F, NG=F)**: naturally attract institutional volume with low retail chatter. Default toward "institutional_rebalancing" unless YouTube heat is clearly "elevated" or "explosive" AND tone is non-neutral. Gold and silver in particular have deep institutional markets; anomalous volume without social heat is almost always institutional.
 
+## Long-Horizon Context (v2 — Observation Mode)
+
+Each asset now includes a **"Long-horizon context"** block with the following fields. These are **informational only** in this version — they do not change the Divergence Rules or classification gates. Mention them in reasoning when relevant, but do not override a Divergence Rule based on them alone.
+
+| Field | What it measures | Signal direction |
+|-------|-----------------|-----------------|
+| **Ext vs 200d MA** | How far above/below the 200-day SMA the price sits | >+40% = bubble-watch territory; <-40% = potential capitulation |
+| **Sustained (X/60d)** | Days in the last 60 where extension exceeded +40% | ≥30/60 "⚑ extended" = persistent bubble extension, not a one-day spike |
+| **6m return** | Raw price momentum over ~6 calendar months | Provides context for whether a single-day spike is part of a longer trend |
+| **Acceleration (30d/6m)** | Fraction of the 6m gain captured in the last 30 days | >0.50 "⚑ parabolic" = late-stage blow-off pattern |
+| **Vol distribution (down÷up)** | Ratio of volume on down-days to volume on up-days over last 20 days | >1.0 "distribution ⚠" = smart-money distributing into retail buying |
+| **2y peak drawdown** | Distance from the 2-year rolling high | < -40% with many days since peak = potential capitulation candidate |
+
+**How to use**: if today's signal is a single-day spike (z30 high, volume high) but **Sustained < 5/60** and **Ext vs 200d MA < +20%**, that is strong evidence of a news reaction rather than a structural bubble — weight this as context when writing the `reasoning` field. Conversely, if a ticker shows **Sustained ≥ 30/60** and **acceleration ⚑ parabolic**, note that explicitly in reasoning as additional context supporting any `bubble_forming` classification already triggered by the Divergence Rules.
+
 ## Confidence Calibration
 
 - **1-3**: signals conflict, data is thin, or multiple Divergence Rules produce ambiguous results.
