@@ -70,6 +70,75 @@ def _fmt_price(x: float) -> str:
     return f"{x:,.2f}"
 
 
+def _fmt_pct(val: float | None, decimals: int = 1) -> str:
+    """Format a fraction (0.82) as a percentage string ('+82.0%'), or 'n/a'."""
+    if val is None:
+        return "n/a"
+    return f"{val * 100:+.{decimals}f}%"
+
+
+def _fmt_ratio(val: float | None) -> str:
+    """Format a ratio to 2 dp, or 'n/a'."""
+    if val is None:
+        return "n/a"
+    return f"{val:.2f}"
+
+
+def _fmt_int(val: int | None, suffix: str = "") -> str:
+    if val is None:
+        return "n/a"
+    return f"{val}{suffix}"
+
+
+def _format_long_horizon(lh: dict) -> str:
+    """Render the long_horizon dict as a compact prompt block.
+
+    Returns an empty string when lh is empty so callers can concatenate
+    unconditionally.  Each line is kept short to minimise token cost.
+    """
+    if not lh:
+        return ""
+
+    ext_200d   = lh.get("price_extension_200d")
+    sustained  = lh.get("sustained_days_60")
+    ret_6m     = lh.get("return_6m")
+    accel      = lh.get("acceleration_ratio")
+    vol_dist   = lh.get("volume_dist_ratio")
+    dd_peak    = lh.get("drawdown_from_peak_2y")
+    days_peak  = lh.get("days_since_peak_2y")
+
+    # Sustained extension label
+    if sustained is not None:
+        sustained_str = f"{sustained}/60d"
+        if sustained >= 30:
+            sustained_str += " ⚑ extended"
+    else:
+        sustained_str = "n/a"
+
+    # Volume distribution label
+    if vol_dist is not None:
+        vd_label = " (distribution ⚠)" if vol_dist > 1.0 else " (buying pressure)"
+        vol_dist_str = f"{vol_dist:.2f}{vd_label}"
+    else:
+        vol_dist_str = "n/a"
+
+    # Acceleration label
+    if accel is not None:
+        accel_label = " (parabolic ⚑)" if accel > 0.5 else ""
+        accel_str = f"{accel:.2f}{accel_label}"
+    else:
+        accel_str = "n/a"
+
+    return (
+        f"Long-horizon context (v2, observe only — not a classification gate):\n"
+        f"- Ext vs 200d MA: {_fmt_pct(ext_200d)} (sustained: {sustained_str})\n"
+        f"- 6m return: {_fmt_pct(ret_6m)} | Acceleration (30d/6m): {accel_str}\n"
+        f"- Vol distribution (down÷up, last 20d): {vol_dist_str}\n"
+        f"- 2y peak drawdown: {_fmt_pct(dd_peak)} "
+        f"({_fmt_int(days_peak, 'd since peak')})\n\n"
+    )
+
+
 def compress_signals(ticker: str, name: str, signals: dict) -> str:
     """Build the compact user-prompt body from analyzer outputs.
 
@@ -123,6 +192,13 @@ def compress_signals(ticker: str, name: str, signals: dict) -> str:
             f" range and may be a data artifact. Weight volume evidence accordingly.\n\n"
         )
 
+    # Long-horizon context (strategy v2, observation mode).
+    # These signals are for context only — do not use them as classification
+    # gates. The primary Divergence Rules (Volume × Social Heat × Price
+    # Velocity) remain the sole classification triggers.
+    lh = m.get("long_horizon") or {}
+    long_horizon_block = _format_long_horizon(lh)
+
     return (
         f"{dq_flag}"
         f"Asset: {ticker} ({name})\n\n"
@@ -140,5 +216,6 @@ def compress_signals(ticker: str, name: str, signals: dict) -> str:
         f"- StockTwits: {stocktwits_summary}\n"
         f"- YouTube: {youtube_summary}\n"
         f"- Twitter: {twitter_summary}\n\n"
+        f"{long_horizon_block}"
         f"Analyze and respond in JSON."
     )
