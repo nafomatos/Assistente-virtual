@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script>
+function copyClaudeContent() {
+  var content = document.getElementById('claude-paste-content').innerText;
+  navigator.clipboard.writeText(content).then(function() {
+    var btn = document.getElementById('copy-claude-btn');
+    var original = btn.innerHTML;
+    btn.innerHTML = '&#10003; Copied';
+    setTimeout(function() { btn.innerHTML = original; }, 2000);
+  }).catch(function(err) {
+    console.error('Copy failed:', err);
+    alert('Copy failed — please select manually');
+  });
+}
+</script>
+</head>
+<body style="margin:0;padding:0;background:#0f0f0f;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#f1f5f9;">
+<div style="max-width:600px;margin:0 auto;padding:24px 16px;">
+
+  <div style="margin-bottom:20px;">
+    <div style="font-size:10px;font-weight:700;color:#475569;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;">Artificial Price Radar</div>
+    <div style="font-size:22px;font-weight:700;color:#f1f5f9;">Daily Signals &mdash; 26 May 2026</div>
+  </div>
+
+  <div style='background:#1e1e1e;border-radius:6px;padding:16px 20px;margin-bottom:14px;'><div style='font-size:10px;font-weight:700;color:#64748b;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;'>ACTIVE POSITIONS <span style='color:#475569;font-weight:400;'>(11 open)</span></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #ef4444;padding:12px 14px;margin-bottom:8px;'><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'><div><span style='font-weight:700;font-size:14px;'>MU</span>&nbsp;&nbsp;<span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;'>SHORT ↓</span>&nbsp;&nbsp;<span style='color:#64748b;font-size:11px;'>conf 6</span></div><div style='text-align:right;font-size:12px;'><span style='color:#94a3b8;'>Entry</span> <span style='font-weight:600;'>$640.20</span>&nbsp;&nbsp;<span style='color:#94a3b8;'>on</span> <span style='color:#cbd5e1;'>2026-05-05</span></div></div><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;'><div style='font-size:13px;'><span style='color:#94a3b8;'>Current</span> <span style='font-weight:700;font-size:14px;'>$895.88</span>&nbsp;<span style='color:#ef4444;font-weight:700;'>(-39.9%)</span></div><div style='font-size:11px;color:#64748b;'>Days held: <span style='color:#94a3b8;font-weight:600;'>21</span> / 30&nbsp;&nbsp;<span style='color:#f97316;font-weight:700;font-size:11px;'>STOPPED_OUT</span></div></div><div style='background:#2d2d2d;border-radius:3px;height:3px;'><div style='background:#ef4444;width:70%;height:3px;border-radius:3px;'></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #ef4444;padding:12px 14px;margin-bottom:8px;'><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'><div><span style='font-weight:700;font-size:14px;'>POET</span>&nbsp;&nbsp;<span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;'>SHORT ↓</span>&nbsp;&nbsp;<span style='color:#64748b;font-size:11px;'>conf 6</span></div><div style='text-align:right;font-size:12px;'><span style='color:#94a3b8;'>Entry</span> <span style='font-weight:600;'>$9.21</span>&nbsp;&nbsp;<span style='color:#94a3b8;'>on</span> <span style='color:#cbd5e1;'>2026-05-05</span></div></div><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;'><div style='font-size:13px;'><span style='color:#94a3b8;'>Current</span> <span style='font-weight:700;font-size:14px;'>$13.35</span>&nbsp;<span style='color:#ef4444;font-weight:700;'>(-45.0%)</span></div><div style='font-size:11px;color:#64748b;'>Days held: <span style='color:#94a3b8;font-weight:600;'>21</span> / 30&nbsp;&nbsp;<span style='color:#f97316;font-weight:700;font-size:11px;'>STOPPED_OUT</span></div></div><div style='background:#2d2d2d;border-radius:3px;height:3px;'><div style='background:#ef4444;width:70%;height:3px;border-radius:3px;'></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #ef4444;padding:12px 14px;margin-bottom:8px;'><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'><div><span style='font-weight:700;font-size:14px;'>ARM</span>&nbsp;&nbsp;<span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;'>SHORT ↓</span>&nbsp;&nbsp;<span style='color:#64748b;font-size:11px;'>conf 6</span></div><div style='text-align:right;font-size:12px;'><span style='color:#94a3b8;'>Entry</span> <span style='font-weight:600;'>$237.30</span>&nbsp;&nbsp;<span style='color:#94a3b8;'>on</span> <span style='color:#cbd5e1;'>2026-05-06</span></div></div><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;'><div style='font-size:13px;'><span style='color:#94a3b8;'>Current</span> <span style='font-weight:700;font-size:14px;'>$321.22</span>&nbsp;<span style='color:#ef4444;font-weight:700;'>(-35.4%)</span></div><div style='font-size:11px;color:#64748b;'>Days held: <span style='color:#94a3b8;font-weight:600;'>20</span> / 30&nbsp;&nbsp;<span style='color:#f97316;font-weight:700;font-size:11px;'>STOPPED_OUT</span></div></div><div style='background:#2d2d2d;border-radius:3px;height:3px;'><div style='background:#ef4444;width:66%;height:3px;border-radius:3px;'></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #22c55e;padding:12px 14px;margin-bottom:8px;'><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'><div><span style='font-weight:700;font-size:14px;'>SOFI</span>&nbsp;&nbsp;<span style='background:#22c55e;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;'>LONG ↑</span>&nbsp;&nbsp;<span style='color:#64748b;font-size:11px;'>conf 7</span></div><div style='text-align:right;font-size:12px;'><span style='color:#94a3b8;'>Entry</span> <span style='font-weight:600;'>$15.52</span>&nbsp;&nbsp;<span style='color:#94a3b8;'>on</span> <span style='color:#cbd5e1;'>2026-04-29</span></div></div><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;'><div style='font-size:13px;'><span style='color:#94a3b8;'>Current</span> <span style='font-weight:700;font-size:14px;'>$15.98</span>&nbsp;<span style='color:#22c55e;font-weight:700;'>(+3.0%)</span></div><div style='font-size:11px;color:#64748b;'>Days held: <span style='color:#94a3b8;font-weight:600;'>27</span> / 30&nbsp;&nbsp;<span style='color:#22c55e;font-weight:700;font-size:11px;'>ON TRACK</span></div></div><div style='background:#2d2d2d;border-radius:3px;height:3px;'><div style='background:#22c55e;width:90%;height:3px;border-radius:3px;'></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #22c55e;padding:12px 14px;margin-bottom:8px;'><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'><div><span style='font-weight:700;font-size:14px;'>HOOD</span>&nbsp;&nbsp;<span style='background:#22c55e;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;'>LONG ↑</span>&nbsp;&nbsp;<span style='color:#64748b;font-size:11px;'>conf 7</span></div><div style='text-align:right;font-size:12px;'><span style='color:#94a3b8;'>Entry</span> <span style='font-weight:600;'>$71.20</span>&nbsp;&nbsp;<span style='color:#94a3b8;'>on</span> <span style='color:#cbd5e1;'>2026-04-29</span></div></div><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;'><div style='font-size:13px;'><span style='color:#94a3b8;'>Current</span> <span style='font-weight:700;font-size:14px;'>$74.09</span>&nbsp;<span style='color:#22c55e;font-weight:700;'>(+4.1%)</span></div><div style='font-size:11px;color:#64748b;'>Days held: <span style='color:#94a3b8;font-weight:600;'>27</span> / 30&nbsp;&nbsp;<span style='color:#22c55e;font-weight:700;font-size:11px;'>ON TRACK</span></div></div><div style='background:#2d2d2d;border-radius:3px;height:3px;'><div style='background:#22c55e;width:90%;height:3px;border-radius:3px;'></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #475569;padding:12px 14px;margin-bottom:8px;'><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'><div><span style='font-weight:700;font-size:14px;'>GOOGL</span>&nbsp;&nbsp;<span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;'>SHORT ↓</span>&nbsp;&nbsp;<span style='color:#64748b;font-size:11px;'>conf 8</span></div><div style='text-align:right;font-size:12px;'><span style='color:#94a3b8;'>Entry</span> <span style='font-weight:600;'>$384.80</span>&nbsp;&nbsp;<span style='color:#94a3b8;'>on</span> <span style='color:#cbd5e1;'>2026-04-30</span></div></div><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;'><div style='font-size:13px;'><span style='color:#94a3b8;'>Current</span> <span style='font-weight:700;font-size:14px;'>$388.88</span>&nbsp;<span style='color:#ef4444;font-weight:700;'>(-1.1%)</span></div><div style='font-size:11px;color:#64748b;'>Days held: <span style='color:#94a3b8;font-weight:600;'>26</span> / 30&nbsp;&nbsp;<span style='color:#64748b;font-weight:700;font-size:11px;'>NEUTRAL</span></div></div><div style='background:#2d2d2d;border-radius:3px;height:3px;'><div style='background:#475569;width:86%;height:3px;border-radius:3px;'></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #22c55e;padding:12px 14px;margin-bottom:8px;'><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'><div><span style='font-weight:700;font-size:14px;'>RDDT</span>&nbsp;&nbsp;<span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;'>SHORT ↓</span>&nbsp;&nbsp;<span style='color:#64748b;font-size:11px;'>conf 8</span></div><div style='text-align:right;font-size:12px;'><span style='color:#94a3b8;'>Entry</span> <span style='font-weight:600;'>$166.48</span>&nbsp;&nbsp;<span style='color:#94a3b8;'>on</span> <span style='color:#cbd5e1;'>2026-05-01</span></div></div><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;'><div style='font-size:13px;'><span style='color:#94a3b8;'>Current</span> <span style='font-weight:700;font-size:14px;'>$144.64</span>&nbsp;<span style='color:#22c55e;font-weight:700;'>(+13.1%)</span></div><div style='font-size:11px;color:#64748b;'>Days held: <span style='color:#94a3b8;font-weight:600;'>25</span> / 30&nbsp;&nbsp;<span style='color:#22c55e;font-weight:700;font-size:11px;'>ON TRACK</span></div></div><div style='background:#2d2d2d;border-radius:3px;height:3px;'><div style='background:#22c55e;width:83%;height:3px;border-radius:3px;'></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #22c55e;padding:12px 14px;margin-bottom:8px;'><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'><div><span style='font-weight:700;font-size:14px;'>SOUN</span>&nbsp;&nbsp;<span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;'>SHORT ↓</span>&nbsp;&nbsp;<span style='color:#64748b;font-size:11px;'>conf 7</span></div><div style='text-align:right;font-size:12px;'><span style='color:#94a3b8;'>Entry</span> <span style='font-weight:600;'>$9.56</span>&nbsp;&nbsp;<span style='color:#94a3b8;'>on</span> <span style='color:#cbd5e1;'>2026-05-01</span></div></div><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;'><div style='font-size:13px;'><span style='color:#94a3b8;'>Current</span> <span style='font-weight:700;font-size:14px;'>$8.13</span>&nbsp;<span style='color:#22c55e;font-weight:700;'>(+15.0%)</span></div><div style='font-size:11px;color:#64748b;'>Days held: <span style='color:#94a3b8;font-weight:600;'>25</span> / 30&nbsp;&nbsp;<span style='color:#22c55e;font-weight:700;font-size:11px;'>ON TRACK</span></div></div><div style='background:#2d2d2d;border-radius:3px;height:3px;'><div style='background:#22c55e;width:83%;height:3px;border-radius:3px;'></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #ef4444;padding:12px 14px;margin-bottom:8px;'><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'><div><span style='font-weight:700;font-size:14px;'>XRX</span>&nbsp;&nbsp;<span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;'>SHORT ↓</span>&nbsp;&nbsp;<span style='color:#64748b;font-size:11px;'>conf 7</span></div><div style='text-align:right;font-size:12px;'><span style='color:#94a3b8;'>Entry</span> <span style='font-weight:600;'>$2.70</span>&nbsp;&nbsp;<span style='color:#94a3b8;'>on</span> <span style='color:#cbd5e1;'>2026-05-01</span></div></div><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;'><div style='font-size:13px;'><span style='color:#94a3b8;'>Current</span> <span style='font-weight:700;font-size:14px;'>$3.01</span>&nbsp;<span style='color:#ef4444;font-weight:700;'>(-11.5%)</span></div><div style='font-size:11px;color:#64748b;'>Days held: <span style='color:#94a3b8;font-weight:600;'>25</span> / 30&nbsp;&nbsp;<span style='color:#ef4444;font-weight:700;font-size:11px;'>UNDERWATER</span></div></div><div style='background:#2d2d2d;border-radius:3px;height:3px;'><div style='background:#ef4444;width:83%;height:3px;border-radius:3px;'></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #ef4444;padding:12px 14px;margin-bottom:8px;'><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'><div><span style='font-weight:700;font-size:14px;'>GME</span>&nbsp;&nbsp;<span style='background:#22c55e;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;'>LONG ↑</span>&nbsp;&nbsp;<span style='color:#64748b;font-size:11px;'>conf 7</span></div><div style='text-align:right;font-size:12px;'><span style='color:#94a3b8;'>Entry</span> <span style='font-weight:600;'>$23.84</span>&nbsp;&nbsp;<span style='color:#94a3b8;'>on</span> <span style='color:#cbd5e1;'>2026-05-04</span></div></div><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;'><div style='font-size:13px;'><span style='color:#94a3b8;'>Current</span> <span style='font-weight:700;font-size:14px;'>$21.91</span>&nbsp;<span style='color:#ef4444;font-weight:700;'>(-8.1%)</span></div><div style='font-size:11px;color:#64748b;'>Days held: <span style='color:#94a3b8;font-weight:600;'>22</span> / 30&nbsp;&nbsp;<span style='color:#ef4444;font-weight:700;font-size:11px;'>UNDERWATER</span></div></div><div style='background:#2d2d2d;border-radius:3px;height:3px;'><div style='background:#ef4444;width:73%;height:3px;border-radius:3px;'></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #ef4444;padding:12px 14px;margin-bottom:8px;'><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'><div><span style='font-weight:700;font-size:14px;'>NBIS</span>&nbsp;&nbsp;<span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;'>SHORT ↓</span>&nbsp;&nbsp;<span style='color:#64748b;font-size:11px;'>conf 8</span></div><div style='text-align:right;font-size:12px;'><span style='color:#94a3b8;'>Entry</span> <span style='font-weight:600;'>$176.42</span>&nbsp;&nbsp;<span style='color:#94a3b8;'>on</span> <span style='color:#cbd5e1;'>2026-05-04</span></div></div><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;'><div style='font-size:13px;'><span style='color:#94a3b8;'>Current</span> <span style='font-weight:700;font-size:14px;'>$208.06</span>&nbsp;<span style='color:#ef4444;font-weight:700;'>(-17.9%)</span></div><div style='font-size:11px;color:#64748b;'>Days held: <span style='color:#94a3b8;font-weight:600;'>22</span> / 30&nbsp;&nbsp;<span style='color:#ef4444;font-weight:700;font-size:11px;'>UNDERWATER</span></div></div><div style='background:#2d2d2d;border-radius:3px;height:3px;'><div style='background:#ef4444;width:73%;height:3px;border-radius:3px;'></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #ef4444;padding:12px 14px;margin-bottom:8px;'><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'><div><span style='font-weight:700;font-size:14px;'>INTC</span>&nbsp;&nbsp;<span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;'>SHORT ↓</span>&nbsp;&nbsp;<span style='color:#64748b;font-size:11px;'>conf 6</span></div><div style='text-align:right;font-size:12px;'><span style='color:#94a3b8;'>Entry</span> <span style='font-weight:600;'>$108.15</span>&nbsp;&nbsp;<span style='color:#94a3b8;'>on</span> <span style='color:#cbd5e1;'>2026-05-05</span></div></div><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;'><div style='font-size:13px;'><span style='color:#94a3b8;'>Current</span> <span style='font-weight:700;font-size:14px;'>$123.52</span>&nbsp;<span style='color:#ef4444;font-weight:700;'>(-14.2%)</span></div><div style='font-size:11px;color:#64748b;'>Days held: <span style='color:#94a3b8;font-weight:600;'>21</span> / 30&nbsp;&nbsp;<span style='color:#ef4444;font-weight:700;font-size:11px;'>UNDERWATER</span></div></div><div style='background:#2d2d2d;border-radius:3px;height:3px;'><div style='background:#ef4444;width:70%;height:3px;border-radius:3px;'></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #ef4444;padding:12px 14px;margin-bottom:8px;'><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'><div><span style='font-weight:700;font-size:14px;'>SMCI</span>&nbsp;&nbsp;<span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;'>SHORT ↓</span>&nbsp;&nbsp;<span style='color:#64748b;font-size:11px;'>conf 9</span></div><div style='text-align:right;font-size:12px;'><span style='color:#94a3b8;'>Entry</span> <span style='font-weight:600;'>$34.66</span>&nbsp;&nbsp;<span style='color:#94a3b8;'>on</span> <span style='color:#cbd5e1;'>2026-05-06</span></div></div><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;'><div style='font-size:13px;'><span style='color:#94a3b8;'>Current</span> <span style='font-weight:700;font-size:14px;'>$37.10</span>&nbsp;<span style='color:#ef4444;font-weight:700;'>(-7.0%)</span></div><div style='font-size:11px;color:#64748b;'>Days held: <span style='color:#94a3b8;font-weight:600;'>20</span> / 30&nbsp;&nbsp;<span style='color:#ef4444;font-weight:700;font-size:11px;'>UNDERWATER</span></div></div><div style='background:#2d2d2d;border-radius:3px;height:3px;'><div style='background:#ef4444;width:66%;height:3px;border-radius:3px;'></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #ef4444;padding:12px 14px;margin-bottom:8px;'><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'><div><span style='font-weight:700;font-size:14px;'>AMD</span>&nbsp;&nbsp;<span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;'>SHORT ↓</span>&nbsp;&nbsp;<span style='color:#64748b;font-size:11px;'>conf 8</span></div><div style='text-align:right;font-size:12px;'><span style='color:#94a3b8;'>Entry</span> <span style='font-weight:600;'>$421.39</span>&nbsp;&nbsp;<span style='color:#94a3b8;'>on</span> <span style='color:#cbd5e1;'>2026-05-06</span></div></div><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;'><div style='font-size:13px;'><span style='color:#94a3b8;'>Current</span> <span style='font-weight:700;font-size:14px;'>$503.89</span>&nbsp;<span style='color:#ef4444;font-weight:700;'>(-19.6%)</span></div><div style='font-size:11px;color:#64748b;'>Days held: <span style='color:#94a3b8;font-weight:600;'>20</span> / 30&nbsp;&nbsp;<span style='color:#ef4444;font-weight:700;font-size:11px;'>UNDERWATER</span></div></div><div style='background:#2d2d2d;border-radius:3px;height:3px;'><div style='background:#ef4444;width:66%;height:3px;border-radius:3px;'></div></div></div><div style='margin-top:10px;padding-top:10px;border-top:1px solid #2d2d2d;font-size:11px;color:#64748b;'>Closed positions: <span style='color:#94a3b8;'>3 total</span> &middot; <span style='color:#22c55e;'>0 correct (0.0%)</span> &middot; Avg P&amp;L: <span style='color:#ef4444;font-weight:700;'>-40.1%</span></div></div>
+
+  <div style='background:#1e1e1e;border-radius:6px;padding:16px 20px;margin-bottom:14px;'><div style='font-size:10px;font-weight:700;color:#64748b;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;'>MACRO CONTEXT</div><table style='border-collapse:collapse;width:100%;'><tbody><tr><td style='color:#94a3b8;padding:4px 14px 4px 0;font-size:12px;white-space:nowrap;vertical-align:middle;'>Fear &amp; Greed</td><td style='font-size:13px;padding:4px 0;vertical-align:middle;'><span style='color:#f97316;font-weight:700;'>34/100 — Fear</span> <span style='color:#64748b;font-size:11px;'>(+4)</span></td></tr><tr><td style='color:#94a3b8;padding:4px 14px 4px 0;font-size:12px;white-space:nowrap;vertical-align:middle;'>VIX Structure</td><td style='font-size:13px;padding:4px 0;vertical-align:middle;'><span style='color:#4ade80;font-weight:700;'>Contango (0.86)</span> <span style='color:#64748b;font-size:11px;'>— normal</span></td></tr><tr><td style='color:#94a3b8;padding:4px 14px 4px 0;font-size:12px;white-space:nowrap;vertical-align:middle;'>Buffett Indicator</td><td style='font-size:13px;padding:4px 0;vertical-align:middle;'><span style='color:#ef4444;font-weight:700;'>234% — Extreme</span> <span style='color:#64748b;font-size:11px;'>(avg ~120%)</span></td></tr></tbody></table></div>
+
+  <div style='background:#1e1e1e;border-radius:6px;padding:14px 20px;margin-bottom:20px;'><div style='font-size:10px;font-weight:700;color:#64748b;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;'>COVERAGE — 28 tickers scanned</div><span style='background:#ef4444;color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:3px;margin-right:6px;display:inline-block;'>1 RED</span><span style='background:#f97316;color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:3px;margin-right:6px;display:inline-block;'>10 AMBER</span><span style='background:#374151;color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:3px;margin-right:6px;display:inline-block;'>17 filtered</span><div style='margin-top:8px;font-size:11px;color:#64748b;'>RED: MU</div><div style='margin-top:3px;font-size:11px;color:#64748b;'>AMBER: AAPL, ASTS, GC=F, SI=F, HG=F, LUNR, AMD, BB, QQQ, NOK</div></div>
+
+  <div style='background:#0f1f35;border:1px solid #1e3a5f;border-radius:6px;padding:16px 20px;margin-bottom:14px;'><div style='font-size:10px;font-weight:700;color:#3b82f6;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;'>CLUSTER ALERTS</div><div style='font-size:10px;color:#475569;margin-bottom:8px;'>3+ tickers from the same sector signalling in the same direction within 5 days</div><div style='border-top:1px solid #1e3a5f;padding:10px 0;'><div style='font-size:13px;font-weight:600;color:#93c5fd;margin-bottom:4px;'>commodities_metals &middot; institutional &middot; <span style='color:#f1f5f9;'>3 tickers in 7 days</span></div><div style='font-size:11px;color:#64748b;margin-bottom:2px;'>&rarr; confidence +1 applied to all signals in the cluster</div><div style='font-size:11px;color:#64748b;'>&rarr; tickers: <span style='color:#94a3b8;'>GC=F, HG=F, SI=F</span></div></div></div>
+
+  <div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #ef4444;padding:14px 16px;margin-bottom:12px;'><table style='width:100%;border-collapse:collapse;margin-bottom:10px;'><tbody><tr><td style='vertical-align:middle;'><span style='background:#ef4444;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;text-transform:uppercase;'>RED</span>&nbsp;<span style='font-weight:700;font-size:15px;'>MU</span>&nbsp;<span style='color:#94a3b8;font-size:12px;'>Micron</span></td><td style='text-align:right;vertical-align:middle;font-size:14px;font-weight:600;white-space:nowrap;'>$895.88&nbsp;<span style='color:#4ade80;'>+19.29%</span></td></tr></tbody></table><table style='border-collapse:collapse;'><tbody><tr><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>VOL</div><div style='font-size:13px;'><span style='color:#94a3b8;font-weight:700;'>1.4x</span> <span style='color:#64748b;font-size:10px;'>(normal)</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-30D</div><div style='font-size:13px;'><span style='color:#ef4444;font-weight:700;'>+2.76</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-200D</div><div style='font-size:13px;'><span style='color:#94a3b8;'>+4.04</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>RSI-14</div><div style='font-size:13px;'><span style='color:#f97316;'>75</span> <span style='color:#64748b;font-size:10px;'>(overbought)</span></div></td></tr></tbody></table><div style='border-top:1px solid #2d2d2d;margin-top:10px;padding-top:8px;font-size:11px;color:#cbd5e1;'><span style='color:#64748b;'>News: </span>Micron tops $1 trillion in market cap as UBS sees company becoming an AI giant<span style='color:#475569;'> — Yahoo Finance, 8.0h ago</span></div><div style='margin-top:8px;font-size:11px;'>Social-z: <span style='color:#ef4444;font-weight:700;'>+2.3</span> &middot; YouTube: <span style='color:#4ade80;font-weight:700;'>Bullish</span></div><div style='background:#111827;border:1px solid #1f2937;border-radius:4px;padding:10px 12px;margin-top:10px;font-family:"Menlo","Monaco","Courier New",monospace;'><div style='font-size:9px;font-weight:700;color:#374151;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;'>&#127919; SIZING &amp; TARGETS</div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Position size:&nbsp;&nbsp;&nbsp;</span><span style='color:#9ca3af;'>1.40% of capital</span></div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Targets:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#9ca3af;'>conservative $800.76 (z=+1) &nbsp;|&nbsp; medium $746.72 (z=0) &nbsp;|&nbsp; aggressive $692.68 (z=−1)</span></div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Window:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#9ca3af;'>checkpoint 2026-06-05 (d+10) &middot; close 2026-06-25 (d+30)</span></div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Option strikes:&nbsp;&nbsp;</span><span style='color:#9ca3af;'>ATM $896 &nbsp;|&nbsp; OTM 5% $851 &nbsp;|&nbsp; OTM 10% $806</span></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #f97316;padding:14px 16px;margin-bottom:12px;'><table style='width:100%;border-collapse:collapse;margin-bottom:10px;'><tbody><tr><td style='vertical-align:middle;'><span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;text-transform:uppercase;'>AMBER</span>&nbsp;<span style='font-weight:700;font-size:15px;'>AAPL</span>&nbsp;<span style='color:#94a3b8;font-size:12px;'>Apple</span></td><td style='text-align:right;vertical-align:middle;font-size:14px;font-weight:600;white-space:nowrap;'>$308.33&nbsp;<span style='color:#ef4444;'>-0.16%</span></td></tr></tbody></table><table style='border-collapse:collapse;'><tbody><tr><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>VOL</div><div style='font-size:13px;'><span style='color:#94a3b8;font-weight:700;'>1.0x</span> <span style='color:#64748b;font-size:10px;'>(normal)</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-30D</div><div style='font-size:13px;'><span style='color:#94a3b8;font-weight:700;'>-0.54</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-200D</div><div style='font-size:13px;'><span style='color:#94a3b8;'>-0.24</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>RSI-14</div><div style='font-size:13px;'><span style='color:#ef4444;'>77</span> <span style='color:#64748b;font-size:10px;'>(overbought)</span></div></td></tr></tbody></table><div style='border-top:1px solid #2d2d2d;margin-top:10px;padding-top:8px;font-size:11px;color:#cbd5e1;'><span style='color:#64748b;'>News: </span>Why investors aren&#x27;t loving Ferrari&#x27;s new Luce EV<span style='color:#475569;'> — Yahoo Finance Video, 7.4h ago</span></div><div style='margin-top:8px;font-size:11px;'>YouTube: <span style='color:#4ade80;font-weight:700;'>Bullish</span></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #f97316;padding:14px 16px;margin-bottom:12px;'><table style='width:100%;border-collapse:collapse;margin-bottom:10px;'><tbody><tr><td style='vertical-align:middle;'><span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;text-transform:uppercase;'>AMBER</span>&nbsp;<span style='font-weight:700;font-size:15px;'>ASTS</span>&nbsp;<span style='color:#94a3b8;font-size:12px;'>AST SpaceMobile</span></td><td style='text-align:right;vertical-align:middle;font-size:14px;font-weight:600;white-space:nowrap;'>$119.70&nbsp;<span style='color:#4ade80;'>+13.07%</span></td></tr></tbody></table><table style='border-collapse:collapse;'><tbody><tr><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>VOL</div><div style='font-size:13px;'><span style='color:#94a3b8;font-weight:700;'>1.8x</span> <span style='color:#64748b;font-size:10px;'>(elevated)</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-30D</div><div style='font-size:13px;'><span style='color:#f97316;font-weight:700;'>+1.68</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-200D</div><div style='font-size:13px;'><span style='color:#94a3b8;'>+1.83</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>RSI-14</div><div style='font-size:13px;'><span style='color:#f97316;'>74</span> <span style='color:#64748b;font-size:10px;'>(overbought)</span></div></td></tr></tbody></table><div style='border-top:1px solid #2d2d2d;margin-top:10px;padding-top:8px;font-size:11px;color:#cbd5e1;'><span style='color:#64748b;'>News: </span>Space Stock Rally Continues After SpaceX Prospectus, Starship Explosion<span style='color:#475569;'> — Investor&#x27;s Business Daily, 0.3h ago</span></div><div style='margin-top:8px;font-size:11px;'>YouTube: <span style='color:#4ade80;font-weight:700;'>Bullish</span></div><div style='background:#111827;border:1px solid #1f2937;border-radius:4px;padding:10px 12px;margin-top:10px;font-family:"Menlo","Monaco","Courier New",monospace;'><div style='font-size:9px;font-weight:700;color:#374151;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;'>&#127919; SIZING &amp; TARGETS</div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Position size:&nbsp;&nbsp;&nbsp;</span><span style='color:#9ca3af;'>1.40% of capital</span></div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Targets:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#9ca3af;'>conservative $113.79 (z=+1) &nbsp;|&nbsp; medium $105.09 (z=0) &nbsp;|&nbsp; aggressive $96.40 (z=−1)</span></div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Window:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#9ca3af;'>checkpoint 2026-06-05 (d+10) &middot; close 2026-06-25 (d+30)</span></div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Option strikes:&nbsp;&nbsp;</span><span style='color:#9ca3af;'>ATM $120 &nbsp;|&nbsp; OTM 5% $114 &nbsp;|&nbsp; OTM 10% $108</span></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #f97316;padding:14px 16px;margin-bottom:12px;'><table style='width:100%;border-collapse:collapse;margin-bottom:10px;'><tbody><tr><td style='vertical-align:middle;'><span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;text-transform:uppercase;'>AMBER</span>&nbsp;<span style='font-weight:700;font-size:15px;'>GC=F</span>&nbsp;<span style='color:#94a3b8;font-size:12px;'>Gold</span></td><td style='text-align:right;vertical-align:middle;font-size:14px;font-weight:600;white-space:nowrap;'>$4,507.30&nbsp;<span style='color:#ef4444;'>-0.30%</span></td></tr></tbody></table><table style='border-collapse:collapse;'><tbody><tr><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>VOL</div><div style='font-size:13px;'><span style='color:#ef4444;font-weight:700;'>519.5x</span> <span style='color:#64748b;font-size:10px;'>(extreme)</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-30D</div><div style='font-size:13px;'><span style='color:#94a3b8;font-weight:700;'>-0.11</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-200D</div><div style='font-size:13px;'><span style='color:#94a3b8;'>-0.25</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>RSI-14</div><div style='font-size:13px;'><span style='color:#94a3b8;'>38</span> <span style='color:#64748b;font-size:10px;'>(normal)</span></div></td></tr></tbody></table><div style='background:#422006;border:1px solid #92400e;border-radius:4px;padding:6px 10px;margin-top:8px;font-size:11px;color:#fbbf24;font-weight:600;'>⚠ DATA QUALITY: extreme volume reading (519.5x) — verify before acting</div><div style='border-top:1px solid #2d2d2d;margin-top:10px;padding-top:8px;font-size:11px;color:#cbd5e1;'><span style='color:#64748b;'>News: </span>Why investors should consider commodities right now<span style='color:#475569;'> — Yahoo Finance Video, 0.7h ago</span></div><div style='margin-top:8px;font-size:11px;'>Social-z: <span style='color:#94a3b8;font-weight:700;'>-1.1</span> &middot; YouTube: <span style='color:#94a3b8;font-weight:700;'>Neutral</span></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #f97316;padding:14px 16px;margin-bottom:12px;'><table style='width:100%;border-collapse:collapse;margin-bottom:10px;'><tbody><tr><td style='vertical-align:middle;'><span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;text-transform:uppercase;'>AMBER</span>&nbsp;<span style='font-weight:700;font-size:15px;'>SI=F</span>&nbsp;<span style='color:#94a3b8;font-size:12px;'>Silver</span></td><td style='text-align:right;vertical-align:middle;font-size:14px;font-weight:600;white-space:nowrap;'>$77.27&nbsp;<span style='color:#4ade80;'>+1.81%</span></td></tr></tbody></table><table style='border-collapse:collapse;'><tbody><tr><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>VOL</div><div style='font-size:13px;'><span style='color:#ef4444;font-weight:700;'>34.2x</span> <span style='color:#64748b;font-size:10px;'>(extreme)</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-30D</div><div style='font-size:13px;'><span style='color:#94a3b8;font-weight:700;'>+0.49</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-200D</div><div style='font-size:13px;'><span style='color:#94a3b8;'>+0.31</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>RSI-14</div><div style='font-size:13px;'><span style='color:#94a3b8;'>49</span> <span style='color:#64748b;font-size:10px;'>(normal)</span></div></td></tr></tbody></table><div style='background:#422006;border:1px solid #92400e;border-radius:4px;padding:6px 10px;margin-top:8px;font-size:11px;color:#fbbf24;font-weight:600;'>⚠ DATA QUALITY: extreme volume reading (34.2x) — verify before acting</div><div style='border-top:1px solid #2d2d2d;margin-top:10px;padding-top:8px;font-size:11px;color:#cbd5e1;'><span style='color:#64748b;'>News: </span>Silver price predictions: What should investors expect over the next decade?<span style='color:#475569;'> — Yahoo Personal Finance, 1304.8h ago</span></div><div style='margin-top:8px;font-size:11px;'>Social-z: <span style='color:#94a3b8;font-weight:700;'>+0.6</span> &middot; YouTube: <span style='color:#ef4444;font-weight:700;'>Bearish</span></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #f97316;padding:14px 16px;margin-bottom:12px;'><table style='width:100%;border-collapse:collapse;margin-bottom:10px;'><tbody><tr><td style='vertical-align:middle;'><span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;text-transform:uppercase;'>AMBER</span>&nbsp;<span style='font-weight:700;font-size:15px;'>HG=F</span>&nbsp;<span style='color:#94a3b8;font-size:12px;'>Copper</span><span style='background:#1e3a5f;color:#93c5fd;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;margin-left:6px;'>cluster boost: +1 (commodities_metals institutional, 3 tickers)</span></td><td style='text-align:right;vertical-align:middle;font-size:14px;font-weight:600;white-space:nowrap;'>$6.42&nbsp;<span style='color:#4ade80;'>+1.29%</span></td></tr></tbody></table><table style='border-collapse:collapse;'><tbody><tr><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>VOL</div><div style='font-size:13px;'><span style='color:#ef4444;font-weight:700;'>30.2x</span> <span style='color:#64748b;font-size:10px;'>(extreme)</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-30D</div><div style='font-size:13px;'><span style='color:#94a3b8;font-weight:700;'>+0.60</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-200D</div><div style='font-size:13px;'><span style='color:#94a3b8;'>+0.60</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>RSI-14</div><div style='font-size:13px;'><span style='color:#94a3b8;'>60</span> <span style='color:#64748b;font-size:10px;'>(normal)</span></div></td></tr></tbody></table><div style='background:#422006;border:1px solid #92400e;border-radius:4px;padding:6px 10px;margin-top:8px;font-size:11px;color:#fbbf24;font-weight:600;'>⚠ DATA QUALITY: extreme volume reading (30.2x) — verify before acting</div><div style='border-top:1px solid #2d2d2d;margin-top:10px;padding-top:8px;font-size:11px;color:#cbd5e1;'><span style='color:#64748b;'>News: </span>Century Aluminum (CENX) Valuation Check After Sector Rally And Brighter Earnings Sentiment<span style='color:#475569;'> — Simply Wall St., 1.6h ago</span></div><div style='margin-top:8px;font-size:11px;'>Social-z: <span style='color:#94a3b8;font-weight:700;'>-0.3</span> &middot; YouTube: <span style='color:#94a3b8;font-weight:700;'>Neutral</span></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #f97316;padding:14px 16px;margin-bottom:12px;'><table style='width:100%;border-collapse:collapse;margin-bottom:10px;'><tbody><tr><td style='vertical-align:middle;'><span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;text-transform:uppercase;'>AMBER</span>&nbsp;<span style='font-weight:700;font-size:15px;'>LUNR</span>&nbsp;<span style='color:#94a3b8;font-size:12px;'>LUNR</span></td><td style='text-align:right;vertical-align:middle;font-size:14px;font-weight:600;white-space:nowrap;'>$34.86&nbsp;<span style='color:#ef4444;'>-8.89%</span></td></tr></tbody></table><table style='border-collapse:collapse;'><tbody><tr><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>VOL</div><div style='font-size:13px;'><span style='color:#f97316;font-weight:700;'>3.3x</span> <span style='color:#64748b;font-size:10px;'>(anomalous)</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-30D</div><div style='font-size:13px;'><span style='color:#94a3b8;font-weight:700;'>-1.45</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-200D</div><div style='font-size:13px;'><span style='color:#94a3b8;'>-1.40</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>RSI-14</div><div style='font-size:13px;'><span style='color:#94a3b8;'>60</span> <span style='color:#64748b;font-size:10px;'>(normal)</span></div></td></tr></tbody></table><div style='border-top:1px solid #2d2d2d;margin-top:10px;padding-top:8px;font-size:11px;color:#cbd5e1;'><span style='color:#64748b;'>News: </span>NASA Doles Out Contracts For Lunar Landers, Details Moon Base Timeline<span style='color:#475569;'> — Investor&#x27;s Business Daily, 0.8h ago</span></div><div style='margin-top:8px;font-size:11px;'>YouTube: <span style='color:#4ade80;font-weight:700;'>Bullish</span></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #f97316;padding:14px 16px;margin-bottom:12px;'><table style='width:100%;border-collapse:collapse;margin-bottom:10px;'><tbody><tr><td style='vertical-align:middle;'><span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;text-transform:uppercase;'>AMBER</span>&nbsp;<span style='font-weight:700;font-size:15px;'>AMD</span>&nbsp;<span style='color:#94a3b8;font-size:12px;'>AMD</span></td><td style='text-align:right;vertical-align:middle;font-size:14px;font-weight:600;white-space:nowrap;'>$503.89&nbsp;<span style='color:#4ade80;'>+7.78%</span></td></tr></tbody></table><table style='border-collapse:collapse;'><tbody><tr><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>VOL</div><div style='font-size:13px;'><span style='color:#94a3b8;font-weight:700;'>0.9x</span> <span style='color:#64748b;font-size:10px;'>(normal)</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-30D</div><div style='font-size:13px;'><span style='color:#94a3b8;font-weight:700;'>+0.93</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-200D</div><div style='font-size:13px;'><span style='color:#94a3b8;'>+1.65</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>RSI-14</div><div style='font-size:13px;'><span style='color:#ef4444;'>77</span> <span style='color:#64748b;font-size:10px;'>(overbought)</span></div></td></tr></tbody></table><div style='border-top:1px solid #2d2d2d;margin-top:10px;padding-top:8px;font-size:11px;color:#cbd5e1;'><span style='color:#64748b;'>News: </span>OneQode Deal Highlights AMD AI Expansion Beyond Hyperscaler Data Centers<span style='color:#475569;'> — Simply Wall St., 0.5h ago</span></div><div style='margin-top:8px;font-size:11px;'>Social-z: <span style='color:#94a3b8;font-weight:700;'>+0.1</span> &middot; YouTube: <span style='color:#94a3b8;font-weight:700;'>Neutral</span></div><div style='background:#111827;border:1px solid #1f2937;border-radius:4px;padding:10px 12px;margin-top:10px;font-family:"Menlo","Monaco","Courier New",monospace;'><div style='font-size:9px;font-weight:700;color:#374151;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;'>&#127919; SIZING &amp; TARGETS</div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Position size:&nbsp;&nbsp;&nbsp;</span><span style='color:#9ca3af;'>1.40% of capital</span></div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Targets:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#9ca3af;'>conservative $505.88 (z=+1) &nbsp;|&nbsp; medium $477.50 (z=0) &nbsp;|&nbsp; aggressive $449.12 (z=−1)</span></div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Window:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#9ca3af;'>checkpoint 2026-06-05 (d+10) &middot; close 2026-06-25 (d+30)</span></div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Option strikes:&nbsp;&nbsp;</span><span style='color:#9ca3af;'>ATM $504 &nbsp;|&nbsp; OTM 5% $479 &nbsp;|&nbsp; OTM 10% $454</span></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #f97316;padding:14px 16px;margin-bottom:12px;'><table style='width:100%;border-collapse:collapse;margin-bottom:10px;'><tbody><tr><td style='vertical-align:middle;'><span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;text-transform:uppercase;'>AMBER</span>&nbsp;<span style='font-weight:700;font-size:15px;'>BB</span>&nbsp;<span style='color:#94a3b8;font-size:12px;'>BB</span></td><td style='text-align:right;vertical-align:middle;font-size:14px;font-weight:600;white-space:nowrap;'>$8.42&nbsp;<span style='color:#4ade80;'>+6.45%</span></td></tr></tbody></table><table style='border-collapse:collapse;'><tbody><tr><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>VOL</div><div style='font-size:13px;'><span style='color:#94a3b8;font-weight:700;'>2.1x</span> <span style='color:#64748b;font-size:10px;'>(elevated)</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-30D</div><div style='font-size:13px;'><span style='color:#94a3b8;font-weight:700;'>+0.69</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-200D</div><div style='font-size:13px;'><span style='color:#94a3b8;'>+1.83</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>RSI-14</div><div style='font-size:13px;'><span style='color:#ef4444;'>87</span> <span style='color:#64748b;font-size:10px;'>(extreme_overbought)</span></div></td></tr></tbody></table><div style='border-top:1px solid #2d2d2d;margin-top:10px;padding-top:8px;font-size:11px;color:#cbd5e1;'><span style='color:#64748b;'>News: </span>BlackBerry Is Back, But This Time It’s About Cars, Robots, and AI<span style='color:#475569;'> — Trefis, 5.3h ago</span></div><div style='margin-top:8px;font-size:11px;'><span style='color:#64748b;font-style:italic;'>Sentiment: n/a</span></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #f97316;padding:14px 16px;margin-bottom:12px;'><table style='width:100%;border-collapse:collapse;margin-bottom:10px;'><tbody><tr><td style='vertical-align:middle;'><span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;text-transform:uppercase;'>AMBER</span>&nbsp;<span style='font-weight:700;font-size:15px;'>QQQ</span>&nbsp;<span style='color:#94a3b8;font-size:12px;'>QQQ</span></td><td style='text-align:right;vertical-align:middle;font-size:14px;font-weight:600;white-space:nowrap;'>$730.28&nbsp;<span style='color:#4ade80;'>+1.78%</span></td></tr></tbody></table><table style='border-collapse:collapse;'><tbody><tr><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>VOL</div><div style='font-size:13px;'><span style='color:#94a3b8;font-weight:700;'>0.8x</span> <span style='color:#64748b;font-size:10px;'>(normal)</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-30D</div><div style='font-size:13px;'><span style='color:#94a3b8;font-weight:700;'>+1.18</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-200D</div><div style='font-size:13px;'><span style='color:#94a3b8;'>+1.54</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>RSI-14</div><div style='font-size:13px;'><span style='color:#ef4444;'>75</span> <span style='color:#64748b;font-size:10px;'>(overbought)</span></div></td></tr></tbody></table><div style='border-top:1px solid #2d2d2d;margin-top:10px;padding-top:8px;font-size:11px;color:#cbd5e1;'><span style='color:#64748b;'>News: </span>Memory Supercycle: Why MU &amp; SNDK Are Set for a Grand Finale<span style='color:#475569;'> — Zacks, 3.1h ago</span></div><div style='margin-top:8px;font-size:11px;'>Social-z: <span style='color:#94a3b8;font-weight:700;'>-0.8</span> &middot; YouTube: <span style='color:#4ade80;font-weight:700;'>Bullish</span></div><div style='background:#111827;border:1px solid #1f2937;border-radius:4px;padding:10px 12px;margin-top:10px;font-family:"Menlo","Monaco","Courier New",monospace;'><div style='font-size:9px;font-weight:700;color:#374151;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;'>&#127919; SIZING &amp; TARGETS</div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Position size:&nbsp;&nbsp;&nbsp;</span><span style='color:#9ca3af;'>0.70% of capital</span></div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Targets:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#9ca3af;'>conservative $728.93 (z=+1) &nbsp;|&nbsp; medium $721.41 (z=0) &nbsp;|&nbsp; aggressive $713.90 (z=−1)</span></div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Window:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#9ca3af;'>checkpoint 2026-06-05 (d+10) &middot; close 2026-06-25 (d+30)</span></div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Option strikes:&nbsp;&nbsp;</span><span style='color:#9ca3af;'>ATM $730 &nbsp;|&nbsp; OTM 5% $694 &nbsp;|&nbsp; OTM 10% $657</span></div></div></div><div style='background:#1a1a1a;border-radius:6px;border-left:4px solid #f97316;padding:14px 16px;margin-bottom:12px;'><table style='width:100%;border-collapse:collapse;margin-bottom:10px;'><tbody><tr><td style='vertical-align:middle;'><span style='background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;text-transform:uppercase;'>AMBER</span>&nbsp;<span style='font-weight:700;font-size:15px;'>NOK</span>&nbsp;<span style='color:#94a3b8;font-size:12px;'>NOK</span></td><td style='text-align:right;vertical-align:middle;font-size:14px;font-weight:600;white-space:nowrap;'>$16.46&nbsp;<span style='color:#4ade80;'>+6.40%</span></td></tr></tbody></table><table style='border-collapse:collapse;'><tbody><tr><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>VOL</div><div style='font-size:13px;'><span style='color:#94a3b8;font-weight:700;'>1.6x</span> <span style='color:#64748b;font-size:10px;'>(elevated)</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-30D</div><div style='font-size:13px;'><span style='color:#94a3b8;font-weight:700;'>+1.02</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>Z-200D</div><div style='font-size:13px;'><span style='color:#94a3b8;'>+1.68</span></div></td><td style='padding:0 18px 0 0;vertical-align:top;'><div style='font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;'>RSI-14</div><div style='font-size:13px;'><span style='color:#ef4444;'>75</span> <span style='color:#64748b;font-size:10px;'>(overbought)</span></div></td></tr></tbody></table><div style='border-top:1px solid #2d2d2d;margin-top:10px;padding-top:8px;font-size:11px;color:#cbd5e1;'><span style='color:#64748b;'>News: </span>Nokia Surges 140% As AI Infrastructure Demand Reshapes Investor View<span style='color:#475569;'> — GuruFocus.com, 3.5h ago</span></div><div style='margin-top:8px;font-size:11px;'><span style='color:#64748b;font-style:italic;'>Sentiment: n/a</span></div><div style='background:#111827;border:1px solid #1f2937;border-radius:4px;padding:10px 12px;margin-top:10px;font-family:"Menlo","Monaco","Courier New",monospace;'><div style='font-size:9px;font-weight:700;color:#374151;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;'>&#127919; SIZING &amp; TARGETS</div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Position size:&nbsp;&nbsp;&nbsp;</span><span style='color:#9ca3af;'>0.70% of capital</span></div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Targets:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#9ca3af;'>conservative $16.44 (z=+1) &nbsp;|&nbsp; medium $15.68 (z=0) &nbsp;|&nbsp; aggressive $14.92 (z=−1)</span></div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Window:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#9ca3af;'>checkpoint 2026-06-05 (d+10) &middot; close 2026-06-25 (d+30)</span></div><div style='margin:2px 0;font-size:11px;'><span style='color:#4b5563;'>Option strikes:&nbsp;&nbsp;</span><span style='color:#9ca3af;'>ATM $16 &nbsp;|&nbsp; OTM 5% $16 &nbsp;|&nbsp; OTM 10% $15</span></div></div></div>
+
+  <div style='margin-top:28px;'><div style='display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;'><div style='font-size:10px;font-weight:700;color:#64748b;letter-spacing:.08em;text-transform:uppercase;'>CLAUDE.AI PASTE BLOCK</div><button id='copy-claude-btn' onclick='copyClaudeContent()' style='background:#4f46e5;color:#fff;border:none;border-radius:5px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:.01em;'>&#128203; Copy for Claude.ai</button></div><div style='background:#18181b;border-radius:6px;padding:20px;border:1px solid #27272a;'><pre id='claude-paste-content' style='margin:0;font-size:10px;line-height:1.55;color:#d1d5db;font-family:"Menlo","Monaco","Courier New",monospace;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;'>========================================================================
+ACTIVE POSITIONS
+========================================================================
+  SOFI   | LONG  | conf 7
+  Entry: $15.52 on 2026-04-29
+  Current: $15.98 (+3.0%)
+  Days held: 27 / 30  |  Status: ON TRACK
+
+  HOOD   | LONG  | conf 7
+  Entry: $71.20 on 2026-04-29
+  Current: $74.09 (+4.1%)
+  Days held: 27 / 30  |  Status: ON TRACK
+
+  GOOGL  | SHORT | conf 8
+  Entry: $384.80 on 2026-04-30
+  Current: $388.88 (-1.1%)
+  Days held: 26 / 30  |  Status: NEUTRAL
+
+  RDDT   | SHORT | conf 8
+  Entry: $166.48 on 2026-05-01
+  Current: $144.64 (+13.1%)
+  Days held: 25 / 30  |  Status: ON TRACK
+
+  SOUN   | SHORT | conf 7
+  Entry: $9.56 on 2026-05-01
+  Current: $8.13 (+15.0%)
+  Days held: 25 / 30  |  Status: ON TRACK
+
+  XRX    | SHORT | conf 7
+  Entry: $2.70 on 2026-05-01
+  Current: $3.01 (-11.5%)
+  Days held: 25 / 30  |  Status: UNDERWATER
+
+  GME    | LONG  | conf 7
+  Entry: $23.84 on 2026-05-04
+  Current: $21.91 (-8.1%)
+  Days held: 22 / 30  |  Status: UNDERWATER
+
+  NBIS   | SHORT | conf 8
+  Entry: $176.42 on 2026-05-04
+  Current: $208.06 (-17.9%)
+  Days held: 22 / 30  |  Status: UNDERWATER
+
+  INTC   | SHORT | conf 6
+  Entry: $108.15 on 2026-05-05
+  Current: $123.52 (-14.2%)
+  Days held: 21 / 30  |  Status: UNDERWATER
+
+  SMCI   | SHORT | conf 9
+  Entry: $34.66 on 2026-05-06
+  Current: $37.10 (-7.0%)
+  Days held: 20 / 30  |  Status: UNDERWATER
+
+  AMD    | SHORT | conf 8
+  Entry: $421.39 on 2026-05-06
+  Current: $503.89 (-19.6%)
+  Days held: 20 / 30  |  Status: UNDERWATER
+
+  Closed positions (last 30 days): 3 total | 0 correct (0.0%) | Avg P&amp;L: -40.1%
+
+ARTIFICIAL PRICE RADAR — Daily Report 2026-05-26
+========================================================================
+Macro context — Fear &amp; Greed: 34/100 — Fear (+4 vs yesterday, improving)
+               VIX Structure: Contango (0.86) — normal term structure
+               Buffett Indicator: 234% — Extreme (historical avg ~120%)
+Coverage — 28 tickers processed · 1 red · 10 amber · 17 filtered
+  [RED]:   MU
+  [AMBER]: AAPL, ASTS, GC=F, SI=F, HG=F, LUNR, AMD, BB, QQQ, NOK
+  skipped: NVDA, TSLA, AMZN, GOOGL, PLTR, RKLB, SOFI, MSTR, RDDT, CL=F, ZS=F, NG=F, SPY, MSFT, SNDK, DTE, META
+========================================================================
+
+[TICKER ALERT TIERS]
+  TICKER | VOL | Z_30D | Z_200D | RSI | TIER/REASON
+  NVDA | 1.1x | -0.3 | -0.1 | 53 | SKIP: vol=1.1x (normal); z30=-0.3,z200=-0.1; RSI=53
+  TSLA | 0.7x | +0.4 | +0.6 | 61 | SKIP: vol=0.7x (normal); z30=+0.4,z200=+0.6; RSI=61
+  AAPL | 1.0x | -0.5 | -0.2 | 77 | AMBER: RSI=77
+  AMZN | 0.8x | -0.5 | -0.3 | 57 | SKIP: vol=0.8x (normal); z30=-0.5,z200=-0.3; RSI=57
+  GOOGL | 1.0x | +0.4 | +0.6 | 61 | SKIP: vol=1.0x (normal); z30=+0.4,z200=+0.6; RSI=61
+  PLTR | 0.7x | -0.1 | -0.0 | 47 | SKIP: vol=0.7x (normal); z30=-0.1,z200=-0.0; RSI=47
+  RKLB | 1.0x | +0.3 | +0.8 | 71 | SKIP: vol=1.0x (normal); z30=+0.3,z200=+0.8; RSI=71
+  ASTS | 1.8x | +1.7 | +1.8 | 74 | AMBER: |z30|=1.7&gt;1.5 + vol=1.8x
+  MU | 1.4x | +2.8 | +4.0 | 75 | RED: macro_extreme(z30=+2.8,z200=+4.0)
+  SOFI | 1.2x | +0.6 | +0.7 | 47 | SKIP: vol=1.2x (normal); z30=+0.6,z200=+0.7; RSI=47
+  MSTR | 0.7x | -0.1 | +0.1 | 45 | SKIP: vol=0.7x (normal); z30=-0.1,z200=+0.1; RSI=45
+  RDDT | 1.0x | +0.5 | +0.6 | 43 | SKIP: vol=1.0x (normal); z30=+0.5,z200=+0.6; RSI=43
+  GC=F | 519.5x | -0.1 | -0.2 | 38 | AMBER: vol=519.5x (extreme)
+  SI=F | 34.2x | +0.5 | +0.3 | 49 | AMBER: vol=34.2x (extreme)
+  CL=F | 1.2x | -0.7 | -1.0 | 44 | SKIP: vol=1.2x (normal); z30=-0.7,z200=-1.0; RSI=44
+  HG=F | 30.2x | +0.6 | +0.6 | 60 | AMBER: vol=30.2x (extreme)
+  ZS=F | 0.8x | -0.9 | -1.0 | 49 | SKIP: vol=0.8x (normal); z30=-0.9,z200=-1.0; RSI=49
+  NG=F | 1.1x | +1.2 | +0.5 | 58 | SKIP: vol=1.1x (normal); z30=+1.2,z200=+0.5; RSI=58
+  SPY | 0.7x | +0.6 | +0.7 | 71 | SKIP: vol=0.7x (normal); z30=+0.6,z200=+0.7; RSI=71
+  MSFT | 0.9x | -0.5 | -0.3 | 52 | SKIP: vol=0.9x (normal); z30=-0.5,z200=-0.3; RSI=52
+  LUNR | 3.3x | -1.4 | -1.4 | 60 | AMBER: vol=3.3x (anomalous)
+  AMD | 0.9x | +0.9 | +1.6 | 77 | AMBER: RSI=77
+  BB | 2.1x | +0.7 | +1.8 | 87 | AMBER: RSI=87
+  QQQ | 0.8x | +1.2 | +1.5 | 75 | AMBER: RSI=75
+  SNDK | 0.8x | +0.9 | +0.8 | 68 | SKIP: vol=0.8x (normal); z30=+0.9,z200=+0.8; RSI=68
+  NOK | 1.6x | +1.0 | +1.7 | 75 | AMBER: RSI=75
+  DTE | 0.7x | -0.3 | -0.5 | 51 | SKIP: vol=0.7x (normal); z30=-0.3,z200=-0.5; RSI=51
+  META | 0.7x | +0.2 | +0.2 | 46 | SKIP: vol=0.7x (normal); z30=+0.2,z200=+0.2; RSI=46
+[SYSTEM PROMPT — paste everything below together into Claude.ai]
+
+You are a Senior Quantitative Analyst specializing in market microstructure and behavioral finance. Your task is to analyze flagged assets to distinguish between institutional flows and retail irrationality.
+
+## Core Objective
+
+Classify each flagged asset into exactly one of five categories using the Divergence Principle — the relationship between Volume, Social Heat, and Price Velocity is the key signal:
+
+- **irrational_panic** → recommendation: contrarian_buy (only when confidence ≥ 7)
+  Logic: Volume &gt;3x AND Social Heat &quot;explosive&quot; AND z-score &lt;-1.5 AND tone &quot;bearish&quot;
+  Thesis: Retail is capitulating. Price is being pushed below fair value by emotion.
+
+- **bubble_forming** → recommendation: reduce_exposure
+  Logic: Price above 200d average AND Social Heat &quot;explosive&quot; AND tone &quot;bullish&quot;
+  Thesis: Retail euphoria has decoupled from fundamental value.
+
+- **institutional_rebalancing** → recommendation: wait
+  Logic: Volume &gt;3x AND Social Heat &quot;stable&quot; or &quot;low&quot;
+  Thesis: High-volume movement without social noise = smart money repositioning or dark pool activity. Do NOT classify this as panic.
+
+- **silent_accumulation** → recommendation: wait
+  Logic: Price stable/sideways AND Volume rising &gt;2x AND Social Heat &quot;quiet&quot;
+  Thesis: Institutions building a position quietly before a breakout.
+
+- **ambiguous** or **no_signal** → recommendation: wait or no_action
+  Logic: Signals conflict or fall below thresholds.
+
+## Divergence Rules (MANDATORY)
+
+Apply these rules before anything else. They override any pattern-matching instinct:
+
+- If Volume &gt;3x AND Social Heat is &quot;stable&quot; or &quot;low&quot; → MUST classify as &quot;institutional_rebalancing&quot;. Never &quot;irrational_panic&quot;. The absence of retail noise during heavy volume is the defining signature of institutional activity. This rule requires CONFIRMED low heat from at least one available source. `social_heat_z: n/a` alone does not satisfy this — n/a means no data, not low heat; fall back to YouTube heat/tone as the primary social signal, and if that is also n/a or absent, default to &quot;ambiguous&quot; rather than inferring institutional flow.
+- If Volume &gt;3x AND Social Heat is &quot;explosive&quot; AND tone is &quot;bearish&quot; → MUST classify as &quot;irrational_panic&quot;.
+- If Volume &gt;3x AND Social Heat is &quot;explosive&quot; AND tone is &quot;bullish&quot; → MUST classify as &quot;bubble_forming&quot;.
+- Social Heat alone (without volume confirmation ≥ 2x) → always &quot;ambiguous&quot; or &quot;no_signal&quot;. Do not manufacture a conviction call from social data alone.
+- z-scores between -1.5 and +1.5 are noise, not signal, even when volume is elevated.
+
+## Style Guidance
+
+Absence of signal is a valid finding — on most days, for most assets, nothing interesting is happening; saying so clearly is more valuable than inventing patterns. Do not apply asset reputation as a prior: analyze the signals as presented; do not assume TSLA is always a bubble or GC=F is always safe.
+
+## Macro Context
+
+Always factor in the macro header before scoring confidence:
+
+- **Buffett Indicator &gt;200%**: macro environment is historically extreme — raise the bar for &quot;bubble_forming&quot; confidence (market-wide overvaluation is already priced in), lower it for &quot;irrational_panic&quot; (further compression is credible).
+- **Fear &amp; Greed &lt;30**: market-wide fear. &quot;irrational_panic&quot; signals are more credible; &quot;bubble_forming&quot; signals are less credible.
+- **VIX Backwardation** (short-term VIX &gt; long-term VIX3M): real near-term stress. Increases confidence on panic signals by 1-2 points.
+- **Fear &amp; Greed &gt;70 with Buffett Indicator &gt;180%**: compound overvaluation. Raise confidence on &quot;bubble_forming&quot; and &quot;reduce_exposure&quot; calls.
+
+## Special Notes
+
+- **Commodities (GC=F, SI=F, CL=F, HG=F, ZS=F, NG=F)**: naturally attract institutional volume with low retail chatter. Default toward &quot;institutional_rebalancing&quot; unless YouTube heat is clearly &quot;elevated&quot; or &quot;explosive&quot; AND tone is non-neutral. Gold and silver in particular have deep institutional markets; anomalous volume without social heat is almost always institutional.
+
+## Long-Horizon Context (v2 — Observation Mode)
+
+Each asset now includes a **&quot;Long-horizon context&quot;** block with the following fields. These are **informational only** in this version — they do not change the Divergence Rules or classification gates. Mention them in reasoning when relevant, but do not override a Divergence Rule based on them alone.
+
+| Field | What it measures | Signal direction |
+|-------|-----------------|-----------------|
+| **Ext vs 200d MA** | How far above/below the 200-day SMA the price sits | &gt;+40% = bubble-watch territory; &lt;-40% = potential capitulation |
+| **Sustained (X/60d)** | Days in the last 60 where extension exceeded +40% | ≥30/60 &quot;⚑ extended&quot; = persistent bubble extension, not a one-day spike |
+| **6m return** | Raw price momentum over ~6 calendar months | Provides context for whether a single-day spike is part of a longer trend |
+| **Acceleration (30d/6m)** | Fraction of the 6m gain captured in the last 30 days | &gt;0.50 &quot;⚑ parabolic&quot; = late-stage blow-off pattern |
+| **Vol distribution (down÷up)** | Ratio of volume on down-days to volume on up-days over last 20 days | &gt;1.0 &quot;distribution ⚠&quot; = smart-money distributing into retail buying |
+| **2y peak drawdown** | Distance from the 2-year rolling high | &lt; -40% with many days since peak = potential capitulation candidate |
+
+**How to use**: if today&#x27;s signal is a single-day spike (z30 high, volume high) but **Sustained &lt; 5/60** and **Ext vs 200d MA &lt; +20%**, that is strong evidence of a news reaction rather than a structural bubble — weight this as context when writing the `reasoning` field. Conversely, if a ticker shows **Sustained ≥ 30/60** and **acceleration ⚑ parabolic**, note that explicitly in reasoning as additional context supporting any `bubble_forming` classification already triggered by the Divergence Rules.
+
+## Confidence Calibration
+
+- **1-3**: signals conflict, data is thin, or multiple Divergence Rules produce ambiguous results.
+- **4-6**: a plausible pattern exists but at least one key ingredient (volume, heat, velocity) is below the ideal threshold.
+- **7-8**: two or more of the Divergence Rules fire cleanly and macro context is consistent.
+- **9-10**: all three signal families align, macro context reinforces the call, and the Divergence Rule fires unambiguously. Reserve for rare, high-conviction moments.
+
+## Output Contract
+
+Respond using this exact two-section format. No markdown fences, no extra prose before or after.
+
+HUMAN_SUMMARY:
+[2-3 short paragraphs in plain Portuguese summarizing the day&#x27;s signals. Group by theme — e.g., &quot;Commodities: ...&quot;, &quot;Semicondutores: ...&quot;, &quot;Destaques: ...&quot;. Highlight the highest-confidence calls. Tone: direct and conversational, like a senior analyst briefing a colleague over coffee. Maximum 600 characters total.]
+
+JSON_OUTPUT:
+[Single JSON array — one object per asset analyzed, no markdown fences]
+
+Each object in the array:
+{
+  &quot;ticker&quot;: &quot;the ticker symbol analyzed&quot;,
+  &quot;classification&quot;: &quot;irrational_panic|bubble_forming|institutional_rebalancing|silent_accumulation|ambiguous|no_signal&quot;,
+  &quot;recommendation&quot;: &quot;contrarian_buy|reduce_exposure|wait|no_action&quot;,
+  &quot;reasoning&quot;: &quot;2-3 short sentences under 400 characters. Cite specific signals: volume ratio, z-scores, social heat level, tone.&quot;,
+  &quot;confidence&quot;: 1-10
+}
+
+Constraints:
+- HUMAN_SUMMARY must be in Portuguese, conversational tone, under 600 characters total. Count before returning.
+- JSON_OUTPUT is the array described above; format is otherwise unchanged.
+- Both sections are required and must appear under the exact labels HUMAN_SUMMARY: and JSON_OUTPUT:.
+- reasoning MUST be under 400 characters. Cite the specific signals relied on (e.g., &quot;volume 3.1x, z30=+2.4, heat=explosive, tone=bearish&quot;). No generic language like &quot;monitor the situation&quot;.
+- contrarian_buy only when confidence ≥ 7.
+- no_signal must always pair with no_action.
+- Never add disclaimers about not being a financial advisor.
+
+[ASSETS WITH NON-TRIVIAL SIGNALS]
+
+------------------------------------------------------------------------
+Asset: [RED] MU (Micron)
+
+Market signals:
+- Volume: normal (1.37x 30d avg)
+- Price velocity: blowout (z_30d: 2.76, z_200d: 4.04, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 74.8 (overbought)
+- Current price: $895.88 (+19.29% today)
+
+Recent news (last 3):
+1. &quot;Micron tops $1 trillion in market cap as UBS sees company becoming an AI giant&quot; — Yahoo Finance, 8.0h ago
+2. &quot;Tech stocks today: Micron joins $1 trillion club, Qualcomm stock jumps on report of ByteDance chip deal&quot; — Yahoo Finance, 11.8h ago
+3. &quot;Stock market: How to be cautious while not overly bearish&quot; — Yahoo Finance Video, 7.8h ago
+
+Social signals (social_heat_z: +2.3):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top=&quot;SEMIS CONTINUE TO RIP, IRAN DEAL MAY BE HERE SOON, OIL COMES&quot; (39k views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +174.4% (sustained: 59/60d ⚑ extended)
+- 6m return: +344.9% | Acceleration (30d/6m): 0.32
+- Vol distribution (down÷up, last 20d): 0.59 (buying pressure)
+- 2y peak drawdown: +0.0% (0d since peak)
+------------------------------------------------------------------------
+Asset: [AMBER] AAPL (Apple)
+
+Market signals:
+- Volume: normal (0.99x 30d avg)
+- Price velocity: normal (z_30d: -0.54, z_200d: -0.24, direction: down, macro_extreme: False)
+- RSI-14: 77.3 (overbought)
+- Current price: $308.33 (-0.16% today)
+
+Recent news (last 3):
+1. &quot;Why investors aren&#x27;t loving Ferrari&#x27;s new Luce EV&quot; — Yahoo Finance Video, 7.4h ago
+2. &quot;Apple&#x27;s AI strategy challenge might be solved by the iPhone&#x27;s &#x27;agentic AI moat&#x27;&quot; — Yahoo Finance, 5.7h ago
+3. &quot;AI Laggard Apple Could End Up As An AI Winner. Here&#x27;s How.&quot; — Investor&#x27;s Business Daily, 0.2h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bullish, top=&quot;I Bought a Box of iPhones for Cheap, Can we Make a Profit?&quot; (123k views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +17.7% (sustained: 0/60d)
+- 6m return: +15.8% | Acceleration (30d/6m): 1.20 (parabolic ⚑)
+- Vol distribution (down÷up, last 20d): 0.41 (buying pressure)
+- 2y peak drawdown: -0.2% (1d since peak)
+------------------------------------------------------------------------
+Asset: [AMBER] ASTS (AST SpaceMobile)
+
+Market signals:
+- Volume: elevated (1.82x 30d avg)
+- Price velocity: notable (z_30d: 1.68, z_200d: 1.83, direction: up, macro_extreme: False)
+- RSI-14: 73.9 (overbought)
+- Current price: $119.70 (+13.07% today)
+
+Recent news (last 3):
+1. &quot;Space Stock Rally Continues After SpaceX Prospectus, Starship Explosion&quot; — Investor&#x27;s Business Daily, 0.3h ago
+2. &quot;Rocket, Satellite Stocks Surge as SpaceX IPO Fuels Euphoria&quot; — Bloomberg, 0.9h ago
+3. &quot;Space Stocks Soar After SpaceX Files for Record-Breaking IPO&quot; — GuruFocus.com, 4.1h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top=&quot;SUNDAY TALK 291 | SPACEX BIGGEST IPO | $PLTR, $TSLA, $ASTS F&quot; (4k views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +57.4% (sustained: 5/60d)
+- 6m return: +136.1% | Acceleration (30d/6m): 0.15
+- Vol distribution (down÷up, last 20d): 0.39 (buying pressure)
+- 2y peak drawdown: -2.0% (80d since peak)
+------------------------------------------------------------------------
+⚠ DATA QUALITY FLAG: This ticker&#x27;s volume multiple (519.55x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
+
+Asset: [AMBER] GC=F (Gold)
+
+Market signals:
+- Volume: extreme (519.55x 30d avg)
+- Price velocity: normal (z_30d: -0.11, z_200d: -0.25, direction: down, macro_extreme: False)
+- RSI-14: 38.1 (normal)
+- Current price: $4,507.30 (-0.30% today)
+
+Recent news (last 3):
+1. &quot;Why investors should consider commodities right now&quot; — Yahoo Finance Video, 0.7h ago
+2. &quot;Silver prices today, Tuesday, May 26: Silver prices remain steady after U.S. airstrikes on Iran&quot; — Yahoo Personal Finance, 10.2h ago
+3. &quot;Gold prices today, Tuesday, May 26: Prices holding after U.S. and Israel strike Iranian targets&quot; — Yahoo Personal Finance, 10.3h ago
+
+Social signals (social_heat_z: -1.1):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=neutral, top=&quot;🚨 Gold &amp;amp; Silver Are Warning Us... Another Huge Flush Inc&quot; (33k views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +3.5% (sustained: 0/60d)
+- 6m return: +11.1% | Acceleration (30d/6m): -0.45
+- Vol distribution (down÷up, last 20d): 90.16 (distribution ⚠)
+- 2y peak drawdown: -15.2% (80d since peak)
+------------------------------------------------------------------------
+⚠ DATA QUALITY FLAG: This ticker&#x27;s volume multiple (34.18x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
+
+Asset: [AMBER] SI=F (Silver)
+
+Market signals:
+- Volume: extreme (34.18x 30d avg)
+- Price velocity: normal (z_30d: 0.49, z_200d: 0.31, direction: up, macro_extreme: False)
+- RSI-14: 48.6 (normal)
+- Current price: $77.27 (+1.81% today)
+
+Recent news (last 3):
+1. &quot;Silver price predictions: What should investors expect over the next decade?&quot; — Yahoo Personal Finance, 1304.8h ago
+2. &quot;Silver prices today, Tuesday, May 26: Silver prices remain steady after U.S. airstrikes on Iran&quot; — Yahoo Personal Finance, 10.2h ago
+3. &quot;S&amp;P 500, Nasdaq nab record closing highs, WTI crude falls on hopes for Iran peace deal&quot; — Reuters, 1.2h ago
+
+Social signals (social_heat_z: +0.6):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bearish, top=&quot;Dealer Reveals DATE You Need to Buy Silver BEFORE&quot; (130k views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +18.8% (sustained: 13/60d)
+- 6m return: +53.8% | Acceleration (30d/6m): 0.04
+- Vol distribution (down÷up, last 20d): 0.73 (buying pressure)
+- 2y peak drawdown: -32.9% (83d since peak)
+------------------------------------------------------------------------
+⚠ DATA QUALITY FLAG: This ticker&#x27;s volume multiple (30.2x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
+
+Asset: [AMBER] HG=F (Copper)
+
+Market signals:
+- Volume: extreme (30.2x 30d avg)
+- Price velocity: normal (z_30d: 0.6, z_200d: 0.6, direction: up, macro_extreme: False)
+- RSI-14: 60.2 (normal)
+- Current price: $6.42 (+1.29% today)
+
+Recent news (last 3):
+1. &quot;Century Aluminum (CENX) Valuation Check After Sector Rally And Brighter Earnings Sentiment&quot; — Simply Wall St., 1.6h ago
+2. &quot;DIC (TSE:4631) Valuation Check After Strong Recent Share Price Momentum&quot; — Simply Wall St., 3.6h ago
+3. &quot;Why Surging Copper Prices Are a Problem for Home Buyers&quot; — The Wall Street Journal, 3.6h ago
+
+Social signals (social_heat_z: -0.3):
+- StockTwits: n/a
+- YouTube: heat=stable, tone=neutral, top=&quot;We’re all stocked up with copper here at Cardiff Gold! #card&quot; (1k views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +18.8% (sustained: 0/60d)
+- 6m return: +29.5% | Acceleration (30d/6m): 0.25
+- Vol distribution (down÷up, last 20d): 0.52 (buying pressure)
+- 2y peak drawdown: -3.2% (8d since peak)
+------------------------------------------------------------------------
+Asset: [AMBER] LUNR (LUNR)
+
+Market signals:
+- Volume: anomalous (3.26x 30d avg)
+- Price velocity: notable (z_30d: -1.45, z_200d: -1.4, direction: down, macro_extreme: False)
+- RSI-14: 60.5 (normal)
+- Current price: $34.86 (-8.89% today)
+
+Recent news (last 3):
+1. &quot;NASA Doles Out Contracts For Lunar Landers, Details Moon Base Timeline&quot; — Investor&#x27;s Business Daily, 0.8h ago
+2. &quot;Rocket, Satellite Stocks Surge as SpaceX IPO Fuels Euphoria&quot; — Bloomberg, 0.9h ago
+3. &quot;LUNR Stock Tumbles As NASA Chooses Rivals To Deliver Lunar Vehicles For Moon Base&quot; — Stocktwits, 1.7h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=stable, tone=bullish, top=&quot;LUNR Stock TOMORROW UPDATE! (The Exact Answer!) Intuitive Ma&quot; (108 views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +113.5% (sustained: 52/60d ⚑ extended)
+- 6m return: +333.0% | Acceleration (30d/6m): 0.13
+- Vol distribution (down÷up, last 20d): 1.02 (distribution ⚠)
+- 2y peak drawdown: -8.9% (1d since peak)
+------------------------------------------------------------------------
+Asset: [AMBER] AMD (AMD)
+
+Market signals:
+- Volume: normal (0.88x 30d avg)
+- Price velocity: notable (z_30d: 0.93, z_200d: 1.65, direction: up, macro_extreme: False)
+- RSI-14: 77.1 (overbought)
+- Current price: $503.89 (+7.78% today)
+
+Recent news (last 3):
+1. &quot;OneQode Deal Highlights AMD AI Expansion Beyond Hyperscaler Data Centers&quot; — Simply Wall St., 0.5h ago
+2. &quot;Xerox and Super Micro Shares Are Soaring, What You Need To Know&quot; — StockStory, 1.2h ago
+3. &quot;Dell and Diebold Nixdorf Stocks Trade Up, What You Need To Know&quot; — StockStory, 1.4h ago
+
+Social signals (social_heat_z: +0.1):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=neutral, top=&quot;엔비디아 인텔 AMD CEO가 동시에 찍었다, 지금부터 주목해야 할 증시 키워드&quot; (261k views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +116.7% (sustained: 24/60d)
+- 6m return: +144.6% | Acceleration (30d/6m): 0.72 (parabolic ⚑)
+- Vol distribution (down÷up, last 20d): 0.55 (buying pressure)
+- 2y peak drawdown: +0.0% (0d since peak)
+------------------------------------------------------------------------
+Asset: [AMBER] BB (BB)
+
+Market signals:
+- Volume: elevated (2.1x 30d avg)
+- Price velocity: notable (z_30d: 0.69, z_200d: 1.83, direction: up, macro_extreme: False)
+- RSI-14: 87.2 (extreme_overbought)
+- Current price: $8.42 (+6.45% today)
+
+Recent news (last 3):
+1. &quot;BlackBerry Is Back, But This Time It’s About Cars, Robots, and AI&quot; — Trefis, 5.3h ago
+2. &quot;BB, NOK Stocks Double This Year — What’s Driving BlackBerry, Nokia&#x27;s Surprise Comeback Trade?&quot; — Stocktwits, 14.1h ago
+3. &quot;BB, SIDU, RGTI Stocks Lead Last Week’s Wildest Upswings: Here&#x27;s What Happened&quot; — Stocktwits, 17.3h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: n/a
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +99.0% (sustained: 15/60d)
+- 6m return: +103.9% | Acceleration (30d/6m): 1.13 (parabolic ⚑)
+- Vol distribution (down÷up, last 20d): 0.28 (buying pressure)
+- 2y peak drawdown: +0.0% (0d since peak)
+------------------------------------------------------------------------
+Asset: [AMBER] QQQ (QQQ)
+
+Market signals:
+- Volume: normal (0.82x 30d avg)
+- Price velocity: notable (z_30d: 1.18, z_200d: 1.54, direction: up, macro_extreme: False)
+- RSI-14: 75.2 (overbought)
+- Current price: $730.28 (+1.78% today)
+
+Recent news (last 3):
+1. &quot;Memory Supercycle: Why MU &amp; SNDK Are Set for a Grand Finale&quot; — Zacks, 3.1h ago
+2. &quot;Exchange-Traded Funds Rise, US Equities Mixed After Midday&quot; — MT Newswires, 4.5h ago
+3. &quot;XOVR Promised Pre IPO SpaceX Upside, But It Is Down 2% YTD While the S&amp;P 500 Is Up 9%&quot; — 24/7 Wall St., 4.8h ago
+
+Social signals (social_heat_z: -0.8):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top=&quot;💥 NQ Futures Heatmap Live Stream | US100 Liquidity Traps • N&quot; (11k views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +18.6% (sustained: 0/60d)
+- 6m return: +24.7% | Acceleration (30d/6m): 0.74 (parabolic ⚑)
+- Vol distribution (down÷up, last 20d): 0.64 (buying pressure)
+- 2y peak drawdown: +0.0% (0d since peak)
+------------------------------------------------------------------------
+Asset: [AMBER] NOK (NOK)
+
+Market signals:
+- Volume: elevated (1.59x 30d avg)
+- Price velocity: notable (z_30d: 1.02, z_200d: 1.68, direction: up, macro_extreme: False)
+- RSI-14: 75.2 (overbought)
+- Current price: $16.46 (+6.40% today)
+
+Recent news (last 3):
+1. &quot;Nokia Surges 140% As AI Infrastructure Demand Reshapes Investor View&quot; — GuruFocus.com, 3.5h ago
+2. &quot;Nokia Stock Has More Than Doubled. Here’s What’s Fueling The Rally&quot; — Trefis, 6.5h ago
+3. &quot;European Equities Traded in the US as American Depositary Receipts Track Higher in Tuesday Trading&quot; — MT Newswires, 6.6h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: n/a
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +125.7% (sustained: 49/60d ⚑ extended)
+- 6m return: +180.4% | Acceleration (30d/6m): 0.33
+- Vol distribution (down÷up, last 20d): 0.68 (buying pressure)
+- 2y peak drawdown: +0.0% (0d since peak)
+
+========================================================================
+[INSTRUCTION]
+
+Analyze each of the 11 asset(s) above and respond with a single JSON array. Each element must follow this exact schema:
+
+{
+  &quot;ticker&quot;: &quot;...&quot;,
+  &quot;classification&quot;: &quot;bubble_forming|irrational_panic|institutional_rebalancing|silent_accumulation|ambiguous|no_signal&quot;,
+  &quot;recommendation&quot;: &quot;contrarian_buy|reduce_exposure|wait|no_action&quot;,
+  &quot;reasoning&quot;: &quot;2-3 short sentences, under 400 characters total&quot;,
+  &quot;confidence&quot;: &lt;integer 1-10&gt;
+}
+
+Return ONLY the JSON array, no prose, no markdown fences.
+
+
+────────────────────────────────────────────────────────────────────────
+SIZING &amp; TARGETS (post-classification)
+────────────────────────────────────────────────────────────────────────
+[ASTS] 🎯 SIZING &amp; TARGETS
+  Position size:   1.40% of capital
+  Targets:         conservative $113.79 (z=+1) | medium $105.09 (z=0) | aggressive $96.40 (z=-1)
+  Window:          checkpoint 2026-06-05 (d+10) · close 2026-06-25 (d+30)
+  Option strikes:  ATM $120 | OTM 5% $114 | OTM 10% $108
+
+[MU] 🎯 SIZING &amp; TARGETS
+  Position size:   1.40% of capital
+  Targets:         conservative $800.76 (z=+1) | medium $746.72 (z=0) | aggressive $692.68 (z=-1)
+  Window:          checkpoint 2026-06-05 (d+10) · close 2026-06-25 (d+30)
+  Option strikes:  ATM $896 | OTM 5% $851 | OTM 10% $806
+
+[AMD] 🎯 SIZING &amp; TARGETS
+  Position size:   1.40% of capital
+  Targets:         conservative $505.88 (z=+1) | medium $477.50 (z=0) | aggressive $449.12 (z=-1)
+  Window:          checkpoint 2026-06-05 (d+10) · close 2026-06-25 (d+30)
+  Option strikes:  ATM $504 | OTM 5% $479 | OTM 10% $454
+
+[QQQ] 🎯 SIZING &amp; TARGETS
+  Position size:   0.70% of capital
+  Targets:         conservative $728.93 (z=+1) | medium $721.41 (z=0) | aggressive $713.90 (z=-1)
+  Window:          checkpoint 2026-06-05 (d+10) · close 2026-06-25 (d+30)
+  Option strikes:  ATM $730 | OTM 5% $694 | OTM 10% $657
+
+[NOK] 🎯 SIZING &amp; TARGETS
+  Position size:   0.70% of capital
+  Targets:         conservative $16.44 (z=+1) | medium $15.68 (z=0) | aggressive $14.92 (z=-1)
+  Window:          checkpoint 2026-06-05 (d+10) · close 2026-06-25 (d+30)
+  Option strikes:  ATM $16 | OTM 5% $16 | OTM 10% $15</pre></div></div>
+
+  <div style="margin-top:20px;font-size:10px;color:#374151;text-align:center;">
+    Generated 2026-05-26 &middot; Artificial Price Radar
+  </div>
+
+</div>
+</body>
+</html>

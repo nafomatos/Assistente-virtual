@@ -1,0 +1,82 @@
+{
+  "date": "2026-05-26",
+  "signals": [
+    {
+      "ticker": "MU",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Volume 1.4x (abaixo de 3x), mas z200=+4.0, RSI 75, heat=explosive/bullish, +19% no dia ap\u00f3s entrar no clube US$1T. Ext +174% sobre 200d sustentada 59/60d \u2691. Euforia retail decoupled \u2014 Buffett 234% refor\u00e7a.",
+      "confidence": 8
+    },
+    {
+      "ticker": "AAPL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "RSI 77 isolado; volume normal (0.99x), z30=-0.5 negativo, pre\u00e7o -0.16% hoje. Heat=elevated/bullish mas sem confirma\u00e7\u00e3o de volume. Acelera\u00e7\u00e3o parab\u00f3lica observada, mas sinal de hoje \u00e9 fraco.",
+      "confidence": 4
+    },
+    {
+      "ticker": "ASTS",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Volume 1.8x, z30=+1.7, +13% no dia, RSI 74, heat=explosive/bullish em torno do IPO SpaceX. N\u00e3o bate gate de 3x volume, mas todos os outros componentes alinham com euforia retail.",
+      "confidence": 7
+    },
+    {
+      "ticker": "GC=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 519x \u00e9 artefato de dados (flag expl\u00edcita). z30=-0.1, pre\u00e7o -0.3%, heat=elevated/neutral. Sem velocidade nem dire\u00e7\u00e3o clara \u2014 sinal n\u00e3o interpret\u00e1vel.",
+      "confidence": 3
+    },
+    {
+      "ticker": "SI=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 34x flagged como artefato. z30=+0.5 (ru\u00eddo), RSI 49, heat=explosive/bearish mas sem confirma\u00e7\u00e3o de pre\u00e7o (+1.8%). Diverg\u00eancia heat/pre\u00e7o n\u00e3o chega a panic nem bubble.",
+      "confidence": 3
+    },
+    {
+      "ticker": "HG=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 30x flagged como artefato; commodity com heat=stable/neutral. z30=+0.6 ru\u00eddo. Default para commodities: fluxo institucional sem narrativa retail.",
+      "confidence": 5
+    },
+    {
+      "ticker": "LUNR",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 3.3x com heat=stable e social_heat_z=n/a \u2014 gate de panic n\u00e3o dispara sem heat explosivo confirmado. Queda -8.9% p\u00f3s-perda contrato NASA \u00e9 rea\u00e7\u00e3o a not\u00edcia; Ext +113% ainda elevada.",
+      "confidence": 6
+    },
+    {
+      "ticker": "AMD",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Volume normal (0.88x), mas z200=+1.65, RSI 77, +7.8% no dia, Ext +116% sobre 200d, acelera\u00e7\u00e3o 0.72 \u2691 parab\u00f3lica. Heat=explosive (tone neutral). Padr\u00e3o de blow-off late-stage.",
+      "confidence": 7
+    },
+    {
+      "ticker": "BB",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "RSI 87 extremo e Ext +99% parab\u00f3lica, mas sem dados sociais (heat=n/a em todas fontes). Volume 2.1x abaixo do gate. Sem confirma\u00e7\u00e3o de heat, n\u00e3o posso chamar bubble com convic\u00e7\u00e3o.",
+      "confidence": 5
+    },
+    {
+      "ticker": "QQQ",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Volume 0.82x baixo, mas z200=+1.54, RSI 75, acelera\u00e7\u00e3o 0.74 \u2691 parab\u00f3lica, heat=explosive/bullish. Buffett 234% extremo amplifica risco de topo no \u00edndice. Sinal moderado por volume fraco.",
+      "confidence": 6
+    },
+    {
+      "ticker": "NOK",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Volume 1.6x, z200=+1.68, RSI 75, +6.4% hoje, Ext +125% sobre 200d sustentada 49/60d \u2691. Narrativa AI/Nokia +140% YTD. Heat n/a limita convic\u00e7\u00e3o mas estrutura de bolha \u00e9 clara.",
+      "confidence": 6
+    }
+  ]
+}
