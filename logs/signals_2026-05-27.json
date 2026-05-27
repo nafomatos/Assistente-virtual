@@ -1,0 +1,75 @@
+{
+  "date": "2026-05-27",
+  "signals": [
+    {
+      "ticker": "CRSR",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Volume 6.2x, z30=+3.7, RSI 80, +21% intraday em not\u00edcia de CFO/AI server. Sem dados sociais confirmados mas tape parab\u00f3lica (accel 0.78). Sustained s\u00f3 1/60d sugere news spike, n\u00e3o bolha estrutural \u2014 conf moderada.",
+      "confidence": 6
+    },
+    {
+      "ticker": "AAPL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume normal 1.06x, z30=+0.1 (ru\u00eddo), RSI 79 s\u00f3 por pre\u00e7o em ATH. YouTube elevated/bullish isolado n\u00e3o basta sem confirma\u00e7\u00e3o de volume. Sem gatilho de Diverg\u00eancia.",
+      "confidence": 3
+    },
+    {
+      "ticker": "ASTS",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "+8% em hype SpaceX IPO, RSI 77, +152% em 6m, ext +69% vs MA200. YouTube explosive/bullish mas volume s\u00f3 1.3x \u2014 abaixo do 3x ideal. Barron's j\u00e1 compara a bolha EV. Sinal de euforia retail sem confirma\u00e7\u00e3o institucional plena.",
+      "confidence": 6
+    },
+    {
+      "ticker": "MU",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Ext +181% vs MA200, sustained 59/60d \u2691, 6m +348%, RSI 76. Social heat explosive/bullish, social_z=+3.2. Volume s\u00f3 1.3x mas extens\u00e3o estrutural e narrativa AI euforia justificam bubble. Macro Buffett 236% modera convic\u00e7\u00e3o.",
+      "confidence": 7
+    },
+    {
+      "ticker": "GC=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume flagged 415x \u00e9 artefato de dados. Pre\u00e7o -0.3%, z30=-0.03 (neutro), social_z=+0.1. Sem velocidade nem heat confirmado. Commodity com fluxo institucional t\u00edpico.",
+      "confidence": 5
+    },
+    {
+      "ticker": "SI=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 29x flagged como artefato. Pre\u00e7o -1.9%, z30=-0.5 (ru\u00eddo), social_z=-0.2. YouTube explosive mas commodity default \u00e9 institucional sem heat retail confirmado.",
+      "confidence": 4
+    },
+    {
+      "ticker": "HG=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 26x flagged artefato, z30=-0.3 ru\u00eddo, social_z=-0.6, YouTube n/a. Commodity sem heat retail = fluxo institucional por default.",
+      "confidence": 5
+    },
+    {
+      "ticker": "LUNR",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "+15.7% intraday, z30=+1.81, ext +145% vs MA200, sustained 52/60d \u2691, 6m +368%. Volume s\u00f3 1.6x e social n/a, mas extens\u00e3o estrutural e hype SpaceX IPO marcam padr\u00e3o de blow-off. Bubble j\u00e1 maduro.",
+      "confidence": 6
+    },
+    {
+      "ticker": "META",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.5x e z30=+1.83 s\u00e3o not\u00e1veis mas social n/a, RSI 57 neutro, ext -5% vs MA200. Movimento reativo a lan\u00e7amento de subscriptions, sem padr\u00e3o claro de bolha ou p\u00e2nico.",
+      "confidence": 3
+    },
+    {
+      "ticker": "MRVL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.8x e z30=-1.5 com pre\u00e7o em -4.6% p\u00f3s-earnings, mas RSI 67 e ext +104% vs MA200 ainda alto. YouTube explosive/bullish conflita com move bearish. Sinais mistos p\u00f3s-resultado.",
+      "confidence": 3
+    }
+  ]
+}

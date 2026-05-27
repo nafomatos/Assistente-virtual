@@ -1,0 +1,469 @@
+========================================================================
+ACTIVE POSITIONS
+========================================================================
+  SOFI   | LONG  | conf 7
+  Entry: $15.52 on 2026-04-29
+  Current: $16.17 (+4.2%)
+  Days held: 28 / 30  |  Status: ON TRACK
+
+  HOOD   | LONG  | conf 7
+  Entry: $71.20 on 2026-04-29
+  Current: $76.23 (+7.1%)
+  Days held: 28 / 30  |  Status: ON TRACK
+
+  GOOGL  | SHORT | conf 8
+  Entry: $384.80 on 2026-04-30
+  Current: $388.83 (-1.1%)
+  Days held: 27 / 30  |  Status: NEUTRAL
+
+  RDDT   | SHORT | conf 8
+  Entry: $166.48 on 2026-05-01
+  Current: $154.19 (+7.4%)
+  Days held: 26 / 30  |  Status: ON TRACK
+
+  SOUN   | SHORT | conf 7
+  Entry: $9.56 on 2026-05-01
+  Current: $8.08 (+15.5%)
+  Days held: 26 / 30  |  Status: ON TRACK
+
+  XRX    | SHORT | conf 7
+  Entry: $2.70 on 2026-05-01
+  Current: $3.10 (-14.8%)
+  Days held: 26 / 30  |  Status: UNDERWATER
+
+  GME    | LONG  | conf 7
+  Entry: $23.84 on 2026-05-04
+  Current: $21.68 (-9.1%)
+  Days held: 23 / 30  |  Status: UNDERWATER
+
+  NBIS   | SHORT | conf 8
+  Entry: $176.42 on 2026-05-04
+  Current: $208.37 (-18.1%)
+  Days held: 23 / 30  |  Status: UNDERWATER
+
+  INTC   | SHORT | conf 6
+  Entry: $108.15 on 2026-05-05
+  Current: $121.77 (-12.6%)
+  Days held: 22 / 30  |  Status: UNDERWATER
+
+  SMCI   | SHORT | conf 9
+  Entry: $34.66 on 2026-05-06
+  Current: $38.19 (-10.2%)
+  Days held: 21 / 30  |  Status: UNDERWATER
+
+  AMD    | SHORT | conf 8
+  Entry: $421.39 on 2026-05-06
+  Current: $495.54 (-17.6%)
+  Days held: 21 / 30  |  Status: UNDERWATER
+
+  Closed positions (last 30 days): 3 total | 0 correct (0.0%) | Avg P&L: -38.9%
+
+ARTIFICIAL PRICE RADAR — Daily Report 2026-05-27
+========================================================================
+Macro context — Fear & Greed: 25/100 — Extreme Fear (-9 vs yesterday, deteriorating)
+               VIX Structure: Contango (0.84) — normal term structure
+               Buffett Indicator: 236% — Extreme (historical avg ~120%)
+Coverage — 29 tickers processed · 1 red · 9 amber · 19 filtered
+  [RED]:   CRSR
+  [AMBER]: AAPL, ASTS, MU, GC=F, SI=F, HG=F, LUNR, META, MRVL
+  skipped: NVDA, TSLA, AMZN, GOOGL, PLTR, RKLB, SOFI, MSTR, RDDT, CL=F, ZS=F, NG=F, SPY, MSFT, AMD, SNOW, SNDK, CRM, QQQ
+========================================================================
+
+[TICKER ALERT TIERS]
+  TICKER | VOL | Z_30D | Z_200D | RSI | TIER/REASON
+  NVDA | 0.9x | -0.6 | -0.5 | 51 | SKIP: vol=0.9x (normal); z30=-0.6,z200=-0.5; RSI=51
+  TSLA | 0.7x | +0.3 | +0.5 | 63 | SKIP: vol=0.7x (normal); z30=+0.3,z200=+0.5; RSI=63
+  AAPL | 1.1x | +0.1 | +0.5 | 79 | AMBER: RSI=79
+  AMZN | 0.9x | +1.6 | +1.2 | 63 | SKIP: vol=0.9x (normal); z30=+1.6,z200=+1.2; RSI=63
+  GOOGL | 0.8x | -0.2 | -0.2 | 61 | SKIP: vol=0.8x (normal); z30=-0.2,z200=-0.2; RSI=61
+  PLTR | 0.8x | -1.1 | -0.9 | 42 | SKIP: vol=0.8x (normal); z30=-1.1,z200=-0.9; RSI=42
+  RKLB | 1.0x | +0.3 | +0.7 | 74 | SKIP: vol=1.0x (normal); z30=+0.3,z200=+0.7; RSI=74
+  ASTS | 1.3x | +1.0 | +1.1 | 77 | AMBER: RSI=77
+  MU | 1.3x | +0.2 | +0.6 | 76 | AMBER: RSI=76; social_z=+3.2
+  SOFI | 1.0x | +0.4 | +0.4 | 48 | SKIP: vol=1.0x (normal); z30=+0.4,z200=+0.4; RSI=48
+  MSTR | 0.7x | -0.9 | -0.7 | 41 | SKIP: vol=0.7x (normal); z30=-0.9,z200=-0.7; RSI=41
+  RDDT | 1.1x | +1.5 | +1.7 | 51 | SKIP: vol=1.1x (normal); z30=+1.5,z200=+1.7; RSI=51
+  GC=F | 415.7x | -0.0 | -0.2 | 37 | AMBER: vol=415.7x (extreme)
+  SI=F | 29.2x | -0.5 | -0.5 | 45 | AMBER: vol=29.2x (extreme)
+  CL=F | 1.0x | -1.1 | -1.5 | 40 | SKIP: vol=1.0x (normal); z30=-1.1,z200=-1.5; RSI=40
+  HG=F | 26.1x | -0.3 | -0.3 | 57 | AMBER: vol=26.1x (extreme)
+  ZS=F | 0.8x | -0.1 | -0.1 | 49 | SKIP: vol=0.8x (normal); z30=-0.1,z200=-0.1; RSI=49
+  NG=F | 1.4x | +2.3 | +1.0 | 61 | SKIP: vol=1.4x (normal); z30=+2.3,z200=+1.0; RSI=61
+  SPY | 0.8x | -0.4 | -0.1 | 71 | SKIP: vol=0.8x (normal); z30=-0.4,z200=-0.1; RSI=71
+  MSFT | 0.8x | -0.5 | -0.4 | 50 | SKIP: vol=0.8x (normal); z30=-0.5,z200=-0.4; RSI=50
+  AMD | 0.6x | -0.7 | -0.5 | 74 | SKIP: vol=0.6x (normal); z30=-0.7,z200=-0.5; RSI=74
+  CRSR | 6.2x | +3.7 | +4.1 | 80 | RED: vol=6.2x (extreme >5x); macro_extreme(z30=+3.7,z200=+4.1)
+  LUNR | 1.6x | +1.8 | +2.1 | 68 | AMBER: |z30|=1.8>1.5 + vol=1.6x
+  META | 1.5x | +1.8 | +1.7 | 57 | AMBER: |z30|=1.8>1.5 + vol=1.5x
+  MRVL | 1.8x | -1.5 | -1.3 | 67 | AMBER: |z30|=1.5>1.5 + vol=1.8x
+  SNOW | 2.1x | -0.7 | -0.4 | 67 | SKIP: vol=2.1x (elevated); z30=-0.7,z200=-0.4; RSI=67
+  SNDK | 0.7x | -0.3 | -0.3 | 68 | SKIP: vol=0.7x (normal); z30=-0.3,z200=-0.3; RSI=68
+  CRM | 1.3x | -0.4 | -0.3 | 48 | SKIP: vol=1.3x (normal); z30=-0.4,z200=-0.3; RSI=48
+  QQQ | 0.8x | -0.6 | -0.2 | 75 | SKIP: vol=0.8x (normal); z30=-0.6,z200=-0.2; RSI=75
+[SYSTEM PROMPT — paste everything below together into Claude.ai]
+
+You are a Senior Quantitative Analyst specializing in market microstructure and behavioral finance. Your task is to analyze flagged assets to distinguish between institutional flows and retail irrationality.
+
+## Core Objective
+
+Classify each flagged asset into exactly one of five categories using the Divergence Principle — the relationship between Volume, Social Heat, and Price Velocity is the key signal:
+
+- **irrational_panic** → recommendation: contrarian_buy (only when confidence ≥ 7)
+  Logic: Volume >3x AND Social Heat "explosive" AND z-score <-1.5 AND tone "bearish"
+  Thesis: Retail is capitulating. Price is being pushed below fair value by emotion.
+
+- **bubble_forming** → recommendation: reduce_exposure
+  Logic: Price above 200d average AND Social Heat "explosive" AND tone "bullish"
+  Thesis: Retail euphoria has decoupled from fundamental value.
+
+- **institutional_rebalancing** → recommendation: wait
+  Logic: Volume >3x AND Social Heat "stable" or "low"
+  Thesis: High-volume movement without social noise = smart money repositioning or dark pool activity. Do NOT classify this as panic.
+
+- **silent_accumulation** → recommendation: wait
+  Logic: Price stable/sideways AND Volume rising >2x AND Social Heat "quiet"
+  Thesis: Institutions building a position quietly before a breakout.
+
+- **ambiguous** or **no_signal** → recommendation: wait or no_action
+  Logic: Signals conflict or fall below thresholds.
+
+## Divergence Rules (MANDATORY)
+
+Apply these rules before anything else. They override any pattern-matching instinct:
+
+- If Volume >3x AND Social Heat is "stable" or "low" → MUST classify as "institutional_rebalancing". Never "irrational_panic". The absence of retail noise during heavy volume is the defining signature of institutional activity. This rule requires CONFIRMED low heat from at least one available source. `social_heat_z: n/a` alone does not satisfy this — n/a means no data, not low heat; fall back to YouTube heat/tone as the primary social signal, and if that is also n/a or absent, default to "ambiguous" rather than inferring institutional flow.
+- If Volume >3x AND Social Heat is "explosive" AND tone is "bearish" → MUST classify as "irrational_panic".
+- If Volume >3x AND Social Heat is "explosive" AND tone is "bullish" → MUST classify as "bubble_forming".
+- Social Heat alone (without volume confirmation ≥ 2x) → always "ambiguous" or "no_signal". Do not manufacture a conviction call from social data alone.
+- z-scores between -1.5 and +1.5 are noise, not signal, even when volume is elevated.
+
+## Style Guidance
+
+Absence of signal is a valid finding — on most days, for most assets, nothing interesting is happening; saying so clearly is more valuable than inventing patterns. Do not apply asset reputation as a prior: analyze the signals as presented; do not assume TSLA is always a bubble or GC=F is always safe.
+
+## Macro Context
+
+Always factor in the macro header before scoring confidence:
+
+- **Buffett Indicator >200%**: macro environment is historically extreme — raise the bar for "bubble_forming" confidence (market-wide overvaluation is already priced in), lower it for "irrational_panic" (further compression is credible).
+- **Fear & Greed <30**: market-wide fear. "irrational_panic" signals are more credible; "bubble_forming" signals are less credible.
+- **VIX Backwardation** (short-term VIX > long-term VIX3M): real near-term stress. Increases confidence on panic signals by 1-2 points.
+- **Fear & Greed >70 with Buffett Indicator >180%**: compound overvaluation. Raise confidence on "bubble_forming" and "reduce_exposure" calls.
+
+## Special Notes
+
+- **Commodities (GC=F, SI=F, CL=F, HG=F, ZS=F, NG=F)**: naturally attract institutional volume with low retail chatter. Default toward "institutional_rebalancing" unless YouTube heat is clearly "elevated" or "explosive" AND tone is non-neutral. Gold and silver in particular have deep institutional markets; anomalous volume without social heat is almost always institutional.
+
+## Long-Horizon Context (v2 — Observation Mode)
+
+Each asset now includes a **"Long-horizon context"** block with the following fields. These are **informational only** in this version — they do not change the Divergence Rules or classification gates. Mention them in reasoning when relevant, but do not override a Divergence Rule based on them alone.
+
+| Field | What it measures | Signal direction |
+|-------|-----------------|-----------------|
+| **Ext vs 200d MA** | How far above/below the 200-day SMA the price sits | >+40% = bubble-watch territory; <-40% = potential capitulation |
+| **Sustained (X/60d)** | Days in the last 60 where extension exceeded +40% | ≥30/60 "⚑ extended" = persistent bubble extension, not a one-day spike |
+| **6m return** | Raw price momentum over ~6 calendar months | Provides context for whether a single-day spike is part of a longer trend |
+| **Acceleration (30d/6m)** | Fraction of the 6m gain captured in the last 30 days | >0.50 "⚑ parabolic" = late-stage blow-off pattern |
+| **Vol distribution (down÷up)** | Ratio of volume on down-days to volume on up-days over last 20 days | >1.0 "distribution ⚠" = smart-money distributing into retail buying |
+| **2y peak drawdown** | Distance from the 2-year rolling high | < -40% with many days since peak = potential capitulation candidate |
+
+**How to use**: if today's signal is a single-day spike (z30 high, volume high) but **Sustained < 5/60** and **Ext vs 200d MA < +20%**, that is strong evidence of a news reaction rather than a structural bubble — weight this as context when writing the `reasoning` field. Conversely, if a ticker shows **Sustained ≥ 30/60** and **acceleration ⚑ parabolic**, note that explicitly in reasoning as additional context supporting any `bubble_forming` classification already triggered by the Divergence Rules.
+
+## Confidence Calibration
+
+- **1-3**: signals conflict, data is thin, or multiple Divergence Rules produce ambiguous results.
+- **4-6**: a plausible pattern exists but at least one key ingredient (volume, heat, velocity) is below the ideal threshold.
+- **7-8**: two or more of the Divergence Rules fire cleanly and macro context is consistent.
+- **9-10**: all three signal families align, macro context reinforces the call, and the Divergence Rule fires unambiguously. Reserve for rare, high-conviction moments.
+
+## Output Contract
+
+Respond using this exact two-section format. No markdown fences, no extra prose before or after.
+
+HUMAN_SUMMARY:
+[2-3 short paragraphs in plain Portuguese summarizing the day's signals. Group by theme — e.g., "Commodities: ...", "Semicondutores: ...", "Destaques: ...". Highlight the highest-confidence calls. Tone: direct and conversational, like a senior analyst briefing a colleague over coffee. Maximum 600 characters total.]
+
+JSON_OUTPUT:
+[Single JSON array — one object per asset analyzed, no markdown fences]
+
+Each object in the array:
+{
+  "ticker": "the ticker symbol analyzed",
+  "classification": "irrational_panic|bubble_forming|institutional_rebalancing|silent_accumulation|ambiguous|no_signal",
+  "recommendation": "contrarian_buy|reduce_exposure|wait|no_action",
+  "reasoning": "2-3 short sentences under 400 characters. Cite specific signals: volume ratio, z-scores, social heat level, tone.",
+  "confidence": 1-10
+}
+
+Constraints:
+- HUMAN_SUMMARY must be in Portuguese, conversational tone, under 600 characters total. Count before returning.
+- JSON_OUTPUT is the array described above; format is otherwise unchanged.
+- Both sections are required and must appear under the exact labels HUMAN_SUMMARY: and JSON_OUTPUT:.
+- reasoning MUST be under 400 characters. Cite the specific signals relied on (e.g., "volume 3.1x, z30=+2.4, heat=explosive, tone=bearish"). No generic language like "monitor the situation".
+- contrarian_buy only when confidence ≥ 7.
+- no_signal must always pair with no_action.
+- Never add disclaimers about not being a financial advisor.
+
+[ASSETS WITH NON-TRIVIAL SIGNALS]
+
+------------------------------------------------------------------------
+Asset: [RED] CRSR (CRSR)
+
+Market signals:
+- Volume: extreme (6.24x 30d avg)
+- Price velocity: blowout (z_30d: 3.68, z_200d: 4.06, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 79.7 (overbought)
+- Current price: $9.82 (+21.38% today)
+
+Recent news (last 3):
+1. "Bitdeer Technologies Names New CFO" — CryptoProwl, 3.7h ago
+2. "Bitdeer names former Corsair CFO Michael Potter as finance chief" — Blockspace, 8.9h ago
+3. "CRSR Stock Jumps Overnight: Corsair Gaming’s AI Server Strategy Fuels Buzz" — Stocktwits, 20.1h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: n/a
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +44.4% (sustained: 1/60d)
+- 6m return: +77.3% | Acceleration (30d/6m): 0.78 (parabolic ⚑)
+- Vol distribution (down÷up, last 20d): 0.37 (buying pressure)
+- 2y peak drawdown: -21.6% (317d since peak)
+------------------------------------------------------------------------
+Asset: [AMBER] AAPL (Apple)
+
+Market signals:
+- Volume: normal (1.06x 30d avg)
+- Price velocity: normal (z_30d: 0.14, z_200d: 0.47, direction: up, macro_extreme: False)
+- RSI-14: 78.8 (overbought)
+- Current price: $310.85 (+0.82% today)
+
+Recent news (last 3):
+1. "Why Android takes a bigger hit than Apple from AI memory shortages" — Yahoo Finance Video, 0.4h ago
+2. "Top Analyst Reports for Alphabet, Apple & Micron Technology" — Zacks, 1.7h ago
+3. "Buy, Sell, or Hold Vanguard’s Mega Cap Growth ETF Right Now | MGK" — 24/7 Wall St., 2.1h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bullish, top="US Strikes Iran And Crude Crashes 4% — AAPL Trade Hits Daily" (33k views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +18.5% (sustained: 0/60d)
+- 6m return: +14.5% | Acceleration (30d/6m): 1.39 (parabolic ⚑)
+- Vol distribution (down÷up, last 20d): 0.40 (buying pressure)
+- 2y peak drawdown: +0.0% (0d since peak)
+------------------------------------------------------------------------
+Asset: [AMBER] ASTS (AST SpaceMobile)
+
+Market signals:
+- Volume: normal (1.3x 30d avg)
+- Price velocity: notable (z_30d: 0.96, z_200d: 1.11, direction: up, macro_extreme: False)
+- RSI-14: 77.0 (overbought)
+- Current price: $129.60 (+8.27% today)
+
+Recent news (last 3):
+1. "This Space Stocks Boom Has Echoes of the EV Bubble. Red Flags as Rocket Lab and AST Soar." — Barrons.com, 1.3h ago
+2. "US space stocks rise on SpaceX IPO hype" — Reuters Videos, 3.3h ago
+3. "AST SpaceMobile Surges 8%; Virgin Galactic, Rocket Lab Ride the SpaceX IPO Wave" — 24/7 Wall St., 4.1h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="Opening Bell: Öl, S&amp;P 500, Marvell, Walmart, Tesla, Eli " (11k views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +69.5% (sustained: 6/60d)
+- 6m return: +152.3% | Acceleration (30d/6m): 0.30
+- Vol distribution (down÷up, last 20d): 0.31 (buying pressure)
+- 2y peak drawdown: +0.0% (0d since peak)
+------------------------------------------------------------------------
+Asset: [AMBER] MU (Micron)
+
+Market signals:
+- Volume: normal (1.31x 30d avg)
+- Price velocity: normal (z_30d: 0.19, z_200d: 0.56, direction: up, macro_extreme: False)
+- RSI-14: 76.5 (overbought)
+- Current price: $928.41 (+3.63% today)
+
+Recent news (last 3):
+1. "SK Hynix and Micron lead AI boom, join trillion-dollar club" — Yahoo Finance Video, 1.3h ago
+2. "The Micron stock price bubble explained in 2 numbers" — Yahoo Finance, 8.1h ago
+3. "Goldman Says Nvidia and Micron Are the Biggest AI Winners: 5 Stocks to Take Advantage of it Now" — 24/7 Wall St., 0.7h ago
+
+Social signals (social_heat_z: +3.2):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="MU还能翻100%吗？【2026-05-26】" (51k views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +180.9% (sustained: 59/60d ⚑ extended)
+- 6m return: +347.7% | Acceleration (30d/6m): 0.29
+- Vol distribution (down÷up, last 20d): 0.47 (buying pressure)
+- 2y peak drawdown: +0.0% (0d since peak)
+------------------------------------------------------------------------
+⚠ DATA QUALITY FLAG: This ticker's volume multiple (415.66x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
+
+Asset: [AMBER] GC=F (Gold)
+
+Market signals:
+- Volume: extreme (415.66x 30d avg)
+- Price velocity: normal (z_30d: -0.03, z_200d: -0.23, direction: down, macro_extreme: False)
+- RSI-14: 37.2 (normal)
+- Current price: $4,488.50 (-0.26% today)
+
+Recent news (last 3):
+1. "Gold prices today, Wednesday, May 27: Prices stay flat as investors await news on peace talks" — Yahoo Personal Finance, 10.2h ago
+2. "TSX Closer: The Index Falls for a Second Day After Monday's Record Close Amid Rise In Canadian Credit Stress" — MT Newswires, 1.6h ago
+3. "Gold Price is Turning Bearish Fast as Key Support Above $4,300 is Tested" — BeInCrypto, 2.3h ago
+
+Social signals (social_heat_z: +0.1):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=neutral, top="Crypto Gold Live Trading 27 MAY  - stock_learners" (151k views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +3.0% (sustained: 0/60d)
+- 6m return: +10.1% | Acceleration (30d/6m): -0.69
+- Vol distribution (down÷up, last 20d): 71.59 (distribution ⚠)
+- 2y peak drawdown: -15.6% (81d since peak)
+------------------------------------------------------------------------
+⚠ DATA QUALITY FLAG: This ticker's volume multiple (29.24x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
+
+Asset: [AMBER] SI=F (Silver)
+
+Market signals:
+- Volume: extreme (29.24x 30d avg)
+- Price velocity: normal (z_30d: -0.52, z_200d: -0.52, direction: down, macro_extreme: False)
+- RSI-14: 44.6 (normal)
+- Current price: $74.89 (-1.86% today)
+
+Recent news (last 3):
+1. "Silver prices today, Wednesday, May 27, 2026: Silver prices are sliding this morning" — Yahoo Personal Finance, 9.8h ago
+2. "Newmont vs. SSR Mining: Which Gold Stock Is a Better Buy in 2026?" — Motley Fool, 2.7h ago
+3. "Gold Down for Third Day" — Barrons.com, 3.1h ago
+
+Social signals (social_heat_z: -0.2):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="🚨 Gold &amp; Silver Are Warning Us... Another Huge Flush Inc" (84k views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +14.8% (sustained: 12/60d)
+- 6m return: +50.1% | Acceleration (30d/6m): -0.11
+- Vol distribution (down÷up, last 20d): 16.24 (distribution ⚠)
+- 2y peak drawdown: -34.9% (84d since peak)
+------------------------------------------------------------------------
+⚠ DATA QUALITY FLAG: This ticker's volume multiple (26.12x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
+
+Asset: [AMBER] HG=F (Copper)
+
+Market signals:
+- Volume: extreme (26.12x 30d avg)
+- Price velocity: normal (z_30d: -0.31, z_200d: -0.31, direction: down, macro_extreme: False)
+- RSI-14: 57.1 (normal)
+- Current price: $6.34 (-0.37% today)
+
+Recent news (last 3):
+1. "Newmont vs. SSR Mining: Which Gold Stock Is a Better Buy in 2026?" — Motley Fool, 2.7h ago
+2. "Dig For A Shiny Return From Metals Miner Freeport-McMoRan With This Strategy" — Investor's Business Daily, 5.5h ago
+3. "Everlert Highlights Independent Technical Review of Bolivia Copper-Gold Project Expansion Potential (EVLI)" — InvestorsHub, 6.4h ago
+
+Social signals (social_heat_z: -0.6):
+- StockTwits: n/a
+- YouTube: n/a
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +17.0% (sustained: 0/60d)
+- 6m return: +26.5% | Acceleration (30d/6m): 0.17
+- Vol distribution (down÷up, last 20d): 4.68 (distribution ⚠)
+- 2y peak drawdown: -4.5% (9d since peak)
+------------------------------------------------------------------------
+Asset: [AMBER] LUNR (LUNR)
+
+Market signals:
+- Volume: elevated (1.63x 30d avg)
+- Price velocity: extreme (z_30d: 1.81, z_200d: 2.1, direction: up, macro_extreme: False)
+- RSI-14: 68.2 (normal)
+- Current price: $40.34 (+15.72% today)
+
+Recent news (last 3):
+1. "US space stocks rise on SpaceX IPO hype" — Reuters Videos, 3.3h ago
+2. "Why Did Intuitive Machines Stock Bounce Back?" — Motley Fool, 4.7h ago
+3. "Space stocks surge after SpaceX IPO S-1 filing" — Quartz, 10.2h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: n/a
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +144.8% (sustained: 52/60d ⚑ extended)
+- 6m return: +368.0% | Acceleration (30d/6m): 0.19
+- Vol distribution (down÷up, last 20d): 0.82 (buying pressure)
+- 2y peak drawdown: +0.0% (0d since peak)
+------------------------------------------------------------------------
+Asset: [AMBER] META (META)
+
+Market signals:
+- Volume: elevated (1.51x 30d avg)
+- Price velocity: notable (z_30d: 1.83, z_200d: 1.74, direction: up, macro_extreme: False)
+- RSI-14: 56.6 (normal)
+- Current price: $635.26 (+3.74% today)
+
+Recent news (last 3):
+1. "Meta board member Dana White says Mark Zuckerberg is like Trump, Carl Icahn, and Michael Jordan in one key way" — Yahoo Finance, 22.5h ago
+2. "Meta launches paid subscriptions for Instagram, Facebook, WhatsApp" — AFP, 0.4h ago
+3. "Pope Leo XIV teams with Anthropic founder on bold AI warning" — TheStreet, 0.6h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: n/a
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: -4.9% (sustained: 0/60d)
+- 6m return: +6.9% | Acceleration (30d/6m): -0.60
+- Vol distribution (down÷up, last 20d): 1.14 (distribution ⚠)
+- 2y peak drawdown: -19.6% (198d since peak)
+------------------------------------------------------------------------
+Asset: [AMBER] MRVL (MRVL)
+
+Market signals:
+- Volume: elevated (1.83x 30d avg)
+- Price velocity: notable (z_30d: -1.51, z_200d: -1.34, direction: down, macro_extreme: False)
+- RSI-14: 67.3 (normal)
+- Current price: $198.70 (-4.59% today)
+
+Recent news (last 3):
+1. "Earnings live updates: Snowflake stock skyrockets on strong quarter, AWS deal" — Yahoo Finance, 10.0h ago
+2. "Stocks making big moves yesterday: Allient, AutoZone, Redwire, Marvell Technology, and AppLovin" — StockStory, 0.3h ago
+3. "Dow Jones Futures Rise As Snowflake Surges Late On Earnings, Marvell Pops; Fed Inflation Data Due" — Investor's Business Daily, 0.3h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=explosive, tone=bullish, top="META LAUNCHES A NEW REVENUE STREAM, SALESFORCE, SNOWFLAKE, M" (9k views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +104.5% (sustained: 34/60d ⚑ extended)
+- 6m return: +156.5% | Acceleration (30d/6m): 0.31
+- Vol distribution (down÷up, last 20d): 0.52 (buying pressure)
+- 2y peak drawdown: -4.6% (1d since peak)
+
+========================================================================
+[INSTRUCTION]
+
+Analyze each of the 10 asset(s) above and respond with a single JSON array. Each element must follow this exact schema:
+
+{
+  "ticker": "...",
+  "classification": "bubble_forming|irrational_panic|institutional_rebalancing|silent_accumulation|ambiguous|no_signal",
+  "recommendation": "contrarian_buy|reduce_exposure|wait|no_action",
+  "reasoning": "2-3 short sentences, under 400 characters total",
+  "confidence": <integer 1-10>
+}
+
+Return ONLY the JSON array, no prose, no markdown fences.
