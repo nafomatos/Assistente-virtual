@@ -1,0 +1,103 @@
+{
+  "date": "2026-05-28",
+  "signals": [
+    {
+      "ticker": "PLTR",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Vol normal (1.21x), z30=+2.67 mas news-driven (drone/Pentagon). YouTube explosive/bullish mas sem confirma\u00e7\u00e3o de volume \u22652x. Sustained 0/60, ext -11.5% vs 200d \u2014 n\u00e3o \u00e9 bolha estrutural.",
+      "confidence": 4
+    },
+    {
+      "ticker": "CRSR",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Vol 10.4x (flag de dado), z30=+2.98, z200=+3.94, RSI 86, +21% hoje. Ext +75% vs 200d, acelara\u00e7\u00e3o 0.97 parab\u00f3lica. Heat social n/a limita confian\u00e7a, mas padr\u00e3o de blow-off claro.",
+      "confidence": 6
+    },
+    {
+      "ticker": "SNOW",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Vol 4.37x, z200=+8.33, RSI 85, +36% p\u00f3s-earnings/AWS deal. Buffett 236% refor\u00e7a cautela. Heat social n/a impede classificar como euforia retail confirmada, mas velocidade \u00e9 blowout.",
+      "confidence": 6
+    },
+    {
+      "ticker": "ONDS",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Vol 2.7x abaixo do gate de 3x, z30=+2.68, news-driven (Pentagon/Trump drones). Ext +49% e parab\u00f3lica \u2691 mas heat n/a. Sem confirma\u00e7\u00e3o social, fica amb\u00edguo.",
+      "confidence": 5
+    },
+    {
+      "ticker": "AAPL",
+      "classification": "no_signal",
+      "recommendation": "no_action",
+      "reasoning": "Vol 0.94x, z30=-0.01 (ru\u00eddo). RSI 80 isolado n\u00e3o basta. Heat elevated/neutral. ATH mas sem gatilho de diverg\u00eancia hoje.",
+      "confidence": 6
+    },
+    {
+      "ticker": "ASTS",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "YouTube explosive/bullish, RSI 78, ext +73% vs 200d, mas vol apenas 0.76x \u2014 sem confirma\u00e7\u00e3o de volume \u22652x. Social isolado = amb\u00edguo por regra.",
+      "confidence": 5
+    },
+    {
+      "ticker": "MU",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Vol 0.9x, z30=-0.52 (queda hoje). RSI 76 e ext +176% vs 200d com 59/60d sustained \u2691 sinalizam topo, mas sem gatilho de volume hoje. Heat explosive/bullish isolado.",
+      "confidence": 5
+    },
+    {
+      "ticker": "GC=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Vol 258x \u00e9 artefato de dados. Heat YouTube explosive/bearish mas commodity default = institutional. z30=+1.59 modesto, ext +3.7% \u2014 sem padr\u00e3o claro de bolha ou p\u00e2nico.",
+      "confidence": 5
+    },
+    {
+      "ticker": "SI=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Vol 31x artefato. z30=+0.56 ru\u00eddo, RSI 47 neutro, social_heat_z=-2.2 (quieto). Commodity com fluxo institucional sem narrativa retail.",
+      "confidence": 6
+    },
+    {
+      "ticker": "HG=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Vol 18.9x artefato, z30=+0.97 modesto, heat elevated/neutral. Commodity industrial sem euforia retail \u2014 fluxo institucional default.",
+      "confidence": 6
+    },
+    {
+      "ticker": "NG=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Vol 1.67x abaixo do gate, z30=+2.65 forte, +8.6% hoje. Heat n/a impede classifica\u00e7\u00e3o. Ext -3.5% vs 200d e 6m -27% sugerem ricochete, n\u00e3o bolha.",
+      "confidence": 4
+    },
+    {
+      "ticker": "DELL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Vol 1.91x sub-gate, RSI 80, ext +107% vs 200d com 30/60d sustained \u2691 parab\u00f3lica. YouTube explosive/bullish mas sem volume \u22653x para travar bubble_forming.",
+      "confidence": 5
+    },
+    {
+      "ticker": "AMD",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Vol 0.71x, z30=+0.36 (ru\u00eddo). RSI 77 e ext +120% parab\u00f3lica sinalizam extens\u00e3o, mas sem gatilho de volume hoje. Heat explosive/neutral.",
+      "confidence": 5
+    },
+    {
+      "ticker": "QQQ",
+      "classification": "no_signal",
+      "recommendation": "no_action",
+      "reasoning": "Vol 0.78x, z30=+0.36 ru\u00eddo, RSI 76 isolado. Heat z=-3.7 (quieto). Sem diverg\u00eancia acion\u00e1vel apesar de Buffett 236%.",
+      "confidence": 6
+    }
+  ]
+}
