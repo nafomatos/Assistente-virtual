@@ -56,7 +56,6 @@ def publish_report(
             fear_greed=fear_greed,
             vix_structure=vix_structure,
             buffett=buffett,
-            report_text=report_text,
             open_positions=open_positions,
             closed_stats=closed_stats,
             active_clusters=active_clusters,
