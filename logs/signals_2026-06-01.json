@@ -1,0 +1,54 @@
+{
+  "date": "2026-06-01",
+  "signals": [
+    {
+      "ticker": "NVDA",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume normal (1.09x) falha no gate de >2x apesar de z30=+2.2, z200=+2.7 e heat explosivo/bullish no YouTube. Ext 200d s\u00f3 +19% e sustained 0/60 \u2014 spike de not\u00edcia (Computex/RTX), n\u00e3o bolha estrutural.",
+      "confidence": 4
+    },
+    {
+      "ticker": "SPCE",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Volume 7.3x, z200=+3.5, RSI 90, heat explosivo/bullish, +21.7% no dia. Ext 200d +135%, acceleration 1.52 parab\u00f3lico. Euforia retail cl\u00e1ssica em nome especulativo. Macro Buffett 238% refor\u00e7a.",
+      "confidence": 8
+    },
+    {
+      "ticker": "META",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.77x abaixo do gate >3x para panic. Z30=-2.1 macro_extreme e F&G=29 favorecem panic, mas heat s\u00f3 'elevated' com tom neutro \u2014 sem confirma\u00e7\u00e3o de capitula\u00e7\u00e3o retail. Drawdown -24% modesto.",
+      "confidence": 4
+    },
+    {
+      "ticker": "MU",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Volume normal (0.81x) \u00e9 fraqueza, mas RSI 81, heat explosivo/bullish, ext 200d +202% com sustained 59/60 \u2691 extended e novo ATH. Padr\u00e3o de bolha estrutural j\u00e1 maduro, mesmo sem spike de volume hoje.",
+      "confidence": 6
+    },
+    {
+      "ticker": "HPE",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Volume 3.76x, z200=+3.06, RSI 87, heat explosivo/bullish, +9.2% no dia em earnings. Acceleration 0.66 parab\u00f3lico, ext +92%. Divergence Rule de bubble dispara limpa com Buffett 238%.",
+      "confidence": 8
+    },
+    {
+      "ticker": "NOW",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.79x abaixo do gate de 3x; heat YouTube n/a impede confirma\u00e7\u00e3o de euforia retail. Z200=+2.8 e RSI 78 sugerem for\u00e7a, mas sem sinal social n\u00e3o h\u00e1 gatilho para bubble_forming.",
+      "confidence": 4
+    },
+    {
+      "ticker": "IBM",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Volume 2.57x (pr\u00f3ximo do gate), z200=+2.88, RSI 84, heat explosivo (tom neutro), novo ATH. Acceleration 4.65 parab\u00f3lico indica blow-off late-stage. Tom neutro reduz convic\u00e7\u00e3o vs HPE/SPCE.",
+      "confidence": 6
+    }
+  ]
+}
