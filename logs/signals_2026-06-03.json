@@ -1,0 +1,40 @@
+{
+  "date": "2026-06-03",
+  "signals": [
+    {
+      "ticker": "MU",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Price +206% vs 200d MA, sustained 59/60d extended, RSI 82, YouTube heat=explosive tone=bullish ('Memory Supercycle'). Volume normal (0.72x) limita convic\u00e7\u00e3o, mas euforia retail + Buffett 239% confirmam decoupling.",
+      "confidence": 7
+    },
+    {
+      "ticker": "MRVL",
+      "classification": "bubble_forming",
+      "recommendation": "reduce_exposure",
+      "reasoning": "Volume 2.55x + RSI 86.8 + YouTube heat=explosive tone=bullish (NVDA 'next trillion-dollar' narrative). Ext +197% vs 200d MA, acceleration 0.43 parab\u00f3lica. Divergence rule de bubble dispara claramente.",
+      "confidence": 8
+    },
+    {
+      "ticker": "QQQ",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "RSI 77 e acceleration 0.75 parab\u00f3lica, mas volume normal (0.98x) e z30=-0.77 (pre\u00e7o caindo hoje). YouTube heat=explosive mas tone=bearish \u2014 n\u00e3o casa com bubble_forming nem panic. Sinais conflitantes.",
+      "confidence": 4
+    },
+    {
+      "ticker": "AMD",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "RSI 78, ext +123% vs 200d, acceleration 0.62 parab\u00f3lica sugerem bolha, mas volume s\u00f3 0.69x e YouTube heat=elevated tone=neutral \u2014 falta confirma\u00e7\u00e3o retail explosiva. N\u00e3o satisfaz gate de bubble_forming.",
+      "confidence": 4
+    },
+    {
+      "ticker": "BB",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.01x e RSI 89.3 chamam aten\u00e7\u00e3o, mas z30=-0.74 (pre\u00e7o caindo) e social heat n/a em todas as fontes. Sem confirma\u00e7\u00e3o de heat, n\u00e3o \u00e9 poss\u00edvel classificar bubble nem institutional. Default amb\u00edguo.",
+      "confidence": 3
+    }
+  ]
+}
