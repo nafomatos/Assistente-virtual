@@ -429,6 +429,95 @@ def _cluster_alerts_card(active_clusters: list[dict]) -> str:
     )
 
 
+# ── long-horizon panel (v2, observation mode) ─────────────────────────────
+
+def _long_horizon_panel(lh: dict) -> str:
+    """Render the v2 long-horizon context dict as a compact HTML panel.
+
+    Returns an empty string when lh is empty so callers can concatenate
+    unconditionally. All six fields are shown; None values render as 'n/a'.
+    """
+    if not lh:
+        return ""
+
+    def _pct_span(val: float | None, invert: bool = False) -> str:
+        """Format a fraction as a coloured percentage span."""
+        if val is None:
+            return "<span style='color:#64748b;'>n/a</span>"
+        # invert=True means negative values are green (e.g. drawdown = good when low)
+        if not invert:
+            color = "#ef4444" if val > 0.80 else "#f97316" if val > 0.40 else \
+                    "#4ade80" if val < -0.40 else "#f97316" if val < -0.15 else "#9ca3af"
+        else:
+            color = "#4ade80" if val < -0.40 else "#f97316" if val < -0.15 else "#9ca3af"
+        sign = "+" if val >= 0 else ""
+        return f"<span style='color:{color};font-weight:600;'>{sign}{val * 100:.1f}%</span>"
+
+    ext_200d  = lh.get("price_extension_200d")
+    sustained = lh.get("sustained_days_60")
+    ret_6m    = lh.get("return_6m")
+    accel     = lh.get("acceleration_ratio")
+    vol_dist  = lh.get("volume_dist_ratio")
+    dd_peak   = lh.get("drawdown_from_peak_2y")
+    days_peak = lh.get("days_since_peak_2y")
+
+    # Sustained label
+    if sustained is not None:
+        s_color = "#ef4444" if sustained >= 50 else "#f97316" if sustained >= 30 else "#9ca3af"
+        s_flag  = " &#9873;" if sustained >= 30 else ""  # ⚑ flag
+        sustained_str = f"<span style='color:{s_color};'>{sustained}/60d{s_flag}</span>"
+    else:
+        sustained_str = "<span style='color:#64748b;'>n/a</span>"
+
+    # Acceleration label
+    if accel is not None:
+        ac_color = "#ef4444" if accel > 0.5 else "#9ca3af"
+        ac_flag  = " &#9873; parabolic" if accel > 0.5 else ""
+        accel_str = f"<span style='color:{ac_color};'>{accel:.2f}{ac_flag}</span>"
+    else:
+        accel_str = "<span style='color:#64748b;'>n/a</span>"
+
+    # Volume distribution label
+    if vol_dist is not None:
+        vd_color = "#ef4444" if vol_dist > 1.5 else "#f97316" if vol_dist > 1.0 else "#4ade80"
+        vd_note  = "&nbsp;&#9888;&nbsp;distribution" if vol_dist > 1.0 else "&nbsp;(buying pressure)"
+        vol_dist_str = (
+            f"<span style='color:{vd_color};font-weight:600;'>{vol_dist:.2f}</span>"
+            f"<span style='color:#64748b;font-size:10px;'>{vd_note}</span>"
+        )
+    else:
+        vol_dist_str = "<span style='color:#64748b;'>n/a</span>"
+
+    # Days-since-peak label
+    if days_peak is not None:
+        dp_str = f"<span style='color:#64748b;'>&nbsp;({days_peak}d since peak)</span>"
+    else:
+        dp_str = ""
+
+    label_s = "color:#4b5563;"
+    def row(label: str, value: str) -> str:
+        pad = "&nbsp;" * max(0, 22 - len(label))
+        return (
+            f"<div style='margin:2px 0;font-size:11px;'>"
+            f"<span style='{label_s}'>{label}{pad}</span>{value}"
+            f"</div>"
+        )
+
+    return (
+        f"<div style='background:#070d1a;border:1px solid #1e3a5f;border-radius:4px;"
+        f"padding:10px 12px;margin-top:10px;"
+        f"font-family:\"Menlo\",\"Monaco\",\"Courier New\",monospace;'>"
+        f"<div style='font-size:9px;font-weight:700;color:#3b82f6;letter-spacing:.08em;"
+        f"text-transform:uppercase;margin-bottom:6px;'>&#128202; V2 Long-Horizon Context"
+        f"<span style='color:#374151;font-weight:400;'> — observe only</span></div>"
+        + row("Ext vs 200d MA:", f"{_pct_span(ext_200d)}&nbsp;&nbsp;sustained:&nbsp;{sustained_str}")
+        + row("6m return:", f"{_pct_span(ret_6m)}&nbsp;&nbsp;accel (30d/6m):&nbsp;{accel_str}")
+        + row("Vol dist (down÷up 20d):", vol_dist_str)
+        + row("2y peak drawdown:", f"{_pct_span(dd_peak, invert=True)}{dp_str}")
+        + "</div>"
+    )
+
+
 # ── sizing panel ──────────────────────────────────────────────────────────
 
 def _sizing_panel(sizing_block: dict) -> str:
@@ -559,6 +648,7 @@ def _asset_card(ticker: str, signals: dict, tier: str, cluster_boost: dict | Non
     boost_badge = _cluster_boost_badge(cluster_boost) if cluster_boost else ""
     dq_badge    = _data_quality_badge(v.get("data_quality", "ok"), v["ratio"])
     sizing_html = _sizing_panel(sizing_block) if sizing_block else ""
+    lh_html     = _long_horizon_panel(m.get("long_horizon") or {})
 
     return (
         f"<div style='background:#1a1a1a;border-radius:6px;border-left:4px solid {border};"
@@ -582,6 +672,8 @@ def _asset_card(ticker: str, signals: dict, tier: str, cluster_boost: dict | Non
         # news + sentiment
         f"{news_html}"
         f"{sentiment_html}"
+        # long-horizon v2 context (always shown on red/amber cards)
+        f"{lh_html}"
         # sizing & targets (only when classified signal is actionable)
         f"{sizing_html}"
         f"</div>"
