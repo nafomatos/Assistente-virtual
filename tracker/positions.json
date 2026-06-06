@@ -1,5 +1,6 @@
 {
-  "open": [
+  "open": [],
+  "closed": [
     {
       "id": "505b47c6-28eb-47ab-bbba-b7ae574b1b3f",
       "ticker": "SOFI",
@@ -9,10 +10,20 @@
       "reasoning": "Volume 3.3x anomalous, z30=-3.87...",
       "entry_date": "2026-04-29",
       "entry_price": 15.52,
-      "macro_context": {},
-      "d5_target": "2026-05-04",
-      "d10_target": "2026-05-09",
-      "d30_target": "2026-05-29"
+      "exit_date": "2026-05-29",
+      "exit_price": 18.22,
+      "days_held": 30,
+      "pnl_pct": 17.4,
+      "realized_pnl_pct": 17.4,
+      "outcome": "correct",
+      "close_reason": "CLOSED_D30",
+      "exit_reason": "CLOSED_D30",
+      "macro_context": {
+        "fear_greed": 26,
+        "vix_structure": "Contango",
+        "buffett": 227.0
+      },
+      "exit_estimated": false
     },
     {
       "id": "f3d95145-0352-4ee3-8e3b-0d6862424296",
@@ -23,10 +34,20 @@
       "reasoning": "Volume 2.6x anomalous, z30=-2.68...",
       "entry_date": "2026-04-29",
       "entry_price": 71.2,
-      "macro_context": {},
-      "d5_target": "2026-05-04",
-      "d10_target": "2026-05-09",
-      "d30_target": "2026-05-29"
+      "exit_date": "2026-05-29",
+      "exit_price": 94.3,
+      "days_held": 30,
+      "pnl_pct": 32.44,
+      "realized_pnl_pct": 32.44,
+      "outcome": "correct",
+      "close_reason": "CLOSED_D30",
+      "exit_reason": "CLOSED_D30",
+      "macro_context": {
+        "fear_greed": 26,
+        "vix_structure": "Contango",
+        "buffett": 227.0
+      },
+      "exit_estimated": false
     },
     {
       "id": "e8540142-9cc9-46d0-b71e-0e15bc0fa851",
@@ -37,10 +58,20 @@
       "reasoning": "z30=+3.41, z200=+5.08...",
       "entry_date": "2026-04-30",
       "entry_price": 384.8,
-      "macro_context": {},
-      "d5_target": "2026-05-05",
-      "d10_target": "2026-05-10",
-      "d30_target": "2026-05-30"
+      "exit_date": "2026-05-30",
+      "exit_price": 368.0,
+      "days_held": 30,
+      "pnl_pct": 4.37,
+      "realized_pnl_pct": 4.37,
+      "outcome": "correct",
+      "close_reason": "CLOSED_D30",
+      "exit_reason": "CLOSED_D30",
+      "macro_context": {
+        "fear_greed": 29,
+        "vix_structure": "Contango",
+        "buffett": 224.0
+      },
+      "exit_estimated": true
     },
     {
       "id": "7526e366-e57d-4aa6-8061-1a258e8d7a7a",
@@ -51,10 +82,20 @@
       "reasoning": "Volume 3.0x, z200=+3.05...",
       "entry_date": "2026-05-01",
       "entry_price": 166.48,
-      "macro_context": {},
-      "d5_target": "2026-05-06",
-      "d10_target": "2026-05-11",
-      "d30_target": "2026-05-31"
+      "exit_date": "2026-05-31",
+      "exit_price": null,
+      "days_held": 30,
+      "pnl_pct": null,
+      "realized_pnl_pct": null,
+      "outcome": "unknown",
+      "close_reason": "CLOSED_D30",
+      "exit_reason": "CLOSED_D30",
+      "macro_context": {
+        "fear_greed": 26,
+        "vix_structure": "Contango",
+        "buffett": 226.0
+      },
+      "exit_estimated": true
     },
     {
       "id": "b113c96f-105a-444c-bf3f-d571dee05fab",
@@ -65,10 +106,20 @@
       "reasoning": "Volume 2.7x, z200=+3.80...",
       "entry_date": "2026-05-01",
       "entry_price": 9.56,
-      "macro_context": {},
-      "d5_target": "2026-05-06",
-      "d10_target": "2026-05-11",
-      "d30_target": "2026-05-31"
+      "exit_date": "2026-05-31",
+      "exit_price": 8.88,
+      "days_held": 30,
+      "pnl_pct": 7.11,
+      "realized_pnl_pct": 7.11,
+      "outcome": "correct",
+      "close_reason": "CLOSED_D30",
+      "exit_reason": "CLOSED_D30",
+      "macro_context": {
+        "fear_greed": 26,
+        "vix_structure": "Contango",
+        "buffett": 226.0
+      },
+      "exit_estimated": true
     },
     {
       "id": "99644603-bafd-4d84-a153-280a9578d6b1",
@@ -79,10 +130,20 @@
       "reasoning": "Volume 4.0x anomalous...",
       "entry_date": "2026-05-01",
       "entry_price": 2.7,
-      "macro_context": {},
-      "d5_target": "2026-05-06",
-      "d10_target": "2026-05-11",
-      "d30_target": "2026-05-31"
+      "exit_date": "2026-05-31",
+      "exit_price": 2.6,
+      "days_held": 30,
+      "pnl_pct": 3.7,
+      "realized_pnl_pct": 3.7,
+      "outcome": "correct",
+      "close_reason": "CLOSED_D30",
+      "exit_reason": "CLOSED_D30",
+      "macro_context": {
+        "fear_greed": 26,
+        "vix_structure": "Contango",
+        "buffett": 226.0
+      },
+      "exit_estimated": true
     },
     {
       "id": "0959487f-03a4-44b2-881a-f3c48eefbf63",
@@ -93,10 +154,20 @@
       "reasoning": "Volume 5.3x, z200=-4.41...",
       "entry_date": "2026-05-04",
       "entry_price": 23.84,
-      "macro_context": {},
-      "d5_target": "2026-05-09",
-      "d10_target": "2026-05-14",
-      "d30_target": "2026-06-03"
+      "exit_date": "2026-06-03",
+      "exit_price": null,
+      "days_held": 30,
+      "pnl_pct": null,
+      "realized_pnl_pct": null,
+      "outcome": "unknown",
+      "close_reason": "CLOSED_D30",
+      "exit_reason": "CLOSED_D30",
+      "macro_context": {
+        "fear_greed": 40,
+        "vix_structure": "Contango",
+        "buffett": 227.0
+      },
+      "exit_estimated": true
     },
     {
       "id": "5bc72cb3-6031-4d74-884b-45839f4e3b40",
@@ -107,10 +178,20 @@
       "reasoning": "+14.20%, z200=+2.02...",
       "entry_date": "2026-05-04",
       "entry_price": 176.42,
-      "macro_context": {},
-      "d5_target": "2026-05-09",
-      "d10_target": "2026-05-14",
-      "d30_target": "2026-06-03"
+      "exit_date": "2026-06-03",
+      "exit_price": 207.27,
+      "days_held": 30,
+      "pnl_pct": -17.49,
+      "realized_pnl_pct": -17.49,
+      "outcome": "incorrect",
+      "close_reason": "CLOSED_D30",
+      "exit_reason": "CLOSED_D30",
+      "macro_context": {
+        "fear_greed": 40,
+        "vix_structure": "Contango",
+        "buffett": 227.0
+      },
+      "exit_estimated": true
     },
     {
       "id": "29ffda0a-20d8-488c-9cb2-8f0ba5cabfa0",
@@ -121,10 +202,20 @@
       "reasoning": "RSI 84, z200=+2.57...",
       "entry_date": "2026-05-05",
       "entry_price": 108.15,
-      "macro_context": {},
-      "d5_target": "2026-05-10",
-      "d10_target": "2026-05-15",
-      "d30_target": "2026-06-04"
+      "exit_date": "2026-06-04",
+      "exit_price": 120.61,
+      "days_held": 30,
+      "pnl_pct": -11.52,
+      "realized_pnl_pct": -11.52,
+      "outcome": "incorrect",
+      "close_reason": "CLOSED_D30",
+      "exit_reason": "CLOSED_D30",
+      "macro_context": {
+        "fear_greed": 50,
+        "vix_structure": "Contango",
+        "buffett": 226.0
+      },
+      "exit_estimated": true
     },
     {
       "id": "7676cc25-1c86-4e07-9327-95ab8ca87c12",
@@ -134,11 +225,21 @@
       "confidence": 6,
       "reasoning": "RSI 82, z200=+2.48...",
       "entry_date": "2026-05-05",
-      "entry_price": 640.20,
-      "macro_context": {},
-      "d5_target": "2026-05-10",
-      "d10_target": "2026-05-15",
-      "d30_target": "2026-06-04"
+      "entry_price": 640.2,
+      "exit_date": "2026-05-13",
+      "exit_price": 800.25,
+      "days_held": 8,
+      "pnl_pct": -25.0,
+      "realized_pnl_pct": -25.0,
+      "outcome": "incorrect",
+      "close_reason": "STOPPED_OUT",
+      "exit_reason": "STOPPED_OUT",
+      "macro_context": {
+        "fear_greed": 50,
+        "vix_structure": "Contango",
+        "buffett": 226.0
+      },
+      "exit_estimated": false
     },
     {
       "id": "cfa91ad8-0b1f-45fc-88f1-4ef1ca3ad9ad",
@@ -149,10 +250,20 @@
       "reasoning": "+29.54%, z200=+3.52...",
       "entry_date": "2026-05-05",
       "entry_price": 9.21,
-      "macro_context": {},
-      "d5_target": "2026-05-10",
-      "d10_target": "2026-05-15",
-      "d30_target": "2026-06-04"
+      "exit_date": "2026-05-07",
+      "exit_price": 11.51,
+      "days_held": 2,
+      "pnl_pct": -24.97,
+      "realized_pnl_pct": -24.97,
+      "outcome": "incorrect",
+      "close_reason": "STOPPED_OUT",
+      "exit_reason": "STOPPED_OUT",
+      "macro_context": {
+        "fear_greed": 50,
+        "vix_structure": "Contango",
+        "buffett": 226.0
+      },
+      "exit_estimated": true
     },
     {
       "id": "8e38f6d7-6b84-4a2a-9724-78352b14359f",
@@ -163,10 +274,20 @@
       "reasoning": "+24.5%, z200=+4.84, vol 3.6x...",
       "entry_date": "2026-05-06",
       "entry_price": 34.66,
-      "macro_context": {},
-      "d5_target": "2026-05-11",
-      "d10_target": "2026-05-16",
-      "d30_target": "2026-06-05"
+      "exit_date": "2026-05-22",
+      "exit_price": 43.33,
+      "days_held": 16,
+      "pnl_pct": -25.01,
+      "realized_pnl_pct": -25.01,
+      "outcome": "incorrect",
+      "close_reason": "STOPPED_OUT",
+      "exit_reason": "STOPPED_OUT",
+      "macro_context": {
+        "fear_greed": 46,
+        "vix_structure": "Contango",
+        "buffett": 228.0
+      },
+      "exit_estimated": true
     },
     {
       "id": "ea2073e3-5d7f-4457-bd41-e57d6a3f090d",
@@ -177,10 +298,20 @@
       "reasoning": "+18.6%, z200=+4.25, RSI 81...",
       "entry_date": "2026-05-06",
       "entry_price": 421.39,
-      "macro_context": {},
-      "d5_target": "2026-05-11",
-      "d10_target": "2026-05-16",
-      "d30_target": "2026-06-05"
+      "exit_date": "2026-06-03",
+      "exit_price": 526.74,
+      "days_held": 28,
+      "pnl_pct": -25.0,
+      "realized_pnl_pct": -25.0,
+      "outcome": "incorrect",
+      "close_reason": "STOPPED_OUT",
+      "exit_reason": "STOPPED_OUT",
+      "macro_context": {
+        "fear_greed": 46,
+        "vix_structure": "Contango",
+        "buffett": 228.0
+      },
+      "exit_estimated": false
     },
     {
       "id": "3e8ab879-b639-48b0-8e21-ea5581f90002",
@@ -190,12 +321,21 @@
       "confidence": 6,
       "reasoning": "+13.6%, z200=+3.51...",
       "entry_date": "2026-05-06",
-      "entry_price": 237.30,
-      "macro_context": {},
-      "d5_target": "2026-05-11",
-      "d10_target": "2026-05-16",
-      "d30_target": "2026-06-05"
+      "entry_price": 237.3,
+      "exit_date": "2026-06-05",
+      "exit_price": 213.31,
+      "days_held": 30,
+      "pnl_pct": 10.11,
+      "realized_pnl_pct": 10.11,
+      "outcome": "correct",
+      "close_reason": "CLOSED_D30",
+      "exit_reason": "CLOSED_D30",
+      "macro_context": {
+        "fear_greed": 46,
+        "vix_structure": "Contango",
+        "buffett": 228.0
+      },
+      "exit_estimated": true
     }
-  ],
-  "closed": []
+  ]
 }

@@ -15,6 +15,11 @@ logger = logging.getLogger(__name__)
 
 DIRECTIONAL = {"contrarian_buy", "reduce_exposure"}
 
+# Strategy v2: a SHORT (reduce_exposure) is only actionable at confidence >= 6.
+# The macro fear-cap (claude_advisor/signal_gates.py) caps fear-regime bubble
+# shorts to 5, which falls below this floor and so cannot open a position.
+MIN_SHORT_CONFIDENCE = 6
+
 
 def parse_and_add(
     recommendations: list[dict],
@@ -48,6 +53,17 @@ def parse_and_add(
             continue
 
         direction = "long" if rec_type == "contrarian_buy" else "short"
+        confidence = int(rec.get("confidence") or 5)
+
+        # Strategy v2 actionable-confidence floor for shorts. A reduce_exposure
+        # capped to 5 by the macro fear-cap (or otherwise below 6) is an
+        # observation, not a trade.
+        if direction == "short" and confidence < MIN_SHORT_CONFIDENCE:
+            logger.info(
+                "%s: skipping short below actionable confidence floor (conf=%d < %d)",
+                ticker, confidence, MIN_SHORT_CONFIDENCE,
+            )
+            continue
 
         entry_price = fetch_price(ticker)
         if entry_price is None:
@@ -58,7 +74,7 @@ def parse_and_add(
             ticker=ticker,
             direction=direction,
             recommendation=rec_type,
-            confidence=int(rec.get("confidence") or 5),
+            confidence=confidence,
             reasoning=(rec.get("reasoning") or "")[:400],
             entry_price=entry_price,
             entry_date=date.isoformat(),

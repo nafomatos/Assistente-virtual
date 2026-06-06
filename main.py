@@ -601,6 +601,24 @@ def main(argv: list[str]) -> int:
         _report_text = _rf.read()
     _classified_signals = _classify_signals(_report_text, date=date)
 
+    # ── Strategy v2 short gates (code-enforced) ───────────────────────────────
+    # The system prompt asks the model to apply the vol_dist / sustained / macro
+    # short gates, but the V1 retrospective showed those rules are ignored under
+    # pressure. Enforce them in code AFTER classification: reclassify bubble
+    # shorts lacking distribution / sustained extension to institutional_
+    # rebalancing → wait, and cap fear-regime bubble confidence. Longs untouched.
+    # Re-persist so the cluster booster, sizing, and email all read gated values.
+    if _classified_signals:
+        from claude_advisor.signal_gates import apply_short_gates
+        _macro_for_gates = {"fear_greed": fear_greed, "buffett": buffett}
+        apply_short_gates(_classified_signals, results, _macro_for_gates)
+        _signals_path = os.path.join(LOGS_DIR, f"signals_{date.isoformat()}.json")
+        try:
+            with open(_signals_path, "w", encoding="utf-8") as _sf:
+                json.dump({"date": date.isoformat(), "signals": _classified_signals}, _sf, indent=2)
+        except OSError as _exc:
+            logger.warning("v2 gates: could not re-persist %s (%s)", _signals_path, _exc)
+
     # ── Cluster Signal Booster ────────────────────────────────────────────────
     # Reads historical logs/signals_YYYYMMDD.json files (written by this block
     # on previous runs) and boosts confidence when 3+ tickers from the same

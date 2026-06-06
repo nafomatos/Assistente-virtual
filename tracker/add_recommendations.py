@@ -22,6 +22,39 @@ logging.basicConfig(
 
 from tracker.recommendation_parser import parse_and_add
 
+logger = logging.getLogger(__name__)
+
+
+def _capture_macro_context() -> dict:
+    """Snapshot the macro regime at entry (Fear & Greed, VIX structure, Buffett).
+
+    Best-effort: any collector that fails or is unavailable is simply omitted,
+    so a position is still recorded even when a macro source is down.
+    """
+    macro: dict = {}
+    try:
+        from collectors.fear_greed import fetch_fear_greed
+        fg = fetch_fear_greed()
+        if fg and fg.get("score") is not None:
+            macro["fear_greed"] = fg.get("score")
+    except Exception as exc:  # pragma: no cover - network/collector failure
+        logger.info("macro: fear & greed unavailable (%s)", exc)
+    try:
+        from collectors.vix_structure import fetch_vix_structure
+        vix = fetch_vix_structure()
+        if vix:
+            macro["vix_structure"] = vix.get("structure") or vix.get("label")
+    except Exception as exc:  # pragma: no cover
+        logger.info("macro: vix structure unavailable (%s)", exc)
+    try:
+        from collectors.buffett_indicator import fetch_buffett_indicator
+        buf = fetch_buffett_indicator()
+        if buf and buf.get("ratio_pct") is not None:
+            macro["buffett"] = buf.get("ratio_pct")
+    except Exception as exc:  # pragma: no cover
+        logger.info("macro: buffett indicator unavailable (%s)", exc)
+    return macro
+
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
@@ -60,7 +93,11 @@ def main(argv: list[str] | None = None) -> int:
     if not isinstance(recommendations, list):
         recommendations = [recommendations]
 
-    added = parse_and_add(recommendations, date=date)
+    # Strategy v2: capture the macro snapshot at entry so each position records
+    # the regime it was opened into (no more empty macro_context: {}).
+    macro_context = _capture_macro_context()
+
+    added = parse_and_add(recommendations, date=date, macro_context=macro_context)
 
     if not added:
         print("No new positions added (all were non-directional or already tracked).")

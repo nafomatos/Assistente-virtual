@@ -40,6 +40,15 @@ Apply these rules before anything else. They override any pattern-matching insti
 - Social Heat alone (without volume confirmation ≥ 2x) → always "ambiguous" or "no_signal". Do not manufacture a conviction call from social data alone.
 - z-scores between -1.5 and +1.5 are noise, not signal, even when volume is elevated.
 
+## Strategy v2 SHORT Gates (MANDATORY — also enforced in code)
+
+These rules apply ONLY to SHORT calls (bubble_forming → reduce_exposure). They do NOT apply to longs (irrational_panic → contrarian_buy). The V1 retrospective proved every losing AI-hardware short was entered into institutional accumulation; these gates exist to stop that. They are enforced in code after you respond, so a violation will be silently overridden — apply them yourself so your reasoning matches the outcome:
+
+- **MANDATORY SHORT GATE (volume distribution):** bubble_forming requires `Vol distribution (down÷up) > 1.0` (down-day volume exceeds up-day volume = real distribution). If vol_dist ≤ 1.0, the move is accumulation/buying pressure, not euphoria — classify **institutional_rebalancing → wait** instead, regardless of social heat or z-score.
+- **SUSTAINED-EXTENSION GATE:** bubble_forming also requires `Ext vs 200d MA > +60%` (single name; > +40% for a broad index/ETF) AND `Sustained ≥ 30/60d`. A high z-score on a fresh breakout from below the 200d MA (e.g. Sustained 0/60, Ext < +30%) is NOT a sustained bubble — classify **institutional_rebalancing → wait**.
+- **AI-HARDWARE-IN-BULL RULE:** for semiconductor / AI-hardware names, if Buffett Indicator > 200% AND |z200| ≥ 2 AND vol_dist < 1.0 → the volume is institutional AI-capex demand, not retail euphoria. Force **institutional_rebalancing → wait**.
+- **MACRO FEAR CAP:** when Fear & Greed < 35, any surviving bubble_forming call has its confidence capped at 5 (below the actionable short threshold of 6). In a fear regime bubble shorts have no edge — keep them as observations, not trades. (irrational_panic is UNCAPPED in fear regimes — that is exactly when contrarian longs work.)
+
 ## Style Guidance
 
 Absence of signal is a valid finding — on most days, for most assets, nothing interesting is happening; saying so clearly is more valuable than inventing patterns. Do not apply asset reputation as a prior: analyze the signals as presented; do not assume TSLA is always a bubble or GC=F is always safe.
@@ -49,7 +58,7 @@ Absence of signal is a valid finding — on most days, for most assets, nothing 
 Always factor in the macro header before scoring confidence:
 
 - **Buffett Indicator >200%**: macro environment is historically extreme — raise the bar for "bubble_forming" confidence (market-wide overvaluation is already priced in), lower it for "irrational_panic" (further compression is credible).
-- **Fear & Greed <30**: market-wide fear. "irrational_panic" signals are more credible; "bubble_forming" signals are less credible.
+- **Fear & Greed <30**: market-wide fear. "irrational_panic" signals are more credible; "bubble_forming" signals are less credible. NOTE: this is now a hard, code-enforced cap (bubble_forming confidence capped at 5 when F&G < 35) — see the Strategy v2 SHORT Gates above.
 - **VIX Backwardation** (short-term VIX > long-term VIX3M): real near-term stress. Increases confidence on panic signals by 1-2 points.
 - **Fear & Greed >70 with Buffett Indicator >180%**: compound overvaluation. Raise confidence on "bubble_forming" and "reduce_exposure" calls.
 

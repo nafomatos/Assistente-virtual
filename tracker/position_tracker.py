@@ -111,6 +111,20 @@ def _status(pnl_pct: float) -> str:
     return "NEUTRAL"
 
 
+def _realized_pnl(pos: dict) -> float | None:
+    """Realized P&L for a closed position (realized_pnl_pct, falling back to pnl_pct)."""
+    val = pos.get("realized_pnl_pct")
+    if val is None:
+        val = pos.get("pnl_pct")
+    return val
+
+
+def _is_correct(pos: dict) -> bool:
+    """Strategy-v2 'correct' definition: the position made money (realized P&L > 0)."""
+    val = _realized_pnl(pos)
+    return val is not None and val > 0
+
+
 # ── public API ─────────────────────────────────────────────────────────────
 
 def add_position(
@@ -226,11 +240,13 @@ def close_expired_positions(date: dt.date) -> dict:
                 "exit_price":     round(current_price, 2),
                 "days_held":      (date - entry_date).days,
                 "pnl_pct":        pnl,
+                "realized_pnl_pct": pnl,
                 "pnl_d5":         pnl_d5,
                 "pnl_d10":        pnl_d10,
                 "pnl_d30":        None,
                 "outcome":        _outcome(pnl),
                 "close_reason":   "STOPPED_OUT",
+                "exit_reason":    "STOPPED_OUT",
                 "macro_context":  pos.get("macro_context", {}),
             }
             state["closed"].append(closed)
@@ -268,11 +284,13 @@ def close_expired_positions(date: dt.date) -> dict:
             "exit_price":     round(p30, 2) if p30 else None,
             "days_held":      (d30 - entry_date).days,
             "pnl_pct":        pnl_d30,
+            "realized_pnl_pct": pnl_d30,
             "pnl_d5":         pnl_d5,
             "pnl_d10":        pnl_d10,
             "pnl_d30":        pnl_d30,
             "outcome":        _outcome(pnl_d30) if pnl_d30 is not None else "unknown",
             "close_reason":   "CLOSED_D30",
+            "exit_reason":    "CLOSED_D30",
             "macro_context":  pos.get("macro_context", {}),
         }
         state["closed"].append(closed)
@@ -286,6 +304,44 @@ def close_expired_positions(date: dt.date) -> dict:
     if stop_outs or d30_closes:
         _save(state)
     return {"stop_outs": stop_outs, "d30_closes": d30_closes}
+
+
+def build_closed_record(
+    pos: dict,
+    exit_price: float | None,
+    exit_date: str,
+    exit_reason: str,
+) -> dict:
+    """Build a closed-position record from an open position and an explicit exit.
+
+    Network-free: the caller supplies the exit price (e.g. from a backfill /
+    migration) so this works in environments where live price fetch is blocked.
+    realized P&L is computed from the recommendation's perspective; outcome is
+    "unknown" when no exit price is determinable.
+    """
+    entry      = pos["entry_price"]
+    entry_date = dt.date.fromisoformat(pos["entry_date"])
+    ed         = dt.date.fromisoformat(exit_date)
+    pnl = round(_pnl(pos["direction"], entry, exit_price), 2) if exit_price is not None else None
+    return {
+        "id":               pos.get("id") or str(uuid.uuid4()),
+        "ticker":           pos["ticker"],
+        "direction":        pos["direction"],
+        "recommendation":   pos["recommendation"],
+        "confidence":       pos["confidence"],
+        "reasoning":        pos.get("reasoning", ""),
+        "entry_date":       pos["entry_date"],
+        "entry_price":      entry,
+        "exit_date":        exit_date,
+        "exit_price":       round(exit_price, 2) if exit_price is not None else None,
+        "days_held":        (ed - entry_date).days,
+        "pnl_pct":          pnl,
+        "realized_pnl_pct": pnl,
+        "outcome":          (_outcome(pnl) if pnl is not None else "unknown"),
+        "close_reason":     exit_reason,
+        "exit_reason":      exit_reason,
+        "macro_context":    pos.get("macro_context", {}),
+    }
 
 
 def get_open_positions() -> list[dict]:
@@ -308,13 +364,17 @@ def get_aggregate_stats() -> dict:
             "by_recommendation": {}, "by_confidence": {},
         }
 
-    total     = len(closed)
-    correct   = sum(1 for p in closed if p.get("outcome") == "correct")
-    incorrect = sum(1 for p in closed if p.get("outcome") == "incorrect")
-    neutral   = sum(1 for p in closed if p.get("outcome") == "neutral")
-    pnls      = [p["pnl_pct"] for p in closed if p.get("pnl_pct") is not None]
-    avg_pnl   = sum(pnls) / len(pnls) if pnls else 0.0
-    win_rate  = correct / total * 100 if total else 0.0
+    # Strategy v2: "correct" = realized P&L > 0 (made money in intended direction),
+    # read straight from the persisted closed list — not recomputed at render time.
+    total      = len(closed)
+    determined = [p for p in closed if _realized_pnl(p) is not None]
+    correct    = sum(1 for p in closed if _is_correct(p))
+    incorrect  = sum(1 for p in determined if not _is_correct(p))
+    neutral    = total - len(determined)   # closures with no determinable exit price
+    pnls       = [_realized_pnl(p) for p in determined]
+    avg_pnl    = sum(pnls) / len(pnls) if pnls else 0.0
+    # Win rate is over positions with a determinable outcome.
+    win_rate   = correct / len(determined) * 100 if determined else 0.0
 
     # By recommendation type
     by_rec: dict[str, dict] = {}
@@ -322,10 +382,10 @@ def get_aggregate_stats() -> dict:
         rec = pos.get("recommendation", "unknown")
         bucket = by_rec.setdefault(rec, {"total": 0, "correct": 0, "pnls": []})
         bucket["total"] += 1
-        if pos.get("outcome") == "correct":
+        if _is_correct(pos):
             bucket["correct"] += 1
-        if pos.get("pnl_pct") is not None:
-            bucket["pnls"].append(pos["pnl_pct"])
+        if _realized_pnl(pos) is not None:
+            bucket["pnls"].append(_realized_pnl(pos))
 
     by_rec_out = {
         rec: {
@@ -352,8 +412,8 @@ def get_aggregate_stats() -> dict:
     for band, positions in bands.items():
         if not positions:
             continue
-        b_correct = sum(1 for p in positions if p.get("outcome") == "correct")
-        b_pnls    = [p["pnl_pct"] for p in positions if p.get("pnl_pct") is not None]
+        b_correct = sum(1 for p in positions if _is_correct(p))
+        b_pnls    = [_realized_pnl(p) for p in positions if _realized_pnl(p) is not None]
         by_conf_out[band] = {
             "total":    len(positions),
             "correct":  b_correct,
