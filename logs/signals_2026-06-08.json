@@ -1,0 +1,33 @@
+{
+  "date": "2026-06-08",
+  "signals": [
+    {
+      "ticker": "SPCX",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Heat YouTube explosivo em torno do IPO SpaceX, mas volume nanx \u00e9 artefato de dados, z30/z200=0.0, pre\u00e7o flat. Sem confirma\u00e7\u00e3o de volume real ou velocidade, social isolado n\u00e3o justifica conviction call.",
+      "confidence": 3
+    },
+    {
+      "ticker": "GC=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 13.2x (artefato prov\u00e1vel) com z30=+0.5 dentro do ru\u00eddo, tom neutro, vol_dist 0.55 indica compra. Commodity com fluxo institucional t\u00edpico, sem euforia retail confirmada. Default para rebalancing.",
+      "confidence": 5
+    },
+    {
+      "ticker": "SI=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 41x \u00e9 artefato de dados, z30=-0.2 e z200=-0.3 s\u00e3o ru\u00eddo, RSI 33 neutro, tom YouTube neutro. Vol_dist 39 inflado pelo mesmo artefato. Sinais insuficientes para classifica\u00e7\u00e3o direcional.",
+      "confidence": 3
+    },
+    {
+      "ticker": "HG=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 23.9x (artefato), z30=+0.5 ru\u00eddo, RSI 51 neutro, vol_dist 0.16 = forte buying pressure. Heat elevado/bullish mas sem z-score extremo. Padr\u00e3o de acumula\u00e7\u00e3o institucional em commodity, n\u00e3o bolha.",
+      "confidence": 5
+    }
+  ]
+}
