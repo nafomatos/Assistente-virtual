@@ -155,6 +155,13 @@ def apply_cluster_boosts(signals: list[dict], clusters: list[dict]) -> list[dict
     (``v2_gate.action == "confidence_capped"``) are never boosted — boosting a
     capped bubble short back above MIN_SHORT_CONFIDENCE would silently defeat
     the cap.
+
+    Freshness guard: a signal is only boosted by a cluster it is itself a
+    member of. Today's signals are persisted before detect_clusters() runs, so
+    a signal that genuinely belongs to the pattern always appears in the
+    cluster's ticker list; a sector/direction match without membership means
+    the cluster was built entirely from other days' signals and today's signal
+    was never verified against it.
     """
     for signal in signals or []:
         ticker = signal.get("ticker", "")
@@ -176,6 +183,13 @@ def apply_cluster_boosts(signals: list[dict], clusters: list[dict]) -> list[dict
 
         for cluster in clusters:
             if cluster["sector"] == sector and cluster["direction_group"] == direction:
+                if ticker not in cluster.get("tickers", []):
+                    logger.info(
+                        "[CLUSTER BOOST] %s skipped — matches %s/%s but is not a "
+                        "cluster member (stale or unverified cluster)",
+                        ticker, sector, direction,
+                    )
+                    continue
                 original = signal.get("confidence", 0)
                 boosted = min(original + cluster["boost"], 10)
                 signal["cluster_boost"] = {
