@@ -1,7 +1,7 @@
 """Cluster signal booster — detects when 3+ tickers from the same sector
 receive same-direction classifications within a rolling business-day window.
 
-Signal logs are read from logs/signals_YYYYMMDD.json files, which are
+Signal logs are read from logs/signals_YYYY-MM-DD.json files, which are
 saved by the pipeline when CLUSTER_BOOST_ENABLED=true.
 
 Each signal file has the shape:
@@ -76,6 +76,7 @@ def detect_clusters(
 
     # cluster_data[sector][direction_group][ticker] = [date_str, ...]
     cluster_data: dict[str, dict[str, dict[str, list[str]]]] = {}
+    unmapped_tickers: set[str] = set()
 
     for day in window_dates:
         log_path = os.path.join(logs_dir, f"signals_{day.isoformat()}.json")
@@ -96,6 +97,10 @@ def detect_clusters(
             sector = get_sector(ticker)
             direction = get_direction_group(classification, recommendation)
             if sector is None or direction is None:
+                # A directional signal on a ticker with no sector mapping can
+                # never join a cluster — surface it so the map gets extended.
+                if ticker and sector is None and direction is not None:
+                    unmapped_tickers.add(ticker)
                 continue
 
             cluster_data.setdefault(sector, {}).setdefault(direction, {}).setdefault(
@@ -104,6 +109,13 @@ def detect_clusters(
             date_str = day.isoformat()
             if date_str not in cluster_data[sector][direction][ticker]:
                 cluster_data[sector][direction][ticker].append(date_str)
+
+    if unmapped_tickers:
+        logger.warning(
+            "cluster_detector: no sector mapping for signalling ticker(s): %s "
+            "— add them to tracker/sectors.SECTOR_MAP to include in clustering",
+            ", ".join(sorted(unmapped_tickers)),
+        )
 
     results: list[dict] = []
     for sector, directions in cluster_data.items():
@@ -130,6 +142,57 @@ def detect_clusters(
             )
 
     return results
+
+
+def apply_cluster_boosts(signals: list[dict], clusters: list[dict]) -> list[dict]:
+    """Boost the confidence of classified signals that belong to an active cluster.
+
+    Mutates ``signals`` in place and returns the list. Each boosted signal gets
+    a ``cluster_boost`` annotation (sector, direction_group, count,
+    original_confidence, boost_amount) for the email/report and sizing.
+
+    Signals whose confidence was capped by the macro fear gate
+    (``v2_gate.action == "confidence_capped"``) are never boosted — boosting a
+    capped bubble short back above MIN_SHORT_CONFIDENCE would silently defeat
+    the cap.
+    """
+    for signal in signals or []:
+        ticker = signal.get("ticker", "")
+        gate = signal.get("v2_gate") or {}
+        if gate.get("action") == "confidence_capped":
+            logger.info(
+                "[CLUSTER BOOST] %s skipped — confidence capped by v2 gate (%s)",
+                ticker, gate.get("rule"),
+            )
+            continue
+
+        sector = get_sector(ticker)
+        direction = get_direction_group(
+            signal.get("classification", ""),
+            signal.get("recommendation", ""),
+        )
+        if sector is None or direction is None:
+            continue
+
+        for cluster in clusters:
+            if cluster["sector"] == sector and cluster["direction_group"] == direction:
+                original = signal.get("confidence", 0)
+                boosted = min(original + cluster["boost"], 10)
+                signal["cluster_boost"] = {
+                    "sector": sector,
+                    "direction_group": direction,
+                    "count": cluster["count"],
+                    "original_confidence": original,
+                    "boost_amount": cluster["boost"],
+                }
+                signal["confidence"] = boosted
+                logger.info(
+                    "[CLUSTER BOOST] %s %s %s: %d -> %d (+%d, %d tickers)",
+                    ticker, sector, direction,
+                    original, boosted, cluster["boost"], cluster["count"],
+                )
+                break
+    return signals
 
 
 if __name__ == "__main__":

@@ -17,7 +17,7 @@ import os
 
 import pytest
 
-from tracker.cluster_detector import detect_clusters
+from tracker.cluster_detector import apply_cluster_boosts, detect_clusters
 
 
 # ── helpers ───────────────────────────────────────────────────────────────────
@@ -164,3 +164,55 @@ def test_out_of_window_no_cluster(tmp_path):
     )
     clusters = detect_clusters(days_window=5, logs_dir=str(tmp_path), reference_date=_REF)
     assert clusters == [], "Signals from 8 bdays ago must not trigger a 5-day cluster"
+
+
+# ── apply_cluster_boosts ──────────────────────────────────────────────────────
+
+_SEMIS_BEARISH_CLUSTER = {
+    "sector": "semis",
+    "direction_group": "bearish_overheating",
+    "tickers": ["AMD", "NVDA", "SMCI"],
+    "count": 3,
+    "boost": 1,
+    "first_seen": "2026-05-04",
+    "last_seen": "2026-05-06",
+}
+
+
+def test_boost_applies_to_matching_signal():
+    sig = _sig("NVDA", "bubble_forming", "reduce_exposure", 7)
+    apply_cluster_boosts([sig], [_SEMIS_BEARISH_CLUSTER])
+    assert sig["confidence"] == 8
+    assert sig["cluster_boost"]["original_confidence"] == 7
+    assert sig["cluster_boost"]["boost_amount"] == 1
+    assert sig["cluster_boost"]["sector"] == "semis"
+
+
+def test_boost_never_rearms_macro_capped_signal():
+    """A bubble short capped to 5 by the macro fear gate must NOT be boosted
+    back above MIN_SHORT_CONFIDENCE — that would silently defeat the cap."""
+    sig = _sig("NVDA", "bubble_forming", "reduce_exposure", 5)
+    sig["v2_gate"] = {
+        "action": "confidence_capped",
+        "rule": "macro_fear_cap",
+        "original_confidence": 8,
+    }
+    apply_cluster_boosts([sig], [_SEMIS_BEARISH_CLUSTER])
+    assert sig["confidence"] == 5
+    assert "cluster_boost" not in sig
+
+
+def test_boost_caps_confidence_at_ten():
+    sig = _sig("NVDA", "bubble_forming", "reduce_exposure", 10)
+    apply_cluster_boosts([sig], [_SEMIS_BEARISH_CLUSTER])
+    assert sig["confidence"] == 10
+
+
+def test_boost_ignores_non_matching_sector_or_direction():
+    other_sector = _sig("AAPL", "bubble_forming", "reduce_exposure", 7)   # mega_tech
+    other_dir    = _sig("NVDA", "irrational_panic", "contrarian_buy", 7)  # bullish
+    apply_cluster_boosts([other_sector, other_dir], [_SEMIS_BEARISH_CLUSTER])
+    assert other_sector["confidence"] == 7
+    assert other_dir["confidence"] == 7
+    assert "cluster_boost" not in other_sector
+    assert "cluster_boost" not in other_dir

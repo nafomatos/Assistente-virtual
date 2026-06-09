@@ -51,6 +51,10 @@ SECTOR_MAP = {
     ],
 }
 
+TICKER_TO_SECTOR = {
+    ticker: sector for sector, tickers in SECTOR_MAP.items() for ticker in tickers
+}
+
 DIRECTION_GROUPS = {
     "bearish_overheating": ["bubble_forming", "reduce_exposure"],
     "bullish_panic": ["irrational_panic", "contrarian_buy"],
@@ -59,10 +63,7 @@ DIRECTION_GROUPS = {
 
 
 def get_sector(ticker: str) -> str | None:
-    for sector, tickers in SECTOR_MAP.items():
-        if ticker in tickers:
-            return sector
-    return None
+    return TICKER_TO_SECTOR.get(ticker)
 
 
 def get_direction_group(classification: str, recommendation: str) -> str | None:

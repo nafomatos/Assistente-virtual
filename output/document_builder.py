@@ -271,11 +271,15 @@ def _asset_section(ticker: str, signals: dict, tier: str) -> str:
 
 
 def _closing_instruction(n_assets: int) -> str:
+    # Must match the Output Contract in claude_advisor/prompts.py — the
+    # classifier's parser expects the HUMAN_SUMMARY / JSON_OUTPUT labels.
     return (
         f"\n{'=' * 72}\n"
         f"[INSTRUCTION]\n\n"
-        f"Analyze each of the {n_assets} asset(s) above and respond with a single "
-        f"JSON array. Each element must follow this exact schema:\n\n"
+        f"Analyze each of the {n_assets} asset(s) above and respond using the "
+        f"exact two-section format from the system prompt: a HUMAN_SUMMARY: "
+        f"section followed by a JSON_OUTPUT: section containing a single JSON "
+        f"array. Each element of the array must follow this exact schema:\n\n"
         f"{{\n"
         f'  "ticker": "...",\n'
         f'  "classification": "bubble_forming|irrational_panic|institutional_rebalancing|silent_accumulation|ambiguous|no_signal",\n'
@@ -283,7 +287,7 @@ def _closing_instruction(n_assets: int) -> str:
         f'  "reasoning": "2-3 short sentences, under 400 characters total",\n'
         f'  "confidence": <integer 1-10>\n'
         f"}}\n\n"
-        f"Return ONLY the JSON array, no prose, no markdown fences.\n"
+        f"No markdown fences, no prose outside the two labelled sections.\n"
     )
 
 

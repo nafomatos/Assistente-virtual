@@ -328,22 +328,27 @@ def _attach_sizing_blocks(
     buffett: dict | None,
     fear_greed: dict | None,
     logs_dir: str = LOGS_DIR,
+    classified_signals: list[dict] | None = None,
 ) -> None:
-    """Read classified signals for `date` and attach a sizing_block to each result.
+    """Attach a sizing_block to each result with a classified signal.
 
-    Mutates results in-place.  Silently no-ops when the signals JSON is absent
-    (manual-paste workflow) or when any individual computation fails.
+    Uses ``classified_signals`` directly when the caller already holds the
+    gated/boosted in-memory list (the automated pipeline); otherwise falls
+    back to reading logs/signals_<date>.json (manual-paste workflow).
+    Mutates results in-place.  Silently no-ops when no signals are available
+    or when any individual computation fails.
     """
     from analyzers.position_sizing import compute_sizing_block
 
-    signals_path = os.path.join(logs_dir, f"signals_{date.isoformat()}.json")
-    classified_signals: list[dict] = []
-    if os.path.exists(signals_path):
-        try:
-            with open(signals_path, encoding="utf-8") as fh:
-                classified_signals = json.load(fh).get("signals", [])
-        except (json.JSONDecodeError, OSError) as exc:
-            logger.warning("position sizing: could not load %s: %s", signals_path, exc)
+    if not classified_signals:
+        signals_path = os.path.join(logs_dir, f"signals_{date.isoformat()}.json")
+        classified_signals = []
+        if os.path.exists(signals_path):
+            try:
+                with open(signals_path, encoding="utf-8") as fh:
+                    classified_signals = json.load(fh).get("signals", [])
+            except (json.JSONDecodeError, OSError) as exc:
+                logger.warning("position sizing: could not load %s: %s", signals_path, exc)
 
     if not classified_signals:
         return
@@ -377,6 +382,18 @@ def _attach_sizing_blocks(
                 )
         except Exception as exc:
             logger.warning("position sizing: failed for %s: %s", r["ticker"], exc)
+
+
+def _persist_signals(
+    signals: list[dict], date: dt.date, logs_dir: str = LOGS_DIR
+) -> None:
+    """Write the classified signals to logs/signals_<date>.json (best effort)."""
+    signals_path = os.path.join(logs_dir, f"signals_{date.isoformat()}.json")
+    try:
+        with open(signals_path, "w", encoding="utf-8") as fh:
+            json.dump({"date": date.isoformat(), "signals": signals}, fh, indent=2)
+    except OSError as exc:
+        logger.warning("signals: could not persist %s (%s)", signals_path, exc)
 
 
 def archive_log(report_path: str, date: dt.date, logs_dir: str = LOGS_DIR) -> str:
@@ -607,71 +624,38 @@ def main(argv: list[str]) -> int:
     # pressure. Enforce them in code AFTER classification: reclassify bubble
     # shorts lacking distribution / sustained extension to institutional_
     # rebalancing → wait, and cap fear-regime bubble confidence. Longs untouched.
-    # Re-persist so the cluster booster, sizing, and email all read gated values.
     if _classified_signals:
         from claude_advisor.signal_gates import apply_short_gates
         _macro_for_gates = {"fear_greed": fear_greed, "buffett": buffett}
         apply_short_gates(_classified_signals, results, _macro_for_gates)
-        _signals_path = os.path.join(LOGS_DIR, f"signals_{date.isoformat()}.json")
-        try:
-            with open(_signals_path, "w", encoding="utf-8") as _sf:
-                json.dump({"date": date.isoformat(), "signals": _classified_signals}, _sf, indent=2)
-        except OSError as _exc:
-            logger.warning("v2 gates: could not re-persist %s (%s)", _signals_path, _exc)
+        # Re-persist so today's file holds gated values when detect_clusters
+        # (below) reads it alongside the historical files.
+        _persist_signals(_classified_signals, date)
 
     # ── Cluster Signal Booster ────────────────────────────────────────────────
-    # Reads historical logs/signals_YYYYMMDD.json files (written by this block
-    # on previous runs) and boosts confidence when 3+ tickers from the same
-    # sector are signalling in the same direction within the rolling window.
-    # Post-classification, pure Python — never touches the Claude prompt.
+    # Reads the logs/signals_YYYY-MM-DD.json files persisted by _persist_signals
+    # and boosts confidence when 3+ tickers from the same sector are
+    # signalling in the same direction within the rolling window. Operates
+    # on the gated in-memory list so email, sizing, and the persisted file all
+    # see the same values; signals capped by the macro fear gate are never
+    # boosted (see apply_cluster_boosts).
     active_clusters: list[dict] = []
     if CLUSTER_BOOST_ENABLED:
-        from tracker.cluster_detector import detect_clusters
-        from tracker.sectors import get_direction_group, get_sector
+        from tracker.cluster_detector import apply_cluster_boosts, detect_clusters
 
         active_clusters = detect_clusters(days_window=5)
 
-        # Load today's classified signals (written by the Claude Haiku step)
-        signals_path = os.path.join(LOGS_DIR, f"signals_{date.isoformat()}.json")
-        classified_signals: list[dict] = []
-        if os.path.exists(signals_path):
-            try:
-                with open(signals_path, "r", encoding="utf-8") as fh:
-                    classified_signals = json.load(fh).get("signals", [])
-            except (json.JSONDecodeError, OSError) as exc:
-                logger.warning("cluster boost: could not load %s (%s)", signals_path, exc)
-
-        for signal in classified_signals:
-            sector = get_sector(signal["ticker"])
-            direction = get_direction_group(
-                signal.get("classification", ""),
-                signal.get("recommendation", ""),
-            )
-            for cluster in active_clusters:
-                if cluster["sector"] == sector and cluster["direction_group"] == direction:
-                    original = signal["confidence"]
-                    boosted  = min(original + cluster["boost"], 10)
-                    signal["cluster_boost"] = {
-                        "sector": sector,
-                        "direction_group": direction,
-                        "count": cluster["count"],
-                        "original_confidence": original,
-                        "boost_amount": cluster["boost"],
-                    }
-                    signal["confidence"] = boosted
-                    logger.info(
-                        "[CLUSTER BOOST] %s %s %s: %d -> %d (+%d, %d tickers)",
-                        signal["ticker"], sector, direction,
-                        original, boosted, cluster["boost"], cluster["count"],
-                    )
-                    break
-
-        # Merge cluster_boost info into results for the email template
-        classified_by_ticker = {s["ticker"]: s for s in classified_signals}
-        for r in results:
-            cb = classified_by_ticker.get(r["ticker"], {}).get("cluster_boost")
-            if cb:
-                r["cluster_boost"] = cb
+        if active_clusters and _classified_signals:
+            apply_cluster_boosts(_classified_signals, active_clusters)
+            # Re-persist so the on-disk record carries the boost annotations
+            # that email and sizing see in memory.
+            _persist_signals(_classified_signals, date)
+            # Merge cluster_boost info into results for the email template
+            classified_by_ticker = {s["ticker"]: s for s in _classified_signals}
+            for r in results:
+                cb = classified_by_ticker.get(r["ticker"], {}).get("cluster_boost")
+                if cb:
+                    r["cluster_boost"] = cb
 
         # Persist detected clusters for historical analysis / backtesting
         if active_clusters:
@@ -685,11 +669,13 @@ def main(argv: list[str]) -> int:
                 logger.warning("cluster boost: could not save clusters (%s)", exc)
 
     # ── Position Sizing ───────────────────────────────────────────────────────
-    # Reads classified signals (written by the Claude advisor / add_recommendations
-    # workflow) and attaches a sizing_block to each result for email rendering.
-    # Silently skipped when the signals file is absent (manual-paste workflow).
-    # _attach_sizing_blocks picks up in-memory cluster_boost already merged into results.
-    _attach_sizing_blocks(results, date, buffett, fear_greed)
+    # Attaches a sizing_block to each result for email rendering, using the
+    # in-memory gated+boosted signals; falls back to the signals file when the
+    # automated classifier was skipped (manual-paste workflow).
+    _attach_sizing_blocks(
+        results, date, buffett, fear_greed,
+        classified_signals=_classified_signals,
+    )
 
     # ── GitHub Pages — full report ────────────────────────────────────────────
     # Publish the complete HTML email to docs/reports/YYYY-MM-DD.html so the
