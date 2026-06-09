@@ -233,6 +233,49 @@ def test_volume_dist_ratio_all_up_days():
     assert result["volume_dist_ratio"] == pytest.approx(0.0, abs=1e-3)
 
 
+def test_volume_dist_ratio_excludes_flat_days():
+    """Flat days (return exactly 0) carry no directional information and must
+    not be counted as down-day volume, even with huge volume on them."""
+    # Alternate up day / flat day: 10 up days (vol 1M) + 10 flat days (vol 10M)
+    # in the 20-day window. Counting flat as "down" would give ratio = 10.0.
+    prices: list[float] = [100.0]
+    for _ in range(12):
+        prices.append(prices[-1] + 1.0)   # up day
+        prices.append(prices[-1])         # flat day
+    vols = [1_000_000.0]
+    for i in range(1, len(prices)):
+        vols.append(10_000_000.0 if prices[i] == prices[i - 1] else 1_000_000.0)
+    closes  = _make_closes(prices)
+    volumes = _make_volumes(vols, closes)
+    returns = _returns(closes)
+    result  = _compute_long_horizon(closes, returns, volumes, prices[-1])
+    assert result["volume_dist_ratio"] == pytest.approx(0.0, abs=1e-3)
+
+
+def test_volume_dist_ratio_excludes_zero_volume_days():
+    """Zero-volume rows (futures contract-roll artifacts) are excluded from
+    both sides of the ratio."""
+    # 10 up days vol 2M, 10 down days vol 1M → ratio 0.5; sprinkle zero-volume
+    # rows on two of the up days — they must drop out of the up sum.
+    prices: list[float] = [100.0]
+    for _ in range(12):
+        prices.append(prices[-1] + 1.0)   # up day
+        prices.append(prices[-1] - 0.5)   # down day
+    vols = [1_000_000.0]
+    for i in range(1, len(prices)):
+        vols.append(2_000_000.0 if prices[i] > prices[i - 1] else 1_000_000.0)
+    # Zero out the volume on the last two up days (roll artifact).
+    up_positions = [i for i in range(1, len(prices)) if prices[i] > prices[i - 1]]
+    for pos in up_positions[-2:]:
+        vols[pos] = 0.0
+    closes  = _make_closes(prices)
+    volumes = _make_volumes(vols, closes)
+    returns = _returns(closes)
+    result  = _compute_long_horizon(closes, returns, volumes, prices[-1])
+    # Window has 10 down days × 1M = 10M; up volume = 8 × 2M = 16M → 0.625
+    assert result["volume_dist_ratio"] == pytest.approx(10.0 / 16.0, abs=1e-3)
+
+
 def test_volume_dist_ratio_all_down_days():
     """20 consecutive down-days → up_vol = 0 → ratio is None (no up volume)."""
     n = 25

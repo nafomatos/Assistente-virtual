@@ -70,10 +70,26 @@ def test_case_insensitive_section_label():
     assert len(result) == 2
 
 
+# ── bare array fallback (no JSON_OUTPUT label) ────────────────────────────────
+
+def test_bare_array_without_label_falls_back():
+    """Model returns only the array (obeying the report footer instead of the
+    two-section contract) → fallback parse must still succeed."""
+    result = _parse_json_section(_SAMPLE_JSON)
+    assert len(result) == 2
+    assert result[1]["ticker"] == "NVDA"
+
+
+def test_fenced_array_without_label_falls_back():
+    """Bare fenced array without the JSON_OUTPUT label also parses."""
+    result = _parse_json_section(f"```json\n{_SAMPLE_JSON}\n```")
+    assert len(result) == 2
+
+
 # ── error cases ───────────────────────────────────────────────────────────────
 
 def test_missing_json_output_section_raises():
-    """Missing JSON_OUTPUT: label must raise ValueError."""
+    """No JSON_OUTPUT: label AND no bare array anywhere must raise ValueError."""
     with pytest.raises(ValueError, match="JSON_OUTPUT section not found"):
         _parse_json_section("HUMAN_SUMMARY:\nSome text.\n\nNo JSON section here.")
 

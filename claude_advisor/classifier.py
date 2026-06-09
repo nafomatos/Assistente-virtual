@@ -28,10 +28,15 @@ import logging
 import os
 import re
 
+from config import (
+    CLAUDE_MAX_TOKENS_DAILY,
+    CLAUDE_TEMPERATURE,
+    MODEL_FALLBACK,
+    MODEL_PRIMARY,
+)
+
 logger = logging.getLogger(__name__)
 
-_MODEL = "claude-opus-4-7"     # matches MODEL_PRIMARY in config
-_MAX_TOKENS = 2048
 _LOGS_DIR = "logs"
 
 
@@ -42,13 +47,20 @@ def _parse_json_section(text: str) -> list[dict]:
     - Bare array after the JSON_OUTPUT: label
     - Markdown fences around the array
     - Leading/trailing whitespace
+    - A response that is just the bare array with no JSON_OUTPUT label
+      (the model occasionally follows the report's closing instruction
+      instead of the two-section contract)
     """
-    # Find JSON_OUTPUT section
+    # Find JSON_OUTPUT section; fall back to scanning the whole response
+    # for a bare array when the label is absent.
     match = re.search(r"JSON_OUTPUT\s*:\s*", text, re.IGNORECASE)
-    if not match:
+    if match:
+        tail = text[match.end():].strip()
+    elif "[" in text:
+        logger.info("JSON_OUTPUT label missing — falling back to bare-array parse")
+        tail = text.strip()
+    else:
         raise ValueError("JSON_OUTPUT section not found in response")
-
-    tail = text[match.end():].strip()
 
     # Strip optional markdown fences
     if tail.startswith("```"):
@@ -102,21 +114,29 @@ def classify_signals(
         logger.warning("anthropic package not installed — skipping automated classification")
         return []
 
-    try:
-        client = anthropic.Anthropic(api_key=api_key)
-        response = client.messages.create(
-            model=_MODEL,
-            max_tokens=_MAX_TOKENS,
-            messages=[{"role": "user", "content": report_text}],
-        )
-        raw = response.content[0].text
-        logger.info(
-            "automated classification: input=%d output=%d tokens",
-            response.usage.input_tokens,
-            response.usage.output_tokens,
-        )
-    except Exception as exc:
-        logger.warning("automated classification: API call failed — %s", exc)
+    client = anthropic.Anthropic(api_key=api_key)
+    raw = None
+    for model in (MODEL_PRIMARY, MODEL_FALLBACK):
+        try:
+            response = client.messages.create(
+                model=model,
+                max_tokens=CLAUDE_MAX_TOKENS_DAILY,
+                temperature=CLAUDE_TEMPERATURE,
+                messages=[{"role": "user", "content": report_text}],
+            )
+            raw = response.content[0].text
+            logger.info(
+                "automated classification: model=%s input=%d output=%d tokens",
+                model,
+                response.usage.input_tokens,
+                response.usage.output_tokens,
+            )
+            break
+        except Exception as exc:
+            logger.warning(
+                "automated classification: API call failed on %s — %s", model, exc
+            )
+    if raw is None:
         return []
 
     try:

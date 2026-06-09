@@ -64,8 +64,12 @@ MODEL_PRIMARY  = "claude-opus-4-7"
 MODEL_FALLBACK = "claude-sonnet-4-6"
 
 # Claude call knobs
-CLAUDE_MAX_TOKENS  = 600
+CLAUDE_MAX_TOKENS  = 600   # per-ticker calls (future advisor.py)
 CLAUDE_TEMPERATURE = 0.3
+
+# The daily classifier answers for ALL flagged assets in one call
+# (HUMAN_SUMMARY + full JSON array), so it needs a larger budget.
+CLAUDE_MAX_TOKENS_DAILY = 2048
 
 # Dynamic ticker management
 MAX_DYNAMIC_TICKERS         = 15   # cap on simultaneously tracked dynamic tickers

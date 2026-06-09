@@ -9,16 +9,30 @@ from __future__ import annotations
 import datetime as dt
 import logging
 
+from claude_advisor.signal_gates import MIN_LONG_CONFIDENCE, MIN_SHORT_CONFIDENCE
 from tracker.position_tracker import add_position, fetch_price
 
 logger = logging.getLogger(__name__)
 
 DIRECTIONAL = {"contrarian_buy", "reduce_exposure"}
 
-# Strategy v2: a SHORT (reduce_exposure) is only actionable at confidence >= 6.
-# The macro fear-cap (claude_advisor/signal_gates.py) caps fear-regime bubble
-# shorts to 5, which falls below this floor and so cannot open a position.
-MIN_SHORT_CONFIDENCE = 6
+DEFAULT_CONFIDENCE = 5
+
+
+def _parse_confidence(raw: object) -> int:
+    """Coerce a recommendation's confidence to an int in [1, 10].
+
+    Malformed or missing values fall back to DEFAULT_CONFIDENCE instead of
+    raising, so one bad recommendation cannot abort the whole batch.
+    """
+    try:
+        confidence = int(raw)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        logger.warning(
+            "unparseable confidence %r — defaulting to %d", raw, DEFAULT_CONFIDENCE
+        )
+        confidence = DEFAULT_CONFIDENCE
+    return max(1, min(10, confidence))
 
 
 def parse_and_add(
@@ -53,15 +67,17 @@ def parse_and_add(
             continue
 
         direction = "long" if rec_type == "contrarian_buy" else "short"
-        confidence = int(rec.get("confidence") or 5)
+        confidence = _parse_confidence(rec.get("confidence"))
 
-        # Strategy v2 actionable-confidence floor for shorts. A reduce_exposure
-        # capped to 5 by the macro fear-cap (or otherwise below 6) is an
-        # observation, not a trade.
-        if direction == "short" and confidence < MIN_SHORT_CONFIDENCE:
+        # Strategy v2 actionable-confidence floors, enforced in code (the
+        # prompt states them too, but prompt rules are advisory). A
+        # reduce_exposure capped to 5 by the macro fear-cap (or otherwise
+        # below 6) is an observation, not a trade; contrarian_buy requires 7.
+        floor = MIN_SHORT_CONFIDENCE if direction == "short" else MIN_LONG_CONFIDENCE
+        if confidence < floor:
             logger.info(
-                "%s: skipping short below actionable confidence floor (conf=%d < %d)",
-                ticker, confidence, MIN_SHORT_CONFIDENCE,
+                "%s: skipping %s below actionable confidence floor (conf=%d < %d)",
+                ticker, direction, confidence, floor,
             )
             continue
 

@@ -16,7 +16,7 @@ Rules (applied in order, to every ``bubble_forming`` / ``reduce_exposure``
 SHORT candidate):
 
 1. AI-hardware-in-bull reclassification (Part 4):
-   semis sector AND Buffett > 200% AND |z200| elevated AND vol_dist < 1.0
+   semis sector AND Buffett > 200% AND z200 elevated (≥ +2) AND vol_dist ≤ 1.0
    → ``institutional_rebalancing`` / ``wait``.
 2. Volume-distribution gate (Part 2, PRIMARY):
    requires vol_dist > 1.0 (down-day volume exceeds up-day volume = real
@@ -57,6 +57,13 @@ SHORT_SUSTAINED_MIN   = 30     # sustained_days_60 floor
 
 MACRO_FEAR_CAP_THRESHOLD = 35  # Fear & Greed strictly below this caps bubble conf
 MACRO_BUBBLE_CONF_CAP    = 5   # capped confidence (below MIN_SHORT_CONFIDENCE)
+
+# Actionable-confidence floors (single source of truth — the prompt and the
+# recommendation parser both reference these). A short below 6 or a long below
+# 7 is an observation, not a trade. MACRO_BUBBLE_CONF_CAP sits deliberately
+# below MIN_SHORT_CONFIDENCE so a fear-capped bubble short can never open.
+MIN_SHORT_CONFIDENCE = 6
+MIN_LONG_CONFIDENCE  = 7
 
 AI_HW_SECTOR            = "semis"
 AI_HW_BUFFETT_THRESHOLD = 200.0  # Buffett Indicator % above which AI-hw rule arms
@@ -146,16 +153,18 @@ def gate_signal(
     buffett   = _buffett_pct(macro)
 
     # ── Rule 1: AI-hardware-in-bull reclassification ─────────────────────────
+    # z200 must be elevated to the UPSIDE: a deeply negative z200 is a crash,
+    # not institutional AI-capex demand, and must not arm this rule.
     if (
         sector == AI_HW_SECTOR
         and buffett is not None and buffett > AI_HW_BUFFETT_THRESHOLD
-        and z200 is not None and abs(z200) >= AI_HW_Z200_THRESHOLD
-        and vol_dist is not None and vol_dist < SHORT_VOL_DIST_MIN
+        and z200 is not None and z200 >= AI_HW_Z200_THRESHOLD
+        and vol_dist is not None and vol_dist <= SHORT_VOL_DIST_MIN
     ):
         _reclassify(
             signal, "ai_hardware_bull",
-            f"semis + Buffett {buffett:.0f}% + |z200|={abs(z200):.1f} + "
-            f"vol_dist={vol_dist:.2f}<1.0 → institutional demand, not euphoria",
+            f"semis + Buffett {buffett:.0f}% + z200=+{z200:.1f} + "
+            f"vol_dist={vol_dist:.2f}≤1.0 → institutional demand, not euphoria",
         )
         return signal
 

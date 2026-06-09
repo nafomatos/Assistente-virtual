@@ -126,7 +126,9 @@ def _compute_long_horizon(closes, returns, volumes, current_price: float) -> dic
     volume_dist_ratio     : float | None
         (total volume on down-days) / (total volume on up-days) over the
         last 20 trading days.  > 1.0 signals distribution (more selling
-        pressure than buying pressure).
+        pressure than buying pressure).  Zero-volume rows (futures contract
+        rolls) and flat days (return exactly 0) are excluded — this ratio is
+        the PRIMARY v2 short gate, so roll artifacts must not skew it.
     drawdown_from_peak_2y : float | None
         (current_price / 2y_rolling_peak) - 1.  Always ≤ 0.
         E.g. -0.65 → price is 65 % below its 2-year high.
@@ -143,18 +145,24 @@ def _compute_long_horizon(closes, returns, volumes, current_price: float) -> dic
         "days_since_peak_2y":     None,
     }
 
-    try:
-        n = len(closes)
+    # Each metric is guarded independently so a failure in one cannot blank
+    # out the others — volume_dist_ratio in particular is the PRIMARY v2
+    # short gate and must survive an error in an unrelated metric.
+    n = len(closes)
 
-        # ── 200d SMA and price extension ──────────────────────────────────────
+    # ── 200d SMA and price extension ──────────────────────────────────────────
+    try:
         if n >= 200:
             sma_200 = float(closes.iloc[-200:].mean())
             if sma_200 > 0:
                 out["price_extension_200d"] = round(
                     (current_price / sma_200) - 1.0, 4
                 )
+    except Exception as exc:  # pragma: no cover
+        logger.warning(f"long_horizon: price_extension_200d error: {exc}")
 
-        # ── Sustained extension: days in last 60 where close > 40 % above SMA ─
+    # ── Sustained extension: days in last 60 where close > 40 % above SMA ─────
+    try:
         if n >= 260:
             rolling_sma = closes.rolling(window=200, min_periods=200).mean()
             ext_series = (closes / rolling_sma) - 1.0
@@ -164,8 +172,11 @@ def _compute_long_horizon(closes, returns, volumes, current_price: float) -> dic
             # Enough for a single SMA reading but not a rolling window of 60.
             # Report 0; the field is valid but the sustained window is incomplete.
             out["sustained_days_60"] = 0
+    except Exception as exc:  # pragma: no cover
+        logger.warning(f"long_horizon: sustained_days_60 error: {exc}")
 
-        # ── 6-month return (~126 trading days) ────────────────────────────────
+    # ── 6-month return (~126 trading days) + acceleration ratio ───────────────
+    try:
         if n >= 127:
             price_6m_ago = float(closes.iloc[-127])
             if price_6m_ago > 0:
@@ -173,7 +184,6 @@ def _compute_long_horizon(closes, returns, volumes, current_price: float) -> dic
                     (current_price / price_6m_ago) - 1.0, 4
                 )
 
-        # ── Acceleration ratio ────────────────────────────────────────────────
         ret_6m = out["return_6m"]
         if ret_6m is not None and n >= 31:
             price_30d_ago = float(closes.iloc[-31])
@@ -184,18 +194,29 @@ def _compute_long_horizon(closes, returns, volumes, current_price: float) -> dic
                 else:
                     # 6m return is zero or negative — no positive gains to accelerate
                     out["acceleration_ratio"] = 0.0
+    except Exception as exc:  # pragma: no cover
+        logger.warning(f"long_horizon: return_6m/acceleration error: {exc}")
 
-        # ── Volume distribution (last 20 trading days) ────────────────────────
+    # ── Volume distribution (last 20 trading days) ─────────────────────────────
+    # Zero-volume rows are contract-roll artifacts in yfinance futures data
+    # (same issue as Fix 1 on avg_volume_30d); flat days carry no directional
+    # information. Both are excluded from the up/down sums.
+    try:
         if len(returns) >= 20:
             rets_20 = returns.tail(20)
             vols_20 = volumes.loc[rets_20.index]
-            up_mask = rets_20.values > 0
-            up_vol  = float(vols_20.values[up_mask].sum())
-            down_vol = float(vols_20.values[~up_mask].sum())
+            valid     = vols_20.values > 0
+            up_mask   = (rets_20.values > 0) & valid
+            down_mask = (rets_20.values < 0) & valid
+            up_vol   = float(vols_20.values[up_mask].sum())
+            down_vol = float(vols_20.values[down_mask].sum())
             if up_vol > 0:
                 out["volume_dist_ratio"] = round(down_vol / up_vol, 3)
+    except Exception as exc:  # pragma: no cover
+        logger.warning(f"long_horizon: volume_dist_ratio error: {exc}")
 
-        # ── 2-year peak drawdown ──────────────────────────────────────────────
+    # ── 2-year peak drawdown ───────────────────────────────────────────────────
+    try:
         if n >= 1:
             peak_price = float(closes.max())
             if peak_price > 0:
@@ -204,9 +225,8 @@ def _compute_long_horizon(closes, returns, volumes, current_price: float) -> dic
                 )
                 peak_pos = int(closes.values.argmax())
                 out["days_since_peak_2y"] = n - 1 - peak_pos
-
     except Exception as exc:  # pragma: no cover
-        logger.warning(f"long_horizon computation error: {exc}")
+        logger.warning(f"long_horizon: peak drawdown error: {exc}")
 
     return out
 
