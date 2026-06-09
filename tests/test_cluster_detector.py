@@ -208,6 +208,16 @@ def test_boost_caps_confidence_at_ten():
     assert sig["confidence"] == 10
 
 
+def test_boost_requires_cluster_membership():
+    """A signal matching a cluster's sector/direction but absent from its
+    ticker list was never verified against the pattern (today's signals are
+    persisted before detection) — it must not be boosted."""
+    sig = _sig("INTC", "bubble_forming", "reduce_exposure", 7)  # semis, bearish
+    apply_cluster_boosts([sig], [_SEMIS_BEARISH_CLUSTER])       # members: AMD/NVDA/SMCI
+    assert sig["confidence"] == 7
+    assert "cluster_boost" not in sig
+
+
 def test_boost_ignores_non_matching_sector_or_direction():
     other_sector = _sig("AAPL", "bubble_forming", "reduce_exposure", 7)   # mega_tech
     other_dir    = _sig("NVDA", "irrational_panic", "contrarian_buy", 7)  # bullish
