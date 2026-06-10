@@ -73,6 +73,14 @@ def build_digest_html(
         if s.get("recommendation") in ("contrarian_buy", "reduce_exposure")
     ]
 
+    # Tickers whose volume metrics were nulled by the artifact containment
+    # (analyzers/volume_quality.py) — actionable rows for these get a note.
+    artifact_tickers = {
+        r["ticker"] for r in results
+        if (r["signals"].get("volume") or {}).get("artifact")
+        or (r["signals"].get("volume") or {}).get("data_quality") == "suspicious_volume"
+    }
+
     red_count   = sum(1 for r in results if get_alert_tier(r["signals"]) == "red")
     amber_count = sum(1 for r in results if get_alert_tier(r["signals"]) == "amber")
     report_url  = f"{PAGES_BASE_URL}/reports/{date.isoformat()}.html"
@@ -179,6 +187,12 @@ def build_digest_html(
             sb       = sizing_by_ticker.get(ticker)
             size_str = f"{sb['position_size_pct']:.1f}%" if sb else "n/a"
             d10_str  = sb["windows"]["d10"] if sb else "—"
+            artifact_note = ""
+            if ticker in artifact_tickers:
+                artifact_note = (
+                    f"<div style='font-size:10px;color:#f97316;margin-top:3px;'>"
+                    f"&#9888; (volume data excluded &mdash; unreliable)</div>"
+                )
             rows += (
                 f"<div style='border-top:1px solid #27272a;padding:10px 0;'>"
                 f"<div style='display:flex;justify-content:space-between;align-items:center;"
@@ -195,6 +209,7 @@ def build_digest_html(
                 f"</div>"
                 f"<div style='font-size:11px;color:#94a3b8;font-style:italic;'>"
                 f"{html_lib.escape(reason)}</div>"
+                f"{artifact_note}"
                 f"</div>"
             )
         actionable_html = (

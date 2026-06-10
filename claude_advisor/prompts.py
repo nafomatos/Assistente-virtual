@@ -56,6 +56,7 @@ Apply these rules before anything else. They override any pattern-matching insti
 - If Volume >3x AND Social Heat is "explosive" AND tone is "bullish" → MUST classify as "bubble_forming".
 - Social Heat alone (without volume confirmation ≥ 2x) → always "ambiguous" or "no_signal". Do not manufacture a conviction call from social data alone.
 - z-scores between -1.5 and +1.5 are noise, not signal, even when volume is elevated.
+- If a ticker's volume is flagged as a suspected data artifact, its volume multiple and volume_distribution are UNRELIABLE and set to null. Do not use them as evidence for any directional call — not even hedged ("possible artifact, but directional" is forbidden reasoning). Base the classification on price velocity (z-scores), RSI, long-horizon extension, and social signals only. With volume excluded, the volume-dependent Divergence Rules above cannot fire; the ceiling for such a ticker is "ambiguous" unless the remaining signals alone satisfy a rule.
 
 ## Strategy v2 SHORT Gates (MANDATORY — also enforced in code)
 

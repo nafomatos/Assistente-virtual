@@ -8,20 +8,28 @@ showed the model issued high-confidence bubble shorts straight into institutiona
 accumulation regardless of the prompt guidance.
 
 This module enforces those rules in code, after classification, so they cannot
-be ignored.  It only ever *tightens* SHORT signals — long signals
-(``irrational_panic`` → ``contrarian_buy``) are never touched, per the
-retrospective finding that the long side went 2/2.
+be ignored.  SHORT signals are tightened by rules 1-4 below.  LONG signals
+(``irrational_panic`` → ``contrarian_buy``) are never reclassified and never
+confidence-capped, per the retrospective finding that the long side went 2/2 —
+but a contrarian_buy below MIN_LONG_CONFIDENCE is downgraded to ``wait``
+(rule 0): the 2026-06-09 digest emitted a confidence-5 SI=F buy as actionable
+even though the prompt has always required ≥ 7, proving the floor must live in
+code.
 
-Rules (applied in order, to every ``bubble_forming`` / ``reduce_exposure``
-SHORT candidate):
+Rules (applied in order):
 
+0. Buy-confidence floor (longs):
+   ``contrarian_buy`` with confidence < MIN_LONG_CONFIDENCE → recommendation
+   ``wait`` (classification untouched — it survives as an observation).
 1. AI-hardware-in-bull reclassification (Part 4):
    semis sector AND Buffett > 200% AND z200 elevated (≥ +2) AND vol_dist ≤ 1.0
    → ``institutional_rebalancing`` / ``wait``.
 2. Volume-distribution gate (Part 2, PRIMARY):
    requires vol_dist > 1.0 (down-day volume exceeds up-day volume = real
    distribution).  Otherwise the move is accumulation, not euphoria →
-   ``institutional_rebalancing`` / ``wait``.
+   ``institutional_rebalancing`` / ``wait``.  A vol_dist of None — including
+   one nulled by the volume-artifact containment
+   (analyzers/volume_quality.py) — always fails this gate.
 3. Sustained-extension gate (Part 4, secondary):
    requires price_extension_200d > 0.60 (single name) / 0.40 (index)
    AND sustained_days_60 >= 30.  Otherwise → ``institutional_rebalancing`` / ``wait``.
@@ -137,8 +145,28 @@ def gate_signal(
     market pipeline; either may be empty/None.  Returns the same dict (mutated)
     for convenient chaining.
     """
+    # ── Rule 0: buy-confidence floor ─────────────────────────────────────────
+    # contrarian_buy requires confidence ≥ MIN_LONG_CONFIDENCE to be
+    # actionable. Below that it is downgraded to wait (classification kept,
+    # so it survives as an observation). Enforced in code because the
+    # 2026-06-09 digest emitted a confidence-5 buy as actionable despite the
+    # prompt-level rule.
+    if signal.get("recommendation") == "contrarian_buy":
+        confidence = signal.get("confidence") or 0
+        if confidence < MIN_LONG_CONFIDENCE:
+            signal["v2_gate"] = {
+                "action": "downgraded",
+                "rule": "buy_conf_floor",
+                "detail": f"contrarian_buy conf={confidence} < {MIN_LONG_CONFIDENCE} "
+                          f"→ wait (observation, not actionable)",
+                "original_recommendation": "contrarian_buy",
+                "original_confidence": confidence,
+            }
+            signal["recommendation"] = WAIT_RECOMMENDATION
+        return signal
+
     if not _is_short(signal):
-        return signal  # never touch longs / waits / no_action
+        return signal  # never touch waits / no_action
 
     lh        = long_horizon or {}
     vel       = velocity or {}
@@ -243,6 +271,7 @@ def apply_short_gates(
     inputs = _gate_inputs_from_results(results)
     reclassified = 0
     capped = 0
+    downgraded = 0
     for signal in signals or []:
         ticker = (signal.get("ticker") or "").upper()
         per    = inputs.get(ticker, {})
@@ -267,9 +296,16 @@ def apply_short_gates(
                 "[V2 GATE] %s confidence %s→%s (%s)",
                 ticker, before_conf, signal.get("confidence"), gate.get("rule"),
             )
-    if reclassified or capped:
+        elif gate and gate.get("action") == "downgraded":
+            downgraded += 1
+            logger.info(
+                "[V2 GATE] %s contrarian_buy conf=%s → wait (%s)",
+                ticker, before_conf, gate.get("rule"),
+            )
+    if reclassified or capped or downgraded:
         logger.info(
-            "[V2 GATE] summary: %d reclassified to wait, %d confidence-capped",
-            reclassified, capped,
+            "[V2 GATE] summary: %d reclassified to wait, %d confidence-capped, "
+            "%d buys downgraded below floor",
+            reclassified, capped, downgraded,
         )
     return signals
