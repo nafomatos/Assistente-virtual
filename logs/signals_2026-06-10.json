@@ -1,0 +1,26 @@
+{
+  "date": "2026-06-10",
+  "signals": [
+    {
+      "ticker": "GLD",
+      "classification": "irrational_panic",
+      "recommendation": "contrarian_buy",
+      "reasoning": "Volume 1.87x, z30=-2.49, z200=-2.27, RSI=24, YouTube heat=explosive tone=bearish. Not\u00edcia de infla\u00e7\u00e3o gerou capitula\u00e7\u00e3o em ativo de reserva de valor. Ext vs 200d apenas -7.7% \u2014 n\u00e3o h\u00e1 deteriora\u00e7\u00e3o estrutural, apenas rea\u00e7\u00e3o emocional.",
+      "confidence": 7
+    },
+    {
+      "ticker": "SPY",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume apenas 1.06x \u2014 insuficiente para confirmar diverg\u00eancia. Z30=-2.01 \u00e9 extremo mas sem volume institucional ou social heat explosivo. YouTube elevado/neutro n\u00e3o confirma p\u00e2nico. Vol distribution 0.93 indica press\u00e3o compradora.",
+      "confidence": 3
+    },
+    {
+      "ticker": "SMCI",
+      "classification": "irrational_panic",
+      "recommendation": "contrarian_buy",
+      "reasoning": "Volume 3.61x, z30=-3.29, z200=-5.05, YouTube heat=explosive tone=bearish. Queda de -28% por plano de capta\u00e7\u00e3o de $7B dispara regra irrational_panic. Por\u00e9m drawdown de -68.2% em 495d e problemas recorrentes limitam confian\u00e7a.",
+      "confidence": 7
+    }
+  ]
+}
