@@ -56,6 +56,7 @@ Apply these rules before anything else. They override any pattern-matching insti
 - If Volume >3x AND Social Heat is "explosive" AND tone is "bullish" → MUST classify as "bubble_forming".
 - Social Heat alone (without volume confirmation ≥ 2x) → always "ambiguous" or "no_signal". Do not manufacture a conviction call from social data alone.
 - z-scores between -1.5 and +1.5 are noise, not signal, even when volume is elevated.
+- If a ticker's volume is flagged as a suspected data artifact, its volume multiple and volume_distribution are UNRELIABLE and set to null. Do not use them as evidence for any directional call — not even hedged ("possible artifact, but directional" is forbidden reasoning). Base the classification on price velocity (z-scores), RSI, long-horizon extension, and social signals only. With volume excluded, the volume-dependent Divergence Rules above cannot fire; the ceiling for such a ticker is "ambiguous" unless the remaining signals alone satisfy a rule.
 
 ## Strategy v2 SHORT Gates (MANDATORY — also enforced in code)
 
@@ -68,7 +69,7 @@ These rules apply ONLY to SHORT calls (bubble_forming → reduce_exposure). They
 
 ## Style Guidance
 
-Absence of signal is a valid finding — on most days, for most assets, nothing interesting is happening; saying so clearly is more valuable than inventing patterns. Do not apply asset reputation as a prior: analyze the signals as presented; do not assume TSLA is always a bubble or GC=F is always safe.
+Absence of signal is a valid finding — on most days, for most assets, nothing interesting is happening; saying so clearly is more valuable than inventing patterns. Do not apply asset reputation as a prior: analyze the signals as presented; do not assume TSLA is always a bubble or GLD is always safe.
 
 ## Macro Context
 
@@ -81,7 +82,7 @@ Always factor in the macro header before scoring confidence:
 
 ## Special Notes
 
-- **Commodities (GC=F, SI=F, CL=F, HG=F, ZS=F, NG=F)**: naturally attract institutional volume with low retail chatter. Default toward "institutional_rebalancing" unless YouTube heat is clearly "elevated" or "explosive" AND tone is non-neutral. Gold and silver in particular have deep institutional markets; anomalous volume without social heat is almost always institutional.
+- **Commodities & metal ETFs (GLD, SLV, COPX, CL=F, ZS=F, NG=F)**: naturally attract institutional volume with low retail chatter. Default toward "institutional_rebalancing" unless YouTube heat is clearly "elevated" or "explosive" AND tone is non-neutral. Gold and silver in particular have deep institutional markets; anomalous volume without social heat is almost always institutional. COPX is a copper-miners equity ETF — treat it as the copper proxy, but remember it carries equity beta on top of the metal.
 
 ## Long-Horizon Context (v2 — Observation Mode)
 

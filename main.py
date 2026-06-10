@@ -37,6 +37,7 @@ from analyzers.price_velocity import analyze_price_velocity
 from analyzers.rsi import analyze_rsi
 from analyzers.sentiment_aggregator import aggregate_sentiment
 from analyzers.volume_analyzer import analyze_volume
+from analyzers.volume_quality import log_artifact_summary, sanitize_volume_artifacts
 from collectors.buffett_indicator import fetch_buffett_indicator
 from collectors.buffett_indicator import format_summary as format_buffett
 from collectors.fear_greed import fetch_fear_greed, format_summary as format_fg
@@ -114,14 +115,25 @@ def check_trading_day(date: dt.date) -> tuple[bool, str]:
     return True, "normal trading day"
 
 
-def run_pipeline(tickers: list[str]) -> list[dict]:
+def run_pipeline(
+    tickers: list[str],
+    date: dt.date | None = None,
+    log_artifacts: bool = True,
+) -> list[dict]:
     """Run market + StockTwits for all tickers.
 
     YouTube is fetched separately in main() for RED/AMBER tickers only
     (saves daily API quota). Raw StockTwits result is stored under
     '_st_raw' on each result dict for use during the enrichment step.
+
+    Tickers whose volume is flagged as a suspected data artifact have ALL
+    volume-derived decision metrics nulled (vol multiple in the classifier
+    payload, vol_dist for the v2 short gate) and are recorded in
+    logs/volume_artifacts.log (skipped in debug mode via log_artifacts=False).
     """
+    date = date or dt.date.today()
     results = []
+    artifact_tickers: list[str] = []
     for ticker in tickers:
         logger.info(f"--- {ticker} ---")
         try:
@@ -151,7 +163,19 @@ def run_pipeline(tickers: list[str]) -> list[dict]:
             "rsi":       rsi,
             "sentiment": sentiment,
         }
+
+        # Volume-artifact containment: null poisoned metrics before anything
+        # downstream (tiers excepted — tier suppression has its own guard)
+        # can read them, and log the raw values for root-cause investigation.
+        if sanitize_volume_artifacts(
+            ticker, signals, date, logs_dir=LOGS_DIR, write_log=log_artifacts
+        ):
+            artifact_tickers.append(ticker)
+
         results.append({"ticker": ticker, "signals": signals, "_st_raw": None})
+
+    if log_artifacts and artifact_tickers:
+        log_artifact_summary(date, artifact_tickers, logs_dir=LOGS_DIR)
     return results
 
 
@@ -526,7 +550,7 @@ def main(argv: list[str]) -> int:
     logger.info(format_buffett(buffett))
 
     # ── Pipeline ─────────────────────────────────────────────────────────────
-    results = run_pipeline(tickers)
+    results = run_pipeline(tickers, date=date, log_artifacts=not debug)
     enrich_with_youtube(results)   # YouTube fetched only for RED/AMBER tickers
     print_signal_summary(results)
 

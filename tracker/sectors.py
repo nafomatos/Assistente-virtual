@@ -16,9 +16,13 @@ SECTOR_MAP = {
         "AAPL", "MSFT", "GOOGL", "GOOG", "META", "AMZN", "TSLA",
         "NFLX", "ORCL", "CRM",
     ],
+    # Active metal symbols are the ETF proxies (GLD/SLV/COPX — see
+    # config/__init__.py). The retired front-month futures symbols stay mapped
+    # so historical signals files within the rolling cluster window and
+    # backtests keep clustering correctly.
     "commodities_metals": [
+        "GLD", "SLV", "COPX", "CPER", "GDX", "GDXJ",
         "GC=F", "SI=F", "HG=F", "PL=F", "PA=F",
-        "GLD", "SLV", "GDX", "GDXJ",
     ],
     "energy": [
         "CL=F", "NG=F", "BZ=F", "RB=F",

@@ -30,12 +30,16 @@ _FINANCIAL_KEYWORDS: frozenset[str] = frozenset([
 
 # Extra domain words for each commodity ticker (in addition to _FINANCIAL_KEYWORDS)
 _COMMODITY_DOMAIN: dict[str, frozenset[str]] = {
-    "GC=F": frozenset(["mining", "ounce", "bullion"]),
-    "SI=F": frozenset(["mining", "ounce"]),
-    "HG=F": frozenset(["mining", "lb", "lme"]),
+    "GLD":  frozenset(["mining", "ounce", "bullion", "gold"]),
+    "SLV":  frozenset(["mining", "ounce", "silver"]),
+    "COPX": frozenset(["mining", "copper", "lb", "lme"]),
     "CL=F": frozenset(["crude", "wti", "brent", "barrel", "opec"]),
     "ZS=F": frozenset(["cbot", "bushel", "harvest"]),
     "NG=F": frozenset(["henry hub", "lng"]),
+    # Retired front-month futures symbols (kept for ad-hoc/CLI runs on legacy symbols)
+    "GC=F": frozenset(["mining", "ounce", "bullion"]),
+    "SI=F": frozenset(["mining", "ounce"]),
+    "HG=F": frozenset(["mining", "lb", "lme"]),
 }
 
 _BEARISH: frozenset[str] = frozenset([

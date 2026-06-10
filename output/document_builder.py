@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import datetime as dt
 import logging
+import math
 import os
 
 from claude_advisor.prompts import SYSTEM_PROMPT
@@ -29,15 +30,35 @@ AMBER_VOL_THRESHOLD = 1.5
 AMBER_SOCIAL_ZSCORE_THRESHOLD = 2.0
 
 
+def is_null_data(signals: dict) -> bool:
+    """True for pure null-data tickers (e.g. pre-IPO SPCX): NaN/None volume
+    ratio AND z30 == 0 AND z200 == 0 AND no 200d history. Such a ticker has
+    no real signal — NaN volume must not be allowed to read as "extreme" and
+    solo-trigger RED."""
+    ratio = signals["volume"].get("ratio")
+    ratio_null = ratio is None or (isinstance(ratio, float) and math.isnan(ratio))
+    if not ratio_null:
+        return False
+    vel = signals["velocity"]
+    if vel.get("z_score_30d") != 0 or vel.get("z_score_200d") != 0:
+        return False
+    lh = (signals.get("market") or {}).get("long_horizon") or {}
+    return lh.get("price_extension_200d") is None
+
+
 def get_alert_tier(signals: dict) -> str | None:
     """Return 'red', 'amber', or None.
 
+    Null-data tickers (NaN volume + zero z-scores + no 200d history) are
+    always SKIP — see is_null_data().
     Red  — extreme volume (>5x) OR macro_extreme (both |z_30d|>2 AND |z_200d|>2).
     Amber — |z_30d|>1.5 AND vol>1.5x; OR vol>2.5x alone; OR RSI>75/RSI<25;
              OR social_heat_zscore>2.0 with vol>1.0x;
              OR StockTwits heat "elevated"/"explosive" with vol>1.0x.
     Red takes priority; an asset cannot be both.
     """
+    if is_null_data(signals):
+        return None
     vol_class  = signals["volume"]["classification"]
     vol_ratio  = signals["volume"]["ratio"]
     macro_extreme = signals["velocity"].get("macro_extreme", False)
@@ -78,6 +99,11 @@ def passes_prefilter(signals: dict) -> bool:
 
 def get_tier_reason(signals: dict) -> str:
     """Explain which signals triggered the tier, or why the ticker was skipped."""
+    if is_null_data(signals):
+        return (
+            "SKIP: null data — NaN volume, zero z-scores, no 200d history "
+            "(pre-IPO / dead ticker, no real signal)"
+        )
     vol_class = signals["volume"]["classification"]
     vol_ratio = signals["volume"]["ratio"]
     z30 = signals["velocity"]["z_score_30d"]

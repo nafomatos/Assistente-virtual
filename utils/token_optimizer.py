@@ -185,12 +185,27 @@ def compress_signals(ticker: str, name: str, signals: dict) -> str:
 
     macro_flag = " ⚠ macro_extreme" if p.get("macro_extreme") else ""
 
+    # Volume-artifact containment (analyzers/volume_quality.py): when the
+    # artifact flag fires, the volume multiple is removed from the classifier
+    # payload entirely (raw value survives only in the badge and the artifact
+    # log) and the loud investigation flag is rendered for the human reader.
+    artifact = bool(v.get("artifact")) or v.get("data_quality") == "suspicious_volume"
     dq_flag = ""
-    if v.get("data_quality") == "suspicious_volume":
+    if artifact:
+        raw_ratio = v.get("raw_ratio", v.get("ratio"))
         dq_flag = (
-            f"⚠ DATA QUALITY FLAG: This ticker's volume multiple ({v['ratio']}x) exceeds normal"
-            f" range and may be a data artifact. Weight volume evidence accordingly.\n\n"
+            f"⚠ DATA QUALITY FLAG: This ticker's volume multiple ({raw_ratio}x) exceeds normal"
+            f" range and may be a data artifact. Weight volume evidence accordingly.\n"
+            f"⚠ VOLUME DATA UNRELIABLE — metrics excluded from analysis. yfinance "
+            f"front-month contract-roll artifact suspected. NEEDS INVESTIGATION/FIX. "
+            f"See backtests/VOLUME_FIX*.md and logs/volume_artifacts.log\n\n"
         )
+
+    volume_line = (
+        "- Volume: n/a (suspected data artifact — excluded from analysis)"
+        if artifact
+        else f"- Volume: {v['classification']} ({v['ratio']}x 30d avg)"
+    )
 
     # Long-horizon context (strategy v2, observation mode).
     # These signals are for context only — do not use them as classification
@@ -203,7 +218,7 @@ def compress_signals(ticker: str, name: str, signals: dict) -> str:
         f"{dq_flag}"
         f"Asset: {ticker} ({name})\n\n"
         f"Market signals:\n"
-        f"- Volume: {v['classification']} ({v['ratio']}x 30d avg)\n"
+        f"{volume_line}\n"
         f"- Price velocity: {p['classification']} "
         f"(z_30d: {p['z_score_30d']}, z_200d: {p['z_score_200d']}, "
         f"direction: {p['direction']}, macro_extreme: {p.get('macro_extreme', False)})"

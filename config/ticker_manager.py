@@ -37,10 +37,11 @@ logger = logging.getLogger(__name__)
 _STATE_FILE = os.path.join(os.path.dirname(__file__), "active_tickers.json")
 
 # The original 18 tickers are permanently protected — auto-demotion never applies.
+# Metals swapped to ETF proxies (GLD/SLV/COPX) — see config/__init__.py.
 ORIGINAL_18: frozenset[str] = frozenset([
     "NVDA", "TSLA", "AAPL", "AMZN", "GOOGL", "PLTR", "RKLB", "ASTS",
     "MU", "SOFI", "MSTR", "RDDT",
-    "GC=F", "SI=F", "CL=F", "HG=F", "ZS=F", "NG=F",
+    "GLD", "SLV", "CL=F", "COPX", "ZS=F", "NG=F",
 ])
 
 
