@@ -69,7 +69,7 @@ These rules apply ONLY to SHORT calls (bubble_forming → reduce_exposure). They
 
 ## Style Guidance
 
-Absence of signal is a valid finding — on most days, for most assets, nothing interesting is happening; saying so clearly is more valuable than inventing patterns. Do not apply asset reputation as a prior: analyze the signals as presented; do not assume TSLA is always a bubble or GC=F is always safe.
+Absence of signal is a valid finding — on most days, for most assets, nothing interesting is happening; saying so clearly is more valuable than inventing patterns. Do not apply asset reputation as a prior: analyze the signals as presented; do not assume TSLA is always a bubble or GLD is always safe.
 
 ## Macro Context
 
@@ -82,7 +82,7 @@ Always factor in the macro header before scoring confidence:
 
 ## Special Notes
 
-- **Commodities (GC=F, SI=F, CL=F, HG=F, ZS=F, NG=F)**: naturally attract institutional volume with low retail chatter. Default toward "institutional_rebalancing" unless YouTube heat is clearly "elevated" or "explosive" AND tone is non-neutral. Gold and silver in particular have deep institutional markets; anomalous volume without social heat is almost always institutional.
+- **Commodities & metal ETFs (GLD, SLV, COPX, CL=F, ZS=F, NG=F)**: naturally attract institutional volume with low retail chatter. Default toward "institutional_rebalancing" unless YouTube heat is clearly "elevated" or "explosive" AND tone is non-neutral. Gold and silver in particular have deep institutional markets; anomalous volume without social heat is almost always institutional. COPX is a copper-miners equity ETF — treat it as the copper proxy, but remember it carries equity beta on top of the metal.
 
 ## Long-Horizon Context (v2 — Observation Mode)
 

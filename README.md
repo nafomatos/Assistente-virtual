@@ -17,7 +17,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 
 cp .env.example .env     # fill in Gmail creds (see below)
-python main.py           # default tickers: NVDA TSLA GC=F
+python main.py           # default tickers: NVDA TSLA GLD ...
 python main.py --no-email
 python main.py NVDA TSLA AAPL
 ```

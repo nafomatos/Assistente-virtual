@@ -18,11 +18,23 @@ US_STOCKS = [
     "RDDT",   # WSB betting on itself
 ]
 
+# Metals use ETF proxies, not front-month futures: yfinance silently stitches
+# futures contracts at roll, injecting fake volume that poisoned vol_multiple
+# and the v2 volume_dist gate (GC=F 310x on 2026-05-18; SI=F vol_dist 58.84 on
+# 2026-06-09 — see logs/volume_artifacts.log and backtests/VOLUME_FIX*.md).
+# ETFs have no contract rolls, so their volume is real and usable by the gates.
+# Copper uses COPX (copper miners, ~millions of shares/day) rather than CPER
+# (pure-price proxy but too thin for volume-based signals) — see
+# scripts/validate_etf_volume.py for the liquidity evidence.
+# TODO: CL=F / ZS=F / NG=F are still front-month futures and rely on the
+# Layer-1 artifact containment (analyzers/volume_quality.py) around rolls;
+# candidate ETF proxies if their volume ever needs to be gate-usable: USO,
+# DBA/SOYB, UNG.
 COMMODITIES = [
-    "GC=F",   # Gold
-    "SI=F",   # Silver
+    "GLD",    # Gold (SPDR Gold Shares — replaces GC=F)
+    "SLV",    # Silver (iShares Silver Trust — replaces SI=F)
     "CL=F",   # Crude oil WTI
-    "HG=F",   # Copper
+    "COPX",   # Copper miners (Global X — replaces HG=F; CPER too thin)
     "ZS=F",   # Soybeans
     "NG=F",   # Natural gas
 ]
@@ -44,12 +56,17 @@ TICKER_NAMES = {
     "SOFI":  "SoFi",
     "MSTR":  "MicroStrategy",
     "RDDT":  "Reddit",
-    "GC=F":  "Gold",
-    "SI=F":  "Silver",
+    "GLD":   "Gold (GLD)",
+    "SLV":   "Silver (SLV)",
     "CL=F":  "Crude Oil WTI",
-    "HG=F":  "Copper",
+    "COPX":  "Copper Miners (COPX)",
     "ZS=F":  "Soybeans",
     "NG=F":  "Natural Gas",
+    # Legacy display names — retired front-month futures symbols still appear
+    # in historical logs, the weekly summary, and old signals files.
+    "GC=F":  "Gold (futures, retired)",
+    "SI=F":  "Silver (futures, retired)",
+    "HG=F":  "Copper (futures, retired)",
 }
 
 # Analyzer thresholds
