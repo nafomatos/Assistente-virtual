@@ -1,0 +1,47 @@
+{
+  "date": "2026-06-11",
+  "signals": [
+    {
+      "ticker": "QQQ",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.3x (normal) n\u00e3o confirma diverg\u00eancia. z200=+2.83 \u00e9 extremo mas sem volume institucional ou social heat bearish confirmado \u2014 YouTube explosivo/bearish \u00e9 sobre futuros gen\u00e9ricos. Vol_dist=1.23 e acelera\u00e7\u00e3o parab\u00f3lica s\u00e3o contexto, n\u00e3o gatilho. F&G=12 capearia qualquer short a confian\u00e7a 5.",
+      "confidence": 3
+    },
+    {
+      "ticker": "GLD",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.6x com z30=+2.1 em ouro. YouTube 'bearish' refere-se a pre\u00e7os de joias indianas \u2014 irrelevante como sinal de calor social. Sem StockTwits/Twitter confirmando heat de varejo. Conforme regra de commodities/metais, volume elevado sem heat social real = rebalanceamento institucional.",
+      "confidence": 5,
+      "cluster_boost": {
+        "sector": "commodities_metals",
+        "direction_group": "institutional",
+        "count": 3,
+        "original_confidence": 4,
+        "boost_amount": 1
+      }
+    },
+    {
+      "ticker": "ADBE",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.5x, z30=-2.0, z200=-2.65, queda de 6.3% com sa\u00edda de CFO. YouTube explosivo mas tom NEUTRO \u2014 n\u00e3o satisfaz crit\u00e9rio bearish para irrational_panic. Sem StockTwits/Twitter. Vol_dist=1.41 e drawdown de 62.7% s\u00e3o contexto relevante mas insuficientes sem heat bearish confirmado.",
+      "confidence": 4
+    },
+    {
+      "ticker": "ORCL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.1x (abaixo do gatilho 3x), z30=-1.93, queda 8.5%. YouTube explosivo/bearish existe mas volume insuficiente para classificar irrational_panic. Regra exige volume >3x AND heat explosivo AND bearish. Sinal plaus\u00edvel mas incompleto.",
+      "confidence": 4
+    },
+    {
+      "ticker": "SMCI",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 3.6x (anomalous) com z30=+0.93 (ru\u00eddo, abaixo de 1.5). Vol_dist=0.61 indica press\u00e3o compradora, n\u00e3o distribui\u00e7\u00e3o. YouTube bearish mas z-scores n\u00e3o confirmam extens\u00e3o. AI-hardware com vol_dist\u22641.0 aponta acumula\u00e7\u00e3o institucional, n\u00e3o euforia de varejo.",
+      "confidence": 5
+    }
+  ]
+}
