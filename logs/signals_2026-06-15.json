@@ -1,0 +1,19 @@
+{
+  "date": "2026-06-15",
+  "signals": [
+    {
+      "ticker": "RDDT",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 0.78x (normal) impede disparo das regras de diverg\u00eancia. z30=+2.52, z200=+2.87 s\u00e3o extremos, mas sem volume \u22652x o sinal \u00e9 inconclusivo. YouTube heat=elevated, tone=bearish, por\u00e9m social heat sozinho sem volume n\u00e3o gera convic\u00e7\u00e3o. Ext vs 200d=-3.5%, sustained=0/60d \u2014 sem extens\u00e3o estrutural.",
+      "confidence": 3
+    },
+    {
+      "ticker": "META",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 0.79x (normal) bloqueia classifica\u00e7\u00e3o direcional. z30=+2.2, z200=+2.09 elevados; vol_dist=1.39 (distribui\u00e7\u00e3o) \u00e9 nota de aten\u00e7\u00e3o, mas sem volume \u22652x a regra bubble_forming n\u00e3o dispara. YouTube heat=elevated, tone=neutral. Ext vs 200d=-9.7%, sustained=0/60d \u2014 sem extens\u00e3o de bolha.",
+      "confidence": 3
+    }
+  ]
+}
