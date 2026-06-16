@@ -1,0 +1,19 @@
+{
+  "date": "2026-06-16",
+  "signals": [
+    {
+      "ticker": "ZS=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume normal (1.17x) impede qualquer regra de Diverg\u00eancia. Z-scores extremos (z30=+2.03, z200=+2.24) sem confirma\u00e7\u00e3o de volume s\u00e3o ru\u00eddo estrutural. YouTube elevado/bullish e vol_dist=3.21 s\u00e3o contexto, n\u00e3o gatilho \u2014 sinal insuficiente para call direcional.",
+      "confidence": 3
+    },
+    {
+      "ticker": "NFLX",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.68x (abaixo de 3x), z30=-2.02, RSI=29 sobrevenda, YouTube explosivo/bullish. social_heat_z=n/a impede confirma\u00e7\u00e3o de calor social. Sem volume \u22653x, regra irrational_panic n\u00e3o dispara. Queda de -41% em 242d \u00e9 contexto relevante mas insuficiente sozinho.",
+      "confidence": 4
+    }
+  ]
+}
