@@ -1,0 +1,19 @@
+{
+  "date": "2026-06-17",
+  "signals": [
+    {
+      "ticker": "META",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "confidence": 4,
+      "reasoning": "Volume normal (1.05x) impede disparo da regra irrational_panic (exige >3x). Z-scores extremos (-2.21/-2.3) e tom bearish no YouTube s\u00e3o relevantes, mas sem volume de capitula\u00e7\u00e3o confirmado. Vol_dist=1.25 indica distribui\u00e7\u00e3o cont\u00ednua, n\u00e3o cl\u00edmax de venda."
+    },
+    {
+      "ticker": "HOOD",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "confidence": 3,
+      "reasoning": "Volume 2.18x e z30=+1.58 est\u00e3o abaixo dos limiares de bubble_forming (>3x vol, calor explosivo). Ext vs 200d apenas +2.4% (sustained 0/60d) e vol_dist=0.46 indicam press\u00e3o compradora, n\u00e3o euforia distribuidora. Sinal insuficiente para qualquer classifica\u00e7\u00e3o direcional."
+    }
+  ]
+}
