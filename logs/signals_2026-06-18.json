@@ -1,0 +1,26 @@
+{
+  "date": "2026-06-18",
+  "signals": [
+    {
+      "ticker": "AMZN",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.58x e z30=+1.76 est\u00e3o no limiar, mas RSI=44 e acelera\u00e7\u00e3o negativa (-1.13) contradizem momentum. YouTube bullish com heat elevado, mas social_heat_z=-0.7 e vol_dist=1.89 (distribui\u00e7\u00e3o) criam sinais conflitantes. Sem convic\u00e7\u00e3o direcional.",
+      "confidence": 3
+    },
+    {
+      "ticker": "MRVL",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 3.69x com social_heat_z=n/a; YouTube heat=explosive mas tone=bearish e views baixas (3k). Vol_dist=0.39 indica forte press\u00e3o compradora, n\u00e3o distribui\u00e7\u00e3o. z30=+0.57 est\u00e1 em zona de ru\u00eddo. Regra: volume >3x sem heat confirmada de varejo = rebalanceamento institucional.",
+      "confidence": 5
+    },
+    {
+      "ticker": "INTC",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Ext=+141% e 54/60d sustentados sugerem bolha, YouTube explosive/bullish e z200=+1.92. Por\u00e9m vol_dist=1.08 falha no gate de distribui\u00e7\u00e3o (>1.0 marginalmente) e F&G=15 capa bubble_forming em conf\u22645. Volume 1.55x insuficiente para divergence rules. Observar sem a\u00e7\u00e3o.",
+      "confidence": 4
+    }
+  ]
+}
