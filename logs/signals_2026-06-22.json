@@ -1,0 +1,33 @@
+{
+  "date": "2026-06-22",
+  "signals": [
+    {
+      "ticker": "AMZN",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "confidence": 4,
+      "reasoning": "Volume 1.34x \u2014 abaixo do limiar de 3x para disparar regra de p\u00e2nico. Z30=-2.11, z200=-2.4 s\u00e3o extremos, mas social_heat_z=-1.0 e YouTube heat=stable/bullish contradizem narrativa de capitula\u00e7\u00e3o. Vol dist 2.30 indica distribui\u00e7\u00e3o, mas sem volume confirmat\u00f3rio. Sinais conflitantes."
+    },
+    {
+      "ticker": "GOOGL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "confidence": 4,
+      "reasoning": "Volume 1.68x \u2014 insuficiente para regra irrational_panic (requer >3x). Z30=-2.28, z200=-2.75 extremos. YouTube heat=elevated, tone=bearish aponta press\u00e3o, mas sem volume confirmat\u00f3rio a regra n\u00e3o dispara. Vol dist 1.40 e ext +12.2% sustentada apenas 2/60d. Amb\u00edguo."
+    },
+    {
+      "ticker": "GOOG",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "confidence": 3,
+      "reasoning": "Volume 1.48x, abaixo do limiar de 3x. Z30=-2.35, z200=-2.85 extremos. Social_heat_z=n/a e todos os canais sociais ausentes \u2014 sem dado de calor social confirmado, regra institucional n\u00e3o pode ser inferida. Classifica\u00e7\u00e3o m\u00e1xima: amb\u00edguo por aus\u00eancia de dados sociais."
+    },
+    {
+      "ticker": "NFLX",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "confidence": 5,
+      "reasoning": "Volume 1.69x \u2014 abaixo de 3x, impede disparo de irrational_panic. RSI=21.7, z30=-2.91, ext=-25.7%, 245d desde pico e drawdown -45.6% sugerem capitula\u00e7\u00e3o estrutural. YouTube heat=explosive, tone=bearish \u00e9 sinal de p\u00e2nico, mas volume insuficiente para confirmar. Aguardar volume >3x."
+    }
+  ]
+}
