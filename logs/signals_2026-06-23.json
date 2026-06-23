@@ -1,0 +1,26 @@
+{
+  "date": "2026-06-23",
+  "signals": [
+    {
+      "ticker": "ZS=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "z30=+2.05, z200=+2.21 s\u00e3o extremos, mas volume=0.84x (normal) n\u00e3o confirma diverg\u00eancia. YouTube heat=elevated, tone=neutral. Sem volume >2x, regra de diverg\u00eancia n\u00e3o dispara. Vol_dist=2.54 \u00e9 contexto interessante mas insuficiente sozinho.",
+      "confidence": 3
+    },
+    {
+      "ticker": "SNDK",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Queda de -13.6% com z30=-2.29, z200=-2.27. Volume=1.07x (normal) impede classifica\u00e7\u00e3o de p\u00e2nico. YouTube=explosive/bullish e vol_dist=0.50 (buying pressure) contradizem capitula\u00e7\u00e3o. Ext=+209.8% por 60/60d \u00e9 contexto relevante mas sinais conflitam.",
+      "confidence": 3
+    },
+    {
+      "ticker": "NFLX",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "RSI=21.8 (oversold) e YouTube=explosive/bearish sugerem poss\u00edvel p\u00e2nico, mas volume=1.01x (normal) n\u00e3o confirma. z30=+0.29 est\u00e1 em zona de ru\u00eddo. Sem volume >2x, regra irrational_panic n\u00e3o dispara.",
+      "confidence": 3
+    }
+  ]
+}
