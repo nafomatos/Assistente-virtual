@@ -1,0 +1,47 @@
+{
+  "date": "2026-06-25",
+  "signals": [
+    {
+      "ticker": "AAPL",
+      "classification": "irrational_panic",
+      "recommendation": "contrarian_buy",
+      "reasoning": "Volume 2.0x, z30=-3.4, z200=-4.2, heat=explosive, tone=bearish. Retail capitulando em not\u00edcia de crise de mem\u00f3ria. Ext vs 200d apenas +2.2% (0/60d) \u2014 sem bolha estrutural. Vol_dist=1.77 confirma press\u00e3o vendedora emocional. Macro fear (F&G=12) amplifica credibilidade do p\u00e2nico.",
+      "confidence": 7
+    },
+    {
+      "ticker": "ZS=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 0.95x (normal) \u2014 regra de diverg\u00eancia n\u00e3o dispara. Z30=+3.3, z200=+4.1 extremos, mas sem confirma\u00e7\u00e3o de volume \u22652x. Heat=elevated/bullish insuficiente sozinho. Ext vs 200d apenas +4.2% (0/60d). Sinal de pre\u00e7o sem volume = ru\u00eddo ou not\u00edcia pontual.",
+      "confidence": 3
+    },
+    {
+      "ticker": "SNDK",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Z30=+2.75, z200=+2.84, Ext=+257% (60/60d \u2691). Bubble_forming bloqueado: vol_dist=0.61 (compra, n\u00e3o distribui\u00e7\u00e3o) \u2014 MANDATORY SHORT GATE falha. Volume 1.3x normal. Heat=explosive/neutral n\u00e3o confirma euforia direcional. Rally de mem\u00f3ria p\u00f3s-Micron com acumula\u00e7\u00e3o institucional.",
+      "confidence": 4
+    },
+    {
+      "ticker": "BB",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Z200=+5.19, Ext=+115% (36/60d \u2691), RSI=69. Bubble_forming bloqueado: vol_dist=0.89 \u22641.0 \u2014 MANDATORY SHORT GATE falha. Volume 1.82x, heat=stable/neutral. Earnings beat real; sem distribui\u00e7\u00e3o confirmada. Observar se vol_dist cruza 1.0 nas pr\u00f3ximas sess\u00f5es.",
+      "confidence": 4
+    },
+    {
+      "ticker": "MSTR",
+      "classification": "irrational_panic",
+      "recommendation": "wait",
+      "reasoning": "RSI=25, z200=-1.81, heat=explosive, tone=bearish. Diverg\u00eancia: vol_dist=3.11 (distribui\u00e7\u00e3o pesada \u26a0) sugere sa\u00edda institucional real, n\u00e3o apenas p\u00e2nico de varejo. Ext=-54.4%, queda de 82% do pico. Sinal conflitante \u2014 distribui\u00e7\u00e3o real impede contrarian_buy com confian\u00e7a.",
+      "confidence": 5
+    },
+    {
+      "ticker": "WEN",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 3.59x + heat=explosive/bullish aponta bubble_forming, mas vol_dist=0.69 \u22641.0 bloqueia o short (MANDATORY SHORT GATE). Pre\u00e7o -6.7% hoje ap\u00f3s rally meme de 40%. Z30=-1.12 negativo contradiz euforia. Sinais conflitantes \u2014 meme em revers\u00e3o sem distribui\u00e7\u00e3o confirmada.",
+      "confidence": 3
+    }
+  ]
+}
