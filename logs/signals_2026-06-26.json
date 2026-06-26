@@ -1,0 +1,75 @@
+{
+  "date": "2026-06-26",
+  "signals": [
+    {
+      "ticker": "ZS=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume normal (0.81x) elimina regras de diverg\u00eancia baseadas em volume. Z-scores extremos (z30=+2.12, z200=+2.31) com RSI=55 e vol_dist=2.19 s\u00e3o conflitantes \u2014 alta de pre\u00e7o sem volume confirmat\u00f3rio. YouTube elevado/bullish mas sem volume \u22652x para sustentar call.",
+      "confidence": 3
+    },
+    {
+      "ticker": "MSFT",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 4.08x com YouTube explosive/bullish, mas Ext vs 200d MA=-16.8%, Sustained=0/60d e vol_dist=0.96 (buying pressure). N\u00e3o satisfaz sustained-extension gate para bubble_forming. Alta de +5.7% ap\u00f3s queda de -23% em 6m aponta rebalanceamento institucional.",
+      "confidence": 7,
+      "cluster_boost": {
+        "sector": "mega_tech",
+        "direction_group": "institutional",
+        "count": 4,
+        "original_confidence": 6,
+        "boost_amount": 1
+      }
+    },
+    {
+      "ticker": "AAPL",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 4.73x com social_heat_z=0.0 e YouTube elevated/bearish. Z30=+1.8 est\u00e1 abaixo do limiar de bubble_forming; Ext vs 200d MA=+5.3%, Sustained=0/60d. Volume alto sem euforia social = rebalanceamento institucional, n\u00e3o p\u00e2nico de varejo.",
+      "confidence": 6,
+      "cluster_boost": {
+        "sector": "mega_tech",
+        "direction_group": "institutional",
+        "count": 4,
+        "original_confidence": 5,
+        "boost_amount": 1
+      }
+    },
+    {
+      "ticker": "AMZN",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 4.26x com social_heat_z=-0.7 e YouTube elevated/neutral. Z30=+1.42 abaixo de 1.5 (zona de ru\u00eddo). Ext vs 200d MA=-0.0%, Sustained=0/60d. Volume alto sem calor social = fluxo institucional, n\u00e3o euforia de varejo.",
+      "confidence": 6,
+      "cluster_boost": {
+        "sector": "mega_tech",
+        "direction_group": "institutional",
+        "count": 4,
+        "original_confidence": 5,
+        "boost_amount": 1
+      }
+    },
+    {
+      "ticker": "GOOGL",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 3.1x com YouTube stable/neutral e social_heat_z=-0.7. Z30=-0.71 \u00e9 ru\u00eddo. Vol_dist=2.55 (distribui\u00e7\u00e3o) com queda de -1.84% sugere sa\u00edda institucional silenciosa, n\u00e3o p\u00e2nico de varejo. Heat confirmadamente baixa satisfaz regra de rebalanceamento.",
+      "confidence": 7,
+      "cluster_boost": {
+        "sector": "mega_tech",
+        "direction_group": "institutional",
+        "count": 4,
+        "original_confidence": 6,
+        "boost_amount": 1
+      }
+    },
+    {
+      "ticker": "MSTR",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "RSI=23.9 e YouTube explosive/bearish apontam capitula\u00e7\u00e3o, mas volume=1.72x est\u00e1 abaixo do limiar de 3x para irrational_panic. Z30=-0.24 \u00e9 ru\u00eddo. Ext=-55.7%, vol_dist=3.35 e queda de -47.9% em 6m s\u00e3o severos, mas volume insuficiente para contrarian_buy.",
+      "confidence": 4
+    }
+  ]
+}
