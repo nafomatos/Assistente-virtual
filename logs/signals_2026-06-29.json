@@ -1,0 +1,54 @@
+{
+  "date": "2026-06-29",
+  "signals": [
+    {
+      "ticker": "TSLA",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.22x (normal), z30=+2.64/z200=+2.95 mas RSI=54 e Ext vs 200d=-1.5% (sustained 0/60d). YouTube bullish mas sem volume confirmat\u00f3rio. Alta de hoje parece rea\u00e7\u00e3o not\u00edcia, n\u00e3o estrutural. Nenhuma regra de diverg\u00eancia dispara.",
+      "confidence": 3
+    },
+    {
+      "ticker": "GOOGL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 0.74x (abaixo da m\u00e9dia), z30=+2.57 mas social_heat_z=-0.6 e YouTube stable/neutral. Vol_dist=2.08 \u00e9 observa\u00e7\u00e3o relevante mas sem volume elevado nenhuma regra dispara. Ext vs 200d=+12.5%, sustained=2/60d \u2014 n\u00e3o \u00e9 bolha estrutural.",
+      "confidence": 2
+    },
+    {
+      "ticker": "RKLB",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.17x (normal), z30=+2.39, YouTube explosive/bullish. Sem volume \u22652x, regra bubble_forming n\u00e3o dispara. Sustained=33/60d e Ext=+30.4% s\u00e3o contexto relevante, mas alta de +15.9% hoje parece catalisada pela not\u00edcia Iridium.",
+      "confidence": 3
+    },
+    {
+      "ticker": "ASTS",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.16x (normal), z30=+2.37/z200=+2.84, YouTube explosive/bullish. Sem volume \u22652x, nenhuma regra de diverg\u00eancia dispara. Ext vs 200d=+6.6%, sustained=5/60d \u2014 movimento parece simpatia com not\u00edcia RKLB/Iridium, n\u00e3o bolha estrutural.",
+      "confidence": 3
+    },
+    {
+      "ticker": "MSTR",
+      "classification": "irrational_panic",
+      "recommendation": "contrarian_buy",
+      "reasoning": "Volume 1.52x, z30=+2.8/z200=+2.65 up, RSI=32.9, Ext vs 200d=-49.8%, queda de 80.4% do pico em 399d. YouTube explosive/bearish. Macro Fear&Greed=12. Perfil de capitula\u00e7\u00e3o: pre\u00e7o extremamente deprimido, sentimento negativo, movimento de alta hoje contra narrativa bearish dominante.",
+      "confidence": 7
+    },
+    {
+      "ticker": "SLS",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 3.13x, z200=+3.49, RSI=85, Ext vs 200d=+270.5% (sustained 60/60d). Bubble_forming bloqueado: vol_dist=0.49 (buying pressure, n\u00e3o distribui\u00e7\u00e3o). YouTube stable/neutral contradiz euforia. Sinal conflitante \u2014 n\u00e3o \u00e9 poss\u00edvel classificar com convic\u00e7\u00e3o.",
+      "confidence": 4
+    },
+    {
+      "ticker": "BB",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.11x (normal), z200=+2.29, RSI=78.9, Ext vs 200d=+155.2% (sustained 38/60d). Bubble_forming bloqueado: vol_dist=0.84 e volume abaixo de 2x. YouTube stable/bearish. Extens\u00e3o estrutural preocupante mas sem gatilho de diverg\u00eancia acion\u00e1vel.",
+      "confidence": 4
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "date": "2026-06-29",
+  "clusters": [
+    {
+      "sector": "mega_tech",
+      "direction_group": "institutional",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "GOOGL",
+        "MSFT"
+      ],
+      "count": 4,
+      "boost": 1,
+      "first_seen": "2026-06-26",
+      "last_seen": "2026-06-26"
+    }
+  ]
+}
