@@ -1,0 +1,19 @@
+{
+  "date": "2026-06-30",
+  "signals": [
+    {
+      "ticker": "ZS=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.45x n\u00e3o atinge limiar para regras de diverg\u00eancia. Z-scores extremos (z30=+2.77, z200=+2.96) com RSI neutro (52). YouTube bearish/elevado e vol_dist=1.88 sugerem distribui\u00e7\u00e3o, mas sem volume >2x n\u00e3o h\u00e1 sinal acion\u00e1vel.",
+      "confidence": 3
+    },
+    {
+      "ticker": "SLS",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "RSI=80 e extens\u00e3o brutal (+248% vs 200d MA, 60/60d sustentado), mas vol_dist=0.59 bloqueia bubble_forming (gate obrigat\u00f3rio). Volume 1.8x insuficiente para regras de diverg\u00eancia. Buzz de M&A bullish conflita com queda de -4.47% hoje.",
+      "confidence": 3
+    }
+  ]
+}
