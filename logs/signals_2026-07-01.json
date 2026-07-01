@@ -1,0 +1,40 @@
+{
+  "date": "2026-07-01",
+  "signals": [
+    {
+      "ticker": "RDDT",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.67x (below 2x threshold), z30=+2.36, z200=+3.22 up. YouTube heat=elevated, tone=bearish \u2014 social heat without volume confirmation cannot fire a Divergence Rule. Single-day spike, Ext vs 200d only +7%, Sustained 0/60d. No clean classification.",
+      "confidence": 3
+    },
+    {
+      "ticker": "ZS=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.06x (normal) despite blowout z30=+3.13, z200=+2.78. Vol_dist=1.69 (distribution) but volume threshold not met to fire Divergence Rules. YouTube heat=elevated, tone=bearish. Price velocity extreme without volume confirmation \u2014 ambiguous.",
+      "confidence": 3
+    },
+    {
+      "ticker": "META",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.54x, z30=+3.0, z200=+3.69 up, YouTube heat=explosive but tone=bearish. Bubble_forming requires bullish tone \u2014 tone mismatch blocks classification. Ext vs 200d=\u22125.3%, Sustained 0/60d, vol_dist=0.98 (buying pressure). News-driven reaction, not structural bubble.",
+      "confidence": 3
+    },
+    {
+      "ticker": "NBIS",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.67x, z30=\u22122.52, z200=\u22122.85 down. YouTube heat=explosive, tone=bullish \u2014 conflicts with sharp price drop. Irrational_panic requires bearish tone; tone is bullish here. Ext vs 200d=+73.2%, Sustained 57/60d \u2014 structurally extended. Signals conflict, no clean rule fires.",
+      "confidence": 3
+    },
+    {
+      "ticker": "NKE",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.43x, z30=+1.99, z200=+2.17 up. Vol_dist=1.47 (distribution), Ext vs 200d=\u221225.1%, 2y drawdown=\u221251.9%. YouTube heat=elevated, tone=bearish. Volume below 3x and z-scores below +2.5 \u2014 no Divergence Rule fires cleanly. Possible bottoming but insufficient confirmation.",
+      "confidence": 3
+    }
+  ]
+}
