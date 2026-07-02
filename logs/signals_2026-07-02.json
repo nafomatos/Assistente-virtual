@@ -1,0 +1,19 @@
+{
+  "date": "2026-07-02",
+  "signals": [
+    {
+      "ticker": "TSLA",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.6x (abaixo do limiar 3x para irrational_panic). z30=-2.2, z200=-2.7 indicam queda forte, mas YouTube heat=explosive com tone=neutral n\u00e3o confirma capitula\u00e7\u00e3o bearish. Sinais conflitantes impedem classifica\u00e7\u00e3o direcional.",
+      "confidence": 3
+    },
+    {
+      "ticker": "AAPL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 0.87x (abaixo de 2x) impede bubble_forming pelo gate de volume. z200=+3.1 e YouTube bullish/explosive s\u00e3o not\u00e1veis, mas vol_dist=0.81 e Sustained=0/60d indicam movimento pontual sem distribui\u00e7\u00e3o. Sem confirma\u00e7\u00e3o de volume, sinal \u00e9 amb\u00edguo.",
+      "confidence": 3
+    }
+  ]
+}
