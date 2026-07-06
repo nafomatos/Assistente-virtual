@@ -1,0 +1,12 @@
+{
+  "date": "2026-07-06",
+  "signals": [
+    {
+      "ticker": "ZS=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.5x (abaixo do gate de 3x para Divergence Rules). Z-scores extremos (z30=+4.0, z200=+4.8) mas Ext vs 200d apenas +6.9%, Sustained 0/60d \u2014 spike de not\u00edcia (seca julho), n\u00e3o bolha estrutural. YouTube heat=stable, social_heat_z=-0.7; sem confirma\u00e7\u00e3o de euforia retail.",
+      "confidence": 3
+    }
+  ]
+}
