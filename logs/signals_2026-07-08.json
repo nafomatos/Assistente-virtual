@@ -1,0 +1,19 @@
+{
+  "date": "2026-07-08",
+  "signals": [
+    {
+      "ticker": "BATL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 8.4x extremo mas z30=-0.57, z200=-0.43 (ru\u00eddo). YouTube heat=stable e top video n\u00e3o menciona BATL \u2014 sem calor social confirmado. Regra institucional n\u00e3o pode ser ativada sem heat baixo confirmado; social_heat_z=n/a impede classifica\u00e7\u00e3o definitiva.",
+      "confidence": 2
+    },
+    {
+      "ticker": "CL=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.7x (abaixo de 2x) com z30=+2.2 e YouTube heat=explosive/bullish \u2014 movimento de not\u00edcia geopol\u00edtica (Ir\u00e3). Vol distribution 1.87 indica distribui\u00e7\u00e3o. Volume insuficiente para disparar regra de diverg\u00eancia; z-score alto mas contexto \u00e9 choque ex\u00f3geno pontual, n\u00e3o estrutural.",
+      "confidence": 3
+    }
+  ]
+}
