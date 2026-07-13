@@ -1,0 +1,19 @@
+{
+  "date": "2026-07-13",
+  "signals": [
+    {
+      "ticker": "CL=F",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.21x \u2014 abaixo do limiar de 2x para diverg\u00eancia. Z30=+2.93 extremo, mas RSI=51 neutro. YouTube heat=explosive/bullish, por\u00e9m volume n\u00e3o confirma. Not\u00edcia geopol\u00edtica (Ormuz) explica o spike; vol_dist=1.73 \u00e9 distribui\u00e7\u00e3o, mas sem volume elevado o sinal \u00e9 amb\u00edguo.",
+      "confidence": 3
+    },
+    {
+      "ticker": "USO",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.97x, pr\u00f3ximo mas abaixo de 2x. Z30=+2.75/Z200=+2.63 extremos. Sem dados sociais (YouTube/Twitter/StockTwits n/a) \u2014 regra exige calor confirmado para classificar. Vol_dist=1.27 distribui\u00e7\u00e3o leve; Sustained=39/60d \u2691 extended. Sinal geopol\u00edtico, n\u00e3o estrutural.",
+      "confidence": 3
+    }
+  ]
+}
