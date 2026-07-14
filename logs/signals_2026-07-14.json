@@ -1,0 +1,19 @@
+{
+  "date": "2026-07-14",
+  "signals": [
+    {
+      "ticker": "IBM",
+      "classification": "irrational_panic",
+      "recommendation": "contrarian_buy",
+      "reasoning": "Volume 6.6x extremo, z30=-4.35, z200=-7.64, YouTube heat=explosive, tone=bearish \u2014 Divergence Rule de p\u00e2nico dispara claramente. RSI=30, queda de 25% em um dia por earnings warning. Vol distribution 1.54 confirma press\u00e3o vendedora, mas calor bearish explosivo aponta capitula\u00e7\u00e3o de varejo, n\u00e3o distribui\u00e7\u00e3o institucional silenciosa.",
+      "confidence": 8
+    },
+    {
+      "ticker": "LCID",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume exclu\u00eddo por artefato de dados \u2014 regras de diverg\u00eancia dependentes de volume n\u00e3o podem disparar. YouTube heat=elevated (n\u00e3o explosive), tone=bearish, z30=-2.25, z200=-3.26. Sem confirma\u00e7\u00e3o de volume, sinal insuficiente para classifica\u00e7\u00e3o direcional; ext vs 200d=-58.1% e drawdown de 89% s\u00e3o contexto, n\u00e3o gatilho.",
+      "confidence": 3
+    }
+  ]
+}
