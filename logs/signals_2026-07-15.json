@@ -1,0 +1,12 @@
+{
+  "date": "2026-07-15",
+  "signals": [
+    {
+      "ticker": "PYPL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 5.6x e z200=+6.0 s\u00e3o extremos, mas a not\u00edcia de buyout (Stripe/Advent) explica o spike pontual. Ext vs 200d apenas +4.9%, sustained 0/60d \u2014 sem estrutura de bolha. Vol_dist=0.35 (compra pura). YouTube heat=explosive mas tom neutro. Rea\u00e7\u00e3o a evento, n\u00e3o padr\u00e3o classific\u00e1vel.",
+      "confidence": 3
+    }
+  ]
+}
