@@ -1,0 +1,19 @@
+{
+  "date": "2026-07-16",
+  "signals": [
+    {
+      "ticker": "GOOGL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.15x (normal) \u2014 volume Divergence Rules cannot fire. z30=-2.03, z200=-2.38 are extreme but unconfirmed by volume. YouTube heat=elevated, tone=bearish, vol_dist=1.94 (distribution) noted as context. Signals conflict: price velocity extreme, volume absent.",
+      "confidence": 3
+    },
+    {
+      "ticker": "ASTS",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.53x (below 3x threshold), z30=-1.89, z200=-2.36, RSI=31.7. YouTube heat=explosive but tone=bullish \u2014 contradicts irrational_panic (requires bearish tone). Vol_dist=2.20 and -58.7% 2y drawdown noted. No Divergence Rule fires cleanly.",
+      "confidence": 3
+    }
+  ]
+}
