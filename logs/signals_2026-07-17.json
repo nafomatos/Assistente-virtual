@@ -1,0 +1,12 @@
+{
+  "date": "2026-07-17",
+  "signals": [
+    {
+      "ticker": "NFLX",
+      "classification": "irrational_panic",
+      "recommendation": "contrarian_buy",
+      "reasoning": "Volume 3.0x, z30=-2.65, z200=-3.0, RSI=30.5, YouTube heat=explosive, tone=bearish. Vol distribution 1.47 confirma press\u00e3o vendedora de varejo, n\u00e3o institucional. F&G=27 refor\u00e7a credibilidade do sinal contr\u00e1rio.",
+      "confidence": 7
+    }
+  ]
+}
