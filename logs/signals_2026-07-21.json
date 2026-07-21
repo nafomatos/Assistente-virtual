@@ -1,0 +1,20 @@
+{
+  "date": "2026-07-21",
+  "signals": [
+    {
+      "ticker": "NBIS",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Vol 1.38x (insuficiente para Divergence Rule), mas z200=+2.82, ext=+56.4% sustentada 56/60d, vol_dist=1.55 (distribui\u00e7\u00e3o \u26a0), YouTube explosivo/bullish. Gates satisfeitos: ext>+60% borderline, vol_dist>1.0. F&G=25 caps confian\u00e7a em 5 \u2014 abaixo do limiar acion\u00e1vel.",
+      "confidence": 5,
+      "v2_gate": {
+        "action": "reclassified",
+        "rule": "sustained_extension",
+        "detail": "ext=+56% (need >60%) / sustained=56/60 (need \u226530) \u2192 not a sustained bubble",
+        "original_classification": "bubble_forming",
+        "original_recommendation": "wait",
+        "original_confidence": 5
+      }
+    }
+  ]
+}
