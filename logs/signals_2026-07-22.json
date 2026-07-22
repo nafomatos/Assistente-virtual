@@ -1,0 +1,19 @@
+{
+  "date": "2026-07-22",
+  "signals": [
+    {
+      "ticker": "SMCI",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.7x, z30=+2.4, z200=+3.3, YouTube heat=explosive, tone=bullish. Sustained SHORT gate: Ext vs 200d=-9.3%, sustained 0/60d \u2014 fresh breakout from below 200d MA, not a structural bubble. Vol dist=1.55 (distribution) noted but sustained-extension gate blocks bubble_forming. Institutional demand on $60B backlog news.",
+      "confidence": 5
+    },
+    {
+      "ticker": "RDDT",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.2x (below 3x threshold), z30=-1.68, z200=-1.95, YouTube heat=explosive, tone=bearish. Panic pattern is plausible (Google content restriction news, -8.3% drop), but volume does not meet the >3x irrational_panic threshold. Signals suggestive but not confirmatory.",
+      "confidence": 4
+    }
+  ]
+}
