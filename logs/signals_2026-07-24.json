@@ -1,0 +1,12 @@
+{
+  "date": "2026-07-24",
+  "signals": [
+    {
+      "ticker": "ZS=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 3.05x com vol_dist=0.62 (abaixo de 1.0) bloqueia bubble_forming pelo mandatory short gate \u2014 press\u00e3o \u00e9 compradora, n\u00e3o distributiva. Heat elevado/bullish e RSI=73 s\u00e3o not\u00e1veis, mas z30=+0.73 e z200=+1.04 est\u00e3o dentro da faixa de ru\u00eddo. Ext vs 200d de apenas +11.2% (0/60d) descarta extens\u00e3o sustentada.",
+      "confidence": 4
+    }
+  ]
+}
