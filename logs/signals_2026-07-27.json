@@ -1,0 +1,40 @@
+{
+  "date": "2026-07-27",
+  "signals": [
+    {
+      "ticker": "NVDA",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.1x (normal) \u2014 Divergence Rules cannot fire. Z-scores extreme (z30=-2.31, z200=-2.46) but no volume confirmation. YouTube heat=explosive/bearish noted, yet vol_dist=0.88 shows buying pressure. Ext vs 200d only +1.9%, sustained 0/60d \u2014 no structural bubble or panic.",
+      "confidence": 3
+    },
+    {
+      "ticker": "CL=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.16x (normal) \u2014 no volume trigger. Z-scores extreme (z30=-2.21, z200=-2.33) but RSI=51 contradicts panic. YouTube heat=explosive/bearish present, but commodity special note + vol_dist=0.61 (buying pressure) points to institutional repositioning on Iran peace news.",
+      "confidence": 4
+    },
+    {
+      "ticker": "ZS=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 4.07x with social_heat_z=-1.9 (confirmed low heat, no YouTube/StockTwits). Divergence Rule fires: vol>3x + low social heat = institutional_rebalancing. Z-scores extreme but RSI=57 and 2y drawdown only -2.9% (1d since peak) \u2014 no panic context.",
+      "confidence": 6
+    },
+    {
+      "ticker": "SNDK",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.48x (below 2x threshold) \u2014 Divergence Rules cannot fire. Z-scores extreme (z30=-2.03, z200=-2.95), vol_dist=1.59 (distribution), sustained 60/60d extended, -20.6% today. YouTube heat=explosive/bearish. Signals lean panic but volume insufficient for contrarian_buy classification.",
+      "confidence": 4
+    },
+    {
+      "ticker": "ASML",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.55x (below 2x threshold). Z30=-1.94, z200=-2.76, YouTube heat=explosive/bearish on China competition news. Vol_dist=1.12 (mild distribution). Ext +20.3%, sustained 18/60d \u2014 not a sustained bubble. Volume insufficient to trigger any Divergence Rule cleanly.",
+      "confidence": 3
+    }
+  ]
+}
