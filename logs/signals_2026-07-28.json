@@ -1,0 +1,12 @@
+{
+  "date": "2026-07-28",
+  "signals": [
+    {
+      "ticker": "ZS=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 3.19x com social_heat_z=-1.7 e zero dados em todas as plataformas sociais. Divergence Rule: volume >3x + calor social baixo/confirmado = rebalanceamento institucional. Z-scores normais (z30=+0.47, z200=+0.77), RSI=58.6, sem extens\u00e3o sustentada (0/60d). Nenhum sinal de varejo.",
+      "confidence": 5
+    }
+  ]
+}
