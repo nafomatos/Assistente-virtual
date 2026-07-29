@@ -1,0 +1,19 @@
+{
+  "date": "2026-07-29",
+  "signals": [
+    {
+      "ticker": "SOFI",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.2x (below 3x threshold), z30=-2.77, z200=-2.37, YouTube heat=explosive tone=neutral. Vol dist=2.11 confirms distribution pressure. Volume insufficient to trigger irrational_panic rule; neutral tone prevents panic classification. Signals conflict.",
+      "confidence": 4
+    },
+    {
+      "ticker": "ZS=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 3.4x anomalous, but z30=-1.41 and z200=-1.63 are within noise band. YouTube heat=elevated/bearish but not explosive. Commodity with deep institutional market; high volume without explosive retail heat fits institutional rebalancing signature.",
+      "confidence": 5
+    }
+  ]
+}
