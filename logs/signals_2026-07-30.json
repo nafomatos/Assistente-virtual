@@ -1,0 +1,75 @@
+{
+  "date": "2026-07-30",
+  "signals": [
+    {
+      "ticker": "MU",
+      "classification": "irrational_panic",
+      "recommendation": "contrarian_buy",
+      "reasoning": "Volume 1.16x (normal), z30=+2.46, z200=+3.18 up, YouTube heat=explosive tone=bearish (75k views). Vol_dist=1.76 shows distribution but price surging +18% on Samsung news. RSI=46 not overbought. Fear=28 supports contrarian long. Bearish social into strong price = panic mismatch.",
+      "confidence": 7
+    },
+    {
+      "ticker": "SOFI",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 0.89x (below threshold), z30=+2.42 up but Ext vs 200d=-22.9%, sustained=0/60d. YouTube heat=explosive tone=bullish but news is negative (stock fell on earnings). Conflicting signals: price up +8% today vs bearish fundamentals. No clean Divergence Rule fires.",
+      "confidence": 3
+    },
+    {
+      "ticker": "MSFT",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.61x, z30=+4.22, z200=+7.16 up, but Ext vs 200d=+4.0%, sustained=0/60d \u2014 fresh breakout from below, not a sustained bubble. Vol_dist=0.55 (buying pressure, not distribution). YouTube tone=neutral. SHORT GATE fails: vol_dist\u22641.0 and extension<+60%.",
+      "confidence": 6
+    },
+    {
+      "ticker": "META",
+      "classification": "irrational_panic",
+      "recommendation": "contrarian_buy",
+      "reasoning": "Volume 2.28x, z30=-2.23, z200=-3.05 down, social_heat_z=+2.4, YouTube heat=explosive tone=bearish (78k views). Price -7.95% today, Ext vs 200d=-15.2%, sustained=0/60d. Fear=28 amplifies contrarian signal. Bearish social + heavy volume into down-move = retail capitulation.",
+      "confidence": 7
+    },
+    {
+      "ticker": "SNDK",
+      "classification": "irrational_panic",
+      "recommendation": "contrarian_buy",
+      "reasoning": "Volume 1.34x, z30=+2.52, z200=+3.19 up, YouTube heat=explosive tone=bearish (68k views, 'Stocks crashing'). Price +26% today yet social tone is bearish \u2014 classic panic mismatch. Vol_dist=1.66 (distribution) and Ext=+52.8% sustained 58/60d noted as context. Fear=28 supports long.",
+      "confidence": 7
+    },
+    {
+      "ticker": "QQQ",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.55x (elevated, not >2x), z30=+2.15, z200=+2.48 up. YouTube heat=explosive tone=bullish but vol_dist=1.83 and Ext=+6.0% sustained=0/60d. SHORT GATE fails (ext<+40% for ETF, vol_dist>1.0 but extension insufficient). No clean panic or bubble rule fires.",
+      "confidence": 3
+    },
+    {
+      "ticker": "NBIS",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.71x (elevated, not >2x threshold for institutional rule), z30=+2.94, z200=+3.89 up. YouTube heat=explosive tone=bearish (4k views, low reach). Ext=+33.7% sustained=52/60d extended but vol_dist=1.07 barely above 1.0. Insufficient volume for clean classification.",
+      "confidence": 3
+    },
+    {
+      "ticker": "AMD",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.21x (normal), z30=+2.51, z200=+2.78 up. YouTube heat=explosive tone=bearish but volume too low to trigger irrational_panic Divergence Rule cleanly. Ext=+56.3% sustained=59/60d extended, vol_dist=1.37. Bearish social into +13% move is notable but volume threshold not met.",
+      "confidence": 4
+    },
+    {
+      "ticker": "RDDT",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.54x anomalous but z30=-0.03, z200=-0.0 \u2014 price essentially flat. YouTube heat=explosive tone=neutral. High volume with no price velocity and neutral tone = no Divergence Rule fires. Likely post-earnings repositioning. Vol_dist=1.38 noted.",
+      "confidence": 2
+    },
+    {
+      "ticker": "ZS=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.73x anomalous, z30=+0.50, z200=+0.73 \u2014 price velocity is noise range. YouTube heat=elevated tone=bearish but commodity default applies: high volume, low social conviction. Vol_dist=0.51 (buying pressure). Institutional flow into soybeans without retail panic confirmation.",
+      "confidence": 5
+    }
+  ]
+}
