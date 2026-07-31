@@ -1,0 +1,47 @@
+{
+  "date": "2026-07-31",
+  "signals": [
+    {
+      "ticker": "AAPL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.07x (abaixo do gatilho 3x), z30=-2.99, z200=-4.66, YouTube explosive/bearish. Queda severa com not\u00edcia fundamental (Cook warning), mas volume insuficiente para confirmar irrational_panic. Vol_dist=0.89 indica press\u00e3o compradora residual.",
+      "confidence": 4
+    },
+    {
+      "ticker": "AMZN",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.26x, z200=+6.71, YouTube explosive/bullish. Bubble_forming bloqueado: vol_dist=0.86 (\u22641.0, compra n\u00e3o distribui\u00e7\u00e3o) e Ext vs 200d apenas +15.6% (abaixo de +60%). Rea\u00e7\u00e3o p\u00f3s-earnings com fluxo institucional comprando AWS beat.",
+      "confidence": 5
+    },
+    {
+      "ticker": "GOOGL",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.34x (normal), z30=+2.48, z200=+3.17, YouTube elevated/bullish. Sem confirma\u00e7\u00e3o de volume \u22652x para disparar regra de diverg\u00eancia. Vol_dist=1.10 \u00e9 leve distribui\u00e7\u00e3o mas insuficiente isoladamente. Movimento p\u00f3s-earnings de setor.",
+      "confidence": 3
+    },
+    {
+      "ticker": "RDDT",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 5.86x, z30=-3.61, z200=-4.65, YouTube explosive mas tom=neutro (n\u00e3o bearish). Regra irrational_panic exige tom bearish confirmado \u2014 neutro bloqueia a classifica\u00e7\u00e3o. Vol_dist=1.99 e drawdown -48% s\u00e3o contexto relevante mas insuficientes sem heat bearish.",
+      "confidence": 4
+    },
+    {
+      "ticker": "GOOG",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.32x (normal), z30=+2.49, z200=+3.27, YouTube stable/neutral. social_heat_z=n/a e YouTube stable bloqueiam qualquer call direcional. Sem volume \u22652x, regras de diverg\u00eancia n\u00e3o disparam. Movimento espelha GOOGL por ser mesma empresa.",
+      "confidence": 2
+    },
+    {
+      "ticker": "ZS=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.5x an\u00f4malo, z30=+0.54 (ru\u00eddo), social_heat_z=-0.9, YouTube stable/bearish. Commodity com volume elevado e calor social baixo confirmado = fluxo institucional cl\u00e1ssico. Sem extens\u00e3o de pre\u00e7o significativa (Ext +5.0%).",
+      "confidence": 6
+    }
+  ]
+}
