@@ -1,0 +1,26 @@
+{
+  "date": "2026-08-03",
+  "signals": [
+    {
+      "ticker": "SOFI",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 0.87x (normal) \u2014 volume-dependent Divergence Rules cannot fire. z30=+2.7, z200=+2.9 are extreme but unconfirmed by volume. YouTube explosive/bullish and vol_dist=2.06 (distribution) noted, but no rule fires without volume threshold. Insufficient signal.",
+      "confidence": 3
+    },
+    {
+      "ticker": "ZS=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.76x with social_z=+4.0 and YouTube explosive/bearish. However z30=+1.06 and z200=+1.48 are below the \u00b11.5 noise threshold \u2014 price velocity is not signal. Commodity with anomalous volume and below-threshold z-scores; institutional flow default applies.",
+      "confidence": 4
+    },
+    {
+      "ticker": "MSFT",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "RSI=78, z200=+2.23, YouTube explosive/bullish \u2014 bubble_forming pattern superficially present. But vol=1.37x (below 2x) and vol_dist=0.40 (buying pressure, not distribution) hard-block bubble_forming gate. Sustained=0/60d and Ext=+12.5% also below thresholds. No rule fires.",
+      "confidence": 3
+    }
+  ]
+}
