@@ -1,0 +1,33 @@
+{
+  "date": "2026-08-04",
+  "signals": [
+    {
+      "ticker": "PLTR",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 4.2x, z30=+4.5, YouTube heat=explosive/bullish \u2014 Divergence Rule aponta bubble_forming, mas vol_dist=0.71 (buying pressure, n\u00e3o distribui\u00e7\u00e3o) bloqueia o SHORT GATE obrigat\u00f3rio. Ext vs 200d apenas +6.6%, Sustained=0/60d. Sem distribui\u00e7\u00e3o confirmada, classifica\u00e7\u00e3o for\u00e7ada para institutional_rebalancing.",
+      "confidence": 4
+    },
+    {
+      "ticker": "QQQ",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume normal 1.29x \u2014 regras de diverg\u00eancia dependentes de volume n\u00e3o disparam. Vol_dist=1.04 (distribui\u00e7\u00e3o leve) e z200=+2.51, mas Ext vs 200d=+12% e Sustained=0/60d ficam abaixo do gate de +40%/30d para bubble_forming. Sinais conflitantes sem convic\u00e7\u00e3o direcional.",
+      "confidence": 3
+    },
+    {
+      "ticker": "ZS=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 3.9x an\u00f4malo, mas z30=+0.38 e z200=+0.58 \u2014 velocidade de pre\u00e7o dentro do ru\u00eddo. YouTube heat=elevated/bearish sem explosividade social. Commodity com volume institucional t\u00edpico e aus\u00eancia de capitula\u00e7\u00e3o ou euforia retail. Regra de commodity default: institutional_rebalancing.",
+      "confidence": 5
+    },
+    {
+      "ticker": "MSFT",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "RSI=79 (sobrecomprado) com YouTube heat=explosive/bullish, mas volume apenas 1.09x \u2014 Social Heat sem confirma\u00e7\u00e3o de volume \u22652x n\u00e3o dispara regra de diverg\u00eancia. Vol_dist=0.39 (forte buying pressure) e Ext vs 200d=+13.7% bloqueiam qualquer short. Sinal insuficiente para classifica\u00e7\u00e3o acion\u00e1vel.",
+      "confidence": 2
+    }
+  ]
+}
