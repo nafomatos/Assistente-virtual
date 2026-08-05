@@ -1,0 +1,33 @@
+{
+  "date": "2026-08-05",
+  "signals": [
+    {
+      "ticker": "GLD",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.2x (abaixo de 3x), z30=+2.6, YouTube heat=explosive/bullish. Mas Ext vs 200d=-5.4%, sustained=0/60 \u2014 breakout de queda recente, n\u00e3o extens\u00e3o estrutural. Volume insuficiente para disparar regra institucional; heat sem volume \u22653x = amb\u00edguo.",
+      "confidence": 4
+    },
+    {
+      "ticker": "ZS=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 3.5x com social_heat_z=-1.1 e YouTube heat=stable/neutral. Regra de diverg\u00eancia: volume >3x + heat baixo = rebalanceamento institucional. Z-scores +1.2/+1.6 dentro da zona de ru\u00eddo. Sem calor de varejo confirmado.",
+      "confidence": 6
+    },
+    {
+      "ticker": "SPCX",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.5x, z30=-2.6, vol_dist=2.02 (distribui\u00e7\u00e3o), YouTube heat=explosive mas tone=neutral. Tom neutro impede classifica\u00e7\u00e3o como irrational_panic (exige bearish). Long-horizon n/a. Sinais conflitantes \u2014 sem gatilho limpo.",
+      "confidence": 3
+    },
+    {
+      "ticker": "MSFT",
+      "classification": "no_signal",
+      "recommendation": "no_action",
+      "reasoning": "Volume 0.63x (normal), z30=-0.58, z200=-0.49 \u2014 ambos dentro da zona de ru\u00eddo. RSI=76 isolado sem confirma\u00e7\u00e3o de volume ou z-score n\u00e3o satisfaz nenhuma regra de diverg\u00eancia. YouTube heat=explosive mas tone=neutral e volume abaixo de 2x.",
+      "confidence": 2
+    }
+  ]
+}
