@@ -8,46 +8,45 @@ ACTIVE POSITIONS
 ARTIFICIAL PRICE RADAR — Daily Report 2026-08-07
 ========================================================================
 Macro context — Fear & Greed: 29/100 — Fear (+4 vs yesterday, improving)
-               VIX Structure: Contango (0.81) — normal term structure
+               VIX Structure: Contango (0.80) — normal term structure
                Buffett Indicator: unavailable
-Coverage — 30 tickers processed · 2 red · 4 amber · 24 filtered
-  [RED]:   HTZ, SOUN
-  [AMBER]: SPCX, MSFT, WDC, TTD
-  skipped: NVDA, TSLA, AAPL, AMZN, GOOGL, PLTR, RKLB, ASTS, MU, SOFI, MSTR, RDDT, GLD, SLV, CL=F, COPX, ZS=F, NG=F, SPY, SNDK, QQQ, DTE, NBIS, AMD
+Coverage — 29 tickers processed · 4 red · 2 amber · 23 filtered
+  [RED]:   HTZ, SPCX, SOUN, DOCS
+  [AMBER]: ZS=F, MSFT
+  skipped: NVDA, TSLA, AAPL, AMZN, GOOGL, PLTR, RKLB, ASTS, MU, SOFI, MSTR, RDDT, GLD, SLV, CL=F, COPX, NG=F, SPY, SNDK, QQQ, DTE, NBIS, AMD
 ========================================================================
 
 [TICKER ALERT TIERS]
   TICKER | VOL | Z_30D | Z_200D | RSI | TIER/REASON
-  NVDA | 0.8x | -0.2 | -0.1 | 61 | SKIP: vol=0.8x (normal); z30=-0.2,z200=-0.1; RSI=61
-  TSLA | 0.5x | -0.0 | -0.2 | 37 | SKIP: vol=0.5x (normal); z30=-0.0,z200=-0.2; RSI=37
-  AAPL | 0.7x | +0.1 | +0.2 | 47 | SKIP: vol=0.7x (normal); z30=+0.1,z200=+0.2; RSI=47
-  AMZN | 0.4x | -0.2 | -0.1 | 63 | SKIP: vol=0.4x (normal); z30=-0.2,z200=-0.1; RSI=63
-  GOOGL | 0.7x | -0.5 | -0.7 | 52 | SKIP: vol=0.7x (normal); z30=-0.5,z200=-0.7; RSI=52
-  PLTR | 0.7x | -0.5 | -0.4 | 66 | SKIP: vol=0.7x (normal); z30=-0.5,z200=-0.4; RSI=66
-  RKLB | 0.9x | +0.2 | +0.1 | 49 | SKIP: vol=0.9x (normal); z30=+0.2,z200=+0.1; RSI=49
-  ASTS | 0.7x | -0.2 | -0.2 | 51 | SKIP: vol=0.7x (normal); z30=-0.2,z200=-0.2; RSI=51
-  MU | 0.7x | -0.1 | -0.4 | 48 | SKIP: vol=0.7x (normal); z30=-0.1,z200=-0.4; RSI=48
-  SOFI | 0.5x | -0.3 | -0.2 | 55 | SKIP: vol=0.5x (normal); z30=-0.3,z200=-0.2; RSI=55
-  MSTR | 0.5x | -0.4 | -0.2 | 46 | SKIP: vol=0.5x (normal); z30=-0.4,z200=-0.2; RSI=46
-  RDDT | 0.4x | -0.5 | -0.6 | 39 | SKIP: vol=0.4x (normal); z30=-0.5,z200=-0.6; RSI=39
-  GLD | 1.3x | -0.1 | -0.0 | 60 | SKIP: vol=1.3x (normal); z30=-0.1,z200=-0.0; RSI=60
-  SLV | 0.8x | -0.3 | -0.1 | 54 | SKIP: vol=0.8x (normal); z30=-0.3,z200=-0.1; RSI=54
-  CL=F | 0.0x | +1.0 | +1.1 | 46 | SKIP: vol=0.0x (normal); z30=+1.0,z200=+1.1; RSI=46
-  COPX | 1.1x | -0.4 | -0.3 | 63 | SKIP: vol=1.1x (normal); z30=-0.4,z200=-0.3; RSI=63
-  ZS=F | 0.0x | +1.4 | +1.9 | 48 | SKIP: vol=0.0x (normal); z30=+1.4,z200=+1.9; RSI=48
-  NG=F | 0.0x | -0.7 | -0.4 | 34 | SKIP: vol=0.0x (normal); z30=-0.7,z200=-0.4; RSI=34
-  HTZ | 4.4x | +3.8 | +4.7 | 46 | RED: macro_extreme(z30=+3.8,z200=+4.7)
-  SPY | 0.6x | -0.4 | -0.3 | 64 | SKIP: vol=0.6x (normal); z30=-0.4,z200=-0.3; RSI=64
-  SPCX | 2.9x | +1.4 | +1.0 | 43 | AMBER: vol=2.9x (anomalous)
-  SNDK | 1.0x | -0.6 | -1.1 | 43 | SKIP: vol=1.0x (normal); z30=-0.6,z200=-1.1; RSI=43
-  QQQ | 0.6x | -0.2 | -0.3 | 54 | SKIP: vol=0.6x (normal); z30=-0.2,z200=-0.3; RSI=54
-  MSFT | 0.7x | +0.4 | +1.1 | 78 | AMBER: RSI=78
-  DTE | 0.9x | +0.4 | +0.2 | 34 | SKIP: vol=0.9x (normal); z30=+0.4,z200=+0.2; RSI=34
-  NBIS | 1.0x | -1.3 | -2.0 | 46 | SKIP: vol=1.0x (normal); z30=-1.3,z200=-2.0; RSI=46
-  SOUN | 2.5x | +2.4 | +2.3 | 60 | RED: macro_extreme(z30=+2.4,z200=+2.3)
-  AMD | 0.7x | +0.3 | +0.2 | 48 | SKIP: vol=0.7x (normal); z30=+0.3,z200=+0.2; RSI=48
-  WDC | 1.9x | -1.7 | -2.6 | 40 | AMBER: |z30|=1.7>1.5 + vol=1.9x
-  TTD | 2.8x | -2.0 | -1.9 | 44 | AMBER: |z30|=2.0>1.5 + vol=2.8x; vol=2.8x (anomalous)
+  NVDA | 0.8x | +0.7 | +0.9 | 64 | SKIP: vol=0.8x (normal); z30=+0.7,z200=+0.9; RSI=64
+  TSLA | 0.9x | +0.8 | +1.0 | 41 | SKIP: vol=0.9x (normal); z30=+0.8,z200=+1.0; RSI=41
+  AAPL | 0.5x | -0.1 | +0.1 | 48 | SKIP: vol=0.5x (normal); z30=-0.1,z200=+0.1; RSI=48
+  AMZN | 0.5x | +0.0 | +0.3 | 64 | SKIP: vol=0.5x (normal); z30=+0.0,z200=+0.3; RSI=64
+  GOOGL | 0.6x | -0.4 | -0.5 | 50 | SKIP: vol=0.6x (normal); z30=-0.4,z200=-0.5; RSI=50
+  PLTR | 1.4x | +1.4 | +2.5 | 73 | SKIP: vol=1.4x (normal); z30=+1.4,z200=+2.5; RSI=73
+  RKLB | 1.1x | +1.4 | +1.4 | 56 | SKIP: vol=1.1x (normal); z30=+1.4,z200=+1.4; RSI=56
+  ASTS | 0.8x | +0.8 | +0.9 | 56 | SKIP: vol=0.8x (normal); z30=+0.8,z200=+0.9; RSI=56
+  MU | 0.7x | +0.1 | -0.2 | 48 | SKIP: vol=0.7x (normal); z30=+0.1,z200=-0.2; RSI=48
+  SOFI | 0.6x | +0.3 | +0.5 | 57 | SKIP: vol=0.6x (normal); z30=+0.3,z200=+0.5; RSI=57
+  MSTR | 1.4x | +0.6 | +0.7 | 50 | SKIP: vol=1.4x (normal); z30=+0.6,z200=+0.7; RSI=50
+  RDDT | 0.5x | +1.1 | +1.6 | 45 | SKIP: vol=0.5x (normal); z30=+1.1,z200=+1.6; RSI=45
+  GLD | 1.8x | +1.4 | +1.2 | 65 | SKIP: vol=1.8x (elevated); z30=+1.4,z200=+1.2; RSI=65
+  SLV | 1.3x | +1.1 | +0.7 | 59 | SKIP: vol=1.3x (normal); z30=+1.1,z200=+0.7; RSI=59
+  CL=F | 0.7x | -0.2 | -0.2 | 45 | SKIP: vol=0.7x (normal); z30=-0.2,z200=-0.2; RSI=45
+  COPX | 1.4x | +0.6 | +0.7 | 66 | SKIP: vol=1.4x (normal); z30=+0.6,z200=+0.7; RSI=66
+  ZS=F | 3.0x | +1.0 | +1.4 | 48 | AMBER: vol=3.0x (anomalous)
+  NG=F | 1.0x | +0.8 | +0.2 | 37 | SKIP: vol=1.0x (normal); z30=+0.8,z200=+0.2; RSI=37
+  HTZ | 6.2x | +1.5 | +2.0 | 52 | RED: vol=6.2x (extreme >5x)
+  SPCX | 2.2x | +2.8 | +2.3 | 53 | RED: macro_extreme(z30=+2.8,z200=+2.3)
+  SPY | 0.8x | +0.5 | +0.6 | 66 | SKIP: vol=0.8x (normal); z30=+0.5,z200=+0.6; RSI=66
+  SNDK | 0.7x | -0.2 | -0.7 | 42 | SKIP: vol=0.7x (normal); z30=-0.2,z200=-0.7; RSI=42
+  MSFT | 0.5x | -0.4 | +0.0 | 78 | AMBER: RSI=78
+  QQQ | 0.6x | +0.7 | +0.8 | 57 | SKIP: vol=0.6x (normal); z30=+0.7,z200=+0.8; RSI=57
+  SOUN | 1.6x | +2.7 | +2.9 | 69 | RED: macro_extreme(z30=+2.7,z200=+2.9)
+  DTE | 0.6x | +0.2 | -0.1 | 34 | SKIP: vol=0.6x (normal); z30=+0.2,z200=-0.1; RSI=34
+  NBIS | 0.8x | -0.0 | -0.2 | 46 | SKIP: vol=0.8x (normal); z30=-0.0,z200=-0.2; RSI=46
+  AMD | 0.8x | -0.2 | -0.4 | 47 | SKIP: vol=0.8x (normal); z30=-0.2,z200=-0.4; RSI=47
+  DOCS | 12.0x | +4.9 | +7.8 | 74 | RED: macro_extreme(z30=+4.9,z200=+7.8)
 [SYSTEM PROMPT — paste everything below together into Claude.ai]
 
 You are a Senior Quantitative Analyst specializing in market microstructure and behavioral finance. Your task is to analyze flagged assets to distinguish between institutional flows and retail irrationality.
@@ -168,146 +167,149 @@ Constraints:
 Asset: [RED] HTZ (HTZ)
 
 Market signals:
-- Volume: anomalous (4.37x 30d avg)
-- Price velocity: blowout (z_30d: 3.8, z_200d: 4.7, direction: up, macro_extreme: True) ⚠ macro_extreme
-- RSI-14: 45.5 (normal)
-- Current price: $2.02 (+29.49% today)
+- Volume: extreme (6.25x 30d avg)
+- Price velocity: notable (z_30d: 1.54, z_200d: 1.97, direction: up, macro_extreme: False)
+- RSI-14: 52.2 (normal)
+- Current price: $2.27 (+12.38% today)
 
 Recent news (last 3):
-1. "Hertz Stock Soars. Why Earnings Might Be a Problem for Short Sellers." — Barrons.com, 4.5h ago
-2. "Hertz Global (HTZ) Q2 Earnings: Taking a Look at Key Metrics Versus Estimates" — Zacks, 10.9h ago
-3. "Hertz Global Holdings, Inc. (HTZ) Reports Q2 Loss, Beats Revenue Estimates" — Zacks, 11.0h ago
+1. "Hertz Beats Estimates and Squeezes the Shorts" — Moby, 2.6h ago
+2. "Why Hertz (HTZ) Is Up 22.1% After Returning To Profit Amid Ongoing Securities Litigation" — Simply Wall St., 4.3h ago
+3. "Hertz Jumps 30%, Bears Sweat As Short Squeeze Continues" — Investor's Business Daily, 5.9h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
-- YouTube: heat=elevated, tone=bullish, top="Bloomberg Money Minute | Papa John’s Sales Fall &amp; Hertz " (617 views)
+- YouTube: heat=elevated, tone=bullish, top="Bloomberg Money Minute | Papa John’s Sales Fall &amp; Hertz " (2k views)
 - Twitter: n/a
 
 Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -57.7% (sustained: 0/60d)
-- 6m return: -61.3% | Acceleration (30d/6m): 0.00
-- Vol distribution (down÷up, last 20d): 1.12 (distribution ⚠)
-- 2y peak drawdown: -76.6% (322d since peak)
+- Ext vs 200d MA: -52.4% (sustained: 0/60d)
+- 6m return: -54.0% | Acceleration (30d/6m): 0.00
+- Vol distribution (down÷up, last 20d): 0.51 (buying pressure)
+- 2y peak drawdown: -73.8% (323d since peak)
 ------------------------------------------------------------------------
-Asset: [RED] SOUN (SOUN)
+Asset: [RED] SPCX (SPCX)
 
 Market signals:
-- Volume: elevated (2.46x 30d avg)
-- Price velocity: extreme (z_30d: 2.41, z_200d: 2.32, direction: up, macro_extreme: True) ⚠ macro_extreme
-- RSI-14: 59.7 (normal)
-- Current price: $7.08 (+10.11% today)
+- Volume: elevated (2.24x 30d avg)
+- Price velocity: extreme (z_30d: 2.78, z_200d: 2.29, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 52.7 (normal)
+- Current price: $133.11 (+15.83% today)
 
 Recent news (last 3):
-1. "Stock Market Today, Aug. 6: SoundHound AI Surges 10% on Record Q2 Revenue and Raised 2026 Guidance" — Motley Fool, 2.2h ago
-2. "Why SoundHound AI Stock Surged Today" — Motley Fool, 3.0h ago
-3. "SoundHound AI (SOUN) Is Up 12.8% After Raising 2026 Revenue Outlook On OASYS Momentum" — Simply Wall St., 4.7h ago
+1. "SpaceX's big week: Stock jumps despite earnings storm, lock-up expiration in crucial test for investors" — Yahoo Finance, 7.3h ago
+2. "SpaceX's influence ripples across markets: AlphaCheck" — Yahoo Finance, 6.0h ago
+3. "SpaceX Stock Lands An Upgrade, Rocket Lab Surges After Electron Mission" — Investor's Business Daily, 0.3h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
-- YouTube: heat=elevated, tone=bullish, top="SOUN STOCK: JUST GETTING STARTED... ($SOUN) " (1k views)
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -23.5% (sustained: 0/60d)
-- 6m return: -12.3% | Acceleration (30d/6m): 0.00
-- Vol distribution (down÷up, last 20d): 1.59 (distribution ⚠)
-- 2y peak drawdown: -70.8% (402d since peak)
-------------------------------------------------------------------------
-Asset: [AMBER] SPCX (SPCX)
-
-Market signals:
-- Volume: anomalous (2.88x 30d avg)
-- Price velocity: notable (z_30d: 1.42, z_200d: 1.04, direction: up, macro_extreme: False)
-- RSI-14: 42.8 (normal)
-- Current price: $114.92 (+6.14% today)
-
-Recent news (last 3):
-1. "SpaceX lockup expires today, with stock bucking higher" — Yahoo Finance, 14.9h ago
-2. "What the bond market is signaling for SpaceX's hopes to ramp up debt sales" — Yahoo Finance Video, 9.9h ago
-3. "SpaceX CEO Elon Musk Thinks People Underestimate Starlink and That Is a 'Big Deal'" — Benzinga, 2.9h ago
-
-Social signals (social_heat_z: n/a):
-- StockTwits: n/a
-- YouTube: heat=explosive, tone=bearish, top="SpaceX Just Crushed Earnings. Why Is the Stock Falling? SPCX" (19k views)
+- YouTube: heat=explosive, tone=bearish, top="SANDISK DOWN 10%, SPACEX SHARES UNLOCK, OSCAR CELSIUS EARNIN" (42k views)
 - Twitter: n/a
 
 Long-horizon context (v2, observe only — not a classification gate):
 - Ext vs 200d MA: n/a (sustained: n/a)
 - 6m return: n/a | Acceleration (30d/6m): n/a
-- Vol distribution (down÷up, last 20d): 1.44 (distribution ⚠)
-- 2y peak drawdown: -45.6% (35d since peak)
+- Vol distribution (down÷up, last 20d): 1.03 (distribution ⚠)
+- 2y peak drawdown: -37.0% (36d since peak)
+------------------------------------------------------------------------
+Asset: [RED] SOUN (SOUN)
+
+Market signals:
+- Volume: elevated (1.62x 30d avg)
+- Price velocity: extreme (z_30d: 2.67, z_200d: 2.93, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 69.2 (normal)
+- Current price: $8.02 (+13.28% today)
+
+Recent news (last 3):
+1. "SoundHound Jumps 26% as AI Growth Accelerates" — GuruFocus.com, 1.5h ago
+2. "SOUN Raises 2026 Revenue Outlook After OASYS Drives Record Q2 Sales" — Zacks, 2.2h ago
+3. "Is SOUN Worth Buying as Growth Collides With a Premium Valuation?" — Zacks, 2.2h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bullish, top="SoundHound AI CEO: Next breakthrough in AI models will be th" (11k views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: -12.8% (sustained: 0/60d)
+- 6m return: +9.1% | Acceleration (30d/6m): 3.20 (parabolic ⚑)
+- Vol distribution (down÷up, last 20d): 1.23 (distribution ⚠)
+- 2y peak drawdown: -66.9% (403d since peak)
+------------------------------------------------------------------------
+⚠ DATA QUALITY FLAG: This ticker's volume multiple (11.97x) exceeds normal range and may be a data artifact. Weight volume evidence accordingly.
+⚠ VOLUME DATA UNRELIABLE — metrics excluded from analysis. yfinance front-month contract-roll artifact suspected. NEEDS INVESTIGATION/FIX. See backtests/VOLUME_FIX*.md and logs/volume_artifacts.log
+
+Asset: [RED] DOCS (DOCS)
+
+Market signals:
+- Volume: n/a (suspected data artifact — excluded from analysis)
+- Price velocity: blowout (z_30d: 4.86, z_200d: 7.77, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 73.7 (overbought)
+- Current price: $27.40 (+32.62% today)
+
+Recent news (last 3):
+1. "Why Doximity Stock Is Soaring 38% After an Earnings Miss" — Barrons.com, 1.4h ago
+2. "Why Doximity Stock Is Up 80%" — GuruFocus.com, 1.9h ago
+3. "SpaceX, Doximity, Trade Desk, Rigetti, Coherent, and More Stocks That Explain Today’s Market" — Barrons.com, 2.6h ago
+
+Social signals (social_heat_z: n/a):
+- StockTwits: n/a
+- YouTube: n/a
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: -15.4% (sustained: 0/60d)
+- 6m return: -17.8% | Acceleration (30d/6m): 0.00
+- Vol distribution (down÷up, last 20d): n/a
+- 2y peak drawdown: -67.0% (374d since peak)
+------------------------------------------------------------------------
+Asset: [AMBER] ZS=F (Soybeans)
+
+Market signals:
+- Volume: anomalous (3.0x 30d avg)
+- Price velocity: notable (z_30d: 1.04, z_200d: 1.4, direction: up, macro_extreme: False)
+- RSI-14: 48.3 (normal)
+- Current price: $1,176.00 (+1.62% today)
+
+Recent news (last 3):
+1. "Soybeans Turn Higher into Thursday’s Close, Spurred by Chinese Rumors" — Barchart, 22.6h ago
+2. "Soybeans Slipping Slightly on Thursday" — Barchart, 27.6h ago
+3. "Soybeans Bounce Off Intraday Weakness, Still Close with Losses" — Barchart, 46.8h ago
+
+Social signals (social_heat_z: -0.2):
+- StockTwits: n/a
+- YouTube: heat=elevated, tone=bearish, top="Madya Pradesh Is 1st In Soyabean #crop #agriculture #farming" (18k views)
+- Twitter: n/a
+
+Long-horizon context (v2, observe only — not a classification gate):
+- Ext vs 200d MA: +3.6% (sustained: 0/60d)
+- 6m return: +5.7% | Acceleration (30d/6m): 0.75 (parabolic ⚑)
+- Vol distribution (down÷up, last 20d): 0.59 (buying pressure)
+- 2y peak drawdown: -5.8% (10d since peak)
 ------------------------------------------------------------------------
 Asset: [AMBER] MSFT (MSFT)
 
 Market signals:
-- Volume: normal (0.67x 30d avg)
-- Price velocity: notable (z_30d: 0.42, z_200d: 1.14, direction: up, macro_extreme: False)
+- Volume: normal (0.49x 30d avg)
+- Price velocity: normal (z_30d: -0.36, z_200d: 0.01, direction: up, macro_extreme: False)
 - RSI-14: 78.3 (overbought)
-- Current price: $499.86 (+2.54% today)
+- Current price: $499.99 (+0.03% today)
 
 Recent news (last 3):
-1. "Microsoft is starting to show its payoff on major AI plays" — Yahoo Finance Video, 5.2h ago
-2. "2 Energy Stocks With More Hype Than Fundamentals Right Now" — Motley Fool, 0.5h ago
-3. "Alphabet Promised More AI Spending. Now It’s Asking the Bond Market For the Cash." — Barrons.com, 1.8h ago
+1. "Atlassian stock soars 34% after earnings boost: AlphaSpace chart analysis" — Yahoo Finance Video, 5.7h ago
+2. "Big Tech is borrowing its way through the AI boom: Chart of the Day" — Yahoo Finance, 10.7h ago
+3. "Nvidia, Microsoft Partner Tests Breakout. Three Clues Bode Well." — Investor's Business Daily, 0.6h ago
 
-Social signals (social_heat_z: -1.1):
+Social signals (social_heat_z: +0.0):
 - StockTwits: n/a
-- YouTube: heat=explosive, tone=neutral, top="MSFT / AMZN: งบออก หุ้นบวก แต่ไส้อาจไม่เหมือนกัน ? l เช็คงบล" (8k views)
+- YouTube: heat=explosive, tone=bearish, top="美股 MSFT超买加顶背离！GOOG债多了不愁！NET、DDOG、UBER！SPCX抛压不及预期！" (72k views)
 - Twitter: n/a
 
 Long-horizon context (v2, observe only — not a classification gate):
 - Ext vs 200d MA: +15.4% (sustained: 0/60d)
-- 6m return: +20.7% | Acceleration (30d/6m): 1.78 (parabolic ⚑)
+- 6m return: +27.0% | Acceleration (30d/6m): 1.54 (parabolic ⚑)
 - Vol distribution (down÷up, last 20d): 0.40 (buying pressure)
-- 2y peak drawdown: -7.8% (193d since peak)
-------------------------------------------------------------------------
-Asset: [AMBER] WDC (WDC)
-
-Market signals:
-- Volume: elevated (1.88x 30d avg)
-- Price velocity: extreme (z_30d: -1.67, z_200d: -2.59, direction: down, macro_extreme: False)
-- RSI-14: 40.0 (normal)
-- Current price: $451.52 (-13.03% today)
-
-Recent news (last 3):
-1. "Stock Market Today, Aug. 6: Datadog Plummets 19%, Leading Software Stock Slide" — Motley Fool, 2.8h ago
-2. "Western Digital Stock Drops 11% Despite 44% Revenue Surge" — GuruFocus.com, 3.6h ago
-3. "Stocks to Watch Recap: Western Digital, Sandisk, Ralph Lauren, Warner" — The Wall Street Journal, 3.8h ago
-
-Social signals (social_heat_z: n/a):
-- StockTwits: n/a
-- YouTube: heat=explosive, tone=bearish, top="Trade Setups: Tech Slammed On SNDK And WDC, Gold Stalls, Bit" (56k views)
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: +32.9% (sustained: 59/60d ⚑ extended)
-- 6m return: +67.6% | Acceleration (30d/6m): -0.44
-- Vol distribution (down÷up, last 20d): 1.23 (distribution ⚠)
-- 2y peak drawdown: -39.5% (33d since peak)
-------------------------------------------------------------------------
-Asset: [AMBER] TTD (TTD)
-
-Market signals:
-- Volume: anomalous (2.78x 30d avg)
-- Price velocity: extreme (z_30d: -2.02, z_200d: -1.85, direction: down, macro_extreme: False)
-- RSI-14: 43.6 (normal)
-- Current price: $17.67 (-6.80% today)
-
-Recent news (last 3):
-1. "TTD Stock Sinks Over 26% On Earnings Miss, Weak Outlook — Retail Says Trade Desk’s Guidance Is The Real Problem" — Stocktwits, 2.9h ago
-2. "Trade Desk Stock Slumps After Revenue Misses Forecasts" — Barrons.com, 3.3h ago
-3. "Stock Market Today, Aug. 6: Trade Desk Plummets After Hours on Weak Q2 Results" — Motley Fool, 3.5h ago
-
-Social signals (social_heat_z: n/a):
-- StockTwits: n/a
-- YouTube: heat=stable, tone=neutral, top="AAOI Earnings LIVE: Applied Optoelectronics Q2 2026 Results " (1k views)
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -38.3% (sustained: 0/60d)
-- 6m return: -35.2% | Acceleration (30d/6m): 0.00
-- Vol distribution (down÷up, last 20d): 1.31 (distribution ⚠)
-- 2y peak drawdown: -87.3% (417d since peak)
+- 2y peak drawdown: -7.8% (194d since peak)
 
 ========================================================================
 [INSTRUCTION]
