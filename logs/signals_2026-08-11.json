@@ -1,0 +1,26 @@
+{
+  "date": "2026-08-11",
+  "signals": [
+    {
+      "ticker": "ZS=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 5.4x extremo mas z30=+0.5 e z200=+0.73 s\u00e3o ru\u00eddo. YouTube heat=elevated, tone=bearish, mas social_heat_z=+0.1 confirma aus\u00eancia de euforia de varejo. Commodity com volume alto e calma social = rebalanceamento institucional cl\u00e1ssico.",
+      "confidence": 6
+    },
+    {
+      "ticker": "HTZ",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.8x e z200=+2.42 p\u00f3s-earnings, mas Ext vs 200d MA=-48.3% e vol_dist=0.51 indicam compra, n\u00e3o distribui\u00e7\u00e3o. Social_heat_z=n/a e YouTube tone=neutral. Sem confirma\u00e7\u00e3o de euforia ou p\u00e2nico \u2014 rea\u00e7\u00e3o a earnings, n\u00e3o sinal estrutural.",
+      "confidence": 3
+    },
+    {
+      "ticker": "MSFT",
+      "classification": "no_signal",
+      "recommendation": "no_action",
+      "reasoning": "RSI=77.7 elevado mas volume 0.41x abaixo da m\u00e9dia e social_heat_z=-2.4 (frio). Ext vs 200d MA=+16.4%, sem sustenta\u00e7\u00e3o. Nenhuma regra de diverg\u00eancia dispara sem volume confirmado.",
+      "confidence": 2
+    }
+  ]
+}
