@@ -1,0 +1,19 @@
+{
+  "date": "2026-08-18",
+  "signals": [
+    {
+      "ticker": "ZS=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 8.7x extremo mas z30=+0.95 e z200=+1.02 est\u00e3o dentro da zona de ru\u00eddo (<1.5). YouTube heat=elevated mas tone=neutral; sem calor explosivo de varejo. Commodities com volume alto e calor social neutro apontam para fluxo institucional. Ext vs 200d apenas +6.7%, sem extens\u00e3o estrutural.",
+      "confidence": 5
+    },
+    {
+      "ticker": "KLAR",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 9.3x e z30=-4.2/z200=-4.76 com queda de 22% por guidance cortado. Social_heat_z=n/a e YouTube heat=stable/neutral \u2014 sem confirma\u00e7\u00e3o de p\u00e2nico de varejo. Regra institucional exige calor confirmado baixo; n/a n\u00e3o satisfaz. Vol dist 2.43 (distribui\u00e7\u00e3o) \u00e9 contexto relevante mas insuficiente sem heat confirmado.",
+      "confidence": 4
+    }
+  ]
+}
