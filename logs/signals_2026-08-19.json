@@ -1,0 +1,47 @@
+{
+  "date": "2026-08-19",
+  "signals": [
+    {
+      "ticker": "MSTR",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.84x com YouTube heat=explosive mas tone=neutral. Vol_dist=0.86 indica press\u00e3o compradora, n\u00e3o distribui\u00e7\u00e3o. Ext vs 200d=-28.3%, sustentado 0/60d \u2014 sem estrutura de bolha. Movimento ligado ao Bitcoin, n\u00e3o euforia retail isolada.",
+      "confidence": 4
+    },
+    {
+      "ticker": "ZS=F",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 8.17x extremo, mas YouTube heat=elevated com tone=neutral e v\u00eddeo top irrelevante (receita de comida). Social heat n\u00e3o confirma euforia retail. Vol_dist=0.35 indica forte press\u00e3o compradora institucional. Commodity com fluxo institucional t\u00edpico.",
+      "confidence": 5
+    },
+    {
+      "ticker": "MRNA",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume exclu\u00eddo por artifact suspeito (31.8x). Z30=+5.25, z200=+13.23, RSI=92 s\u00e3o extremos reais com catalisador claro (vacina c\u00e2ncer). YouTube explosive/neutral. Sem volume confi\u00e1vel, regras de diverg\u00eancia n\u00e3o disparam \u2014 teto \u00e9 ambiguous apesar dos z-scores extraordin\u00e1rios.",
+      "confidence": 4
+    },
+    {
+      "ticker": "RNA",
+      "classification": "ambiguous",
+      "recommendation": "wait",
+      "reasoning": "Volume 2.18x com z30=+2.68, z200=+2.39, mas zero cobertura social (YouTube=n/a, StockTwits=n/a, Twitter=n/a). Sem calor social confirmado, regra de diverg\u00eancia n\u00e3o pode classificar. Vol_dist=0.50 indica compra. Not\u00edcias irrelevantes (mais antigas de 13 dias).",
+      "confidence": 2
+    },
+    {
+      "ticker": "GLD",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.58x (abaixo de 2x para silent_accumulation). YouTube heat=explosive, tone=bullish, mas volume insuficiente para bubble_forming. Vol_dist=0.37 e Ext=+0.2% vs 200d confirmam aus\u00eancia de bolha. Catalisador claro: plano Bessent de recompra de Treasuries.",
+      "confidence": 5
+    },
+    {
+      "ticker": "MRVL",
+      "classification": "institutional_rebalancing",
+      "recommendation": "wait",
+      "reasoning": "Volume 1.69x, z30=+1.62. YouTube explosive/bullish e Ext=+65.3% sustentado 56/60d s\u00e3o preocupantes, mas vol_dist=0.83 bloqueia bubble_forming (gate exige >1.0). Deal Google \u00e9 catalisador fundamental. AI-hardware em bull market com acumula\u00e7\u00e3o institucional.",
+      "confidence": 4
+    }
+  ]
+}
