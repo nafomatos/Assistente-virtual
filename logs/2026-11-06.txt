@@ -8,45 +8,44 @@ ACTIVE POSITIONS
 ARTIFICIAL PRICE RADAR — Daily Report 2026-11-06
 ========================================================================
 Macro context — Fear & Greed: 28/100 — Fear (-22 vs yesterday, deteriorating)
-               VIX Structure: Backwardation (1.10) — short-term stress elevated
-               Buffett Indicator: 232% — Extreme (historical avg ~120%)
-Coverage — 29 tickers processed · 14 red · 3 amber · 12 filtered
-  [RED]:   NVDA, TSLA, PLTR, RKLB, ASTS, MU, SPY, QQQ, AMD, SNDK, SOXL, IREN, VOO, NBIS
-  [AMBER]: COPX, ZS=F, DTE
-  skipped: AAPL, AMZN, GOOGL, SOFI, MSTR, RDDT, GLD, SLV, CL=F, NG=F, GOOG, MSFT
+               VIX Structure: Backwardation (1.04) — short-term stress elevated
+               Buffett Indicator: 222% — Extreme (historical avg ~120%)
+Coverage — 28 tickers processed · 2 red · 1 amber · 25 filtered
+  [RED]:   RKLB, AMD
+  [AMBER]: ASTS
+  skipped: NVDA, TSLA, AAPL, AMZN, GOOGL, PLTR, MU, SOFI, MSTR, RDDT, GLD, SLV, CL=F, COPX, ZS=F, NG=F, SPY, QQQ, SNDK, SOXL, DTE, MSFT, VOO, SPCX, ORCL
 ========================================================================
 
 [TICKER ALERT TIERS]
   TICKER | VOL | Z_30D | Z_200D | RSI | TIER/REASON
-  NVDA | 2.8x | -3.4 | -3.7 | 25 | RED: macro_extreme(z30=-3.4,z200=-3.7)
-  TSLA | 1.9x | -3.4 | -3.6 | 36 | RED: macro_extreme(z30=-3.4,z200=-3.6)
-  AAPL | 1.4x | -1.1 | -1.0 | 53 | SKIP: vol=1.4x (normal); z30=-1.1,z200=-1.0; RSI=53
-  AMZN | 1.5x | -1.0 | -1.0 | 55 | SKIP: vol=1.5x (elevated); z30=-1.0,z200=-1.0; RSI=55
-  GOOGL | 1.1x | -0.6 | -1.0 | 28 | SKIP: vol=1.1x (normal); z30=-0.6,z200=-1.0; RSI=28
-  PLTR | 1.8x | -2.8 | -2.4 | 25 | RED: macro_extreme(z30=-2.8,z200=-2.4)
-  RKLB | 1.8x | -2.3 | -2.0 | 31 | RED: macro_extreme(z30=-2.3,z200=-2.0)
-  ASTS | 2.1x | -2.4 | -2.2 | 25 | RED: macro_extreme(z30=-2.4,z200=-2.2)
-  MU | 2.8x | -3.4 | -3.3 | 27 | RED: macro_extreme(z30=-3.4,z200=-3.3)
-  SOFI | 1.2x | -1.9 | -2.2 | 50 | SKIP: vol=1.2x (normal); z30=-1.9,z200=-2.2; RSI=50
-  MSTR | 1.4x | -2.0 | -1.7 | 42 | SKIP: vol=1.4x (normal); z30=-2.0,z200=-1.7; RSI=42
-  RDDT | 0.8x | -1.0 | -1.6 | 25 | SKIP: vol=0.8x (normal); z30=-1.0,z200=-1.6; RSI=25
-  GLD | 1.2x | +0.6 | +0.5 | 50 | SKIP: vol=1.2x (normal); z30=+0.6,z200=+0.5; RSI=50
-  SLV | 1.2x | +0.1 | -0.1 | 38 | SKIP: vol=1.2x (normal); z30=+0.1,z200=-0.1; RSI=38
-  CL=F | 0.0x | +1.1 | +0.8 | 43 | SKIP: vol=0.0x (normal); z30=+1.1,z200=+0.8; RSI=43
-  COPX | 2.4x | -2.0 | -1.8 | 33 | AMBER: |z30|=2.0>1.5 + vol=2.4x
-  ZS=F | 0.9x | +0.1 | -0.3 | 24 | AMBER: RSI=24
-  NG=F | 0.0x | -0.1 | -0.1 | 51 | SKIP: vol=0.0x (normal); z30=-0.1,z200=-0.1; RSI=51
-  SPY | 2.7x | -4.0 | -5.0 | 33 | RED: macro_extreme(z30=-4.0,z200=-5.0)
-  QQQ | 2.7x | -3.6 | -4.6 | 26 | RED: macro_extreme(z30=-3.6,z200=-4.6)
-  AMD | 2.6x | -3.2 | -3.7 | 30 | RED: macro_extreme(z30=-3.2,z200=-3.7)
-  SNDK | 3.0x | -3.3 | -3.2 | 24 | RED: macro_extreme(z30=-3.3,z200=-3.2)
-  SOXL | 3.7x | -3.2 | -4.0 | 26 | RED: macro_extreme(z30=-3.2,z200=-4.0)
-  IREN | 2.2x | -2.2 | -2.4 | 26 | RED: macro_extreme(z30=-2.2,z200=-2.4)
-  VOO | 3.0x | -3.9 | -5.0 | 33 | RED: macro_extreme(z30=-3.9,z200=-5.0)
-  NBIS | 2.2x | -2.1 | -2.1 | 29 | RED: macro_extreme(z30=-2.1,z200=-2.1)
-  GOOG | 1.2x | -0.5 | -0.9 | 28 | SKIP: vol=1.2x (normal); z30=-0.5,z200=-0.9; RSI=28
-  DTE | 1.7x | -1.9 | -1.6 | 58 | AMBER: |z30|=1.9>1.5 + vol=1.7x
-  MSFT | 1.5x | -1.9 | -1.6 | 54 | SKIP: vol=1.5x (normal); z30=-1.9,z200=-1.6; RSI=54
+  NVDA | 1.4x | +1.3 | +1.1 | 30 | SKIP: vol=1.4x (normal); z30=+1.3,z200=+1.1; RSI=30
+  TSLA | 0.8x | +1.4 | +1.5 | 42 | SKIP: vol=0.8x (normal); z30=+1.4,z200=+1.5; RSI=42
+  AAPL | 0.8x | -0.4 | -0.4 | 52 | SKIP: vol=0.8x (normal); z30=-0.4,z200=-0.4; RSI=52
+  AMZN | 0.7x | -0.2 | -0.2 | 54 | SKIP: vol=0.7x (normal); z30=-0.2,z200=-0.2; RSI=54
+  GOOGL | 0.7x | +0.5 | +0.4 | 30 | SKIP: vol=0.7x (normal); z30=+0.5,z200=+0.4; RSI=30
+  PLTR | 0.8x | +1.2 | +0.8 | 31 | SKIP: vol=0.8x (normal); z30=+1.2,z200=+0.8; RSI=31
+  RKLB | 1.0x | +3.0 | +2.6 | 43 | RED: macro_extreme(z30=+3.0,z200=+2.6)
+  ASTS | 1.9x | +1.6 | +1.1 | 30 | AMBER: |z30|=1.6>1.5 + vol=1.9x
+  MU | 1.4x | +1.4 | +0.9 | 31 | SKIP: vol=1.4x (normal); z30=+1.4,z200=+0.9; RSI=31
+  SOFI | 0.6x | +0.3 | +0.4 | 51 | SKIP: vol=0.6x (normal); z30=+0.3,z200=+0.4; RSI=51
+  MSTR | 0.7x | +0.1 | -0.1 | 42 | SKIP: vol=0.7x (normal); z30=+0.1,z200=-0.1; RSI=42
+  RDDT | 0.5x | +0.4 | +0.3 | 26 | SKIP: vol=0.5x (normal); z30=+0.4,z200=+0.3; RSI=26
+  GLD | 0.8x | -0.4 | -0.4 | 48 | SKIP: vol=0.8x (normal); z30=-0.4,z200=-0.4; RSI=48
+  SLV | 0.6x | +0.2 | +0.0 | 37 | SKIP: vol=0.6x (normal); z30=+0.2,z200=+0.0; RSI=37
+  CL=F | 0.8x | -0.1 | -0.1 | 42 | SKIP: vol=0.8x (normal); z30=-0.1,z200=-0.1; RSI=42
+  COPX | 0.7x | +0.8 | +0.5 | 36 | SKIP: vol=0.7x (normal); z30=+0.8,z200=+0.5; RSI=36
+  ZS=F | 0.8x | +1.9 | +1.0 | 31 | SKIP: vol=0.8x (normal); z30=+1.9,z200=+1.0; RSI=31
+  NG=F | 0.9x | +0.7 | +0.4 | 54 | SKIP: vol=0.9x (normal); z30=+0.7,z200=+0.4; RSI=54
+  SPY | 1.1x | +0.4 | +0.3 | 35 | SKIP: vol=1.1x (normal); z30=+0.4,z200=+0.3; RSI=35
+  QQQ | 1.3x | +1.0 | +1.0 | 31 | SKIP: vol=1.3x (normal); z30=+1.0,z200=+1.0; RSI=31
+  SNDK | 1.5x | +1.0 | +0.4 | 26 | SKIP: vol=1.5x (normal); z30=+1.0,z200=+0.4; RSI=26
+  AMD | 1.4x | +2.2 | +2.2 | 38 | RED: macro_extreme(z30=+2.2,z200=+2.2)
+  SOXL | 1.7x | +1.4 | +1.2 | 29 | SKIP: vol=1.7x (elevated); z30=+1.4,z200=+1.2; RSI=29
+  DTE | 1.1x | -0.2 | +0.1 | 59 | SKIP: vol=1.1x (normal); z30=-0.2,z200=+0.1; RSI=59
+  MSFT | 0.9x | -0.6 | -0.5 | 52 | SKIP: vol=0.9x (normal); z30=-0.6,z200=-0.5; RSI=52
+  VOO | 1.6x | +0.4 | +0.3 | 35 | SKIP: vol=1.6x (elevated); z30=+0.4,z200=+0.3; RSI=35
+  SPCX | 1.1x | +2.0 | +1.7 | 42 | SKIP: vol=1.1x (normal); z30=+2.0,z200=+1.7; RSI=42
+  ORCL | 0.9x | +0.3 | +0.2 | 38 | SKIP: vol=0.9x (normal); z30=+0.3,z200=+0.2; RSI=38
 [SYSTEM PROMPT — paste everything below together into Claude.ai]
 
 You are a Senior Quantitative Analyst specializing in market microstructure and behavioral finance. Your task is to analyze flagged assets to distinguish between institutional flows and retail irrationality.
@@ -164,418 +163,82 @@ Constraints:
 [ASSETS WITH NON-TRIVIAL SIGNALS]
 
 ------------------------------------------------------------------------
-Asset: [RED] NVDA (Nvidia)
-
-Market signals:
-- Volume: anomalous (2.79x 30d avg)
-- Price velocity: blowout (z_30d: -3.43, z_200d: -3.74, direction: down, macro_extreme: True) ⚠ macro_extreme
-- RSI-14: 25.1 (oversold)
-- Current price: $181.60 (-9.26% today)
-
-Recent news (last 3):
-1. "Dow Jones Futures Fall; Nasdaq Dives 5.5%, Nvidia, Sandisk, CoreWeave, SpaceX Plunge, But Sell-Off Spreads Beyond AI" — Investor's Business Daily, 0.4h ago
-2. "Box Unveils AI Agent Tools and NVIDIA Partnership at BoxWorks 2026" — MarketBeat, 0.5h ago
-3. "Nvidia Stock Just Crashed 22%. Jim Cramer Says It’s the Cheapest in a Decade" — 24/7 Wall St., 0.6h ago
-
-Social signals (social_heat_z: +0.4):
-- StockTwits: n/a
-- YouTube: heat=explosive, tone=bearish, top="This AI Stock Crash is a Gift. Here&#39;s How I&#39;m Invest" (149k views)
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -11.3% (sustained: 0/60d)
-- 6m return: -14.1% | Acceleration (30d/6m): 0.00
-- Vol distribution (down÷up, last 20d): 3.19 (distribution ⚠)
-- 2y peak drawdown: -24.1% (22d since peak)
-------------------------------------------------------------------------
-Asset: [RED] TSLA (Tesla)
-
-Market signals:
-- Volume: elevated (1.95x 30d avg)
-- Price velocity: blowout (z_30d: -3.41, z_200d: -3.63, direction: down, macro_extreme: True) ⚠ macro_extreme
-- RSI-14: 35.9 (normal)
-- Current price: $343.69 (-10.77% today)
-
-Recent news (last 3):
-1. "Stocks slide as Wall Street's post-election rally fizzles" — Yahoo Finance Video, 3.0h ago
-2. "SpaceX, Tesla stocks tumble as Democratic sweep raises questions on merger prospects, AI build-out" — Yahoo Finance, 9.2h ago
-3. "SpaceX and Tesla stocks extend their slide as chip stocks drop: AlphaCheck" — Yahoo Finance, 9.7h ago
-
-Social signals (social_heat_z: -1.6):
-- StockTwits: n/a
-- YouTube: heat=explosive, tone=bearish, top="Every Tesla Investor Needs To Watch This" (77k views)
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -10.6% (sustained: 0/60d)
-- 6m return: -16.5% | Acceleration (30d/6m): 0.00
-- Vol distribution (down÷up, last 20d): 1.66 (distribution ⚠)
-- 2y peak drawdown: -29.8% (223d since peak)
-------------------------------------------------------------------------
-Asset: [RED] PLTR (Palantir)
-
-Market signals:
-- Volume: elevated (1.83x 30d avg)
-- Price velocity: extreme (z_30d: -2.83, z_200d: -2.43, direction: down, macro_extreme: True) ⚠ macro_extreme
-- RSI-14: 25.0 (oversold)
-- Current price: $154.99 (-9.73% today)
-
-Recent news (last 3):
-1. "Palantir and CrowdStrike stocks tumble as Wall Street dumps software's AI winners" — Yahoo Finance, 7.2h ago
-2. "Palantir Is Down 16% From Its High. History Suggests This Is What Happens Next." — Motley Fool, 0.7h ago
-3. "Nvidia, Micron, Intel, Sandisk, Palantir, AppLovin, Qualcomm, and More Stocks That Explain Today’s Market" — Barrons.com, 2.6h ago
-
-Social signals (social_heat_z: n/a):
-- StockTwits: n/a
-- YouTube: heat=explosive, tone=bearish, top="Tech Stocks Crash Again… Apple &amp; Palantir Expose Bigger " (43k views)
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: +0.9% (sustained: 0/60d)
-- 6m return: +13.1% | Acceleration (30d/6m): -1.49
-- Vol distribution (down÷up, last 20d): 3.64 (distribution ⚠)
-- 2y peak drawdown: -25.9% (19d since peak)
-------------------------------------------------------------------------
 Asset: [RED] RKLB (Rocket Lab)
 
 Market signals:
-- Volume: elevated (1.84x 30d avg)
-- Price velocity: extreme (z_30d: -2.33, z_200d: -2.03, direction: down, macro_extreme: True) ⚠ macro_extreme
-- RSI-14: 31.1 (normal)
-- Current price: $45.99 (-12.18% today)
+- Volume: normal (1.02x 30d avg)
+- Price velocity: extreme (z_30d: 2.95, z_200d: 2.56, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 43.4 (normal)
+- Current price: $53.07 (+15.39% today)
 
 Recent news (last 3):
-1. "Why Rocket Lab Stock Dropped Today" — Motley Fool, 2.2h ago
-2. "Rocket Lab Sinks 12% as AI Stock Sell-Off Hits Space: “Absolute Slaughter”" — TIKR, 2.5h ago
-3. "SpaceX Sinks 9% as AI Stocks Crater: “Absolute Slaughter”" — TIKR, 6.5h ago
+1. "SpaceX Land Deal, Tesla Merger Dealt Election Blow. Space Stocks Rebound." — Investor's Business Daily, 2.6h ago
+2. "Musk Says SpaceX Will Hit a Revenue Number That Not One of Its 37 Analysts Believes" — 24/7 Wall St., 3.5h ago
+3. "Tesla Rebounds 5% as Musk Ends Cybertruck to Make Room for “Increased Cybercab Production”" — TIKR, 6.5h ago
 
 Social signals (social_heat_z: n/a):
 - StockTwits: n/a
-- YouTube: heat=explosive, tone=bullish, top="STOCK MARKET: NEW STRATEGY DAY 1! SpaceX, Rocket Lab &amp; G" (6k views)
+- YouTube: heat=explosive, tone=bullish, top="🔴 MARKET CRASH LIVE! Buying Opportunity or Just the Beginnin" (6k views)
 - Twitter: n/a
 
 Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -41.8% (sustained: 0/60d)
-- 6m return: -41.5% | Acceleration (30d/6m): 0.00
-- Vol distribution (down÷up, last 20d): 2.14 (distribution ⚠)
-- 2y peak drawdown: -69.4% (113d since peak)
-------------------------------------------------------------------------
-Asset: [RED] ASTS (AST SpaceMobile)
-
-Market signals:
-- Volume: elevated (2.08x 30d avg)
-- Price velocity: extreme (z_30d: -2.35, z_200d: -2.23, direction: down, macro_extreme: True) ⚠ macro_extreme
-- RSI-14: 24.6 (oversold)
-- Current price: $30.20 (-15.22% today)
-
-Recent news (last 3):
-1. "AST SpaceMobile Sinks 15% as AI Rout Swamps Space Force Contract News" — TIKR, 2.6h ago
-2. "AST SpaceMobile Stock Price Forecast: What Options Traders and Financial Analysts Expect Ahead of Q3 Earnings" — TipRanks, 2.9h ago
-3. "ASTS Stock Alert: AST SpaceMobile Lands New Space Force Contract" — Barchart, 6.2h ago
-
-Social signals (social_heat_z: -0.2):
-- StockTwits: n/a
-- YouTube: heat=explosive, tone=bullish, top="ASTS Stock Democratic Sweep Is Bullish for AST SpaceMobile" (3k views)
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -60.3% (sustained: 0/60d)
-- 6m return: -53.8% | Acceleration (30d/6m): 0.00
-- Vol distribution (down÷up, last 20d): 2.12 (distribution ⚠)
-- 2y peak drawdown: -77.3% (112d since peak)
-------------------------------------------------------------------------
-Asset: [RED] MU (Micron)
-
-Market signals:
-- Volume: anomalous (2.81x 30d avg)
-- Price velocity: blowout (z_30d: -3.41, z_200d: -3.28, direction: down, macro_extreme: True) ⚠ macro_extreme
-- RSI-14: 26.9 (oversold)
-- Current price: $656.39 (-17.46% today)
-
-Recent news (last 3):
-1. "Micron stock sinks 17% as chip sector crashes" — Yahoo Finance, 8.2h ago
-2. "Qualcomm, Micron, Sandisk, and AMD stocks sink, leading chip sector lower" — Yahoo Finance, 11.2h ago
-3. "Micron and Sandisk valuation multiples are unbelievable as chip stocks get crushed" — Yahoo Finance, 6.7h ago
-
-Social signals (social_heat_z: +0.6):
-- StockTwits: n/a
-- YouTube: heat=explosive, tone=bearish, top="MICRON Crashes 7%....Is the AI Buildout in Trouble??" (50k views)
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -13.1% (sustained: 42/60d ⚑ extended)
-- 6m return: +1.5% | Acceleration (30d/6m): -26.00
-- Vol distribution (down÷up, last 20d): 1.85 (distribution ⚠)
-- 2y peak drawdown: -45.9% (93d since peak)
-------------------------------------------------------------------------
-Asset: [RED] SPY (SPY)
-
-Market signals:
-- Volume: anomalous (2.74x 30d avg)
-- Price velocity: blowout (z_30d: -3.96, z_200d: -5.04, direction: down, macro_extreme: True) ⚠ macro_extreme
-- RSI-14: 33.2 (normal)
-- Current price: $733.00 (-4.41% today)
-
-Recent news (last 3):
-1. "Market Jitters? How Buffer ETFs Can Help Protect Your Portfolio" — Zacks, 6.7h ago
-2. "Wall Street Is Already Bracing for a 2027 Debt Ceiling Fight" — 24/7 Wall St., 8.0h ago
-3. "Nvidia Is the Biggest Bet in Your Index Fund. Here’s What Its Drop Just Cost You" — 24/7 Wall St., 8.2h ago
-
-Social signals (social_heat_z: +0.4):
-- StockTwits: n/a
-- YouTube: heat=elevated, tone=bearish, top="[LIVE] NASDAQ Futures Trading w/ Pasha &amp; Leo – OIL, SPY," (18k views)
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: +0.4% (sustained: 0/60d)
-- 6m return: +0.2% | Acceleration (30d/6m): -23.45
-- Vol distribution (down÷up, last 20d): 1.52 (distribution ⚠)
-- 2y peak drawdown: -5.9% (22d since peak)
-------------------------------------------------------------------------
-Asset: [RED] QQQ (QQQ)
-
-Market signals:
-- Volume: anomalous (2.69x 30d avg)
-- Price velocity: blowout (z_30d: -3.56, z_200d: -4.64, direction: down, macro_extreme: True) ⚠ macro_extreme
-- RSI-14: 26.5 (oversold)
-- Current price: $647.05 (-6.49% today)
-
-Recent news (last 3):
-1. "QQQ and SMH sink as chip stocks have worst day since 2020" — Yahoo Finance Video, 2.9h ago
-2. "Open Text Q1 Earnings Call Highlights" — MarketBeat, 2.5h ago
-3. "dYdX Team’s Arcus Opens Stock-Token Collateral to All Perps Traders, With a $20,000 Cap" — Unchained, 3.3h ago
-
-Social signals (social_heat_z: -0.1):
-- StockTwits: n/a
-- YouTube: heat=explosive, tone=neutral, top="[LIVE] NASDAQ Futures Trading w/ Pasha &amp; Leo – OIL, SPY," (18k views)
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -4.9% (sustained: 0/60d)
-- 6m return: -6.9% | Acceleration (30d/6m): 0.00
-- Vol distribution (down÷up, last 20d): 2.29 (distribution ⚠)
-- 2y peak drawdown: -14.8% (22d since peak)
+- Ext vs 200d MA: -32.7% (sustained: 0/60d)
+- 6m return: -49.7% | Acceleration (30d/6m): 0.00
+- Vol distribution (down÷up, last 20d): 1.74 (distribution ⚠)
+- 2y peak drawdown: -64.7% (114d since peak)
 ------------------------------------------------------------------------
 Asset: [RED] AMD (AMD)
 
 Market signals:
-- Volume: anomalous (2.56x 30d avg)
-- Price velocity: blowout (z_30d: -3.24, z_200d: -3.71, direction: down, macro_extreme: True) ⚠ macro_extreme
-- RSI-14: 29.7 (oversold)
-- Current price: $404.40 (-17.26% today)
+- Volume: normal (1.44x 30d avg)
+- Price velocity: extreme (z_30d: 2.22, z_200d: 2.21, direction: up, macro_extreme: True) ⚠ macro_extreme
+- RSI-14: 38.2 (normal)
+- Current price: $449.04 (+11.04% today)
 
 Recent news (last 3):
-1. "AMD CEO Lisa Su sees AI becoming 'essential to every aspect of our lives'" — Yahoo Finance, 7.3h ago
-2. "Qualcomm, Micron, Sandisk, and AMD stocks sink, leading chip sector lower" — Yahoo Finance, 11.2h ago
-3. "AMD CEO Su on earnings outlook, new Starbucks holiday menu, and Hilton CEO on hotel demand" — Yahoo Finance Video, 9.7h ago
+1. "Nvidia, AMD, and Micron stocks lead chip sector higher following worst sell-off since 2020" — Yahoo Finance, 10.2h ago
+2. "What these CEOs think about the midterm election results" — Yahoo Finance Video, 7.5h ago
+3. "AI data centers face a higher bar–not a halt–after the blue wave" — Yahoo Finance Video, 8.2h ago
 
-Social signals (social_heat_z: +2.0):
+Social signals (social_heat_z: +0.9):
 - StockTwits: n/a
-- YouTube: heat=explosive, tone=bullish, top="AMD Just Came Out And SAID IT!" (128k views)
+- YouTube: heat=explosive, tone=neutral, top="AMD Just Came Out And SAID IT!" (162k views)
 - Twitter: n/a
 
 Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -2.5% (sustained: 40/60d ⚑ extended)
-- 6m return: -1.0% | Acceleration (30d/6m): 0.00
-- Vol distribution (down÷up, last 20d): 1.43 (distribution ⚠)
-- 2y peak drawdown: -37.7% (22d since peak)
-------------------------------------------------------------------------
-Asset: [RED] SNDK (SNDK)
-
-Market signals:
-- Volume: anomalous (3.05x 30d avg)
-- Price velocity: blowout (z_30d: -3.33, z_200d: -3.23, direction: down, macro_extreme: True) ⚠ macro_extreme
-- RSI-14: 24.0 (oversold)
-- Current price: $806.43 (-22.26% today)
-
-Recent news (last 3):
-1. "Qualcomm, Micron, Sandisk, and AMD stocks sink, leading chip sector lower" — Yahoo Finance, 11.2h ago
-2. "Micron and Sandisk valuation multiples are unbelievable as chip stocks get crushed" — Yahoo Finance, 6.7h ago
-3. "Dow Jones Futures Fall; Nasdaq Dives 5.5%, Nvidia, Sandisk, CoreWeave, SpaceX Plunge, But Sell-Off Spreads Beyond AI" — Investor's Business Daily, 0.4h ago
-
-Social signals (social_heat_z: +0.0):
-- StockTwits: n/a
-- YouTube: heat=explosive, tone=bearish, top="Tech Carnage Drops SanDisk and Western Digital; VanEck Semic" (18k views)
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -36.5% (sustained: 39/60d ⚑ extended)
-- 6m return: -39.8% | Acceleration (30d/6m): 0.00
-- Vol distribution (down÷up, last 20d): 3.30 (distribution ⚠)
-- 2y peak drawdown: -65.5% (93d since peak)
-------------------------------------------------------------------------
-Asset: [RED] SOXL (SOXL)
-
-Market signals:
-- Volume: anomalous (3.7x 30d avg)
-- Price velocity: blowout (z_30d: -3.25, z_200d: -4.0, direction: down, macro_extreme: True) ⚠ macro_extreme
-- RSI-14: 25.8 (oversold)
-- Current price: $40.87 (-38.71% today)
-
-Recent news (last 3):
-1. "Stock Market Today: Rotation Away From AI Stocks Increases as Money Flows to AI Landlords" — 24/7 Wall St., 10.6h ago
-2. "Dow, S&P 500, Nasdaq Futures Fall As Markets Weigh A Potential Democratic Sweep In Midterms: DJT, AMD, SMCI, SOXL In Fo…" — Stocktwits, 45.6h ago
-3. "Dip Buyers in Leveraged Tech ETFs Are Getting Crushed" — 24/7 Wall St., 59.2h ago
-
-Social signals (social_heat_z: n/a):
-- StockTwits: n/a
-- YouTube: heat=explosive, tone=neutral, top="중간 선거 끝나고 나스닥 시나리오 (SOXL 테슬라 엔비디아 알파벳 아마존닷컴" (36k views)
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -67.1% (sustained: 3/60d)
-- 6m return: -73.1% | Acceleration (30d/6m): 0.00
-- Vol distribution (down÷up, last 20d): 2.98 (distribution ⚠)
-- 2y peak drawdown: -86.4% (96d since peak)
-------------------------------------------------------------------------
-Asset: [RED] IREN (IREN)
-
-Market signals:
-- Volume: elevated (2.25x 30d avg)
-- Price velocity: extreme (z_30d: -2.21, z_200d: -2.43, direction: down, macro_extreme: True) ⚠ macro_extreme
-- RSI-14: 26.4 (oversold)
-- Current price: $18.03 (-16.95% today)
-
-Recent news (last 3):
-1. "IREN (IREN) Draws Tighter Oversight On Neocloud Data Center Projects" — Simply Wall St., 1.4h ago
-2. "A Tale of Two Data Center Stocks: Why Akamai Fell and Iren Popped on Earnings" — Barrons.com, 2.0h ago
-3. "The Stocks That Most Fear a Data-Center Freeze" — The Wall Street Journal, 5.3h ago
-
-Social signals (social_heat_z: n/a):
-- StockTwits: n/a
-- YouTube: heat=explosive, tone=neutral, top="IREN, SOUNDHOUND, IONQ, MP, NET, ABNB, AAOI, SMR EARNINGS | " (48k views)
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -58.7% (sustained: 0/60d)
-- 6m return: -68.3% | Acceleration (30d/6m): 0.00
-- Vol distribution (down÷up, last 20d): 2.75 (distribution ⚠)
-- 2y peak drawdown: -76.4% (251d since peak)
-------------------------------------------------------------------------
-Asset: [RED] VOO (VOO)
-
-Market signals:
-- Volume: anomalous (3.0x 30d avg)
-- Price velocity: blowout (z_30d: -3.91, z_200d: -4.99, direction: down, macro_extreme: True) ⚠ macro_extreme
-- RSI-14: 33.3 (normal)
-- Current price: $673.97 (-4.37% today)
-
-Recent news (last 3):
-1. "AMD’s Double-Digit Drop Is Rippling Through Your Chip ETFs" — 24/7 Wall St., 8.4h ago
-2. "Warren Buffett’s 90/10 Rule for a 65-Year-Old With $600,000 in an IRA and $2,800 a Month in Social Security. Here’s the…" — 24/7 Wall St., 22.4h ago
-3. "If You'd Invested $5,000 in VOO 15 Years Ago, Here's What You'd Have Today" — Motley Fool, 24.9h ago
-
-Social signals (social_heat_z: n/a):
-- StockTwits: n/a
-- YouTube: heat=explosive, tone=bullish, top="S&amp;P500·나스닥100 ETF, VOO·QQQ 직투 vs 연금·ISA｜세금·수익률·특별분배 비교" (16k views)
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: +0.4% (sustained: 0/60d)
-- 6m return: +0.2% | Acceleration (30d/6m): -22.24
+- Ext vs 200d MA: +8.0% (sustained: 39/60d ⚑ extended)
+- 6m return: -1.4% | Acceleration (30d/6m): 0.00
 - Vol distribution (down÷up, last 20d): 1.13 (distribution ⚠)
-- 2y peak drawdown: -5.9% (22d since peak)
+- 2y peak drawdown: -30.9% (23d since peak)
 ------------------------------------------------------------------------
-Asset: [RED] NBIS (NBIS)
+Asset: [AMBER] ASTS (AST SpaceMobile)
 
 Market signals:
-- Volume: elevated (2.18x 30d avg)
-- Price velocity: extreme (z_30d: -2.07, z_200d: -2.08, direction: down, macro_extreme: True) ⚠ macro_extreme
-- RSI-14: 29.1 (oversold)
-- Current price: $120.37 (-14.94% today)
+- Volume: elevated (1.94x 30d avg)
+- Price velocity: notable (z_30d: 1.56, z_200d: 1.13, direction: up, macro_extreme: False)
+- RSI-14: 29.9 (oversold)
+- Current price: $32.33 (+7.05% today)
 
 Recent news (last 3):
-1. "Why Rocket Lab Stock Dropped Today" — Motley Fool, 2.2h ago
-2. "CoreWeave vs. Nebius: Which Is the Better AI Neocloud Stock to Own for the Next 3 Years?" — Motley Fool, 2.4h ago
-3. "The Stocks That Got Hit Hardest Today" — The Wall Street Journal, 3.7h ago
+1. "SpaceX Land Deal, Tesla Merger Dealt Election Blow. Space Stocks Rebound." — Investor's Business Daily, 2.6h ago
+2. "Musk Says SpaceX Will Hit a Revenue Number That Not One of Its 37 Analysts Believes" — 24/7 Wall St., 3.5h ago
+3. "AST SpaceMobile Soars 7% on $1.3 Billion Rocket Plan Promising “Unconstrained Access to Orbit”" — TIKR, 4.5h ago
 
-Social signals (social_heat_z: -1.2):
+Social signals (social_heat_z: -0.1):
 - StockTwits: n/a
-- YouTube: heat=explosive, tone=bearish, top="Why EXCESSIVE Fear of Politics DESTROYS AI Stocks Today: MU," (22k views)
+- YouTube: heat=explosive, tone=neutral, top="Is The ASTS Sell-Off A Buying Opportunity?" (2k views)
 - Twitter: n/a
 
 Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -32.5% (sustained: 25/60d)
-- 6m return: -34.8% | Acceleration (30d/6m): 0.00
-- Vol distribution (down÷up, last 20d): 1.60 (distribution ⚠)
-- 2y peak drawdown: -58.0% (97d since peak)
-------------------------------------------------------------------------
-Asset: [AMBER] COPX (Copper Miners (COPX))
-
-Market signals:
-- Volume: elevated (2.44x 30d avg)
-- Price velocity: notable (z_30d: -1.99, z_200d: -1.8, direction: down, macro_extreme: False)
-- RSI-14: 33.2 (normal)
-- Current price: $70.23 (-5.81% today)
-
-Recent news (last 3):
-1. "Is This a Good Time to Invest in Copper ETFs to Ride the AI Boom?" — Zacks, 1330.5h ago
-2. "Copper Stocks Tumble as Tariff Doubt Reverses Record Rally: Freeport-McMoRan Sinks 8%, Teck Resources and Southern Copp…" — 24/7 Wall St., 1354.0h ago
-3. "Copper Is the AI Trade No One Priced In—3 Miners With the Most to Gain" — MarketBeat, 1400.7h ago
-
-Social signals (social_heat_z: n/a):
-- StockTwits: n/a
-- YouTube: n/a
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -15.6% (sustained: 0/60d)
-- 6m return: -15.0% | Acceleration (30d/6m): 0.00
-- Vol distribution (down÷up, last 20d): 2.10 (distribution ⚠)
-- 2y peak drawdown: -27.2% (49d since peak)
-------------------------------------------------------------------------
-Asset: [AMBER] ZS=F (Soybeans)
-
-Market signals:
-- Volume: normal (0.86x 30d avg)
-- Price velocity: normal (z_30d: 0.06, z_200d: -0.33, direction: down, macro_extreme: False)
-- RSI-14: 24.3 (oversold)
-- Current price: $1,189.75 (-0.29% today)
-
-Recent news (last 3):
-1. "Soybeans Popping Higher on Thursday AM Trade" — Barchart, 11.2h ago
-2. "Soybeans Facing Midweek Weakness" — Barchart, 26.0h ago
-3. "Soybeans Kicking Off November with Losses" — Barchart, 78.5h ago
-
-Social signals (social_heat_z: -0.7):
-- StockTwits: n/a
-- YouTube: heat=stable, tone=neutral, top="Corn and Soybeans Stall After Trump&#39;s Midterm Battering" (2k views)
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -0.1% (sustained: 0/60d)
-- 6m return: +1.1% | Acceleration (30d/6m): -8.98
-- Vol distribution (down÷up, last 20d): 3.18 (distribution ⚠)
-- 2y peak drawdown: -10.4% (33d since peak)
-------------------------------------------------------------------------
-Asset: [AMBER] DTE (DTE)
-
-Market signals:
-- Volume: elevated (1.74x 30d avg)
-- Price velocity: notable (z_30d: -1.91, z_200d: -1.63, direction: down, macro_extreme: False)
-- RSI-14: 58.5 (normal)
-- Current price: $134.87 (-1.93% today)
-
-Recent news (last 3):
-1. "DTE Energy (DTE) Q3 2026 Earnings Call Transcript" — Motley Fool, 2.4h ago
-2. "What Deutsche Telekom (DTE) Said on Its Q3 Earnings Call" — MarketBeat, 8.5h ago
-3. "DTE Energy's Q3 Earnings Beat Estimates, Decrease Year Over Year" — Zacks, 11.1h ago
-
-Social signals (social_heat_z: +0.2):
-- StockTwits: n/a
-- YouTube: heat=elevated, tone=bullish, top="‘DTE is on notice,’ Ann Arbor for Public Power leader says o" (384 views)
-- Twitter: n/a
-
-Long-horizon context (v2, observe only — not a classification gate):
-- Ext vs 200d MA: -4.3% (sustained: 0/60d)
-- 6m return: -5.0% | Acceleration (30d/6m): 0.00
-- Vol distribution (down÷up, last 20d): 0.72 (buying pressure)
-- 2y peak drawdown: -12.7% (92d since peak)
+- Ext vs 200d MA: -57.2% (sustained: 0/60d)
+- 6m return: -56.9% | Acceleration (30d/6m): 0.00
+- Vol distribution (down÷up, last 20d): 1.32 (distribution ⚠)
+- 2y peak drawdown: -75.7% (113d since peak)
 
 ========================================================================
 [INSTRUCTION]
 
-Analyze each of the 17 asset(s) above and respond using the exact two-section format from the system prompt: a HUMAN_SUMMARY: section followed by a JSON_OUTPUT: section containing a single JSON array. Each element of the array must follow this exact schema:
+Analyze each of the 3 asset(s) above and respond using the exact two-section format from the system prompt: a HUMAN_SUMMARY: section followed by a JSON_OUTPUT: section containing a single JSON array. Each element of the array must follow this exact schema:
 
 {
   "ticker": "...",
